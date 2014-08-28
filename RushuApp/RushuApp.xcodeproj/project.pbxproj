@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		65C474C919AF753200DAB0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474C819AF753200DAB0E5 /* Foundation.framework */; };
+		65C474CB19AF753200DAB0E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474CA19AF753200DAB0E5 /* CoreGraphics.framework */; };
+		65C474CD19AF753200DAB0E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474CC19AF753200DAB0E5 /* UIKit.framework */; };
+		65C474D319AF753200DAB0E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65C474D119AF753200DAB0E5 /* InfoPlist.strings */; };
+		65C474D519AF753200DAB0E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474D419AF753200DAB0E5 /* main.m */; };
+		65C474D919AF753200DAB0E5 /* RUSHUAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474D819AF753200DAB0E5 /* RUSHUAppDelegate.m */; };
+		65C474DC19AF753200DAB0E5 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C474DA19AF753200DAB0E5 /* Main_iPhone.storyboard */; };
+		65C474DF19AF753200DAB0E5 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C474DD19AF753200DAB0E5 /* Main_iPad.storyboard */; };
+		65C474E219AF753200DAB0E5 /* RUSHUFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474E119AF753200DAB0E5 /* RUSHUFirstViewController.m */; };
+		65C474E519AF753200DAB0E5 /* RUSHUSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474E419AF753200DAB0E5 /* RUSHUSecondViewController.m */; };
+		65C474E719AF753200DAB0E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C474E619AF753200DAB0E5 /* Images.xcassets */; };
+		65C474EE19AF753200DAB0E5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474ED19AF753200DAB0E5 /* XCTest.framework */; };
+		65C474EF19AF753200DAB0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474C819AF753200DAB0E5 /* Foundation.framework */; };
+		65C474F019AF753200DAB0E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474CC19AF753200DAB0E5 /* UIKit.framework */; };
+		65C474F819AF753200DAB0E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65C474F619AF753200DAB0E5 /* InfoPlist.strings */; };
+		65C474FA19AF753200DAB0E5 /* RushuAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474F919AF753200DAB0E5 /* RushuAppTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65C474F119AF753200DAB0E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65C474BD19AF753100DAB0E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65C474C419AF753100DAB0E5;
+			remoteInfo = RushuApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		65C474C519AF753200DAB0E5 /* RushuApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RushuApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65C474C819AF753200DAB0E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		65C474CA19AF753200DAB0E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		65C474CC19AF753200DAB0E5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		65C474D019AF753200DAB0E5 /* RushuApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RushuApp-Info.plist"; sourceTree = "<group>"; };
+		65C474D219AF753200DAB0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65C474D419AF753200DAB0E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		65C474D619AF753200DAB0E5 /* RushuApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RushuApp-Prefix.pch"; sourceTree = "<group>"; };
+		65C474D719AF753200DAB0E5 /* RUSHUAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUSHUAppDelegate.h; sourceTree = "<group>"; };
+		65C474D819AF753200DAB0E5 /* RUSHUAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHUAppDelegate.m; sourceTree = "<group>"; };
+		65C474DB19AF753200DAB0E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		65C474DE19AF753200DAB0E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		65C474E019AF753200DAB0E5 /* RUSHUFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUSHUFirstViewController.h; sourceTree = "<group>"; };
+		65C474E119AF753200DAB0E5 /* RUSHUFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHUFirstViewController.m; sourceTree = "<group>"; };
+		65C474E319AF753200DAB0E5 /* RUSHUSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUSHUSecondViewController.h; sourceTree = "<group>"; };
+		65C474E419AF753200DAB0E5 /* RUSHUSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHUSecondViewController.m; sourceTree = "<group>"; };
+		65C474E619AF753200DAB0E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		65C474EC19AF753200DAB0E5 /* RushuAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RushuAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65C474ED19AF753200DAB0E5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		65C474F519AF753200DAB0E5 /* RushuAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RushuAppTests-Info.plist"; sourceTree = "<group>"; };
+		65C474F719AF753200DAB0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65C474F919AF753200DAB0E5 /* RushuAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RushuAppTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65C474C219AF753100DAB0E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C474CB19AF753200DAB0E5 /* CoreGraphics.framework in Frameworks */,
+				65C474CD19AF753200DAB0E5 /* UIKit.framework in Frameworks */,
+				65C474C919AF753200DAB0E5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C474E919AF753200DAB0E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C474EE19AF753200DAB0E5 /* XCTest.framework in Frameworks */,
+				65C474F019AF753200DAB0E5 /* UIKit.framework in Frameworks */,
+				65C474EF19AF753200DAB0E5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		65C474BC19AF753100DAB0E5 = {
+			isa = PBXGroup;
+			children = (
+				65C474CE19AF753200DAB0E5 /* RushuApp */,
+				65C474F319AF753200DAB0E5 /* RushuAppTests */,
+				65C474C719AF753200DAB0E5 /* Frameworks */,
+				65C474C619AF753200DAB0E5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		65C474C619AF753200DAB0E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65C474C519AF753200DAB0E5 /* RushuApp.app */,
+				65C474EC19AF753200DAB0E5 /* RushuAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65C474C719AF753200DAB0E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65C474C819AF753200DAB0E5 /* Foundation.framework */,
+				65C474CA19AF753200DAB0E5 /* CoreGraphics.framework */,
+				65C474CC19AF753200DAB0E5 /* UIKit.framework */,
+				65C474ED19AF753200DAB0E5 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65C474CE19AF753200DAB0E5 /* RushuApp */ = {
+			isa = PBXGroup;
+			children = (
+				65C474D719AF753200DAB0E5 /* RUSHUAppDelegate.h */,
+				65C474D819AF753200DAB0E5 /* RUSHUAppDelegate.m */,
+				65C474DA19AF753200DAB0E5 /* Main_iPhone.storyboard */,
+				65C474DD19AF753200DAB0E5 /* Main_iPad.storyboard */,
+				65C474E019AF753200DAB0E5 /* RUSHUFirstViewController.h */,
+				65C474E119AF753200DAB0E5 /* RUSHUFirstViewController.m */,
+				65C474E319AF753200DAB0E5 /* RUSHUSecondViewController.h */,
+				65C474E419AF753200DAB0E5 /* RUSHUSecondViewController.m */,
+				65C474E619AF753200DAB0E5 /* Images.xcassets */,
+				65C474CF19AF753200DAB0E5 /* Supporting Files */,
+			);
+			path = RushuApp;
+			sourceTree = "<group>";
+		};
+		65C474CF19AF753200DAB0E5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65C474D019AF753200DAB0E5 /* RushuApp-Info.plist */,
+				65C474D119AF753200DAB0E5 /* InfoPlist.strings */,
+				65C474D419AF753200DAB0E5 /* main.m */,
+				65C474D619AF753200DAB0E5 /* RushuApp-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65C474F319AF753200DAB0E5 /* RushuAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				65C474F919AF753200DAB0E5 /* RushuAppTests.m */,
+				65C474F419AF753200DAB0E5 /* Supporting Files */,
+			);
+			path = RushuAppTests;
+			sourceTree = "<group>";
+		};
+		65C474F419AF753200DAB0E5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65C474F519AF753200DAB0E5 /* RushuAppTests-Info.plist */,
+				65C474F619AF753200DAB0E5 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65C474C419AF753100DAB0E5 /* RushuApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65C474FD19AF753200DAB0E5 /* Build configuration list for PBXNativeTarget "RushuApp" */;
+			buildPhases = (
+				65C474C119AF753100DAB0E5 /* Sources */,
+				65C474C219AF753100DAB0E5 /* Frameworks */,
+				65C474C319AF753100DAB0E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RushuApp;
+			productName = RushuApp;
+			productReference = 65C474C519AF753200DAB0E5 /* RushuApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		65C474EB19AF753200DAB0E5 /* RushuAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65C4750019AF753200DAB0E5 /* Build configuration list for PBXNativeTarget "RushuAppTests" */;
+			buildPhases = (
+				65C474E819AF753200DAB0E5 /* Sources */,
+				65C474E919AF753200DAB0E5 /* Frameworks */,
+				65C474EA19AF753200DAB0E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65C474F219AF753200DAB0E5 /* PBXTargetDependency */,
+			);
+			name = RushuAppTests;
+			productName = RushuAppTests;
+			productReference = 65C474EC19AF753200DAB0E5 /* RushuAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65C474BD19AF753100DAB0E5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RUSHU;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = RUSHU;
+				TargetAttributes = {
+					65C474EB19AF753200DAB0E5 = {
+						TestTargetID = 65C474C419AF753100DAB0E5;
+					};
+				};
+			};
+			buildConfigurationList = 65C474C019AF753100DAB0E5 /* Build configuration list for PBXProject "RushuApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 65C474BC19AF753100DAB0E5;
+			productRefGroup = 65C474C619AF753200DAB0E5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65C474C419AF753100DAB0E5 /* RushuApp */,
+				65C474EB19AF753200DAB0E5 /* RushuAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		65C474C319AF753100DAB0E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C474DF19AF753200DAB0E5 /* Main_iPad.storyboard in Resources */,
+				65C474E719AF753200DAB0E5 /* Images.xcassets in Resources */,
+				65C474DC19AF753200DAB0E5 /* Main_iPhone.storyboard in Resources */,
+				65C474D319AF753200DAB0E5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C474EA19AF753200DAB0E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C474F819AF753200DAB0E5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65C474C119AF753100DAB0E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C474E519AF753200DAB0E5 /* RUSHUSecondViewController.m in Sources */,
+				65C474D919AF753200DAB0E5 /* RUSHUAppDelegate.m in Sources */,
+				65C474D519AF753200DAB0E5 /* main.m in Sources */,
+				65C474E219AF753200DAB0E5 /* RUSHUFirstViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C474E819AF753200DAB0E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C474FA19AF753200DAB0E5 /* RushuAppTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		65C474F219AF753200DAB0E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65C474C419AF753100DAB0E5 /* RushuApp */;
+			targetProxy = 65C474F119AF753200DAB0E5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		65C474D119AF753200DAB0E5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65C474D219AF753200DAB0E5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		65C474DA19AF753200DAB0E5 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65C474DB19AF753200DAB0E5 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		65C474DD19AF753200DAB0E5 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65C474DE19AF753200DAB0E5 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		65C474F619AF753200DAB0E5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65C474F719AF753200DAB0E5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		65C474FB19AF753200DAB0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		65C474FC19AF753200DAB0E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		65C474FE19AF753200DAB0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RushuApp/RushuApp-Prefix.pch";
+				INFOPLIST_FILE = "RushuApp/RushuApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		65C474FF19AF753200DAB0E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RushuApp/RushuApp-Prefix.pch";
+				INFOPLIST_FILE = "RushuApp/RushuApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		65C4750119AF753200DAB0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RushuApp.app/RushuApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RushuApp/RushuApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "RushuAppTests/RushuAppTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		65C4750219AF753200DAB0E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RushuApp.app/RushuApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RushuApp/RushuApp-Prefix.pch";
+				INFOPLIST_FILE = "RushuAppTests/RushuAppTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		65C474C019AF753100DAB0E5 /* Build configuration list for PBXProject "RushuApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65C474FB19AF753200DAB0E5 /* Debug */,
+				65C474FC19AF753200DAB0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65C474FD19AF753200DAB0E5 /* Build configuration list for PBXNativeTarget "RushuApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65C474FE19AF753200DAB0E5 /* Debug */,
+				65C474FF19AF753200DAB0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		65C4750019AF753200DAB0E5 /* Build configuration list for PBXNativeTarget "RushuAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65C4750119AF753200DAB0E5 /* Debug */,
+				65C4750219AF753200DAB0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 65C474BD19AF753100DAB0E5 /* Project object */;
+}
