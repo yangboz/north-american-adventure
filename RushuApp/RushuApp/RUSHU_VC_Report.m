@@ -1,18 +1,18 @@
 //
-//  RUSHUSecondViewController.m
+//  RUSHU_VC_Report.m
 //  RushuApp
 //
 //  Created by yangboz on 14-8-28.
 //  Copyright (c) 2014年 RUSHU. All rights reserved.
 //
 
-#import "RUSHUSecondViewController.h"
+#import "RUSHU_VC_Report.h"
 
-@interface RUSHUSecondViewController ()
+@interface RUSHU_VC_Report ()
 
 @end
 
-@implementation RUSHUSecondViewController
+@implementation RUSHU_VC_Report
 
 - (void)viewDidLoad
 {

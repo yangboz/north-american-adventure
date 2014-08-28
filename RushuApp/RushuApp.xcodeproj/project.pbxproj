@@ -15,14 +15,17 @@
 		65C474D919AF753200DAB0E5 /* RUSHUAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474D819AF753200DAB0E5 /* RUSHUAppDelegate.m */; };
 		65C474DC19AF753200DAB0E5 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C474DA19AF753200DAB0E5 /* Main_iPhone.storyboard */; };
 		65C474DF19AF753200DAB0E5 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65C474DD19AF753200DAB0E5 /* Main_iPad.storyboard */; };
-		65C474E219AF753200DAB0E5 /* RUSHUFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474E119AF753200DAB0E5 /* RUSHUFirstViewController.m */; };
-		65C474E519AF753200DAB0E5 /* RUSHUSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474E419AF753200DAB0E5 /* RUSHUSecondViewController.m */; };
+		65C474E219AF753200DAB0E5 /* RUSHU_VC_Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474E119AF753200DAB0E5 /* RUSHU_VC_Home.m */; };
+		65C474E519AF753200DAB0E5 /* RUSHU_VC_Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474E419AF753200DAB0E5 /* RUSHU_VC_Report.m */; };
 		65C474E719AF753200DAB0E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65C474E619AF753200DAB0E5 /* Images.xcassets */; };
 		65C474EE19AF753200DAB0E5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474ED19AF753200DAB0E5 /* XCTest.framework */; };
 		65C474EF19AF753200DAB0E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474C819AF753200DAB0E5 /* Foundation.framework */; };
 		65C474F019AF753200DAB0E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C474CC19AF753200DAB0E5 /* UIKit.framework */; };
 		65C474F819AF753200DAB0E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65C474F619AF753200DAB0E5 /* InfoPlist.strings */; };
 		65C474FA19AF753200DAB0E5 /* RushuAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C474F919AF753200DAB0E5 /* RushuAppTests.m */; };
+		65C4750619AF8D2400DAB0E5 /* starbucks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65C4750319AF8D2400DAB0E5 /* starbucks.jpg */; };
+		65C4750719AF8D2400DAB0E5 /* taxi.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 65C4750419AF8D2400DAB0E5 /* taxi.jpeg */; };
+		65C4750819AF8D2400DAB0E5 /* travel.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 65C4750519AF8D2400DAB0E5 /* travel.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,16 +51,19 @@
 		65C474D819AF753200DAB0E5 /* RUSHUAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHUAppDelegate.m; sourceTree = "<group>"; };
 		65C474DB19AF753200DAB0E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		65C474DE19AF753200DAB0E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		65C474E019AF753200DAB0E5 /* RUSHUFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUSHUFirstViewController.h; sourceTree = "<group>"; };
-		65C474E119AF753200DAB0E5 /* RUSHUFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHUFirstViewController.m; sourceTree = "<group>"; };
-		65C474E319AF753200DAB0E5 /* RUSHUSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUSHUSecondViewController.h; sourceTree = "<group>"; };
-		65C474E419AF753200DAB0E5 /* RUSHUSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHUSecondViewController.m; sourceTree = "<group>"; };
+		65C474E019AF753200DAB0E5 /* RUSHU_VC_Home.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUSHU_VC_Home.h; sourceTree = "<group>"; };
+		65C474E119AF753200DAB0E5 /* RUSHU_VC_Home.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHU_VC_Home.m; sourceTree = "<group>"; };
+		65C474E319AF753200DAB0E5 /* RUSHU_VC_Report.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RUSHU_VC_Report.h; sourceTree = "<group>"; };
+		65C474E419AF753200DAB0E5 /* RUSHU_VC_Report.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RUSHU_VC_Report.m; sourceTree = "<group>"; };
 		65C474E619AF753200DAB0E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		65C474EC19AF753200DAB0E5 /* RushuAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RushuAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C474ED19AF753200DAB0E5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		65C474F519AF753200DAB0E5 /* RushuAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RushuAppTests-Info.plist"; sourceTree = "<group>"; };
 		65C474F719AF753200DAB0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65C474F919AF753200DAB0E5 /* RushuAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RushuAppTests.m; sourceTree = "<group>"; };
+		65C4750319AF8D2400DAB0E5 /* starbucks.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = starbucks.jpg; sourceTree = "<group>"; };
+		65C4750419AF8D2400DAB0E5 /* taxi.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = taxi.jpeg; sourceTree = "<group>"; };
+		65C4750519AF8D2400DAB0E5 /* travel.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = travel.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,14 +123,17 @@
 		65C474CE19AF753200DAB0E5 /* RushuApp */ = {
 			isa = PBXGroup;
 			children = (
+				65C4750319AF8D2400DAB0E5 /* starbucks.jpg */,
+				65C4750419AF8D2400DAB0E5 /* taxi.jpeg */,
+				65C4750519AF8D2400DAB0E5 /* travel.jpeg */,
 				65C474D719AF753200DAB0E5 /* RUSHUAppDelegate.h */,
 				65C474D819AF753200DAB0E5 /* RUSHUAppDelegate.m */,
 				65C474DA19AF753200DAB0E5 /* Main_iPhone.storyboard */,
 				65C474DD19AF753200DAB0E5 /* Main_iPad.storyboard */,
-				65C474E019AF753200DAB0E5 /* RUSHUFirstViewController.h */,
-				65C474E119AF753200DAB0E5 /* RUSHUFirstViewController.m */,
-				65C474E319AF753200DAB0E5 /* RUSHUSecondViewController.h */,
-				65C474E419AF753200DAB0E5 /* RUSHUSecondViewController.m */,
+				65C474E019AF753200DAB0E5 /* RUSHU_VC_Home.h */,
+				65C474E119AF753200DAB0E5 /* RUSHU_VC_Home.m */,
+				65C474E319AF753200DAB0E5 /* RUSHU_VC_Report.h */,
+				65C474E419AF753200DAB0E5 /* RUSHU_VC_Report.m */,
 				65C474E619AF753200DAB0E5 /* Images.xcassets */,
 				65C474CF19AF753200DAB0E5 /* Supporting Files */,
 			);
@@ -238,9 +247,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C474DF19AF753200DAB0E5 /* Main_iPad.storyboard in Resources */,
+				65C4750619AF8D2400DAB0E5 /* starbucks.jpg in Resources */,
+				65C4750819AF8D2400DAB0E5 /* travel.jpeg in Resources */,
 				65C474E719AF753200DAB0E5 /* Images.xcassets in Resources */,
 				65C474DC19AF753200DAB0E5 /* Main_iPhone.storyboard in Resources */,
 				65C474D319AF753200DAB0E5 /* InfoPlist.strings in Resources */,
+				65C4750719AF8D2400DAB0E5 /* taxi.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,10 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65C474E519AF753200DAB0E5 /* RUSHUSecondViewController.m in Sources */,
+				65C474E519AF753200DAB0E5 /* RUSHU_VC_Report.m in Sources */,
 				65C474D919AF753200DAB0E5 /* RUSHUAppDelegate.m in Sources */,
 				65C474D519AF753200DAB0E5 /* main.m in Sources */,
-				65C474E219AF753200DAB0E5 /* RUSHUFirstViewController.m in Sources */,
+				65C474E219AF753200DAB0E5 /* RUSHU_VC_Home.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +412,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RushuApp/RushuApp-Prefix.pch";
 				INFOPLIST_FILE = "RushuApp/RushuApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -413,6 +426,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RushuApp/RushuApp-Prefix.pch";
 				INFOPLIST_FILE = "RushuApp/RushuApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

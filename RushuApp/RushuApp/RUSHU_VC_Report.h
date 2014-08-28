@@ -1,5 +1,5 @@
 //
-//  RUSHUFirstViewController.h
+//  RUSHU_VC_Report.h
 //  RushuApp
 //
 //  Created by yangboz on 14-8-28.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RUSHUFirstViewController : UIViewController
+@interface RUSHU_VC_Report : UITableViewController
 
 @end
