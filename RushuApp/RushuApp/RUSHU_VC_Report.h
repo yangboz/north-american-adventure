@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RUSHU_VC_Report : UITableViewController
-
+@interface RUSHU_VC_Report : UITableViewController<UITableViewDelegate,UITableViewDelegate>
+{
+    NSArray *titleList;
+    NSArray *detailList;
+}
 @end
