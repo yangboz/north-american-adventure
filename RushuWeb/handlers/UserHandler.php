@@ -10,6 +10,6 @@ class UserHandler {
 
     public function get($uid)
     {
-        return "uid:".$uid;
+        echo "uid:".$uid;
     }
 } 

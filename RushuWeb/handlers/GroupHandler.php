@@ -10,6 +10,6 @@ class GroupHandler {
 
     public function get($gid)
     {
-        return "gid:".$gid;
+        echo "gid:".$gid;
     }
 } 

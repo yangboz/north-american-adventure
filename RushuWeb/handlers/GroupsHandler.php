@@ -10,6 +10,6 @@ class GroupsHandler {
 
     public function get()
     {
-        return "GroupsHandler";
+        echo "GroupsHandler";
     }
 } 

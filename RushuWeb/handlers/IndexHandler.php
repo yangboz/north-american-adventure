@@ -7,8 +7,13 @@
  */
 //define your token
 define("TOKEN", "magenta0cat0purple0spider");
+//@see http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index
+define("appID", "wx34ff2a71ac3c7510");
+define("appSecret", "cfc67c1d52476b2dd8a93b32ef8c4617");
+//@example : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx34ff2a71ac3c7510&secret=cfc67c1d52476b2dd8a93b32ef8c4617
+//@return access_token: Tk-EqVRAzRSSemRR5PJKyxZKOG8EYLQ5ucLl0_Elfs43VgaHtaSxk_JooVlvDUJwKXqRdywqvXQiUoMuhPXSKw
 //
-class WechatCallbackHandler
+class IndexHandler
 {
     public function get()
     {

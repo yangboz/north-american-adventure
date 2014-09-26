@@ -10,6 +10,6 @@ class UsersHandler {
     //
     public function get()
     {
-        return "UsersHandler";
+        echo "UsersHandler";
     }
 } 
