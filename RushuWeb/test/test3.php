@@ -1,4 +1,5 @@
 <?php
+$APP_ID = "wx34ff2a71ac3c7510";//Change it as required.
 /**
  * 微信二维码登陆测试
  */

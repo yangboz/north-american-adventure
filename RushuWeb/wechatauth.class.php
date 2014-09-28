@@ -81,9 +81,10 @@ class Wechatauth
 	 * 获取登陆二维码对应的授权码
 	 */
 	public function get_login_code(){
+        $appId = "wx34ff2a71ac3c7510";
 		if ($this->_logincode) return $this->_logincode;
 		$t = time().strval(mt_rand(100,999));
-		$codeurl = 'https://login.weixin.qq.com/jslogin?appid=wx782c26e4c19acffb&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_='.$t;
+		$codeurl = 'https://login.weixin.qq.com/jslogin?appid='.$appId.'&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_='.$t;
 		$send_snoopy = new Snoopy; 
 		$send_snoopy->fetch($codeurl);
 		$result = $send_snoopy->results;
