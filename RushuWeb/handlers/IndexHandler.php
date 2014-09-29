@@ -6,15 +6,18 @@
  * Time: 下午2:10
  */
 //define your token
-define("TOKEN", "magenta0cat0purple0spider");
+//define("TOKEN", "magenta0cat0purple0spider");
 //@see http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index
-define("appID", "wx34ff2a71ac3c7510");
-define("appSecret", "cfc67c1d52476b2dd8a93b32ef8c4617");
+//define("appID", "wx34ff2a71ac3c7510");
+//define("appSecret", "cfc67c1d52476b2dd8a93b32ef8c4617");
+include("../Constants.php");
 //@example : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx34ff2a71ac3c7510&secret=cfc67c1d52476b2dd8a93b32ef8c4617
 //@return access_token: 0xQCS_FDjYfjCo-h2wtwnMQeU0aMsQGJZOxdQvcwm8WocHRvGXpNMBk5SiyI3pTZ6fOY0XINHwSzgD_EucMyGw
 //
 class IndexHandler
 {
+    public $access_token;
+    //
     public function get()
     {
         $echoStr = $_GET["echostr"];
@@ -24,6 +27,8 @@ class IndexHandler
             echo $echoStr;
             exit;
         }
+        //
+        file_put_contents('../log/log_wechat.txt','$echoStr:'.$echoStr."\n",FILE_APPEND);
     }
 
     public function responseMsg()
@@ -68,15 +73,15 @@ class IndexHandler
     private function checkSignature()
     {
         // you must define TOKEN by yourself
-        if (!defined("TOKEN")) {
-            throw new Exception('TOKEN is not defined!');
+        if (!defined("APP_TOKEN")) {
+            throw new Exception('APP_TOKEN is not defined!');
         }
 
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
 
-        $token = TOKEN;
+        $token = APP_TOKEN;
         $tmpArr = array($token, $timestamp, $nonce);
         // use SORT_STRING rule
         sort($tmpArr, SORT_STRING);

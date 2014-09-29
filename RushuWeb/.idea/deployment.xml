@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" serverName="www.lookbackon.com">
     <serverData>
       <paths name="rushucloud.com">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="http://rs.rs.1in1.cn/wx/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="www.lookbackon.com">
+        <serverdata>
+          <mappings>
+            <mapping deploy="lab/Weixin/RushuWeb" local="$PROJECT_DIR$" web="lab/Weixin/RushuWeb" />
           </mappings>
         </serverdata>
       </paths>

@@ -6,7 +6,7 @@ $APP_ID = "wx34ff2a71ac3c7510";//Change it as required.
 	include("../wechatauth.class.php");
 	session_start();
 	function logdebug($text){
-		file_put_contents('../log/logwechat.txt',$text."\n",FILE_APPEND);		
+		file_put_contents('../log/log_wechat.txt',$text."\n",FILE_APPEND);
 	};
 	$sid  = session_id();
 	$options = array(

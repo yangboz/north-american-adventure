@@ -90,7 +90,7 @@ class wxauth {
 	}
 }
 $options = array(
-		'token'=>'YGSaF8vqEpHtF5sUjXrlSkzH_n2IWuRNParbEx02cAuziUc_CI8jMWFzTE9nJlgBt45FDGLPIxV9jSlq3NNWqA', //填写你设定的key
+		'token'=>'M7HCk614JMdRXJ9pUmVNERCLEc2A15dqEFhKHQNdnf1VUpnCcepLHPAqI08MRX7_kUtGLa2x1xvPrDWlYEzRhQ', //填写你设定的key
 		'appid'=>'wx34ff2a71ac3c7510', //填写高级调用功能的app id, 请在微信开发模式后台查询
 		'appsecret'=>'cfc67c1d52476b2dd8a93b32ef8c4617', //填写高级调用功能的密钥
 );

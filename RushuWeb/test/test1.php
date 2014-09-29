@@ -4,16 +4,26 @@
  * 
  */
 	include("../wechat.class.php");
-	
+    include("../Constants.php");
+    require("../handlers/AccessTokenHandler.php");
+
 	function logdebug($text){
-		file_put_contents('../data/log.txt',$text."\n",FILE_APPEND);		
+		file_put_contents(FILE_LOG_DEBUG,$text."\n",FILE_APPEND);
 	};
+
+    $handler =new AccessTokenHandler();
+    $token = $handler->get();
+
 	$options = array(
-		'token'=>'tokenaccesskey', //填写你设定的key
+		'token'=> $token, //填写你设定的key
 			'debug'=>true,
-			'logcallback'=>'logdebug'
+			'logcallback'=>'logdebug',
+        'appid'=>APP_ID,
+        "appsecret"=>APP_SECERT,
+        "access_token"=>$token
 	);
 	$weObj = new Wechat($options);
+var_dump($weObj);
 	$weObj->valid();
 	$type = $weObj->getRev()->getRevType();
 	switch($type) {

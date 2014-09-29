@@ -1,7 +1,7 @@
 <?php
 include "wechat.class.php";
 $options = array(
-			'token'=>'WzSKU6Z9rPDAGl6SWu4CXJG9iXqvxC2XoubOO1LEsVOVYc0DYmwT3_JsbxLcfxwJi57XCylBP0Y9mn_6jJODlg', //填写你设定的key
+			'token'=>'tHKBHgsyAtOAkHIfh9X0gWNmXi64scLoBI3KPkVSZz5MyP4bfTvnnEzexFAEgSsW6OUTS03AfIPRdr5AkNWOtw', //填写你设定的key
  			'appid'=>'wx34ff2a71ac3c7510', //填写高级调用功能的app id
  			'appsecret'=>'cfc67c1d52476b2dd8a93b32ef8c4617' //填写高级调用功能的密钥
  			//'partnerid'=>'88888888', //财付通商户身份标识

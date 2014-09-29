@@ -9,6 +9,7 @@ require("handlers/GroupHandler.php");
 require("handlers/GroupsHandler.php");
 require("handlers/UserHandler.php");
 require("handlers/UsersHandler.php");
+require("handlers/AccessTokenHandler.php");
 //
 /*
 ToroHook::add("404", function() {
@@ -21,5 +22,6 @@ Toro::serve(array(
     "/user/" => "UsersHandler",
     "/user/:alpha" => "UserHandler",
     "/group/" => "GroupsHandler",
-    "/group/:alpha" => "GroupHandler"
+    "/group/:alpha" => "GroupHandler",
+    "/token/" => "AccessTokenHandler"
 ));
