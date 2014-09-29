@@ -12,8 +12,8 @@
 		'account'=>'2037349579@qq.com',
 		'password'=>'reimdev',
 		'datapath'=>'../data/cookie_',
-			'debug'=>true,
-			'logcallback'=>'logdebug'	
+		'debug'=>true,
+		'logcallback'=>'logdebug'
 	); 
 	$wechat = new Wechatext($options);
 	if ($wechat->checkValid()) {

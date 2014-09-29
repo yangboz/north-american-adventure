@@ -13,10 +13,13 @@ define("APP_LOGIN_URL","http://www.lookbacon.com/lab/Weixin/test/fn_wx_login.php
 define("APP_REDIRECT_URL","");
 define("APP_OAUTH2_URI","https://open.weixin.qq.com/connect/oauth2/authorize");
 define("APP_API_SCOPE","snsapi_userinfo");
+//
+define("APP_DEV_USERNAME","2037349579@qq.com");
+define("APP_DEV_PASSWORD","reimdev");
 //Logs,e.g:/home/content/g/o/d/godpaper/html/lab/Weixin/RushuWeb/log/log_wechat.txt
-define("FILE_LOG_TOKEN",getcwd()."log/access_token.txt");
-define("FILE_LOG_WECHAT",getcwd()."log/log_wechat.txt");
-define("FILE_LOG_DEBUG",getcwd()."log/log_debug.txt");
+define("FILE_LOG_TOKEN",getcwd()."/log/access_token.txt");
+define("FILE_LOG_WECHAT",getcwd()."/log/log_wechat.txt");
+define("FILE_LOG_DEBUG",getcwd()."/log/log_debug.txt");
 //SQLite
 //TimeZone setting.
 date_default_timezone_set('UTC');

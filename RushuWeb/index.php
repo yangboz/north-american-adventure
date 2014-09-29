@@ -2,14 +2,15 @@
 //Wechat,@see: https://github.com/ligboy/Wechat-php
 //Toro,@see: https://github.com/yangboz/ToroPHP
 //
-require("libs/Toro.php");
+require_once("libs/Toro.php");
 //
-require("handlers/IndexHandler.php");
-require("handlers/GroupHandler.php");
-require("handlers/GroupsHandler.php");
-require("handlers/UserHandler.php");
-require("handlers/UsersHandler.php");
-require("handlers/AccessTokenHandler.php");
+require_once("handlers/IndexHandler.php");
+require_once("handlers/GroupHandler.php");
+require_once("handlers/GroupsHandler.php");
+require_once("handlers/UserHandler.php");
+require_once("handlers/UsersHandler.php");
+require_once("handlers/AccessTokenHandler.php");
+require_once("handlers/MenuHandler.php");
 //
 /*
 ToroHook::add("404", function() {
@@ -23,5 +24,6 @@ Toro::serve(array(
     "/user/:alpha" => "UserHandler",
     "/group/" => "GroupsHandler",
     "/group/:alpha" => "GroupHandler",
-    "/token/" => "AccessTokenHandler"
+    "/token/" => "AccessTokenHandler",
+    "/menu/"=> "MenuHandler"
 ));

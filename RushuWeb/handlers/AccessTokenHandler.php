@@ -5,7 +5,7 @@
  * Date: 14-9-28
  * Time: 下午7:07
  */
-include("../Constants.php");
+include(getcwd()."/Constants.php");
 //
 class AccessTokenHandler {
     //

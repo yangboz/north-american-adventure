@@ -10,62 +10,67 @@
 //@see http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index
 //define("appID", "wx34ff2a71ac3c7510");
 //define("appSecret", "cfc67c1d52476b2dd8a93b32ef8c4617");
-include("../Constants.php");
+include(getcwd()."/Constants.php");
 //@example : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx34ff2a71ac3c7510&secret=cfc67c1d52476b2dd8a93b32ef8c4617
 //@return access_token: 0xQCS_FDjYfjCo-h2wtwnMQeU0aMsQGJZOxdQvcwm8WocHRvGXpNMBk5SiyI3pTZ6fOY0XINHwSzgD_EucMyGw
+include(getcwd()."/libs/Wechat.class.php");
 //
 class IndexHandler
 {
     public $access_token;
+    private $checkSignature;
+    private $echoStr;
     //
     public function get()
     {
-        $echoStr = $_GET["echostr"];
-
-        //valid signature , option
-        if($this->checkSignature()){
-            echo $echoStr;
-            exit;
+//        echo "IndexHandler->get()";
+        if (isset($_GET['echostr'])) {
+            $this->echoStr = $_GET["echostr"];
+            //
+            file_put_contents(getcwd().'/log/log_wechat.txt','$echoStr:'.$this->echoStr."\n",FILE_APPEND);
+            //valid signature , option
+            $this->checkSignature = $this->checkSignature();
+            file_put_contents(getcwd().'/log/log_wechat.txt','$checkSignature:'.$this->checkSignature."\n",FILE_APPEND);
+            if($this->checkSignature){
+                echo $this->echoStr;
+                exit;
+                //Wechat initializtion
+//            $this->wechat_initialization();
+            }
+        }else{
+            $this->responseMsg();
         }
-        //
-        file_put_contents('../log/log_wechat.txt','$echoStr:'.$echoStr."\n",FILE_APPEND);
     }
 
     public function responseMsg()
     {
-        //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 
-        //extract post data
         if (!empty($postStr)){
-            /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
-               the best way is to check the validity of xml by yourself */
-            libxml_disable_entity_loader(true);
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
             $time = time();
             $textTpl = "<xml>
-							<ToUserName><![CDATA[%s]]></ToUserName>
-							<FromUserName><![CDATA[%s]]></FromUserName>
-							<CreateTime>%s</CreateTime>
-							<MsgType><![CDATA[%s]]></MsgType>
-							<Content><![CDATA[%s]]></Content>
-							<FuncFlag>0</FuncFlag>
-							</xml>";
-            if(!empty( $keyword ))
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                        <FuncFlag>0</FuncFlag>
+                        </xml>";
+            if($keyword == "?" || $keyword == "？")
             {
                 $msgType = "text";
-                $contentStr = "Welcome to wechat world!";
+                $contentStr = date("Y-m-d H:i:s",time());
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }else{
-                echo "Input something...";
-            }
 
-        }else {
-            echo "";
+            }
+        }else{
+            echo "Empty responseMsg()";
             exit;
         }
     }
@@ -93,5 +98,67 @@ class IndexHandler
         }else{
             return false;
         }
+    }
+//
+    private function wechat_initialization()
+    {
+        //
+        file_put_contents(getcwd().'/log/log_wechat.txt','wechat_initialization:'.''."\n",FILE_APPEND);
+        $wechatOptions = array(
+            'token'=>APP_TOKEN,
+            'account'=>APP_DEV_USERNAME,
+            'password'=>APP_DEV_PASSWORD
+//            "wechattool"=>$wechatToolObj /*这里是上面的接口类实例对象,也可以通过setWechatToolFun()设置*/
+        );
+        $wechatObj = new Wechat($wechatOptions);
+        $wechatObj->valid();//可以在认证后注释掉(只是这样可能不安全)
+        $wechatObj->positiveInit();  //主动响应组件初始化
+        $wechatObj->setAutoSendOpenidSwitch(TRUE);  //设置自动附带发送Openid
+        $wechatObj->setPassiveAscSwitch(TRUE, TRUE);  //设置打开被动关联组件，并获取用户详细信息
+        $wechatObj->getRev();
+        //被动响应实例
+        $wechatObj->valid(); //验证请求来源是否合法，在通过平台验证后可以去掉，但是不安全啊。
+        $msgtype = $wechatObj->getRev()->getRevType();
+        switch($msgtype) {
+            case Wechat::MSGTYPE_TEXT:
+
+                $wechatObj->text("你好我是微信小机器人")->reply();
+                exit;
+                break;
+            case Wechat::MSGTYPE_EVENT:
+                $revEvent = array();
+                $revEvent = $this->wechatObj->getRevEvent();
+                switch ($revEvent['event']) {
+                    //关注订阅事件
+                    case "subscribe":
+                        $wechatObj->text("你好我是微信小机器人")->reply();
+                        break;
+                    //取消关注订阅事件
+                    case "unsubscribe":
+                        //做一些删除用户记录之类的事情
+                        break;
+                }
+                break;
+            case Wechat::MSGTYPE_IMAGE:
+                break;
+            case Wechat::MSGTYPE_VOICE:
+                break;
+            case Wechat::MSGTYPE_MUSIC:
+                break;
+            case Wechat::MSGTYPE_LOCATION:
+                break;
+            case Wechat::MSGTYPE_LINK:
+                break;
+            default:
+                $wechatObj->text($wechatObj->wechatObj)->reply();
+                break;
+        }
+        //主动发送消息示例
+        //群发消息
+        $fakeids = array("823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881","823058881");
+        //接收返回结果数组
+        $batresult = $wechatObj->batSend($fakeids,"这是一种问候啊！\n下个10分钟再见。");
+        //单条消息发送
+        $singleresult = $wechatObj->send("823058881", "这是一种问候啊！");
     }
 }
