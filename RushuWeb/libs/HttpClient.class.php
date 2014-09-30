@@ -253,7 +253,7 @@ class HttpClient {
         return $this->cookies;
     }
     function getRequestURL() {
-        $url = 'http://'.$this->host;
+        $url = 'https://'.$this->host;
         if ($this->port != 80) {
             $url .= ':'.$this->port;
         }            

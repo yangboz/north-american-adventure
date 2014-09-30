@@ -14,6 +14,7 @@ class MenuHandler
     private $access_token;
     private $token_handler;
     private $http_client;
+    private $post_url = "http://api.weixin.qq.com/";
     private $post_data_menu;
     private $post_data_menu_resp;
     //
@@ -23,7 +24,7 @@ class MenuHandler
         $this->access_token = $this->token_handler->get();
         echo "access_token:".$this->access_token;
         //
-        $this->http_client = new HttpClient("https://api.weixin.qq.com/");
+//        $this->http_client = new HttpClient($this->post_url);
         $this->post_data_menu = " {
              'button':[
              {
@@ -49,8 +50,24 @@ class MenuHandler
               ]
          }";
         //
-        $path = "cgi-bin/menu/create?access_token=".$this->access_token;
-        $this->post_data_menu_resp = $this->http_client->post($path,$this->post_data_menu);
+        $this->post_url = $this->post_url."cgi-bin/menu/create?access_token=".$this->access_token;
+//        $this->http_client->setDebug(true);
+//        $this->post_data_menu_resp = $this->http_client->post($path,$this->post_data_menu);
+        $this->post_data_menu_resp = $this->httpsPost($this->post_url,$this->post_data_menu,NULL);
         var_dump($this->post_data_menu_resp);
+    }
+    private function httpsPost($url,$jsonData,$cookie){ // 模拟提交数据函数
+        $curl = curl_init("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$this->access_token) ;
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS,$jsonData);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $result = curl_exec($curl) ;
+        if (curl_errno($curl)) {
+            echo 'Errno'.curl_error($curl);//捕抓异常
+        }
+        curl_close($curl);
+        return $result;
     }
 } 
