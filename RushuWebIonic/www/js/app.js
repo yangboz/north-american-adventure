@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab.reports', {
       url: '/reports',
       views: {
-        'tab-friends': {
+        'tab-reports': {
           templateUrl: 'templates/tab-reports.html',
           controller: 'ReportsCtrl'
         }
@@ -60,7 +60,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab.report-detail', {
       url: '/report/:friendId',
       views: {
-        'tab-friends': {
+        'tab-reports': {
           templateUrl: 'templates/report-detail.html',
           controller: 'ReportDetailCtrl'
         }
@@ -70,16 +70,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab.stats', {
           url: '/stats',
           views: {
-              'tab-account': {
+              'tab-stats': {
                   templateUrl: 'templates/tab-stats.html',
                   controller: 'StatsCtrl'
               }
           }
     })
-    .state('tab.account', {
-      url: '/account',
+    .state('tab.my', {
+      url: '/my',
       views: {
-        'tab-account': {
+        'tab-my': {
           templateUrl: 'templates/tab-my.html',
           controller: 'AccountCtrl'
         }
