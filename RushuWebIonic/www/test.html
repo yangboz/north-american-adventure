@@ -1,0 +1,163 @@
+<html ng-app="ionicApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <title>Tabs Example</title>
+
+    <link href="http://code.ionicframework.com/1.0.0-beta.8/css/ionic.css" rel="stylesheet">
+    <script src="http://code.ionicframework.com/1.0.0-beta.8/js/ionic.bundle.js"></script>
+</head>
+
+<body>
+
+<ion-side-menus>
+    <!-- Center content -->
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+            <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back"></ion-nav-back-button>
+        </ion-nav-bar>
+
+        <ion-nav-view class="slide-left-right"></ion-nav-view>
+    </ion-side-menu-content>
+
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+
+        <ion-content>
+            <div class="item item-divider">
+                Social connect
+            </div>
+            <a class="item item-icon-left" menu-close ng-href="#profiles">
+                <i class="icon ion-social-facebook"></i>
+                Facebook
+            </a>
+            <a class="item item-icon-left" menu-close ng-href="#map">
+                <i class="icon ion-social-googleplus"></i>
+                Google +
+            </a>
+            <a class="item item-icon-left" menu-close ng-href="#map">
+                <i class="icon ion-social-twitter"></i>
+                Twitter
+            </a>
+            <a class="item item-icon-left" menu-close ng-click="logout()">
+                <i class="icon ion-log-out"></i>
+                Logout
+            </a>
+
+        </ion-content>
+
+    </ion-side-menu>
+    <!-- Right menu -->
+    <ion-side-menu side="right" width="100">
+        <ion-content class="bgr-dark">
+            <div class="row">
+                <div class="col-50 col-center">
+                    <a class="button spm-balanced cateicon button-icon icon ion-coffee padding"></a>
+                </div>
+                <div class="col-50 col-center">
+                    <a class="button spm-balanced cateicon button-icon icon ion-coffee padding"></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-50 col-center">
+                    <a class="button spm-balanced cateicon button-icon icon ion-fork padding"></a>
+                </div>
+                <div class="col-50 col-center">
+                    <a class="button spm-balanced cateicon button-icon icon ion-beer padding"></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-50">.col</div>
+                <div class="col-50">.col</div>
+            </div>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
+</ion-pane>
+
+
+<script id="tabs.html" type="text/ng-template">
+    <ion-view>
+
+        <ion-tabs class="tabs-icon-top tabs-positive">
+
+            <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+                <ion-nav-view name="home-tab"></ion-nav-view>
+            </ion-tab>
+
+            <ion-tab title="About" icon="ion-ios7-information" href="#/tab/about">
+                <ion-nav-view name="about-tab"></ion-nav-view>
+            </ion-tab>
+
+            <ion-tab title="Contact" icon="ion-ios7-world" ui-sref="tabs.contact">
+                <ion-nav-view name="contact-tab"></ion-nav-view>
+            </ion-tab>
+
+        </ion-tabs>
+    </ion-view>
+</script>
+
+<script id="home.html" type="text/ng-template">
+    <ion-view>
+        <ion-nav-buttons side="left">
+            <button ng-click="toggleLeft()" class="button button-icon icon ion-navicon"></button>
+        </ion-nav-buttons>
+        <ion-header-bar align-title="left" class="bar-subheader item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <input type="search"/>
+            </label>
+            <button class="button button-clear" >
+                Cancel
+            </button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            ion-header-bar was overlapped by ion-nav-bar. Add class of bar-subheader
+        </ion-content>
+    </ion-view>
+</script>
+
+<script id="facts.html" type="text/ng-template">
+    <ion-view title="Facts" class="padding">
+        <ion-content>
+
+        </ion-content>
+    </ion-view>
+</script>
+
+<script id="facts2.html" type="text/ng-template">
+    <ion-view title="Also Factual">
+        <ion-content class="padding">
+
+        </ion-content>
+    </ion-view>
+</script>
+
+<script id="about.html" type="text/ng-template">
+    <ion-view title="About">
+        <ion-content class="padding">
+
+        </ion-content>
+    </ion-view>
+</script>
+
+<script id="nav-stack.html" type="text/ng-template">
+    <ion-view title="Tab Nav Stack">
+        <ion-content class="padding">
+            <p><img src="http://ionicframework.com/img/diagrams/tabs-nav-stack.png" style="width:100%"></p>
+        </ion-content>
+    </ion-view>
+</script>
+
+<script id="contact.html" type="text/ng-template">
+    <ion-view title="Contact">
+        <ion-content>
+            <p>@IonicFramework</p>
+            <p>@DriftyCo</p>
+        </ion-content>
+    </ion-view>
+</script>
+
+</body>
+</html>
