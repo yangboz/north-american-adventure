@@ -1,10 +1,11 @@
-<ion-view title="统计">
-    <ion-content class="padding">
-        <!--<section id="chart" ng-app="myChartingApp" ng-controller="StatsCtrl">-->
-        <!--<section>-->
-            <div ui-chart="someData" chart-options="myChartOpts" ></div>
-        <!--</section>-->
-    </ion-content>
 
+<div class="bar bar-header bar-positive">
+    <h1 class="title">统计</h1>
+</div>
 
-</ion-view>
+<ion-content class="has-header">
+    <!--<canvas barchart="" options="options" data="chart" style="bottom:0;position:absolute;height:100%;width:100%"></canvas>-->
+    <div style="padding: 3px;height: 100%;border: 1px solid red" class="has-header has-footer">
+        <nvd3 options='options' data='data'></nvd3>
+    </div>
+</ion-content>
