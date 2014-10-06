@@ -6,23 +6,22 @@
 <ion-tabs class="tabs-icon-top">
 
   <!-- Dashboard Tab -->
-  <ion-tab title="报销" icon="icon ion-document" href="#/tab/dash">
+  <ion-tab title="报销" icon="icon ion-document" href="#/tab/dash" icon-on="ion-document is-active" icon-off="ion-document">
       <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
 
   <!-- Reports Tab -->
-  <ion-tab title="报告" icon="icon ion-document-text" href="#/tab/reports">
+  <ion-tab title="报告" icon="icon ion-document-text" href="#/tab/reports" icon-on="ion-document-text is-active" icon-off="ion-document-text">
     <ion-nav-view name="tab-reports"></ion-nav-view>
   </ion-tab>
 
    <!-- Statistic Tab -->
-  <ion-tab title="统计" icon="icon ion-stats-bars" href="#/tab/stats" ng-controller="StatsCtrl">
-    <ion-nav-view name="tab-stats">
-    </ion-nav-view>
+  <ion-tab title="统计" icon="icon ion-stats-bars" href="#/tab/stats" ng-controller="StatsCtrl" icon-on="ion-stats-bars is-active" icon-off="ion-stats-bars">
+    <ion-nav-view name="tab-stats"></ion-nav-view>
   </ion-tab>
 
   <!-- Account Tab -->
-  <ion-tab title="我!" icon="icon ion-man" href="#/tab/my">
+  <ion-tab title="我!" icon="icon ion-man" href="#/tab/my" icon-on="ion-man is-active" icon-off="ion-man">
     <ion-nav-view name="tab-my"></ion-nav-view>
   </ion-tab>
 

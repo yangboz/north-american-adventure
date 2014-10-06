@@ -1,4 +1,9 @@
-<ion-view title="Reports">
+<ion-view title="">
+    <ion-header-bar class="bar-subheader">
+        <button class="button">排序</button>
+        <h1 class="title">Reports</h1>
+        <button class="button">编辑</button>
+    </ion-header-bar>
   <ion-content>
     <ion-list>
       <ion-item ng-repeat="report in reports" type="item-text-wrap" href="#/tab/report/{{report.id}}">
