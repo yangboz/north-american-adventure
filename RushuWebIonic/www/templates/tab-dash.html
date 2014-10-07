@@ -1,10 +1,21 @@
-<ion-view title="" name="tab-dash">
-    <ion-header-bar class="bar-subheader">
-        <button class="button">排序</button>
-        <h1 class="title">HOME</h1>
-        <button class="button">编辑</button>
-    </ion-header-bar>
+<ion-view title="HOME" name="tab-dash">
+    <ion-nav-buttons side="left">
+        <button class="button">
+            排序
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button" ng-click="console.log('dash/edit clicked!');$scope.loginModal.show();">
+            编辑
+        </button>
+    </ion-nav-buttons>
   <ion-content >
-    <h1>报销条目</h1>
+      <div class="list card">
+          <div class="item item-avatar">
+              <img src="avatar.jpg">
+              <p>Report201407 午饭</p>
+              <h2>星巴克 RMB52.0</h2>
+          </div>
+      </div>
   </ion-content>
 </ion-view>

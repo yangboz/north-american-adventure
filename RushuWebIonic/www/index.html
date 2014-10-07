@@ -31,7 +31,10 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
   </head>
-  <body ng-app="starter" animation="slide-left-right-ios7">
+  <body ng-app="starter" animation="slide-left-right-ios7" ng-class="{loading: loading}" ng-controller="MainController">
+      <div ng-show="loading" class="app-content-loading">
+          <i class="fa fa-spinner fa-spin loading-spinner"></i>
+      </div>
     <!--
       The nav bar that will be updated as we navigate between views
       Additional attributes set its look, ion-nav-bar animation and icons
@@ -50,6 +53,45 @@
       have templates inline in this html file if you'd like).
     -->
     <ion-nav-view></ion-nav-view>
+
+      <!-- Login Overlay -->
+
+      <div overlay="loginOverlay" default="active">
+
+          <form class="form-horizontal" action="" method="post">
+              <fieldset>
+                  <legend class="text-center">Login form</legend>
+
+                  <!-- Name input-->
+                  <div class="form-group">
+                      <label class="col-md-3 control-label" for="name">Username:</label>
+                      <div class="col-md-9">
+                          <input name="name" type="text" placeholder="User Name" class="form-control"  ng-model="username">
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="col-md-3 control-label" for="name">Password:</label>
+                      <div class="col-md-9">
+                          <input name="name" type="password" placeholder="Password" class="form-control"  ng-model="password">
+                      </div>
+                  </div>
+
+                  <!-- Form actions -->
+                  <div class="form-group">
+                      <div class="col-md-12 text-right">
+                          <button type="submit" class="btn btn-primary btn-lg" ng-click="login()">Submit</button>
+                      </div>
+                  </div>
+              </fieldset>
+          </form>
+          <!--
+                  <p toggle="off" bubble target="loginOverlay">
+                      <span class="btn btn-primary">Ok</span>
+                      <span class="btn btn-default">Cancel</span>
+                  </p>
+          -->
+      </div>
 
   </body>
 </html>
