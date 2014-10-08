@@ -1,3 +1,4 @@
+//@ref:http://alfrescoblog.com/2014/09/04/angular-js-activiti-webapp-part-iii-final/
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -6,6 +7,11 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','nvd3'])
+//angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','nvd3','angular-websocket'])
+///Config
+//.config(function(WebSocketProvider){
+//    WebSocketProvider.prefix('').uri('ws://127.0.0.1:9080');
+// })
 ///App run
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -42,8 +48,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
       url: '/dash',
       views: {
         'tab-dash': {
-          templateUrl: 'templates/tab-dash.html',
-          controller: 'DashCtrl'
+          templateUrl: 'templates/tab-dash.html'
         }
       }
     })

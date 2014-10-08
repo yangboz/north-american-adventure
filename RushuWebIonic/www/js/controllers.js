@@ -1,30 +1,42 @@
 var app = angular.module('starter.controllers', [])
-
+//
 app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal){
-    console.log("MainController init!!!");
+//app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
+//    console.log("MainController init!!!");
+///WebSocket
+//    $WebSocket.onopen(function() {
+//        console.log('connection');
+//        $WebSocket.send('message')
+//    });
+//
+//    $WebSocket.onmessage(function(event) {
+//        console.log('message: ', event.data);
+//    });
 ///Model
-    $ionicModal.fromTemplateUrl('templates/loginModal.html', {
+    $ionicModal.fromTemplateUrl('templates/modal-login.html', {
         scope: $scope,
         backdropClickToClose: false
     }).then(function(modal) {
+//        console.log("modal-login.html init!!!");
         $scope.loginModal = modal;
-    });
-///Basic
-    $rootScope.$on("$routeChangeStart", function(){
-        $rootScope.loading = true;
-        //Overlay with login status
-//        $rootScope.toggle('loginOverlay',$rootScope.loggedin?'off':'on');
-        console.log("$routeChangeStart!");
         //Login Modal
         if(window.localStorage['auth']) {
-            //
+            $scope.loginModal.hide();
         }else{
 //     $urlRouterProvider.otherwise('/login');
             $scope.loginModal.show();
         }
     });
+///Basic
+    $rootScope.$on("$stateChangeStart", function(){
+        $rootScope.loading = true;
+        //Login Modal,only hide();
+        if(window.localStorage['auth']) {
+            $scope.loginModal.hide();
+        }
+    });
 
-    $rootScope.$on("$routeChangeSuccess", function(){
+    $rootScope.$on("$stateChangeSuccess", function(){
         $rootScope.loading = false;
     });
 
@@ -254,6 +266,7 @@ app.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootS
     $rootScope.loggedin = false;
 
     $scope.login = function () {
+        console.log("$scope.username:",$scope.username,",$scope.password:",$scope.password);
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.username + ":" + $scope.password);
 
         UserService.get({user: $scope.username}, function (data) {

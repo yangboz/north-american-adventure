@@ -1,3 +1,4 @@
+//@examle:http://www.kdmooreconsulting.com/blogs/authentication-with-ionic-and-angular-js-in-a-cordovaphonegap-mobile-web-application/
 //
 var API_URL = "http://www.rushucloud.com:90/activiti-rest/";
 //
