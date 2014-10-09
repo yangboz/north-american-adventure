@@ -28,6 +28,10 @@ $rootScope.hideLoading = function(){
     }).then(function(modal) {
 //        console.log("modal-login.html init!!!");
         $scope.loginModal = modal;
+        $scope.loginModal.user={
+            username:"kermit",
+            password:"kermit"
+        };
         //Login Modal
         if(window.localStorage['auth']) {
             $scope.loginModal.hide();
@@ -41,10 +45,6 @@ $rootScope.hideLoading = function(){
         //Login Modal,only hide();
         if(window.localStorage['auth']) {
             $scope.loginModal.hide();
-            $scope.loginModal.user={
-                username:"",
-                password:""
-            };
         }
         //ShowLoading
         $rootScope.showLoading();
@@ -255,10 +255,10 @@ $rootScope.hideLoading = function(){
     $rootScope.loggedin = false;
 
     $scope.login = function () {
-        console.log("$scope.loginModal.username:",$scope.loginModal.username,",$scope.loginModal.password:",$scope.loginModal.password);
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.username + ":" + $scope.loginModal.password);
+        console.log("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
-        UserService.get({user: $scope.username}, function (data) {
+        UserService.get({user: $scope.loginModal.user.username}, function (data) {
             $rootScope.loggedin = true;
             $rootScope.loggedUser = data;
             $rootScope.username = $scope.username;

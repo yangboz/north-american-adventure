@@ -10,10 +10,10 @@
 //@see http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index
 //define("appID", "wx34ff2a71ac3c7510");
 //define("appSecret", "cfc67c1d52476b2dd8a93b32ef8c4617");
-include(getcwd()."/Constants.php");
+require_once(getcwd()."/Constants.php");
 //@example : https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx34ff2a71ac3c7510&secret=cfc67c1d52476b2dd8a93b32ef8c4617
 //@return access_token: 0xQCS_FDjYfjCo-h2wtwnMQeU0aMsQGJZOxdQvcwm8WocHRvGXpNMBk5SiyI3pTZ6fOY0XINHwSzgD_EucMyGw
-include(getcwd()."/libs/Wechat.class.php");
+require_once(getcwd()."/libs/Wechat.class.php");
 //
 class IndexHandler
 {
@@ -60,15 +60,39 @@ class IndexHandler
                         <Content><![CDATA[%s]]></Content>
                         <FuncFlag>0</FuncFlag>
                         </xml>";
-            if($keyword == "?" || $keyword == "？")
+//            if($keyword == "?" || $keyword == "？")
+//            {
+//                $msgType = "text";
+//                $contentStr = date("Y-m-d H:i:s",time());
+//                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                echo $resultStr;
+//            }else{
+//
+//            }
+            $msgType = "text";
+            $contentStr = "UndefinedAction.";
+            switch($keyword)
             {
-                $msgType = "text";
-                $contentStr = date("Y-m-d H:i:s",time());
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
-            }else{
-
+                case "?"://help
+                    $contentStr = date("Y-m-d H:i:s",time());
+                    break;
+                case "1"://help
+                    $contentStr = "Amount:100";
+                    break;
+                case "2"://help
+                    $contentStr = "Amount:100";
+                    break;
+                case "3"://help
+                    break;
+                case "4"://help
+                    break;
+                case "5"://help
+                    break;
+                default:
+                    break;
             }
+            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+            echo $resultStr;
         }else{
             echo "Empty responseMsg()";
             exit;

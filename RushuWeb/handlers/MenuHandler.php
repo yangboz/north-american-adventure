@@ -6,7 +6,7 @@
  * Time: 下午11:19
  */
 require_once("AccessTokenHandler.php");
-include(getcwd()."/libs/HttpClient.class.php");
+require_once(getcwd()."/libs/HttpClient.class.php");
 //
 class MenuHandler
 {

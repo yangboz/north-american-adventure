@@ -11,6 +11,7 @@ require_once("handlers/UserHandler.php");
 require_once("handlers/UsersHandler.php");
 require_once("handlers/AccessTokenHandler.php");
 require_once("handlers/MenuHandler.php");
+require_once("handlers/ActivitiHandler.php");
 //
 /*
 ToroHook::add("404", function() {
@@ -25,5 +26,6 @@ Toro::serve(array(
     "/group/" => "GroupsHandler",
     "/group/:alpha" => "GroupHandler",
     "/token/" => "AccessTokenHandler",
-    "/menu/"=> "MenuHandler"
+    "/menu/"=> "MenuHandler",
+    "/workflow/" => "ActivitiHandler"
 ));

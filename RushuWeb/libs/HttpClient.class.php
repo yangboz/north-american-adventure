@@ -253,7 +253,7 @@ class HttpClient {
         return $this->cookies;
     }
     function getRequestURL() {
-        $url = 'https://'.$this->host;
+        $url = 'http://'.$this->host;
         if ($this->port != 80) {
             $url .= ':'.$this->port;
         }            
@@ -292,6 +292,10 @@ class HttpClient {
     }
     function setDebug($boolean) {
         $this->debug = $boolean;
+    }
+    //
+    function setUri($uri) {
+        $this->path = $uri;
     }
     // "Quick" static methods
     function quickGet($url) {
