@@ -15,7 +15,7 @@ class AccessTokenHandler {
         $response = file_get_contents($AT_URL);
         $response = json_decode($response);
         $array = get_object_vars($response);
-//        var_dump($array["access_token"]);
+        var_dump($array["access_token"]);
         file_put_contents("/home/content/g/o/d/godpaper/html/lab/Weixin/RushuWeb/log/access_token.txt",$array["access_token"]);
         return $array["access_token"];
     }

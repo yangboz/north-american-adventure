@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="www.lookbackon.com">
+  <component name="PublishConfigData">
     <serverData>
       <paths name="rushucloud.com">
         <serverdata>
@@ -12,7 +12,7 @@
       <paths name="www.lookbackon.com">
         <serverdata>
           <mappings>
-            <mapping deploy="lab/Weixin/RushuWeb" local="$PROJECT_DIR$" web="lab/Weixin/RushuWeb" />
+            <mapping local="$PROJECT_DIR$" web="/lab/wx/RushuWeb/" />
           </mappings>
         </serverdata>
       </paths>

@@ -41,25 +41,25 @@ angular.module('starter.services', [])
 .factory('UserService', function ($resource) {
     var data = $resource(API_URL+'service/identity/users/:user', {user: "@user"});
     return data;
-});
+})
 ///GroupService
-app.factory('GroupService', function ($resource) {
+.factory('GroupService', function ($resource) {
     var data = $resource(API_URL+'service/identity/groups/:group', {group: "@group"});
     return data;
-});
+})
 ///TaskService
-app.factory('TaskService', function ($resource) {
+.factory('TaskService', function ($resource) {
     var data = $resource(API_URL+'service/runtime/tasks/:task', {task: "@task"});
     return data;
-});
+})
 ///HistoryService
-app.factory('HistoryService', function ($resource) {
+.factory('HistoryService', function ($resource) {
     var data = $resource(API_URL+'service/history/historic-process-instances/:history', {history: "@history"});
     return data;
-});
+})
 
 ///HTTP Header communication.
-app.factory('Base64', function () {
+.factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOP' +
         'QRSTUVWXYZabcdef' +
         'ghijklmnopqrstuv' +

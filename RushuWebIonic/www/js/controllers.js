@@ -1,8 +1,17 @@
-var app = angular.module('starter.controllers', [])
+angular.module('starter.controllers', [])
 //
-app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal){
+.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading){
 //app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
 //    console.log("MainController init!!!");
+///Loading
+$rootScope.showLoading = function() {
+    $ionicLoading.show({
+        template: 'Loading...'
+    });
+};
+$rootScope.hideLoading = function(){
+    $ionicLoading.hide();
+};
 ///WebSocket
 //    $WebSocket.onopen(function() {
 //        console.log('connection');
@@ -29,15 +38,21 @@ app.controller('MainController', function($scope, $http, $rootScope, $location,$
     });
 ///Basic
     $rootScope.$on("$stateChangeStart", function(){
-        $rootScope.loading = true;
         //Login Modal,only hide();
         if(window.localStorage['auth']) {
             $scope.loginModal.hide();
+            $scope.loginModal.user={
+                username:"",
+                password:""
+            };
         }
+        //ShowLoading
+        $rootScope.showLoading();
     });
 
     $rootScope.$on("$stateChangeSuccess", function(){
-        $rootScope.loading = false;
+        //ShowLoading
+        $rootScope.hideLoading();
     });
 
 ///FixtureData
@@ -52,29 +67,6 @@ app.controller('MainController', function($scope, $http, $rootScope, $location,$
 
     $scope.userAgent =  navigator.userAgent;
 
-///UserLogin
-    $rootScope.loggedUser = {
-
-    };
-    $scope.username = "";
-    $scope.password = "";
-    $rootScope.loggedin = false;
-/*
-    $scope.login = function () {
-        console.log("MainController->login() called!");
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.username + ":" + $scope.password);
-
-        UserService.get({user: $scope.username}, function (data) {
-            $rootScope.loggedin = true;
-            $rootScope.loggedUser = data;
-            $rootScope.username = $scope.username;
-            $rootScope.password = $scope.password;
-//            $location.path('/dashboard');
-            //Overlay with login status
-            $rootScope.toggle('loginOverlay',$rootScope.loggedin?'off':'on');
-        });
-    };
-*/
     //Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function() {
         $scope.loginModal.remove();
@@ -245,7 +237,6 @@ app.controller('MainController', function($scope, $http, $rootScope, $location,$
         });
     };
 
-
     $scope.removeUser = function(user)
     {
         UserService.delete({"user": user.id}, function (data) {
@@ -254,20 +245,18 @@ app.controller('MainController', function($scope, $http, $rootScope, $location,$
     }
 
     $scope.query = "";
-});
+})
 
 
-app.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location) {
+.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location) {
     $rootScope.loggedUser = {
 
     };
-    $scope.username = "";
-    $scope.password = "";
     $rootScope.loggedin = false;
 
     $scope.login = function () {
-        console.log("$scope.username:",$scope.username,",$scope.password:",$scope.password);
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.username + ":" + $scope.password);
+        console.log("$scope.loginModal.username:",$scope.loginModal.username,",$scope.loginModal.password:",$scope.loginModal.password);
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.username + ":" + $scope.loginModal.password);
 
         UserService.get({user: $scope.username}, function (data) {
             $rootScope.loggedin = true;
@@ -277,16 +266,16 @@ app.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootS
             $location.path('/dashboard');
         });
     };
-});
+})
 
-app.controller('DashboardCtrl', function ($scope, $rootScope, $location) {
+.controller('DashboardCtrl', function ($scope, $rootScope, $location) {
     if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
         $location.path('/login');
         return;
     }
-});
+})
 
-app.controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService,$modal) {
+.controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService,$modal) {
     if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
         $location.path('/login');
         return;

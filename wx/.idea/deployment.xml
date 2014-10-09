@@ -2,10 +2,10 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="www.lookbackon.com">
+      <paths name="rushucloud.com">
         <serverdata>
           <mappings>
-            <mapping deploy="/lab/wx/" local="$PROJECT_DIR$" web="/lab/wx/" />
+            <mapping deploy="/test" local="$PROJECT_DIR$" web="/test/" />
           </mappings>
         </serverdata>
       </paths>
