@@ -13,6 +13,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
 //.config(function(WebSocketProvider){
 //    WebSocketProvider.prefix('').uri('ws://127.0.0.1:9080');
 // })
+////$log configure
+.config(['$logProvider', function($logProvider){
+    $logProvider.debugEnabled(true);
+    //TODO:https://github.com/ThomasBurleson/angularjs-logDecorator
+}])
 ///App run
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

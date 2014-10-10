@@ -249,16 +249,16 @@ $rootScope.hideLoading = function(){
 })
 
 
-.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location) {
+.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log) {
     $rootScope.loggedUser = {};
     $rootScope.loggedin = false;
 
     $scope.login = function () {
-        console.log("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
+        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
         UserService.get({user: $scope.loginModal.user.username}, function (data) {
-            console.log("UserService.get(login) success!",data);
+            $log.debug("UserService.get(login) success!",data);
             $rootScope.loggedin = true;
             $rootScope.loggedUser = data;
             $rootScope.username = $scope.username;
