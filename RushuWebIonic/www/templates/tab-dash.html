@@ -1,11 +1,11 @@
-<ion-view title="HOME" name="tab-dash">
+<ion-view title="HOME" name="tab-dash" ng-controller="DashboardCtrl">
     <ion-nav-buttons side="left">
         <button class="button">
             排序
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-plus" ng-click="alert('dash/edit clicked!');$scope.loginModal.show();">
+        <button class="button button-icon icon ion-plus" ng-click="taskModal.show();">
         </button>
     </ion-nav-buttons>
   <ion-content >
