@@ -259,11 +259,14 @@ $rootScope.hideLoading = function(){
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
         UserService.get({user: $scope.loginModal.user.username}, function (data) {
+            console.log("UserService.get(login) success!");
             $rootScope.loggedin = true;
             $rootScope.loggedUser = data;
             $rootScope.username = $scope.username;
             $rootScope.password = $scope.password;
             $location.path('/dashboard');
+            //Remove login modal
+            $scope.loginModal.hide();
         });
     };
 })

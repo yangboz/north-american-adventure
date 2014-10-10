@@ -1,6 +1,8 @@
 //@examle:http://www.kdmooreconsulting.com/blogs/authentication-with-ionic-and-angular-js-in-a-cordovaphonegap-mobile-web-application/
 //
-var API_URL = "http://www.rushucloud.com:90/activiti-rest/";
+//var API_URL = "http://www.rushucloud.com:90/activiti-rest/";///usr/share/tomcat6/webapps/h5
+//var API_URL = "http://localhost:8080/activiti-rest/";
+var API_URL = "/activiti-rest/";
 //
 angular.module('starter.services', [])
 
