@@ -1,5 +1,22 @@
-<ion-view title="个人">
+<ion-view title="个人" ng-controller="UsersCtrl">
   <ion-content>
-    <h1>个人</h1>
+      <div class="list card">
+
+          <a class="item item-icon-left">
+              <i class="icon ion-information"></i>
+              {{$root.loggedUser.firstName}}
+          </a>
+
+          <a class="item item-icon-left">
+              <i class="icon ion-information"></i>
+              {{$root.loggedUser.lastName}}
+          </a>
+
+          <a class="item item-icon-left">
+              <i class="icon ion-information"></i>
+              {{$root.loggedUser.email}}
+          </a>
+
+      </div>
   </ion-content>
 </ion-view>
