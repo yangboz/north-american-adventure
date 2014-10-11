@@ -52,12 +52,6 @@ $rootScope.hideLoading = function(){
     }).then(function(modal) {
 //        console.log("modal-task.html init!!!");
         $scope.taskModal = modal;
-        $scope.taskModal.task={
-        //@see:http://www.activiti.org/userguide/#N1693F
-            name:"",
-            description:"",
-            dueDate:""
-        };
     });
 ///Basic
     $rootScope.$on("$stateChangeStart", function(){
@@ -310,18 +304,27 @@ $rootScope.hideLoading = function(){
 })
 
 .controller('TasksCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log) {
-    //CREATE
+    //ng-model
+    $scope.newTask = {"name": "", "description": "","dueDate":"","owner":$rootScope.username};
+    //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
     $scope.createTask = function(){
-        $log.debug("createTask() call!",$scope.taskModal.task);
-        var newTask = new TaskService();////@see:http://www.activiti.org/userguide/#N1693F
-        newTask.name = $scope.taskModal.name;
-        newTask.description = $scope.taskModal.description;
-        newTask.dueDate = $scope.taskModal.dueDate;
+        $log.debug("createTask(),$scope.newTask:",$scope.newTask);
+        var anewTask = new TaskService($scope.newTask);
+        anewTask.name = $scope.newTask.name;
+        anewTask.description = $scope.newTask.description;
+        anewTask.dueDate = $scope.newTask.dueDate;
+        anewTask.owner = $scope.newTask.owner;
         //Save
-        newTask.$save(function (t, putResponseHeaders) {
+        anewTask.$save(function (t, putResponseHeaders) {
             $log.info("createTask() success, response:",t);
             //Hide task modal
             $scope.taskModal.hide();
+            //Refresh task list
+            TaskService.get({}, function (response) {
+//            TaskService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!",response);
+                $rootScope.tasks = response.data;
+            });
         });
     }
     //DELETE runtime/tasks/{taskId}?cascadeHistory={cascadeHistory}&deleteReason={deleteReason}
