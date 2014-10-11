@@ -175,7 +175,7 @@ $rootScope.hideLoading = function(){
 })
 
 .controller('UsersCtrl', function ($rootScope,$scope, $http, UserService, $rootScope, $location) {
-    console.log("$rootScope.loggedUser",$rootScope.loggedUser);
+//    console.log("$rootScope.loggedUser",$rootScope.loggedUser);
     if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
         $location.path('/login');
         return;
@@ -258,11 +258,11 @@ $rootScope.hideLoading = function(){
 })
 
 
-.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log) {
+.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log,TaskService) {
     $rootScope.loggedUser = {};
     $rootScope.loggedin = false;
 
-    $scope.login = function () {
+    $scope.userLogin = function () {
         $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
@@ -275,34 +275,26 @@ $rootScope.hideLoading = function(){
             $location.path('/dashboard');
             //Remove login modal
             $scope.loginModal.hide();
+            //Default getTasks;
+            $log.debug("$scope.loggedUser.username:",$scope.loggedUser.username,",$scope.loggedUser.password:",$scope.loggedUser.password);
+//            $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loggedUser.username + ":" + $scope.loggedUser.password);
+            //
+            TaskService.get({user: $scope.loggedUser.username}, function (data) {
+                $log.debug("TaskService.get() success!",data);
+                $rootScope.tasks = data;
+            });
         });
     };
 })
 
-.controller('TaskCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log) {
-
-    $scope.task = function () {
-        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
-
-        TaskService.get({user: $scope.loginModal.user.username}, function (data) {
-            $log.debug("UserService.get(login) success!",data);
-            $rootScope.loggedin = true;
-            $rootScope.loggedUser = data;
-            $rootScope.username = $scope.username;
-            $rootScope.password = $scope.password;
-            $location.path('/dashboard');
-            //Remove login modal
-            $scope.loginModal.hide();
-        });
-    };
-})
-
-.controller('DashboardCtrl', function ($scope, $rootScope, $location) {
+.controller('TasksCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log) {
     if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
         $location.path('/login');
         return;
     }
+})
+.controller('TaskDetailCtrl', function($scope, $stateParams, TaskService) {
+    $scope.task = TaskService.get($stateParams.taskId);
 })
 
 .controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService,$modal) {

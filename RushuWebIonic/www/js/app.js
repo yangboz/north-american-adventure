@@ -54,11 +54,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
       url: '/dash',
       views: {
         'tab-dash': {
-          templateUrl: 'templates/tab-dash.html'
+          templateUrl: 'templates/tab-dash.html',
+          controller: 'TasksCtrl'
         }
       }
     })
-
+    .state('tab.task-detail', {
+      url: '/task/:taskId',
+      views: {
+          'tab-reports': {
+              templateUrl: 'templates/detail-report.html',
+              controller: 'TaskDetailCtrl'
+          }
+      }
+    })
     .state('tab.reports', {
       url: '/reports',
       views: {
@@ -72,7 +81,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
       url: '/report/:reportId',
       views: {
         'tab-reports': {
-          templateUrl: 'templates/report-detail.html',
+          templateUrl: 'templates/detail-report.html',
           controller: 'ReportDetailCtrl'
         }
       }

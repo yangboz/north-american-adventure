@@ -1,4 +1,4 @@
-<ion-view title="HOME" name="tab-dash" ng-controller="DashboardCtrl">
+<ion-view title="HOME" name="tab-dash" ng-controller="TasksCtrl">
     <ion-nav-buttons side="left">
         <button class="button">
             排序
@@ -9,6 +9,7 @@
         </button>
     </ion-nav-buttons>
   <ion-content >
+      <!--
       <div class="list card">
           <div class="item item-avatar">
               <img src="avatar.jpg">
@@ -16,5 +17,11 @@
               <h2>星巴克 RMB52.0</h2>
           </div>
       </div>
+      -->
+      <ion-list>
+          <ion-item ng-repeat="task in tasks" type="item-text-wrap" href="#/tab/task/{{task.id}}">
+              {{task.name}}
+          </ion-item>
+      </ion-list>
   </ion-content>
 </ion-view>
