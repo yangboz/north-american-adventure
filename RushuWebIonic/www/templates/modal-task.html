@@ -6,12 +6,25 @@
     <ion-content class="padding">
         <div class="list list-inset">
             <label class="item item-input">
-                <input type="text" placeholder="First Name">
+                <input type="text" placeholder="名称" ng-model="taskModal.task.name">
             </label>
             <label class="item item-input">
-                <input type="text" placeholder="Last Name">
+                <textarea placeholder="描述" ng-model="taskModal.task.description"></textarea>
             </label>
-            <button class="button button-full" ng-click="login()">Submit</button>
+            <label class="item item-input">
+                <input type="date" placeholder="到期日" ng-model="taskModal.task.dueDate">
+            </label>
+            <label class="item item-input">
+                <div class="input-label">
+                    优先级别
+                </div>
+                <select>
+                    <option>低</option>
+                    <option selected>中</option>
+                    <option>高</option>
+                </select>
+            </label>
+            <button class="button button-full" ng-click="createTask()">Submit</button>
         </div>
     </ion-content>
 </ion-modal-view>

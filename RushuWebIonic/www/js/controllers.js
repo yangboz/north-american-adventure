@@ -53,7 +53,10 @@ $rootScope.hideLoading = function(){
 //        console.log("modal-task.html init!!!");
         $scope.taskModal = modal;
         $scope.taskModal.task={
-
+        //@see:http://www.activiti.org/userguide/#N1693F
+            name:"",
+            description:"",
+            dueDate:""
         };
     });
 ///Basic
@@ -173,9 +176,6 @@ $rootScope.hideLoading = function(){
 
 .controller('ReportDetailCtrl', function($scope, $stateParams, ReportService) {
   $scope.report = ReportService.get($stateParams.reportId);
-})
-
-.controller('AccountCtrl', function($scope) {
 })
 
 .controller('UsersCtrl', function ($rootScope,$scope, $http, UserService, $rootScope, $location) {
@@ -312,9 +312,19 @@ $rootScope.hideLoading = function(){
 })
 
 .controller('TasksCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log) {
-    if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
-        $location.path('/login');
-        return;
+    //
+    $scope.createTask = function(){
+        $log.debug("createTask() call!",$scope.taskModal.task);
+        var newTask = new TaskService();////@see:http://www.activiti.org/userguide/#N1693F
+        newTask.name = $scope.taskModal.name;
+        newTask.description = $scope.taskModal.description;
+        newTask.dueDate = $scope.taskModal.dueDate;
+        //Save
+        newTask.$save(function (t, putResponseHeaders) {
+            $log.info("createTask() success, response:",t);
+            //Hide task modal
+            $scope.taskModal.hide();
+        });
     }
 })
 .controller('TaskDetailCtrl', function($scope,$rootScope, $stateParams, TaskService,$log) {
