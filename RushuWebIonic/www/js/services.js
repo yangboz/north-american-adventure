@@ -9,7 +9,7 @@ angular.module('starter.services', [])
 /**
  * Report service that returns some data.
  */
-    .factory('ReportService', function() {
+.factory('ReportService', function() {
         // Might use a resource here that returns a JSON array
 
         // Some fake testing data
@@ -51,7 +51,7 @@ angular.module('starter.services', [])
 })
 ///TaskService
 .factory('TaskService', function ($resource) {
-    var data = $resource(API_URL+'service/runtime/tasks/:task', {task: "@task"});
+    var data = $resource(API_URL+'service/runtime/tasks/:taskId', {taskId: "@taskId"});
     return data;
 })
 ///HistoryService

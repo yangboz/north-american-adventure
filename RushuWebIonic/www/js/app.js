@@ -60,10 +60,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
       }
     })
     .state('tab.task-detail', {
-      url: '/task/:taskId',
+      url: '/dash/:taskId',
       views: {
           'tab-reports': {
-              templateUrl: 'templates/detail-report.html',
+              templateUrl: 'templates/detail-task.html',
               controller: 'TaskDetailCtrl'
           }
       }

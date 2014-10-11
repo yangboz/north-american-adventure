@@ -1,8 +1,12 @@
 angular.module('starter.controllers', [])
 //
-.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading){
+.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading,$ionicNavBarDelegate){
 //app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
 //    console.log("MainController init!!!");
+///GoBack
+$rootScope.goBack = function () {
+    $ionicNavBarDelegate.back();
+};
 ///Loading
 $rootScope.showLoading = function() {
     $ionicLoading.show({
@@ -264,13 +268,13 @@ $rootScope.hideLoading = function(){
     $rootScope.loggedin = false;
 
     $scope.userLogin = function () {
-        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
+//        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
-        UserService.get({user: $scope.loginModal.user.username}, function (data) {
-            $log.debug("UserService.get(login) success!",data);
+        UserService.get({user: $scope.loginModal.user.username}, function (response) {
+            $log.debug("UserService.get(login) success!",response);
             $rootScope.loggedin = true;
-            $rootScope.loggedUser = data;
+            $rootScope.loggedUser = response;
             $rootScope.username = $scope.loginModal.user.username;
             $rootScope.password = $scope.loginModal.user.password;
             $location.path('/dashboard');
@@ -279,29 +283,29 @@ $rootScope.hideLoading = function(){
             //Default getTasks;
             $log.debug("$rootScope.username:",$rootScope.username,",$rootScope.password:",$rootScope.password);
             //
-            TaskService.get({user: $rootScope.username}, function (data) {
-                $log.debug("TaskService.get() success!",data);
-                $rootScope.tasks = data;
+            TaskService.get({user: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!",response);
+                $rootScope.tasks = response.data;
             });
             //getProcesses test
-            ProcessService.get({user: $rootScope.username}, function (data) {
-                $log.debug("ProcessService.get() success!",data);
-                $rootScope.processes = data;
+            ProcessService.get({user: $rootScope.username}, function (response) {
+                $log.debug("ProcessService.get() success!",response);
+                $rootScope.processes = response.data;
             });
             //getJobs test
-            JobService.get({user: $rootScope.username}, function (data) {
-                $log.debug("JobService.get() success!",data);
-                $rootScope.jobs = data;
+            JobService.get({user: $rootScope.username}, function (response) {
+                $log.debug("JobService.get() success!",response);
+                $rootScope.jobs = response.data;
             });
             //getExecutions test
-            ExecutionService.get({user: $rootScope.username}, function (data) {
-                $log.debug("ExecutionService.get() success!",data);
-                $rootScope.executions = data;
+            ExecutionService.get({user: $rootScope.username}, function (response) {
+                $log.debug("ExecutionService.get() success!",response);
+                $rootScope.executions = response.data;
             });
             //getHistory(historic-process-instances) test
-            HistoryService.get({user: $rootScope.username}, function (data) {
-                $log.debug("HistoryService.get() success!",data);
-                $rootScope.historices = data;
+            HistoryService.get({user: $rootScope.username}, function (response) {
+                $log.debug("HistoryService.get() success!",response);
+                $rootScope.historices = response.data;
             });
         });
     };
@@ -313,8 +317,14 @@ $rootScope.hideLoading = function(){
         return;
     }
 })
-.controller('TaskDetailCtrl', function($scope, $stateParams, TaskService) {
-    $scope.task = TaskService.get($stateParams.taskId);
+.controller('TaskDetailCtrl', function($scope,$rootScope, $stateParams, TaskService,$log) {
+    $log.info("$stateParams.taskId:",$stateParams.taskId);
+    //
+    TaskService.get({taskId:$stateParams.taskId}, function (response) {
+        $log.debug("TaskService.getTaskInfo success!",response);
+        $scope.task = response;
+        $log.debug("TaskDetailCtrl $scope.task",$scope.task);
+    });
 })
 
 .controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService,$modal) {

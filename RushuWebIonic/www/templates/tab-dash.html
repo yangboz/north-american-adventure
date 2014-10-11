@@ -19,8 +19,13 @@
       </div>
       -->
       <ion-list>
-          <ion-item ng-repeat="task in tasks" type="item-text-wrap" href="#/tab/task/{{task.id}}">
-              {{task.name}}
+          <ion-item ng-repeat="task in tasks" type="item-text-wrap" href="#/tab/dash/{{task.id}}">
+
+              <div class="item item-avatar">
+                  <img src="">
+                  <h2>{{task.name}} {{task.createTimeDate}}</h2>
+                  <p>{{task.description}} {{task.dueDate}}</p>
+              </div>
           </ion-item>
       </ion-list>
   </ion-content>

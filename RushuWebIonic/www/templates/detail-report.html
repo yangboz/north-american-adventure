@@ -5,7 +5,9 @@
   The Reports service returns an array of task data
 -->
 <icon-nav-bar>
-    BACK
+    <ion-nav-buttons side="left">
+        <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="$root.goBack()">Back</a>
+    </ion-nav-buttons>
 </icon-nav-bar>
 <ion-view title="{{report.name}}">
   <ion-content has-header="true" padding="true">
