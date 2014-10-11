@@ -283,7 +283,8 @@ $rootScope.hideLoading = function(){
             //Default getTasks;
             $log.debug("$rootScope.username:",$rootScope.username,",$rootScope.password:",$rootScope.password);
             //
-            TaskService.get({user: $rootScope.username}, function (response) {
+            TaskService.get({}, function (response) {
+//            TaskService.get({assignee: $rootScope.username}, function (response) {
                 $log.debug("TaskService.get() success!",response);
                 $rootScope.tasks = response.data;
             });
@@ -326,10 +327,24 @@ $rootScope.hideLoading = function(){
             $scope.taskModal.hide();
         });
     }
+    //DELETE runtime/tasks/{taskId}?cascadeHistory={cascadeHistory}&deleteReason={deleteReason}
+    $scope.removeTask = function(taskId)
+    {
+        TaskService.delete({"taskId": taskId,cascadeHistory:true,deleteReason:'testing'}, function (data) {
+            $log.debug("TaskService.delete:",data);
+            //Refresh task list
+            TaskService.get({}, function (response) {
+//            TaskService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!",response);
+                $rootScope.tasks = response.data;
+            });
+        });
+    }
 })
 .controller('TaskDetailCtrl', function($scope,$rootScope, $stateParams, TaskService,$log) {
     $log.info("$stateParams.taskId:",$stateParams.taskId);
     //
+//    TaskService.get({taskId:$stateParams.taskId}, function (response) {
     TaskService.get({taskId:$stateParams.taskId}, function (response) {
         $log.debug("TaskService.getTaskInfo success!",response);
         $scope.task = response;
