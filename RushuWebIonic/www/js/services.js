@@ -56,10 +56,24 @@ angular.module('starter.services', [])
 })
 ///HistoryService
 .factory('HistoryService', function ($resource) {
-    var data = $resource(API_URL+'service/history/historic-process-instances/:history', {history: "@history"});
+    var data = $resource(API_URL+'service/history/historic-process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});
     return data;
 })
-
+///ProcessInstances
+.factory('ProcessService', function ($resource) {
+    var data = $resource(API_URL+'service/process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});
+    return data;
+})
+///Jobs
+.factory('JobService', function ($resource) {
+    var data = $resource(API_URL+'service/management/jobs/:jobId', {jobId: "@jobId"});
+    return data;
+})
+///Executions
+.factory('ExecutionService', function ($resource) {
+    var data = $resource(API_URL+'service/runtime/executions/:executionId', {executionId: "@executionId"});
+    return data;
+})
 ///HTTP Header communication.
 .factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOP' +

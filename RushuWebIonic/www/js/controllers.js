@@ -258,7 +258,8 @@ $rootScope.hideLoading = function(){
 })
 
 
-.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log,TaskService) {
+.controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log,
+                                   TaskService,ProcessService,JobService,ExecutionService,HistoryService) {
     $rootScope.loggedUser = {};
     $rootScope.loggedin = false;
 
@@ -270,18 +271,37 @@ $rootScope.hideLoading = function(){
             $log.debug("UserService.get(login) success!",data);
             $rootScope.loggedin = true;
             $rootScope.loggedUser = data;
-            $rootScope.username = $scope.username;
-            $rootScope.password = $scope.password;
+            $rootScope.username = $scope.loginModal.user.username;
+            $rootScope.password = $scope.loginModal.user.password;
             $location.path('/dashboard');
             //Remove login modal
             $scope.loginModal.hide();
             //Default getTasks;
-            $log.debug("$scope.loggedUser.username:",$scope.loggedUser.username,",$scope.loggedUser.password:",$scope.loggedUser.password);
-//            $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loggedUser.username + ":" + $scope.loggedUser.password);
+            $log.debug("$rootScope.username:",$rootScope.username,",$rootScope.password:",$rootScope.password);
             //
-            TaskService.get({user: $scope.loggedUser.username}, function (data) {
+            TaskService.get({user: $rootScope.username}, function (data) {
                 $log.debug("TaskService.get() success!",data);
                 $rootScope.tasks = data;
+            });
+            //getProcesses test
+            ProcessService.get({user: $rootScope.username}, function (data) {
+                $log.debug("ProcessService.get() success!",data);
+                $rootScope.processes = data;
+            });
+            //getJobs test
+            JobService.get({user: $rootScope.username}, function (data) {
+                $log.debug("JobService.get() success!",data);
+                $rootScope.jobs = data;
+            });
+            //getExecutions test
+            ExecutionService.get({user: $rootScope.username}, function (data) {
+                $log.debug("ExecutionService.get() success!",data);
+                $rootScope.executions = data;
+            });
+            //getHistory(historic-process-instances) test
+            HistoryService.get({user: $rootScope.username}, function (data) {
+                $log.debug("HistoryService.get() success!",data);
+                $rootScope.historices = data;
             });
         });
     };
