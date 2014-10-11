@@ -163,6 +163,17 @@ $rootScope.hideLoading = function(){
         $log.debug("TaskService.get() success!",response);
         $rootScope.reports = response.data;
     });
+    //
+    $scope.orderValue = 'asc';//desc
+    //ORDER
+    $scope.orderReports = function(){
+        $scope.orderValue = ($scope.orderValue=='asc')?'desc':'asc';
+        //
+        ReportService.get({assignee: $rootScope.username,order:$scope.orderValue}, function (response) {
+            $log.debug("ReportService.get(order) success!",response);
+            $rootScope.reports = response.data;
+        });
+    }
 })
 
 .controller('ReportDetailCtrl', function($scope, $stateParams, ReportService) {
@@ -176,8 +187,6 @@ $rootScope.hideLoading = function(){
         return;
     }
     $scope.users = UserService.get();
-
-
     /**
      * New user Initial data
      */
@@ -206,50 +215,12 @@ $rootScope.hideLoading = function(){
         });
     };
 
-    /**
-     * Controler for handling modal
-     * @param $scope
-     * @param $modalInstance
-     * @param newUser
-     * @constructor
-     */
-    var ModalInstanceCtrl = function ($scope, $modalInstance, newUser) {
-        $scope.newUser = newUser;
-        $scope.ok = function () {
-            $modalInstance.close(newUser);
-        };
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-    };
-
-    /**
-     * Show modal dialog
-     */
-    $scope.open = function () {
-        var modalInstance = $modal.open({
-            templateUrl: 'partials/modals/createUser.html',
-            controller: ModalInstanceCtrl,
-            resolve: {
-                newUser: function () {
-                    return $scope.newUser;
-                }
-            }
-        });
-        modalInstance.result.then(function (newUser) {
-            $scope.createUser(newUser);
-        }, function () {
-        });
-    };
-
     $scope.removeUser = function(user)
     {
         UserService.delete({"user": user.id}, function (data) {
             $scope.users = UserService.get();
         });
     }
-
-    $scope.query = "";
 })
 
 
@@ -342,7 +313,7 @@ $rootScope.hideLoading = function(){
     }
     $scope.orderValue = 'asc';//desc
     //ORDER
-    $scope.orderTask = function(){
+    $scope.orderTasks = function(){
         $scope.orderValue = ($scope.orderValue=='asc')?'desc':'asc';
         //
         TaskService.get({order:$scope.orderValue}, function (response) {
@@ -392,42 +363,6 @@ $rootScope.hideLoading = function(){
     };
 
     /**
-     * Controler for handling modal actions
-     * @param $scope
-     * @param $modalInstance
-     * @param newGroup
-     * @constructor
-     */
-    var ModalInstanceCtrl = function ($scope, $modalInstance, newGroup) {
-        $scope.newGroup = newGroup;
-        $scope.ok = function () {
-            $modalInstance.close($scope.newGroup);
-        };
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-    };
-
-    /**
-     * Open Modal
-     */
-    $scope.open = function () {
-        var modalInstance = $modal.open({
-            templateUrl: 'partials/modals/createGroup.html',
-            controller: ModalInstanceCtrl,
-            resolve: {
-                newGroup: function () {
-                    return $scope.newGroup;
-                }
-            }
-        });
-        modalInstance.result.then(function (newGroup) {
-            $scope.createGroup(newGroup);
-        }, function () {
-        });
-    };
-
-    /**
      * Remove Group
      * @param group
      */
@@ -436,11 +371,4 @@ $rootScope.hideLoading = function(){
             $scope.groups = GroupService.get();
         });
     };
-
-    $scope.cancel = function () {
-        $scope.newGroup.id = "";
-        $scope.newGroup.name = "";
-    };
-
-    $scope.query = "";
 });
