@@ -10,10 +10,14 @@
         </button>
     </ion-nav-buttons>
   <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="report in reports" type="item-text-wrap" href="#/tab/report/{{report.id}}">
-        {{report.name}}
-      </ion-item>
-    </ion-list>
+      <ion-list>
+          <ion-item ng-repeat="report in reports" type="item-text-wrap" href="#/tab/report/{{report.id}}">
+              <div class="item item-button-right">
+                  <h2>{{report.name}} {{report.createTimeDate}}</h2>
+                  <p>{{report.description}} {{report.dueDate}}</p>
+                  <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click=""></button>
+              </div>
+          </ion-item>
+      </ion-list>
   </ion-content>
 </ion-view>

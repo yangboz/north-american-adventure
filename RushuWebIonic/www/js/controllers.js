@@ -75,14 +75,6 @@ $rootScope.hideLoading = function(){
     });
 
 ///FixtureData
-    var scrollItems = [];
-
-    for (var i=1; i<=100; i++) {
-        scrollItems.push("Item " + i);
-    }
-
-    $scope.scrollItems = scrollItems;
-    $scope.invoice = {payed: true};
 
     $scope.userAgent =  navigator.userAgent;
 
@@ -170,8 +162,13 @@ $rootScope.hideLoading = function(){
             ]
         };
 })
-.controller('ReportsCtrl', function($scope, ReportService) {
-  $scope.reports = ReportService.all();
+.controller('ReportsCtrl', function($scope,$rootScope, ReportService,$log) {
+        //
+//        TaskService.get({}, function (response) {
+    ReportService.get({assignee: $rootScope.username}, function (response) {
+        $log.debug("TaskService.get() success!",response);
+        $rootScope.reports = response.data;
+    });
 })
 
 .controller('ReportDetailCtrl', function($scope, $stateParams, ReportService) {
@@ -313,7 +310,7 @@ $rootScope.hideLoading = function(){
 })
 
 .controller('TasksCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log) {
-    //
+    //CREATE
     $scope.createTask = function(){
         $log.debug("createTask() call!",$scope.taskModal.task);
         var newTask = new TaskService();////@see:http://www.activiti.org/userguide/#N1693F
@@ -338,6 +335,16 @@ $rootScope.hideLoading = function(){
                 $log.debug("TaskService.get() success!",response);
                 $rootScope.tasks = response.data;
             });
+        });
+    }
+    $scope.orderValue = 'asc';//desc
+    //ORDER
+    $scope.orderTask = function(){
+        $scope.orderValue = ($scope.orderValue=='asc')?'desc':'asc';
+        //
+        TaskService.get({order:$scope.orderValue}, function (response) {
+            $log.debug("TaskService.get(order) success!",response);
+            $rootScope.tasks = response.data;
         });
     }
 })

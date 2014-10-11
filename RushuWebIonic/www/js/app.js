@@ -101,7 +101,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
       views: {
         'tab-my': {
           templateUrl: 'templates/tab-my.html',
-          controller: 'AccountCtrl'
+          controller: 'UsersCtrl'
         }
       }
     });
