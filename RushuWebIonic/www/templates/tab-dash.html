@@ -9,19 +9,10 @@
         </button>
     </ion-nav-buttons>
   <ion-content >
-      <!--
-      <div class="list card">
-          <div class="item item-avatar">
-              <img src="avatar.jpg">
-              <p>Report201407 午饭</p>
-              <h2>星巴克 RMB52.0</h2>
-          </div>
-      </div>
-      -->
       <ion-list>
-          <ion-item ng-repeat="task in tasks" type="item-text-wrap" href="#/tab/dash/{{task.id}}">
+          <ion-item ng-repeat="task in tasks" type="item-text-wrap" >
               <div class="item item-button-right">
-                  <h2>{{task.name}} {{task.createTimeDate}}</h2>
+                  <a href="#/tab/dash/{{task.id}}"><h2>{{task.name}} {{task.createTimeDate}}</h2></a>
                   <p>{{task.description}} {{task.dueDate}}</p>
                   <button class="button button-icon icon ion-ios7-close-empty" ng-click="removeTask('{{task.id}}')"></button>
               </div>

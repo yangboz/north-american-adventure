@@ -86,13 +86,8 @@ $rootScope.hideLoading = function(){
         // Execute action
     });
 })
-
+//@example:http://krispo.github.io/angular-nvd3/#/
 .controller('StatsCtrl', function ($scope) {
-//        $http.get('performance.json').success(function(data) {
-//            $scope.performance  = data;
-//        }).error(function(error) {
-//            console.log(error);
-//        })
         /* Chart options */
         $scope.options = {
             chart: {
@@ -135,30 +130,9 @@ $rootScope.hideLoading = function(){
                 { "label" : "H" , "value" : 5.1387322875705 }
             ]
         }];
-        //
-        $scope.chart = {
-            labels : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            datasets : [
-                {
-                    fillColor : "rgba(151,187,205,0)",
-                    strokeColor : "#e67e22",
-                    pointColor : "rgba(151,187,205,0)",
-                    pointStrokeColor : "#e67e22",
-                    data : [4, 3, 5, 4, 6]
-                },
-                {
-                    fillColor : "rgba(151,187,205,0)",
-                    strokeColor : "#f1c40f",
-                    pointColor : "rgba(151,187,205,0)",
-                    pointStrokeColor : "#f1c40f",
-                    data : [8, 3, 2, 5, 4]
-                }
-            ]
-        };
 })
 .controller('ReportsCtrl', function($scope,$rootScope, ReportService,$log) {
-        //
-//        TaskService.get({}, function (response) {
+//    $log.debug("$rootScope.username:",$rootScope.username);
     ReportService.get({assignee: $rootScope.username}, function (response) {
         $log.debug("TaskService.get() success!",response);
         $rootScope.reports = response.data;
@@ -209,7 +183,7 @@ $rootScope.hideLoading = function(){
         user.lastName= newUser.lastName;
         user.email= newUser.email;
         user.password= newUser.password;
-
+        ///
         user.$save(function (u, putResponseHeaders) {
             $scope.users.data.push(u);
         });
@@ -296,6 +270,8 @@ $rootScope.hideLoading = function(){
                 $log.debug("TaskService.get() success!",response);
                 $rootScope.tasks = response.data;
             });
+            //Reset value
+            $scope.newTask = {"name": "", "description": "","dueDate":"","owner":$rootScope.username};
         });
     }
     //DELETE runtime/tasks/{taskId}?cascadeHistory={cascadeHistory}&deleteReason={deleteReason}
@@ -310,6 +286,7 @@ $rootScope.hideLoading = function(){
                 $rootScope.tasks = response.data;
             });
         });
+        //
     }
     $scope.orderValue = 'asc';//desc
     //ORDER
@@ -371,4 +348,5 @@ $rootScope.hideLoading = function(){
             $scope.groups = GroupService.get();
         });
     };
-});
+})
+;
