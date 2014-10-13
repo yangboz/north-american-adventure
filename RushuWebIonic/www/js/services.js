@@ -53,6 +53,11 @@ angular.module('starter.services', [])
     var data = $resource(API_URL+'service/runtime/executions/:executionId', {executionId: "@executionId"});
     return data;
 })
+///FormData
+.factory('FormDataService', function ($resource) {
+    var data = $resource(API_URL+'service/form/form-data?taskId=:taskId', {taskId: "@taskId"});
+    return data;
+})
 ///HTTP Header communication.
 .factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOP' +

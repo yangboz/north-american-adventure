@@ -148,6 +148,22 @@ $rootScope.hideLoading = function(){
             $rootScope.reports = response.data;
         });
     }
+    //CompleteTask
+    $scope.completeTask = function(taskId)
+    {
+        var action = new ReportService();
+        action.action = "complete";
+        action.$save({"taskId": taskId}, function (resp) {
+            //after finishing remove the task from the tasks list
+            $log.debug("TaskService.complete() success!",resp);
+            //refresh reports list view.
+            ReportService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!",response);
+                $rootScope.reports = response.data;
+            });
+        });
+        //
+    }
 })
 
 .controller('ReportDetailCtrl', function($scope, $stateParams, ReportService) {
@@ -199,7 +215,8 @@ $rootScope.hideLoading = function(){
 
 
 .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log,
-                                   TaskService,ProcessService,JobService,ExecutionService,HistoryService) {
+                                   TaskService,ProcessService,JobService,ExecutionService,
+                                   HistoryService,FormDataService) {
     $rootScope.loggedUser = {};
     $rootScope.loggedin = false;
 
@@ -244,6 +261,11 @@ $rootScope.hideLoading = function(){
                 $log.debug("HistoryService.get() success!",response);
                 $rootScope.historices = response.data;
             });
+            //formData test
+//            FormDataService.get({"taskId": 2513}, function (data) {
+//                $log.debug("FormDataService.get() success!",data);
+//            });
+
         });
     };
 })
@@ -259,6 +281,8 @@ $rootScope.hideLoading = function(){
         anewTask.description = $scope.newTask.description;
         anewTask.dueDate = $scope.newTask.dueDate;
         anewTask.owner = $scope.newTask.owner;
+        //
+        $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
         //Save
         anewTask.$save(function (t, putResponseHeaders) {
             $log.info("createTask() success, response:",t);
