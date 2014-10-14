@@ -177,12 +177,14 @@ $rootScope.hideLoading = function(){
     $scope.newReport = {"name": "", "description": "","dueDate":"","owner":$rootScope.username,"parentTaskId":""};
     //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
     $scope.createReport = function(){
-        $log.debug("createReport(),$scope.newReport:",$scope.newReport);
+        //
         var anewReport = new ReportService($scope.newTask);
         anewReport.name = $scope.newReport.name;
         anewReport.description = $scope.newReport.description;
         anewReport.dueDate = $scope.newReport.dueDate;
         anewReport.owner = $scope.newReport.owner;
+        anewReport.assignee = $rootScope.username;
+        $log.debug("createReport(),$scope.newReport:",$scope.newReport);
         //
         $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
         //Save
@@ -191,8 +193,7 @@ $rootScope.hideLoading = function(){
             //Hide report modal
             $scope.reportModal.hide();
             //Refresh report list
-            ReportService.get({}, function (response) {
-//            TaskService.get({assignee: $rootScope.username}, function (response) {
+            ReportService.get({assignee: $rootScope.username}, function (response) {
                 $log.debug("ReportService.get() success!",response);
                 $rootScope.reports = response.data;
             });
