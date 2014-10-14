@@ -1,6 +1,39 @@
 angular.module('starter.controllers', [])
 //
-.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading,$ionicNavBarDelegate){
+.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading,$ionicNavBarDelegate,
+        WebsocketService){
+        /*
+        //
+        $scope.users = [];
+        $scope.messages = [];
+        $scope.alias = '';
+        $scope.message = '';
+        $scope.isLogged = false;
+//
+        $scope.$on('websocket', function(e, type, data) {
+            if (type === 'users')
+                $scope.users = data;
+            else
+                $scope.messages = data;
+        });
+
+        $scope.wsLogin = function() {
+            WebsocketService.login('ws://echo.websocket.org/', $scope.alias);
+            $scope.isLogged = true;
+        };
+//
+        $scope.wsLogoff = function() {
+            WebsocketService.logoff();
+            $scope.alias = '';
+            $scope.isLogged = false;
+            $scope.message = '';
+        };
+//
+        $scope.wsSend = function() {
+            WebsocketService.send($scope.message);
+            $scope.message = '';
+        };
+        */
 //app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
 //    console.log("MainController init!!!");
 ///GoBack
