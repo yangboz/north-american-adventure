@@ -156,7 +156,40 @@ $rootScope.hideLoading = function(){
             $log.debug("ReportService.get(order) success!",response);
             $rootScope.reports = response.data;
         });
-    }
+    };
+    /**
+     * Used to determine whether to show the claim button or not
+     */
+//    $scope.isUnclaimedTask = function() {
+//        return $scope.candidateGroup && $scope.candidateGroup.id != noGroupId;
+//    };
+
+    /**
+     * Claim a task
+     */
+    $scope.claimTask = function(taskId)
+    {
+//        $http.put('service/task/' + taskId + "/claim").
+//        success(function (data, status, headers, config) {
+//            // After a successful claim, simply refresh the task list with the current search params
+//            $log.debug('Claim task success: ' + status);
+//        }).
+//        error(function (data, status, headers, config) {
+//            $log.info('Couldn\'t claim task : ' + status);
+//        });
+
+        var action = new ReportService();
+        action.action = "claim";
+        action.$save({"taskId": taskId}, function (resp) {
+            //after finishing remove the task from the tasks list
+            $log.debug("TaskService.claim() success!",resp);
+            //refresh reports list view.
+            ReportService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!",response);
+                $rootScope.reports = response.data;
+            });
+        });
+    };
     //CompleteTask
     $scope.completeTask = function(taskId)
     {
@@ -172,7 +205,7 @@ $rootScope.hideLoading = function(){
             });
         });
         //
-    }
+    };
     //ng-model
     $scope.newReport = {"name": "", "description": "","dueDate":"","owner":$rootScope.username,"parentTaskId":""};
     //CREATE, //@see:http://www.activiti.org/userguide/#N1693F

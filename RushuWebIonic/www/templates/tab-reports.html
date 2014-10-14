@@ -17,6 +17,8 @@
                   <a href="#/tab/report/{{report.id}}"><h2>{{report.name}} {{report.createTimeDate}}</h2></a>
                   <p>{{report.description}} {{report.dueDate}}</p>
                   <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="completeTask('{{report.id}}')"></button>
+                  <button class="btn btn-success task-claim-button" type="button"
+                          ng-click="claimTask('{{report.id}}')" ng-show="true" >Claim</button>
               </div>
           </ion-item>
       </ion-list>
