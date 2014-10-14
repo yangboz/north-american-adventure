@@ -1,7 +1,7 @@
-<ion-modal-view ng-controller="TasksCtrl">
+<ion-modal-view ng-controller="ReportsCtrl">
     <ion-header-bar class="bar bar-header">
-        <h1 class="title">Task</h1>
-        <button class="button button-icon icon ion-close" ng-click="taskModal.hide()"></button>
+        <h1 class="title">Report</h1>
+        <button class="button button-icon icon ion-close" ng-click="reportModal.hide()"></button>
     </ion-header-bar>
     <ion-content class="padding">
         <div class="list list-inset">
@@ -24,7 +24,7 @@
                     <option>高</option>
                 </select>
             </label>
-            <button class="button button-full" ng-click="createTask()">Submit</button>
+            <button class="button button-full" ng-click="createReport()">Submit</button>
         </div>
     </ion-content>
 </ion-modal-view>

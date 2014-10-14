@@ -53,6 +53,14 @@ $rootScope.hideLoading = function(){
 //        console.log("modal-task.html init!!!");
         $scope.taskModal = modal;
     });
+    ///ReportModal
+    $ionicModal.fromTemplateUrl('templates/modal-report.html', {
+        scope: $scope,
+        backdropClickToClose: false
+    }).then(function(modal) {
+//        console.log("modal-task.html init!!!");
+        $scope.reportModal = modal;
+    });
 ///Basic
     $rootScope.$on("$stateChangeStart", function(){
         //Login Modal,only hide();
@@ -76,6 +84,7 @@ $rootScope.hideLoading = function(){
     $scope.$on('$destroy', function() {
         $scope.loginModal.remove();
         $scope.taskModal.remove();
+        $scope.reportModal.remove();
     });
     // Execute action on hide modal
     $scope.$on('modal.hidden', function() {
@@ -131,7 +140,7 @@ $rootScope.hideLoading = function(){
             ]
         }];
 })
-.controller('ReportsCtrl', function($scope,$rootScope, ReportService,$log) {
+.controller('ReportsCtrl', function($scope,$rootScope, ReportService,$log,$http) {
 //    $log.debug("$rootScope.username:",$rootScope.username);
     ReportService.get({assignee: $rootScope.username}, function (response) {
         $log.debug("TaskService.get() success!",response);
@@ -163,6 +172,33 @@ $rootScope.hideLoading = function(){
             });
         });
         //
+    }
+    //ng-model
+    $scope.newReport = {"name": "", "description": "","dueDate":"","owner":$rootScope.username,"parentTaskId":""};
+    //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
+    $scope.createReport = function(){
+        $log.debug("createReport(),$scope.newReport:",$scope.newReport);
+        var anewReport = new ReportService($scope.newTask);
+        anewReport.name = $scope.newReport.name;
+        anewReport.description = $scope.newReport.description;
+        anewReport.dueDate = $scope.newReport.dueDate;
+        anewReport.owner = $scope.newReport.owner;
+        //
+        $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        //Save
+        anewReport.$save(function (r, putResponseHeaders) {
+            $log.info("createReport() success, response:",r);
+            //Hide report modal
+            $scope.reportModal.hide();
+            //Refresh report list
+            ReportService.get({}, function (response) {
+//            TaskService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("ReportService.get() success!",response);
+                $rootScope.reports = response.data;
+            });
+            //Reset value
+            $scope.newTask = {"name": "", "description": "","dueDate":"","owner":$rootScope.username};
+        });
     }
 })
 
@@ -272,7 +308,7 @@ $rootScope.hideLoading = function(){
 
 .controller('TasksCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log) {
     //ng-model
-    $scope.newTask = {"name": "", "description": "","dueDate":"","owner":$rootScope.username};
+    $scope.newTask = {"name": "", "description": "","dueDate":"","owner":$rootScope.username,"parentTaskId":""};
     //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
     $scope.createTask = function(){
         $log.debug("createTask(),$scope.newTask:",$scope.newTask);
