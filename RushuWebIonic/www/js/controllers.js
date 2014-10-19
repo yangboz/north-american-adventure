@@ -239,6 +239,23 @@ $rootScope.hideLoading = function(){
         });
         //
     };
+    /**
+     * Resolve a task
+     */
+    $scope.resolveTask = function(taskId)
+    {
+        var action = new ReportService();
+        action.action = "resolve";
+        action.$save({"taskId": taskId}, function (resp) {
+            //after finishing remove the task from the tasks list
+            $log.debug("TaskService.resolve() success!",resp);
+            //refresh reports list view.
+            ReportService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!",response);
+                $rootScope.reports = response.data;
+            });
+        });
+    };
     //ng-model
     $scope.newReport = {"name": "", "description": "","dueDate":"","owner":$rootScope.username,"parentTaskId":""};
     //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
@@ -252,7 +269,7 @@ $rootScope.hideLoading = function(){
         anewReport.assignee = $rootScope.username;
         $log.debug("createReport(),$scope.newReport:",$scope.newReport);
         //
-        $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        $http.defaults.headers.common['Content-Type'] = 'application/json; charset=UTF-8';
         //Save
         anewReport.$save(function (r, putResponseHeaders) {
             $log.info("createReport() success, response:",r);
