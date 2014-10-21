@@ -20,9 +20,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
 }])
 ///ENV_config
 .constant('CONFIG_ENV', {
-    'api_endpoint': 'http://localhost:8080/activiti-rest/',
+//var API_URL = "http://www.rushucloud.com:90/activiti-rest/";///usr/share/tomcat6/webapps/h5
+//var API_URL = "http://localhost:8080/activiti-rest/";
+//var API_URL = "/activiti-rest/";
+    'api_endpoint': 'http://www.rushucloud.com:90/activiti-rest/',
     'api_version': '5.16.3',
-    'stomp_uri':'ws://localhost:61614/stomp',
+    'stomp_uri':'ws://www.rushucloud.com:61614/stomp',
     'stomp_protocol':'v11.stomp'
 })
 ///App run
