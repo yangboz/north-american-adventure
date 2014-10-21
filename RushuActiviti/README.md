@@ -26,3 +26,17 @@ scp db.properties root@www.rushucloud.com:/usr/share/tomcat6/webapps/activiti-re
 /usr/share/tomcat6/bin/shutdown.sh
 
 /usr/share/tomcat6/bin/startup.sh
+
+###ActiveMQ:
+http://activemq.apache.org/getting-started.html
+
+MQTT port: 1884
+Storm port: 5673
+
+####ActiveMQ start:
+
+/usr/share/apache-activemq-5.9.1/bin/activemq console
+
+###ActiveMQ stop:
+
+/usr/share/apache-activemq-5.9.1/bin/activemqadmin stop
