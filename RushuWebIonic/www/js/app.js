@@ -18,6 +18,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
     $logProvider.debugEnabled(true);
     //TODO:https://github.com/ThomasBurleson/angularjs-logDecorator
 }])
+///ENV_config
+.constant('CONFIG_ENV', {
+    'api_endpoint': 'http://localhost:8080/activiti-rest/',
+    'api_version': '5.16.3',
+    'stomp_uri':'ws://localhost:61614/stomp',
+    'stomp_protocol':'v11.stomp'
+})
 ///App run
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
