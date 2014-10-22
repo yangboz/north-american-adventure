@@ -249,8 +249,12 @@ $rootScope.hideLoading = function(){
         });
     }
 })
-.controller('ReportDetailCtrl', function($scope, $stateParams, ReportService) {
-    $scope.report = ReportService.get($stateParams.reportId);
+.controller('ReportDetailCtrl', function($scope,$rootScope,$stateParams, ReportService,$log) {
+    ReportService.get({taskId:$stateParams.reportId}, function (response) {
+//        $log.debug("ReportService.getTaskInfo success!",response);
+        $scope.report = response;
+//        $log.debug("ReportDetailCtrl $scope.report",$scope.report);
+    });
 })
 //@example:http://krispo.github.io/angular-nvd3/#/
 .controller('StatsCtrl', function ($scope) {
