@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 //
 .controller('MainCtrl', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading,$ionicNavBarDelegate,
-        CONFIG_ENV,$log){
+        CONFIG_ENV,$log,$cordovaToast){
 //Websocket/Stomp testing:
         var client = Stomp.client( CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol );
         client.connect( "", "",
@@ -108,6 +108,16 @@ $rootScope.hideLoading = function(){
     $scope.$on('modal.removed', function() {
         // Execute action
     });
+///App Toast,@see: http://blog.nraboy.com/2014/09/show-native-toast-notifications-using-ionic-framework/
+    $scope.showToast = function(message, duration, location) {
+        //TODO:device,web switch handler apply.
+        $ionicLoading.show({ template: message, noBackdrop: true, duration: duration=='long'?5000:2000 });
+//        $cordovaToast.show(message, duration, location).then(function(success) {
+//            console.log("The toast was shown");
+//        }, function (error) {
+//            console.log("The toast was not shown due to " + error);
+//        });
+    }
 })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
 .controller('TabsCtrl', function($scope, $ionicTabsDelegate) {
