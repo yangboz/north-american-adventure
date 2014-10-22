@@ -473,4 +473,5 @@ angular.module('starter.services', [])
         }
     };
 
-}]);
+}])
+;

@@ -412,7 +412,7 @@ $rootScope.hideLoading = function(){
     };
 })
 
-.controller('TasksCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log) {
+.controller('TasksCtrl', function ($scope, $http, TaskService, Base64, $rootScope, $location,$log,FormDataService) {
     //ng-model
     $scope.newTask = {"name": "", "description": "","dueDate":"","owner":$rootScope.username,"parentTaskId":""};
     //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
@@ -464,6 +464,52 @@ $rootScope.hideLoading = function(){
             $rootScope.tasks = response.data;
         });
     }
+    //LoadTask()
+    $scope.loadTask = function (task) {
+        $log.info("loadTask():",task);
+        FormDataService.get({"taskId": task.id}, function (data) {
+            extractForm(task, data);
+        }, function (data) {
+
+            if (data.data.statusCode == 404) {
+                $log.error("there was an error!",data.data);
+            }
+
+        });
+    };
+    function extractForm(task, data) {
+        var propertyForSaving = {};
+
+        for (var i = 0; i < data.formProperties.length; i++) {
+            var elem = data.formProperties[i];
+            propertyForSaving[elem.id] = {
+                "value": elem.value,
+                "id": elem.id,
+                "writable": elem.writable
+            };
+
+            if (elem.datePattern != null) {//if date
+                propertyForSaving[elem.id].opened = false; //for date picker
+                propertyForSaving[elem.id].datePattern = elem.datePattern;
+            }
+
+            if (elem.required == true && elem.type == "boolean") {
+                if (elem.value == null) {
+                    propertyForSaving[elem.id].value = false;
+                }
+            }
+
+            if(elem.type=="user")
+            {
+                elem.enumValues  =  UserService.get();
+            }
+        }
+
+        task.form = data;
+        task.propertyForSaving = propertyForSaving;
+
+    }
+
 })
 .controller('TaskDetailCtrl', function($scope,$rootScope, $stateParams, TaskService,$log) {
     $log.info("$stateParams.taskId:",$stateParams.taskId);
