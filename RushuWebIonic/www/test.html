@@ -5,115 +5,148 @@
 
     <title>Tabs Example</title>
 
-    <link href="http://code.ionicframework.com/1.0.0-beta.8/css/ionic.css" rel="stylesheet">
-    <script src="http://code.ionicframework.com/1.0.0-beta.8/js/ionic.bundle.js"></script>
+    <link href="http://code.ionicframework.com/nightly/css/ionic.min.css" rel="stylesheet">
+    <script src="http://code.ionicframework.com/nightly/js/ionic.bundle.min.js"></script>
+    <script >
+        angular.module('ionicApp', ['ionic'])
+
+                .config(function($stateProvider, $urlRouterProvider) {
+
+                    $stateProvider
+                            .state('tabs', {
+                                url: "/tab",
+                                abstract: true,
+                                templateUrl: "tabs.html"
+                            })
+                            .state('tabs.home', {
+                                url: "/home",
+                                views: {
+                                    'home-tab': {
+                                        templateUrl: "home.html",
+                                        controller: 'HomeTabCtrl'
+                                    }
+                                }
+                            })
+                            .state('tabs.facts', {
+                                url: "/facts",
+                                views: {
+                                    'home-tab': {
+                                        templateUrl: "facts.html"
+                                    }
+                                }
+                            })
+                            .state('tabs.facts2', {
+                                url: "/facts2",
+                                views: {
+                                    'home-tab': {
+                                        templateUrl: "facts2.html"
+                                    }
+                                }
+                            })
+                            .state('tabs.about', {
+                                url: "/about",
+                                views: {
+                                    'about-tab': {
+                                        templateUrl: "about.html"
+                                    }
+                                }
+                            })
+                            .state('tabs.navstack', {
+                                url: "/navstack",
+                                views: {
+                                    'about-tab': {
+                                        templateUrl: "nav-stack.html"
+                                    }
+                                }
+                            })
+                            .state('tabs.contact', {
+                                url: "/contact",
+                                views: {
+                                    'contact-tab': {
+                                        templateUrl: "contact.html"
+                                    }
+                                }
+                            });
+
+
+                    $urlRouterProvider.otherwise("/tab/home");
+
+                })
+
+                .controller('TabsCtrl', function($scope, $ionicTabsDelegate) {
+                    $scope.goHome = function() {
+                        console.log($ionicTabsDelegate.$getByHandle('my-tabs'));
+                        console.log($ionicTabsDelegate.$getByHandle('my-tabs').selectedIndex());
+                        $ionicTabsDelegate.$getByHandle('my-tabs').select(0);
+
+                    }
+                })
+
+                .controller('HomeTabCtrl' , function($scope, $rootScope, $ionicViewService) {
+                    $rootScope.HomeHistoryID = $ionicViewService.getCurrentView().historyId;
+                    console.log('HomeTabCtrl');
+                })
+
+
+                .controller('HomeTabLocalCtrl', function($scope, $rootScope, $state, $ionicViewService) {
+                    console.log('HomeTabLocalCtrl');
+
+                    $scope.onTabSelected = function() {
+                        $state.go('tabs.home');
+                        $ionicViewService.goToHistoryRoot($rootScope.HomeHistoryID);
+                    }
+
+                })
+
+                .controller('AboutTabCtrl', function($scope, $ionicTabsDelegate) {
+                    console.log('About Tab Ctrl');
+//  $scope.goHome = function() {
+//    console.log($ionicTabsDelegate.$getByHandle('my-tabs'));
+//    console.log($ionicTabsDelegate.$getByHandle('my-tabs').selectedIndex());
+//    $ionicTabsDelegate.$getByHandle('my-tabs').select(0);
+
+//  }
+                })
+    </script>
 </head>
 
 <body>
 
-<ion-side-menus>
-    <!-- Center content -->
-    <ion-side-menu-content>
-        <ion-nav-bar class="bar-positive nav-title-slide-ios7">
-            <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back"></ion-nav-back-button>
-        </ion-nav-bar>
+<ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+    <ion-nav-back-button class="button-icon ion-arrow-left-c">
+    </ion-nav-back-button>
+</ion-nav-bar>
 
-        <ion-nav-view class="slide-left-right"></ion-nav-view>
-    </ion-side-menu-content>
-
-    <!-- Left menu -->
-    <ion-side-menu side="left">
-
-        <ion-content>
-            <div class="item item-divider">
-                Social connect
-            </div>
-            <a class="item item-icon-left" menu-close ng-href="#profiles">
-                <i class="icon ion-social-facebook"></i>
-                Facebook
-            </a>
-            <a class="item item-icon-left" menu-close ng-href="#map">
-                <i class="icon ion-social-googleplus"></i>
-                Google +
-            </a>
-            <a class="item item-icon-left" menu-close ng-href="#map">
-                <i class="icon ion-social-twitter"></i>
-                Twitter
-            </a>
-            <a class="item item-icon-left" menu-close ng-click="logout()">
-                <i class="icon ion-log-out"></i>
-                Logout
-            </a>
-
-        </ion-content>
-
-    </ion-side-menu>
-    <!-- Right menu -->
-    <ion-side-menu side="right" width="100">
-        <ion-content class="bgr-dark">
-            <div class="row">
-                <div class="col-50 col-center">
-                    <a class="button spm-balanced cateicon button-icon icon ion-coffee padding"></a>
-                </div>
-                <div class="col-50 col-center">
-                    <a class="button spm-balanced cateicon button-icon icon ion-coffee padding"></a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-50 col-center">
-                    <a class="button spm-balanced cateicon button-icon icon ion-fork padding"></a>
-                </div>
-                <div class="col-50 col-center">
-                    <a class="button spm-balanced cateicon button-icon icon ion-beer padding"></a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-50">.col</div>
-                <div class="col-50">.col</div>
-            </div>
-        </ion-content>
-    </ion-side-menu>
-</ion-side-menus>
-</ion-pane>
+<ion-nav-view animation="slide-left-right"></ion-nav-view>
 
 
 <script id="tabs.html" type="text/ng-template">
-    <ion-view>
+    <ion-tabs class="tabs-icon-top tabs-positive" delegate-handle="my-tabs" ng-controller="TabsCtrl">
 
-        <ion-tabs class="tabs-icon-top tabs-positive">
+        <ion-tab title="Home" icon="ion-home" href="#/tab/home" ng-click="onTabSelected()" ng-controller="HomeTabLocalCtrl">
+            <ion-nav-view name="home-tab"></ion-nav-view>
+        </ion-tab>
 
-            <ion-tab title="Home" icon="ion-home" href="#/tab/home">
-                <ion-nav-view name="home-tab"></ion-nav-view>
-            </ion-tab>
+        <ion-tab title="About" icon="ion-ios7-information" href="#/tab/about" ng-controller="AboutTabCtrl">
+            <ion-nav-view name="about-tab"></ion-nav-view>
+        </ion-tab>
 
-            <ion-tab title="About" icon="ion-ios7-information" href="#/tab/about">
-                <ion-nav-view name="about-tab"></ion-nav-view>
-            </ion-tab>
+        <ion-tab title="Contact" icon="ion-ios7-world" ui-sref="tabs.contact">
+            <ion-nav-view name="contact-tab"></ion-nav-view>
+        </ion-tab>
 
-            <ion-tab title="Contact" icon="ion-ios7-world" ui-sref="tabs.contact">
-                <ion-nav-view name="contact-tab"></ion-nav-view>
-            </ion-tab>
-
-        </ion-tabs>
-    </ion-view>
+    </ion-tabs>
 </script>
 
 <script id="home.html" type="text/ng-template">
-    <ion-view>
-        <ion-nav-buttons side="left">
-            <button ng-click="toggleLeft()" class="button button-icon icon ion-navicon"></button>
-        </ion-nav-buttons>
-        <ion-header-bar align-title="left" class="bar-subheader item-input-inset">
-            <label class="item-input-wrapper">
-                <i class="icon ion-ios7-search placeholder-icon"></i>
-                <input type="search"/>
-            </label>
-            <button class="button button-clear" >
-                Cancel
-            </button>
-        </ion-header-bar>
+    <ion-view title="Home" ng-controller="HomeTabCtrl">
         <ion-content class="padding">
-            ion-header-bar was overlapped by ion-nav-bar. Add class of bar-subheader
+            <p>Example of Ionic tabs. Navigate to each tab, and
+                navigate to child views of each tab and notice how
+                each tab has its own navigation history.</p>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
+            </p>
         </ion-content>
     </ion-view>
 </script>
@@ -121,7 +154,15 @@
 <script id="facts.html" type="text/ng-template">
     <ion-view title="Facts" class="padding">
         <ion-content>
-
+            <p>Banging your head against a wall uses 150 calories an hour.</p>
+            <p>Dogs have four toes on their hind feet, and five on their front feet.</p>
+            <p>The ant can lift 50 times its own weight, can pull 30 times its own weight and always falls over on its right side when intoxicated.</p>
+            <p>A cockroach will live nine days without it's head, before it starves to death.</p>
+            <p>Polar bears are left handed.</p>
+            <p>
+                <a class="button icon ion-home" href="#/tab/home"> Home (may keep history) </a>
+                <a class="button icon icon-right ion-chevron-right" href="#/tab/facts2">More Facts</a>
+            </p>
         </ion-content>
     </ion-view>
 </script>
@@ -129,7 +170,16 @@
 <script id="facts2.html" type="text/ng-template">
     <ion-view title="Also Factual">
         <ion-content class="padding">
-
+            <p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
+            <p>1 in every 4 Americans has appeared on T.V.</p>
+            <p>11% of the world is left-handed.</p>
+            <p>1 in 8 Americans has worked at a McDonalds restaurant.</p>
+            <p>$283,200 is the absolute highest amount of money you can win on Jeopardy.</p>
+            <p>101 Dalmatians, Peter Pan, Lady and the Tramp, and Mulan are the only Disney cartoons where both parents are present and don't die throughout the movie.</p>
+            <p>
+                <a class="button icon ion-home" href="#/tab/home"> Home (may keep history)</a>
+                <a class="button icon ion-chevron-left" href="#/tab/facts"> Scientific Facts</a>
+            </p>
         </ion-content>
     </ion-view>
 </script>
@@ -137,7 +187,14 @@
 <script id="about.html" type="text/ng-template">
     <ion-view title="About">
         <ion-content class="padding">
+            <h3>Create hybrid mobile apps with the web technologies you love.</h3>
+            <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
+            <p>Built with Sass and optimized for AngularJS.</p>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" href="#/tab/navstack">Tabs Nav Stack</a>
+            </p>
 
+            <button class="button" ng-click="goHome()">Go Home By Tab Id  (does not work)</button>
         </ion-content>
     </ion-view>
 </script>
@@ -155,6 +212,7 @@
         <ion-content>
             <p>@IonicFramework</p>
             <p>@DriftyCo</p>
+            <!-- @TPalesano -->
         </ion-content>
     </ion-view>
 </script>

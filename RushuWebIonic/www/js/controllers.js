@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 //
-.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading,$ionicNavBarDelegate,
+.controller('MainCtrl', function($scope, $http, $rootScope, $location,$ionicModal,$ionicLoading,$ionicNavBarDelegate,
         CONFIG_ENV,$log){
 //Websocket/Stomp testing:
         var client = Stomp.client( CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol );
@@ -109,53 +109,36 @@ $rootScope.hideLoading = function(){
         // Execute action
     });
 })
-//@example:http://krispo.github.io/angular-nvd3/#/
-.controller('StatsCtrl', function ($scope) {
-        /* Chart options */
-        $scope.options = {
-            chart: {
-                type: 'discreteBarChart',
-                // height:450,
-                margin : {
-                    top: 20,
-                    right: 20,
-                    bottom: 50,
-                    left: 55
-                },
-                x: function(d){ return d.label; },
-                y: function(d){ return d.value; },
-                showValues: true,
-                valueFormat: function(d){
-                    return d3.format(',.4f')(d);
-                },
-                transitionDuration: 500,
-                xAxis: {
-                    axisLabel: 'X Axis'
-                },
-                yAxis: {
-                    axisLabel: 'Y Axis',
-                    axisLabelDistance: 30
-                }
-            }
-        };
-
-        /* Chart data */
-        $scope.data = [{
-            key: "Cumulative Return",
-            values: [
-                { "label" : "A" , "value" : 29.765957771107 },
-                { "label" : "B" , "value" : 0 },
-                { "label" : "C" , "value" : 32.807804682612 },
-                { "label" : "D" , "value" : 196.45946739256 },
-                { "label" : "E" , "value" : 0.19434030906893 },
-                { "label" : "F" , "value" : 98.079782601442 },
-                { "label" : "G" , "value" : 13.925743130903 },
-                { "label" : "H" , "value" : 5.1387322875705 }
-            ]
-        }];
+//TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
+.controller('TabsCtrl', function($scope, $ionicTabsDelegate) {
+    $scope.goHome = function() {
+        console.log($ionicTabsDelegate.$getByHandle('my-tabs'));
+        console.log($ionicTabsDelegate.$getByHandle('my-tabs').selectedIndex());
+        $ionicTabsDelegate.$getByHandle('my-tabs').select(0);
+    }
 })
-.controller('ReportsCtrl', function($scope,$rootScope, ReportService,$log,$http) {
-//    $log.debug("$rootScope.username:",$rootScope.username);
+.controller('TabCtrlDash' , function($scope, $rootScope, $ionicViewService) {
+    $rootScope.DashHistoryID = $ionicViewService.getCurrentView().historyId;
+    console.log('TabCtrlDash,homeHistoryID:',$rootScope.DashHistoryID);
+})
+.controller('TabLocalCtrlDash', function($scope, $rootScope, $state, $ionicViewService) {
+    console.log('TabLocalCtrlDash init!');
+    $scope.onTabSelected = function() {
+        $state.go('tab.dash');
+        $ionicViewService.goToHistoryRoot($rootScope.DashHistoryID);
+    }
+})
+.controller('TabLocalCtrlReports', function($scope, $rootScope, $state, $ionicViewService) {
+    console.log('TabLocalCtrlReports init!');
+    $scope.onTabSelected = function() {
+        $state.go('tab.reports');
+        $ionicViewService.goToHistoryRoot($rootScope.ReportHistoryID);
+    }
+})
+.controller('TabCtrlReports' , function($scope, $rootScope, $ionicViewService,ReportService,$log,$http) {
+//    $rootScope.ReportHistoryID = $ionicViewService.getCurrentView().historyId;
+//    console.log('TabCtrlReports,ReportHistoryID:',$rootScope.ReportHistoryID);
+    //    $log.debug("$rootScope.username:",$rootScope.username);
     ReportService.get({assignee: $rootScope.username}, function (response) {
         $log.debug("TaskService.get() success!",response);
         $rootScope.reports = response.data;
@@ -266,9 +249,53 @@ $rootScope.hideLoading = function(){
         });
     }
 })
-
 .controller('ReportDetailCtrl', function($scope, $stateParams, ReportService) {
-  $scope.report = ReportService.get($stateParams.reportId);
+    $scope.report = ReportService.get($stateParams.reportId);
+})
+//@example:http://krispo.github.io/angular-nvd3/#/
+.controller('StatsCtrl', function ($scope) {
+        /* Chart options */
+        $scope.options = {
+            chart: {
+                type: 'discreteBarChart',
+                // height:450,
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 50,
+                    left: 55
+                },
+                x: function(d){ return d.label; },
+                y: function(d){ return d.value; },
+                showValues: true,
+                valueFormat: function(d){
+                    return d3.format(',.4f')(d);
+                },
+                transitionDuration: 500,
+                xAxis: {
+                    axisLabel: 'X Axis'
+                },
+                yAxis: {
+                    axisLabel: 'Y Axis',
+                    axisLabelDistance: 30
+                }
+            }
+        };
+
+        /* Chart data */
+        $scope.data = [{
+            key: "Cumulative Return",
+            values: [
+                { "label" : "A" , "value" : 29.765957771107 },
+                { "label" : "B" , "value" : 0 },
+                { "label" : "C" , "value" : 32.807804682612 },
+                { "label" : "D" , "value" : 196.45946739256 },
+                { "label" : "E" , "value" : 0.19434030906893 },
+                { "label" : "F" , "value" : 98.079782601442 },
+                { "label" : "G" , "value" : 13.925743130903 },
+                { "label" : "H" , "value" : 5.1387322875705 }
+            ]
+        }];
 })
 
 .controller('UsersCtrl', function ($rootScope,$scope, $http, UserService, $rootScope, $location) {
