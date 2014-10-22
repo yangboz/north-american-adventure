@@ -7,12 +7,25 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-plus" ng-click="taskModal.show();">
         </button>
+        <select>
+            <option ng-class="{selected: tasksType=='assigned'}"><a ng-click="loadTasksType('assigned')">My tasks</a></option>
+            <option ng-class="{selected: tasksType=='owned'}"><a ng-click="loadTasksType('owned')">Owned</a></option>
+            <option ng-class="{selected: tasksType=='involved'}"><a
+                    ng-click="loadTasksType('involved')">Involved</a></option>
+            <option ng-class="{selected: tasksType=='unassigned'}"><a ng-click="loadTasksType('unassigned')">Unassigned</a>
+            </option>
+
+            <option ng-hide="userGroups.data.length==0" class="divider"></option>
+            <option ng-repeat="group in userGroups.data ">
+                <a ng-click="loadTasksGroups(group)">{{group.name}}</a>
+            </option>
+        </select>
     </ion-nav-buttons>
   <ion-content >
       <ion-list>
 
-          <ion-item ng-repeat="task in tasks" type="item-text-wrap"
-                    ng-class="task.priority<31?'row-success':task.priority<51?'row-warning':'row-danger'">
+          <ion-item ng-repeat="task in tasks.data" type="item-text-wrap"
+                    ng-class="task.priority<31?'button-light':task.priority<51?'button-energized':'button-assertive'">
               <div class="item item-button-right">
                   <i class="icon ion-mic-a"></i>
                   <a href="#/tab/dash/{{task.id}}"><h2>{{task.name}} {{task.createTimeDate}}</h2></a>

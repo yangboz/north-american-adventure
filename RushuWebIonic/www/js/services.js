@@ -41,7 +41,7 @@ angular.module('starter.services', [])
     return data;
 })
 ///TasksModelService
-.factory('TasksModalService', function ($modal, FormDataService, TasksService, $rootScope,UserService,ProcessInstanceService) {
+.factory('TasksModalService', function ($ionicModal, FormDataService, TasksService, $rootScope,UserService,ProcessInstanceService) {
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, moment, taskDetailed) {
         $scope.taskDetailed = taskDetailed;
@@ -312,21 +312,21 @@ angular.module('starter.services', [])
     return data;
 })
 ///ProcessInstanceService
-.factory('ProcessInstanceService', function ($resource,Config_API) {
-    var data = $resource(Config_API.endpoint+'service/process-instance/:processInstance', {processInstance: "@processInstance"});
+.factory('ProcessInstanceService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'service/process-instance/:processInstance', {processInstance: "@processInstance"});
     return data;
 })
-///Jobs
+///JobsService
 .factory('JobService', function ($resource,CONFIG_ENV) {
     var data = $resource(CONFIG_ENV.api_endpoint+'service/management/jobs/:jobId', {jobId: "@jobId"});
     return data;
 })
-///Executions
+///ExecutionsService
 .factory('ExecutionService', function ($resource,CONFIG_ENV) {
     var data = $resource(CONFIG_ENV.api_endpoint+'service/runtime/executions/:executionId', {executionId: "@executionId"});
     return data;
 })
-///FormData
+///FormDataService
 .factory('FormDataService', function ($resource,CONFIG_ENV) {
 //    var data = $resource(API_URL+'service/form/form-data?taskId=:taskId', {taskId: "@taskId"});
 //    return data;
@@ -334,6 +334,11 @@ angular.module('starter.services', [])
             startTask: {method:'GET',  params: {processDefinitionId: "@processDefinitionId"}}
         });
         return data;
+})
+///GroupService
+.factory('GroupService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'service/identity/groups/:group', {group: "@group"});
+    return data;
 })
 
 ///HTTP Header communication.
