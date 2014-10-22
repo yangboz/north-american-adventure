@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Apulum - Documentation</title>
+    <!-- Mobile viewport optimized -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- Mobile Internet Explorer allows us to activate ClearType technology for smoothing fonts for easy reading -->
+    <meta http-equiv="cleartype" content="on">
+
+    <!-- Le styles -->
+    <link href="css/bootswatch/Cosmo/bootstrap.min.css" rel="stylesheet">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/black-tie/jquery-ui.css" rel="stylesheet">
+    <link href="css/jquery.tocify.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/rainbow/themes/zenburnesque.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/rainbowlines/theme.css" media="screen" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link href="../assets/ico/favicon.ico" rel="shortcut icon">
+    <link href="../assets/ico/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+    <link href="../assets/ico/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+    <link href="../assets/ico/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+    <link href="../assets/ico/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+  </head>
+
+  <body>
+   
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom:120px;">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="http://www.wowthemes.net/premium-themes-templates/"><img src="img/logo.png"></a>
+  </div>
+  
+  <div class="text-center" style="font-size: 24px;line-height: 73px;">
+  Apulum - Theme Documentation
+  </div>
+
+</nav>
+     
+
+    <div class="container-fluid" style="margin-top:50px;">
+      <div class="row">
+        <div class="tocify col-sm-3 col-md-3">
+          <div id="toc">
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="col-sm-9 col-md-9">
+          <div class="jumbotron">
+            <h1>Apulum</h1>
+
+             <p>Report bugs, discuss features or ask for support here:</p>        
+            
+            </p>
+            <p><a class="btn btn-primary btn-lg" href="http://www.wowthemes.net/support/" target="_blank">Item Support »</a></p>
+          </div>
+          <h2>Requirements</h2>
+          <br>
+          <p class="well">
+         No special requirements.
+          </p>
+          <br>
+          <h2>Optional Dependencies</h2>
+          <br>
+          <p class="well">
+          You may find Notepad++ useful to edit your template code (CSS, HTML, JAVA or PHP code).
+          </p>
+          <br>
+          <h2>Basic Structure</h2><br/>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#008073; '>&lt;!DOCTYPE html></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>html</span> lang<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"en"</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>head</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>meta</span> charset<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"utf-8"</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>meta</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"viewport"</span> content<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"width=device-width, initial-scale=1"</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>meta</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"description"</span> content<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>meta</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"author"</span> content<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"shortcut icon"</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"img/ico/favicon.ico"</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>title</span><span style='color:#ff8906; '>></span>Apulum - One Page Template by WowThemes<span style='color:#00a800; '>.</span>net<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>title</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- Bootstrap core CSS --></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"css/bootstrap.min.css"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"stylesheet"</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- Font Awesome --></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"css/font-awesome.min.css"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"stylesheet"</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- Carousel --></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"css/carousel.css"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"stylesheet"</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- Animate --></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"css/animate.css"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"stylesheet"</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- Custom styles for this template --></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"css/style.css"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"stylesheet"</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- Change skin color here (choose from css folder) --></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"css/skin-red.css"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"stylesheet"</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- Google fonts --></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>link</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;amp;subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic'</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>'stylesheet'</span> type<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>'text/css'</span><span style='color:#ff8906; '>></span>
+
+<span style='color:#9999a9; '>&lt;!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --></span>
+<span style='color:#9999a9; '>&lt;!--[if lt IE 9]></span>
+<span style='color:#9999a9; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&lt;script src="js/html5shiv.js">&lt;/script></span>
+<span style='color:#9999a9; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&lt;script src="js/respond.min.js">&lt;/script></span>
+<span style='color:#9999a9; '>&#xa0;&#xa0;&#xa0;&#xa0;&lt;![endif]--></span>
+<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>head</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>body</span> data-spy<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"scroll"</span> data-target<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>".main_h"</span><span style='color:#ff8906; '>></span>
+
+<span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
+
+<span class="c">&lt;!-- Javascript Files --&gt;</span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/jquery.min.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/bootstrap.min.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/jquery.easing.min.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/smoothscroll.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/carousel.min.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/wow.min.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/validate.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>script src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>js/common.js</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>script<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>body<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>html<span style='color:#d2cd86; '>></span>
+</pre>
+
+          <br>
+		 
+          <h2>Containers</h2>
+		   <br>
+		   <p class="well">
+		   Easily center a page's contents by wrapping its contents in a .container. Containers set width at various media query breakpoints to match the grid system.
+		   </p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>container</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+</pre>
+		   
+		   
+          <h2>Grid System</h2>
+          <br>
+          <p class="well">
+          Grid systems are used for creating page layouts through a series of rows and columns that house your content.
+		  <br/>
+		  Using a single set of .col-md-* grid classes, you can create a basic grid system that starts out stacked on mobile devices and tablet devices (the extra small to small range) before becoming horizontal on desktop (medium) devices. Place grid columns in any .row.
+          </p>
+		  
+		  <div class="bs-docs-grid">
+    <div class="row show-grid">
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+    </div>
+    <div class="row show-grid">
+      <div class="col-md-8">.col-md-8</div>
+      <div class="col-md-4">.col-md-4</div>
+    </div>
+    <div class="row show-grid">
+      <div class="col-md-4">.col-md-4</div>
+      <div class="col-md-4">.col-md-4</div>
+      <div class="col-md-4">.col-md-4</div>
+    </div>
+    <div class="row show-grid">
+      <div class="col-md-6">.col-md-6</div>
+      <div class="col-md-6">.col-md-6</div>
+    </div>
+  </div>
+          <br>
+		  
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>row</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-1</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>1</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>row</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-8</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>8</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-4</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>4</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>row</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-4</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>4</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-4</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>4</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-4</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>4</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>row</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-6</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>6</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+  <span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-6</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>.</span>col<span style='color:#d2cd86; '>-</span>md<span style='color:#d2cd86; '>-</span><span style='color:#008c00; '>6</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+</pre><br/>
+
+<h2>Menu & Sections</h2>
+<br/><p class="well"><span class="note">MENU STRUCTURE EXAMPLE:</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>nav</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>nav</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>li</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>#home</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>Home<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>a</span><span style='color:#fb8400; '>></span><span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>li</span><span style='color:#fb8400; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>li</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>#features</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>Features<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>a</span><span style='color:#fb8400; '>></span><span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>li</span><span style='color:#fb8400; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>li</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>#download</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>Download<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>a</span><span style='color:#fb8400; '>></span><span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>li</span><span style='color:#fb8400; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>li</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>#pricePlans</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>Pricing<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>a</span><span style='color:#fb8400; '>></span><span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>li</span><span style='color:#fb8400; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>li</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>#showcase</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>Showcase<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>a</span><span style='color:#fb8400; '>></span><span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>li</span><span style='color:#fb8400; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>li</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>#testimonials</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>Testimonials<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>a</span><span style='color:#fb8400; '>></span><span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>li</span><span style='color:#fb8400; '>></span>			
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>li</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#00c4c4; '>#contact-page</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>Contact<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>a</span><span style='color:#fb8400; '>></span><span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>li</span><span style='color:#fb8400; '>></span>
+	<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>ul</span><span style='color:#fb8400; '>></span>
+<span style='color:#fb8400; '>&lt;/</span><span style='color:#f6c1d0; '>nav</span><span style='color:#fb8400; '>></span>
+</pre>
+<p class="well">
+<span class="note">
+This template is a single HTML page, split in sections. Each menu link relates to a section. In example, the "#features" menu link scrolls to "features" id section and so on:
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>home</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>home page section here<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>features</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>feature page section here<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>download</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>download page section here<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>pricePlans</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>pricing page section here<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span><span style='color:#d2cd86; '>.</span>etc
+</pre>
+etc.
+</span>
+</p>
+
+<br/><p class="well"><span class="note">MAIN SECTION STRUCTURE EXAMPLE:</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>presentation</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>wrapsection</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>container</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>sectionhead</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span>h1<span style='color:#d2cd86; '>></span>Title<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h1<span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>smallsep</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span>p class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>lead</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>Subtitle<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span>p<span style='color:#d2cd86; '>></span>Content Here<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+</pre>
+
+	<br/>	  
+	<h2>Pages</h2> 
+		  
+	<h3>Home</h3>
+<p class="well">
+<span class="note">
+Basic homepage structure
+</span>
+</p>
+
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>home</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>homepage</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>section-overlay-home</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>container</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>row</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+		
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-sm-5</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span>img src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>img/homeimg.png</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>img-responsive</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+		
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-sm-7 text-right</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>			
+				<span style='color:#d2cd86; '>&lt;</span>h1 id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>logo</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span>a href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>#</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span>img src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>img/logo.png</span><span style='color:#02d045; '>"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Apulum</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>a<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h1<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>rotate-description</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					Customizable <span style='color:#d2cd86; '>&amp;</span>  Weight
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>small-text</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>span<span style='color:#d2cd86; '>></span>
+					Etiam ullamcorper<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>span<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>home-buttons</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>a href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>#</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>btn btn-primary btn-lg</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>Download<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>a<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>a href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>#</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>btn btn-default btn-lg</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>Learn more<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>a<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span>ul class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>icos unstyle</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>li<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span>a href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>#</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#ffffff; background:#dd0000; '>'fa fa-apple'</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>a<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>li<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>li<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span>a href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>#</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#ffffff; background:#dd0000; '>'fa fa-windows'</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>a<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>li<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>ul<span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+			
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>!</span><span style='color:#d2cd86; '>-</span><span style='color:#d2cd86; '>-</span> end <span style='color:#d2cd86; '>.</span>row <span style='color:#d2cd86; '>-</span><span style='color:#d2cd86; '>-</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span>a href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>#features</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>introarrow</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>fa fa-angle-double-down</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>a<span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+</pre>
+<br/>	  
+	  
+	  
+	<h3>Features</h3>
+	<p class="well">
+<span class="note">
+Basic structure
+</span>
+</p>
+
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>features</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>wrapsection</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>container</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>sectionhead</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span>h1 class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>heading</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>Choose This Product<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h1<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span>p class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>lead</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					Make beautiful and eye catching site with Apulum today<span style='color:#d2cd86; '>.</span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>row text-center</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>		
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-sm-4 feature-item</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>feature-icon</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>fa fa-cog</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>h4<span style='color:#d2cd86; '>></span><span style='color:#008c00; '>439</span> Font Awesome icons<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h4<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>p class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>description</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+						Curabitur sollicitudin<span style='color:#d2cd86; '>,</span> lorem
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>span class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>sep</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>span<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>p<span style='color:#d2cd86; '>></span>
+						The march of science and technology<span style='color:#d2cd86; '>.</span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-sm-4 feature-item</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>feature-icon</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>fa fa-eye</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>h4<span style='color:#d2cd86; '>></span>Extremely easy to customize<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h4<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>p class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>description</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+						Curabitur sollicitudin<span style='color:#d2cd86; '>,</span> lorem
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>span class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>sep</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>span<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>p<span style='color:#d2cd86; '>></span>
+						The march of science and technology
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-sm-4 feature-item</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>feature-icon</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>fa fa-heart</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>h4<span style='color:#d2cd86; '>></span>Perfect on Retina Displays<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h4<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>p class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>description</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+						Curabitur sollicitudin<span style='color:#d2cd86; '>,</span> lorem
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>span class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>sep</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>span<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>p<span style='color:#d2cd86; '>></span>
+						The march of science and technology
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+</pre>
+
+
+<br/> 
+
+	  
+	<h3>Download</h3>
+	<p class="well"><span class="note">Basic structure</span></p>
+
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>download</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>download whitetext</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>wrapsection</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>overlay highlightbg</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>container</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>row</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-6</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>h2<span style='color:#d2cd86; '>></span>Purchase our product right now<span style='color:#d2cd86; '>!</span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h2<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>p<span style='color:#d2cd86; '>></span>
+						Lorem Ipsum is simply dummy text of the printing<span style='color:#d2cd86; '>.</span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>ul class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>iconlist unstyle</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>li<span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>h4<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>fa fa-magic</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span>Winning<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h4<span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>p<span style='color:#d2cd86; '>></span> Suspendisse<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>li<span style='color:#d2cd86; '>></span>							
+							
+						<span style='color:#d2cd86; '>&lt;</span>li<span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>h4<span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span>i class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>fa fa-cog</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>i<span style='color:#d2cd86; '>></span>Best choice<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>h4<span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span>p<span style='color:#d2cd86; '>></span> Quisque<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>p<span style='color:#d2cd86; '>></span>
+						<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>li<span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>ul<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span>br<span style='color:#d2cd86; '>/</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span>a href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>#</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>btn btn-lg btn-simple whitebg</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span> Purchase<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>a<span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-6</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+					<span style='color:#d2cd86; '>&lt;</span>img src<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>img/wowthemes2.png</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>img-responsive</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+				<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+			<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>!</span><span style='color:#d2cd86; '>-</span><span style='color:#d2cd86; '>-</span> end <span style='color:#d2cd86; '>.</span>row <span style='color:#d2cd86; '>-</span><span style='color:#d2cd86; '>-</span><span style='color:#d2cd86; '>></span>
+		<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+	<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span>section<span style='color:#d2cd86; '>></span>
+</pre>
+
+<p class="well"><span class="note">If you want to add replace the colored background with a simple dark one, replace this line:</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>overlay highlightbg</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+</pre>
+
+
+<p class="well"><span class="note">with this one:</span></p>
+
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>overlay</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+</pre>
+
+<p class="well"><span class="note">or if you don't want any background area at all, simple remove the following line:</span></p>
+
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>overlay highlightbg</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span><span style='color:#d2cd86; '>&lt;</span><span style='color:#d2cd86; '>/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#d2cd86; '>></span>
+</pre>
+
+<p class="well"><span class="note">in this case you might not need the white text anymore, therefore also remove the whitetext class, by replacing the following line:</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>download</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>download whitetext</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+</pre>
+
+<p class="well"><span class="note">with this one:</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>section id<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>download</span><span style='color:#02d045; '>"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>download</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+</pre>
+<br/> 
+
+
+
+	
+	<h3>Pricing</h3>
+	<p class="well"><span class="note">Basic structure</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>section</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"pricePlans"</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"wrapsection"</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"container"</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"sectionhead"</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h1</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"margbottom50"</span><span style='color:#ff8906; '>></span>Affordable Plans<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h1</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"row"</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"col-md-12"</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"plans"</span><span style='color:#ff8906; '>></span>
+				
+					<span style='color:#9999a9; '>&lt;!-- begin plan 1 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"plan"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"planContainer"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"title"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h2</span><span style='color:#ff8906; '>></span>Plan <span style='color:#00a800; '>1</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h2</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"price"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+							$<span style='color:#00a800; '>10</span>/<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>month<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"options"</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>2</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>1</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Free <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>2</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>3</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>4</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>1</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>5</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"button"</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"#"</span><span style='color:#ff8906; '>></span>Purchase<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>a</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- begin plan 2 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"plan"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"planContainer"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"title"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h2</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"bestPlanTitle"</span><span style='color:#ff8906; '>></span>Plan <span style='color:#00a800; '>2</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h2</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"price"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"bestPlanPrice"</span><span style='color:#ff8906; '>></span>
+							$<span style='color:#00a800; '>20</span>/month
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"options"</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>2</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>1</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Free <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>2</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>3</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>4</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>1</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>5</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"button"</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>a</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"bestPlanButton"</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"#"</span><span style='color:#ff8906; '>></span>Purchase<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>a</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- begin plan 3 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"plan"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"planContainer"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"title"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h2</span><span style='color:#ff8906; '>></span>Plan <span style='color:#00a800; '>3</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h2</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"price"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+							$<span style='color:#00a800; '>30</span>/<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>month<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"options"</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>2</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>1</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Free <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>2</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>3</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>4</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>1</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>5</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"button"</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"#"</span><span style='color:#ff8906; '>></span>Purchase<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>a</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- begin plan 4 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"plan"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"planContainer"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"title"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h2</span><span style='color:#ff8906; '>></span>Plan <span style='color:#00a800; '>4</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h2</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"price"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+							$<span style='color:#00a800; '>40</span>/<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>month<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>ul</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"options"</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>2</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>1</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Free <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>2</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>3</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>Unlimited <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>4</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+							<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span><span style='color:#00a800; '>1</span>x <span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span>option <span style='color:#00a800; '>5</span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>li</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"button"</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>a</span> href<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"#"</span><span style='color:#ff8906; '>></span>Purchase<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>a</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>li</span><span style='color:#ff8906; '>></span>
+					<span style='color:#9999a9; '>&lt;!-- end plan 4 --></span>
+					
+				<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>ul</span><span style='color:#ff8906; '>></span>
+				<span style='color:#9999a9; '>&lt;!-- End ul#plans --></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span><span style='color:#9999a9; '>&lt;!-- end .row --></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;/</span><span style='color:#f6c1d0; '>section</span><span style='color:#ff8906; '>></span>
+</pre>
+
+
+<br/>
+
+<h3>Portfolio</h3>
+<p class="well"><span class="note">Basic structure</span></p>
+	
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>section</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"showcase"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"text-center"</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"wrapsection"</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"container"</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"row"</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"col-md-12"</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"sectionhead"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h1</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"heading"</span><span style='color:#ff8906; '>></span>Application Screenshots<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h1</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"lead"</span><span style='color:#ff8906; '>></span>
+						Use this area to showcase screenshots of your app<span style='color:#00a800; '>.</span><span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>br</span><span style='color:#ff8906; '>></span>
+						The structure is simply, just add your images and done!
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"wowcarousel"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"owl-carousel"</span><span style='color:#ff8906; '>></span>
+				
+					<span style='color:#9999a9; '>&lt;!-- item 1 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"item"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>img</span> src<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"img/image.jpg"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- item 2 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"item"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>img</span> src<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"img/image.jpg"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- item 3 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"item"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>img</span> src<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"img/image.jpg"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- item 4 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"item"</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>img</span> src<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"img/image.jpg"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+					<span style='color:#9999a9; '>&lt;!-- end item 4 --></span>
+					
+				<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span><span style='color:#9999a9; '>&lt;!-- end row --></span>
+		<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;/</span><span style='color:#f6c1d0; '>section</span><span style='color:#ff8906; '>></span>
+</pre>
+
+
+	<br/>
+	
+	<h3>Testimonials</h3>
+	<p class="well"><span class="note">Basic structure</span></p>
+	
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#ff8906; '>&lt;</span><span style='color:#f6c1d0; '>section</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"testimonials"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"testimonials whitetext"</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"wrapsection"</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"overlay"</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"container"</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"row text-center"</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"wowtestim"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"owl-carousel"</span><span style='color:#ff8906; '>></span>
+				
+					<span style='color:#9999a9; '>&lt;!-- testimonial 1 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"item"</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>a</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-image"</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>img</span> src<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar4.png"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"avatar"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"Client"</span><span style='color:#ff8906; '>/></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>a</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h1</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-name uppercase"</span><span style='color:#ff8906; '>></span>Erny Keirstead <span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h1</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h3</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-pos uppercase"</span><span style='color:#ff8906; '>></span>Hypnos Theme <span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h3</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-msg"</span><span style='color:#ff8906; '>></span>
+							 Great themes with equally amazing customer service to go with it<span style='color:#00a800; '>.</span> Very prompt responses and very knowledgable staff that truly cares about their customer<span style='color:#00a800; '>.</span> I stand <span style='color:#00a800; '>100</span>% behind this website and will make sure to recommend it to my friends<span style='color:#00a800; '>.</span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- testimonial 2 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"item"</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>a</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-image"</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>img</span> src<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar2.png"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"avatar"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"Client"</span><span style='color:#ff8906; '>/></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>a</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h1</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-name uppercase"</span><span style='color:#ff8906; '>></span>Rania Macfarlane <span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h1</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h3</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-pos uppercase"</span><span style='color:#ff8906; '>></span>Apulum Theme <span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h3</span><span style='color:#ff8906; '>></span>
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-msg"</span><span style='color:#ff8906; '>></span>
+							 This is a great theme for multipurpose use<span style='color:#00a800; '>.</span> Great features, catchy look<span style='color:#00a800; '>.</span> Also, I have on a few occasions needed to contact the support team, and they have been extremely helpful<span style='color:#00a800; '>.</span> I'm new to navigating these things so this has been invaluable!
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+					
+					<span style='color:#9999a9; '>&lt;!-- testimonial 3 --></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"item"</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>a</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-image"</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>img</span> src<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar5.png"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"avatar"</span> alt<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"Client"</span><span style='color:#ff8906; '>/></span>
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>a</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h1</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-name uppercase"</span><span style='color:#ff8906; '>></span>Sharl White <span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h1</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>h3</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-pos uppercase"</span><span style='color:#ff8906; '>></span>Vesta Theme <span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>h3</span><span style='color:#ff8906; '>></span>				
+						<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"client-msg"</span><span style='color:#ff8906; '>></span>
+							 The support<span style='color:#00a800; '>...</span> I can only say it's awesome<span style='color:#00a800; '>.</span> You make a product and you help people out any way you can even if it means that you have to log in on their dashboard to sort out any problems that customer might have<span style='color:#00a800; '>.</span> Simply Outstanding!
+						<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+					<span style='color:#9999a9; '>&lt;!-- end testimonial 3 --></span>
+					
+				<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+<span style='color:#ff8906; '>&lt;/</span><span style='color:#f6c1d0; '>section</span><span style='color:#ff8906; '>></span>
+</pre>
+
+<p class="well">
+	<span class="note"> The testimonial slider uses the carousel.min.js script which is initiated through js/common.js file:</span>
+	</p>
+</p>
+
+<pre style='color:#d1d1d1;background:#000000;'>
+$(document).ready(function() {
+ 
+  $("#wowtestim").owlCarousel({
+ 
+      navigation : false, // Show next and prev buttons
+      slideSpeed : <span style='color:#00a800; '>50</span>,
+      paginationSpeed : <span style='color:#00a800; '>400</span>,
+	  autoPlay : false,
+      items : <span style='color:#00a800; '>1</span>
+ 
+      // "singleItem:true" is a shortcut for:
+      // items : <span style='color:#00a800; '>1</span>, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+ 
+  });
+ 
+});
+ 
+});
+</pre>
+
+<br/>
+
+	
+	<br/>
+	<h3>Contact</h3>
+          <p class="well note">
+              <span class="note">Open process.php file and replace the current e-mail address with your own:</span>
+          </p>
+		<pre style='color:#d1d1d1;background:#000000;'>$to <span style='color:#d2cd86; '>=</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>wowthemesnet@gmail.com</span><span style='color:#02d045; '>"</span><span style='color:#b060b0; '>;</span></pre>
+         <p class="well note">
+              <span class="note">In order to change the error messages, open js/validate.js at the bottom at the document and replace the preset messages with your own (around line 2492):</span>
+          </p>
+		  
+		  <pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#e34adc; '>messages:</span> <span style='color:#b060b0; '>{</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;name:</span> <span style='color:#b060b0; '>{</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;required:</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Please, add your name.</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>,</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;minlength:</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Your name must consist of at least 2 characters</span><span style='color:#02d045; '>"</span>
+            <span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>,</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;email:</span> <span style='color:#b060b0; '>{</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;required:</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Please, add your e-mail address.</span><span style='color:#02d045; '>"</span>
+            <span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>,</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;message:</span> <span style='color:#b060b0; '>{</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;required:</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Please, add your message.</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>,</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;minlength:</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>Your message is too short.</span><span style='color:#02d045; '>"</span>
+            <span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>,</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;answer:</span> <span style='color:#b060b0; '>{</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;required:</span> <span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>sorry, wrong answer!</span><span style='color:#02d045; '>"</span>
+            <span style='color:#b060b0; '>}</span>
+        <span style='color:#b060b0; '>}</span><span style='color:#d2cd86; '>,</span>
+</pre>
+
+<p class="well note"><span class="note">Basic Contact Form (do not change the id, name, method unless you know what you're doing):</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+	<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>form</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"contact"</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"contact"</span> method<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"post"</span><span style='color:#ff8906; '>></span>
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>fieldset</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"row"</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"col-md-4"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>label</span> for<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"name"</span><span style='color:#ff8906; '>></span>Name<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"required"</span><span style='color:#ff8906; '>></span>*<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>label</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>input</span> type<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"text"</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"name"</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"name"</span> size<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"30"</span> value<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span> required<span style='color:#ff8906; '>/></span>
+				<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"col-md-4"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>label</span> for<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"email"</span><span style='color:#ff8906; '>></span>Email<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"required"</span><span style='color:#ff8906; '>></span>*<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>label</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>input</span> type<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"text"</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"email"</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"email"</span> size<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"30"</span> value<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span> required<span style='color:#ff8906; '>/></span>
+				<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"col-md-4"</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>label</span> for<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"phone"</span><span style='color:#ff8906; '>></span>Phone<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>label</span><span style='color:#ff8906; '>></span>
+					<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>input</span> type<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"text"</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"phone"</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"phone"</span> size<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"30"</span> value<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>""</span><span style='color:#ff8906; '>/></span>
+				<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> style<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#904050; '>margin-top</span><span style='color:#d2cd86; '>:</span><span style='color:#00a800; '>15</span><span style='color:#006600; '>px</span><span style='color:#b060b0; '>;</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>label</span> for<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"message"</span><span style='color:#ff8906; '>></span>Message<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>span</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"required"</span><span style='color:#ff8906; '>></span>*<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>span</span><span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>label</span><span style='color:#ff8906; '>></span>
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>textarea</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"message"</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"message"</span> required<span style='color:#ff8906; '>></span><span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>textarea</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>						
+				<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>input</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"submit"</span> type<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"submit"</span> name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"submit"</span> value<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"Send"</span><span style='color:#ff8906; '>/></span>						
+		<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>fieldset</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>form</span><span style='color:#ff8906; '>></span>
+	
+	
+	<span style='color:#9999a9; '>&lt;!-- begin success message --></span>
+	<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"success"</span><span style='color:#ff8906; '>></span>			
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span> style<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"</span><span style='color:#904050; '>margin-top</span><span style='color:#d2cd86; '>:</span><span style='color:#00a800; '>20</span><span style='color:#006600; '>px</span><span style='color:#b060b0; '>;</span><span style='color:#00c4c4; '>"</span><span style='color:#ff8906; '>></span>
+			<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>button</span> type<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"button"</span> class<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"close"</span> data-dismiss<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"alert"</span> aria-hidden<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"true"</span><span style='color:#ff8906; '>></span>&amp;times;<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>button</span><span style='color:#ff8906; '>></span>
+			Your message was sent succssfully! I will be in touch as soon as I can<span style='color:#00a800; '>.</span>
+		<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>			
+	<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+	<span style='color:#9999a9; '>&lt;!-- end success message --></span>
+	
+	<span style='color:#9999a9; '>&lt;!-- begin error message --></span>
+	<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> id<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"error"</span><span style='color:#ff8906; '>></span>			
+		<span style='color:#ff8906; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+			 Something went wrong, try refreshing and submitting the form again<span style='color:#00a800; '>.</span>
+		<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>p</span><span style='color:#ff8906; '>></span>
+	<span style='color:#ff8906; '>&lt;/</span><span style='color:#e66170; font-weight:bold; '>div</span><span style='color:#ff8906; '>></span>
+	<span style='color:#9999a9; '>&lt;!-- end error message --></span>
+</pre>
+
+<br/>
+	<h2>Skin Colors</h2>
+	<p class="well note"><span class="note">
+	Open index.html file and replace the css style for the skin color you wish (available skins can all be found in css folder). Example:</span>
+	</p>
+	
+	<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>link href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>css/skin-red.css</span><span style='color:#02d045; '>"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>stylesheet</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+</pre>
+
+<p class="well">
+<span class="note">
+replace it with:
+</span>
+</p>
+
+	<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span>link href<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>css/skin-orange.css</span><span style='color:#02d045; '>"</span> rel<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>stylesheet</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+</pre>
+
+<br/>
+<h2>Icons</h2>
+<p class="well note"><span class="note">You can find a full list of available icons supported by this theme <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">here</a>.
+</p>
+
+<br/>
+	<h2>Animations</h2>
+	<p class="well note"><span class="note">The CSS animation allows you to create the following preset animations:</span>
+		 <ul>
+<li>bounce</li>
+<li>bounce In</li>
+<li>bounce In Up</li>
+<li>bounce In Down</li>
+<li>bounce In Left</li>
+<li>bounce In Right</li>
+<li>bounce Out</li>
+<li>bounce Out Up</li>
+<li>bounce Out Down</li>
+<li>bounce Out Left</li>
+<li>bounce Out Right</li>
+<li>fade In</li>
+<li>fade In Up</li>
+<li>fade In Down</li>
+<li>fade In Left</li>
+<li>fade In Right</li>
+<li>fade In Up Big</li>
+<li>fade In Down Big</li>
+<li>fade In Left Big</li>
+<li>fade In Right Big</li>
+<li>fade Out</li>
+<li>fade Out Up</li>
+<li>fade Out Down</li>
+<li>fade Out Left</li>
+<li>fade Out Right</li>
+<li>fade Out Up Big</li>
+<li>fade Out Down Big</li>
+<li>fade Out Left Big</li>
+<li>fade Out Right Big</li>
+<li>flash</li>
+<li>flip</li>
+<li>flip In X</li>
+<li>flip Out X</li>
+<li>flip In Y</li>
+<li>flip Out Y</li>
+<li>hinge</li>
+<li>light Speed In</li>
+<li>light Speed Out</li>
+<li>pulse</li>
+<li>rotate In</li>
+<li>rotate In Up Left</li>
+<li>rotate In Down Left</li>
+<li>rotate In Up Right</li>
+<li>rotate In Down Right</li>
+<li>rotate Out</li>
+<li>rotate Out Up Left</li>
+<li>rotate Out Down Left</li>
+<li>rotate Out Up Right</li>
+<li>rotate Out Down Right</li>
+<li>roll In</li>
+<li>roll Out</li>
+<li>shake</li>
+<li>swing</li>
+<li>tada</li>
+<li>wiggle</li>
+<li>wobble</li>
+</ul>
+</p>
+<p class="well">
+<span class="note">To any div element you can add an animation. In the following example, the class <code>bounceIn animated</code> is added to the div class <code>col-md-4</code>:</span>
+</p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-4 bounceIn animated</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+</pre>
+
+
+<p class="well"><span class="note">TIP: Add the CSS class <code>.wow</code>; the element will be invisible until the user scrolls to reveal it. Example:</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-4 wow bounceIn animated</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+</pre>	
+
+<p class="well"><span class="note">Advanced Options</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+data<span style='color:#d2cd86; '>-</span>wow<span style='color:#d2cd86; '>-</span>duration<span style='color:#b060b0; '>:</span> Change the animation duration
+data<span style='color:#d2cd86; '>-</span>wow<span style='color:#d2cd86; '>-</span>delay<span style='color:#b060b0; '>:</span> Delay before the animation starts
+data<span style='color:#d2cd86; '>-</span>wow<span style='color:#d2cd86; '>-</span>offset<span style='color:#b060b0; '>:</span> Distance to start the animation <span style='color:#d2cd86; '>(</span>related to the browser bottom<span style='color:#d2cd86; '>)</span>
+data<span style='color:#d2cd86; '>-</span>wow<span style='color:#d2cd86; '>-</span>iteration<span style='color:#b060b0; '>:</span> Number of times the animation is repeated
+</pre>	
+
+<p class="well"><span class="note">Example</span></p>
+<pre style='color:#d1d1d1;background:#000000;'>
+<span style='color:#d2cd86; '>&lt;</span><span style='color:#e66170; font-weight:bold; '>div</span> class<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>col-md-4 wow bounceIn animated</span><span style='color:#02d045; '>"</span> data<span style='color:#d2cd86; '>-</span>wow<span style='color:#d2cd86; '>-</span>duration<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>2s</span><span style='color:#02d045; '>"</span> data<span style='color:#d2cd86; '>-</span>wow<span style='color:#d2cd86; '>-</span>delay<span style='color:#d2cd86; '>=</span><span style='color:#02d045; '>"</span><span style='color:#00c4c4; '>5s</span><span style='color:#02d045; '>"</span><span style='color:#d2cd86; '>></span>
+</pre>
+         
+          <br>
+          <h2>Credits</h2>
+          
+          <p class="well">
+              <span class="note">
+                 Bootstrap: http://getbootstrap.com<br/>
+				 Smoothscroll: // - Balazs Galambosi: maintainer (CHANGELOG.txt),
+								// - Patrick Brunner (patrickb1991@gmail.com),
+								// - Michael Herf: ssc_pulse Algorithm<br/>
+				 Easing: http://gsgd.co.uk/sandbox/jquery/easing/<br/>				
+				 Validate: http://jqueryvalidation.org/
+              </span>
+          </p>
+          <br>
+         
+		<h2>Copyright</h2>
+        <p class="well">
+            <span class="note">Template created by<a href="http://www.wowthemes.net/premium-themes-templates/"> © WowThemes.net</a>. You may remove the copyright area from the bottom of the template and replace it with your own.</span>
+        </p>
+      </div>
+      </div><!--/row-->
+          
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/rainbow/rainbow.min.js"></script>
+    <script src="js/rainbow/language/generic.js"></script>
+    <script src="js/rainbow/language/html.js"></script>
+    <script src="js/rainbow/language/css.js"></script>
+    <script src="js/rainbow/language/javascript.js"></script>
+    <script src="js/rainbowlines/rainbow.linenumbers.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.tocify.min.js"></script>
+    <script src="js/prettify.js"></script>
+
+    <script>
+        $(function() {
+
+          $("#toc").tocify({ selectors: "h2, h3, h4", scrollTo: 60, highlightOffset: 60, extendPage: true });
+
+          prettyPrint();
+
+          $(".optionName").popover({ trigger: "hover", container: "body" });
+
+          $("a[href='#']").click(function(event) {
+
+              event.preventDefault();
+
+          });
+
+          Rainbow.color();
+        });
+    </script>
+  
+</div></body></html>
