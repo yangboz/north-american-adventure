@@ -114,8 +114,44 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
           controller: 'UsersCtrl'
         }
       }
-    });
-
+    })
+  .state('tab.processes', {
+      url: '/processes',
+      views: {
+          'tab-reports': {
+              templateUrl: 'templates/tab-processes.html',
+              controller: 'TabCtrlProcesses'
+          }
+      }
+  })
+  .state('tab.process-detail', {
+      url: '/process/:processId',
+      views: {
+          'tab-reports': {
+              templateUrl: 'templates/detail-process.html',
+              controller: 'ProcessDetailCtrl'
+          }
+      }
+  })
+  .state('tab.instances', {
+      url: '/instances',
+      views: {
+          'tab-reports': {
+              templateUrl: 'templates/tab-instances.html',
+              controller: 'TabCtrlInstances'
+          }
+      }
+  })
+  .state('tab.instances-detail', {
+      url: '/instances/:instancesId',
+      views: {
+          'tab-reports': {
+              templateUrl: 'templates/detail-instances.html',
+              controller: 'InstancesDetailCtrl'
+          }
+      }
+  })
+  ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 });

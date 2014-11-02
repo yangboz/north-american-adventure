@@ -609,7 +609,7 @@ $rootScope.hideLoading = function(){
     });
 })
 
-.controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService,$modal) {
+.controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService,$ionicModal) {
     if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
         $location.path('/login');
         return;
@@ -649,8 +649,8 @@ $rootScope.hideLoading = function(){
     };
 })
 
-.controller('ProcessesCtrl', function ($scope, $rootScope, $location, ProcessDefinitionService,
-                                       ProcessInstanceService, FormDataService, $modal, moment,
+.controller('TabCtrlProcesses', function ($scope, $rootScope, $location, ProcessDefinitionService,
+                                       ProcessInstanceService, FormDataService, $ionicModal, moment,
                                        TasksModalService) {
     if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
         $location.path('/login');
@@ -683,4 +683,90 @@ $rootScope.hideLoading = function(){
     }
 
     $scope.query = "";
-});
+})
+.controller('ProcessDetailCtrl', function($scope,$rootScope,$stateParams, ProcessInstanceService,$log) {
+    ProcessInstanceService.get({processInstanceId:$stateParams.processInstanceId}, function (response) {
+        $log.debug("ProcessInstanceService.getProcessInstanceInfo success!",response);
+        $scope.processInstance = response;
+        $log.debug("ProcessDetailCtrl $scope.processInstance",$scope.processInstance);
+    });
+})
+.controller('TabCtrlInstances', function ($scope, $rootScope, $location,  $ionicModal, moment,
+                                          ProcessInstancesService,ProcessInstanceService,ProcessDefinitionService) {
+    if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
+        $location.path('/login');
+        return;
+    }
+
+    $scope.loadDefinitions = function () {
+        ProcessInstancesService.get({size:1000,latest: "true",sort:"id"},function(instances){
+            $scope.instances =instances;
+            ProcessDefinitionService.get({latest: "true"},function(data){
+                for(var i=0;i<data.data.length;i++)
+                {
+                    var definition = data.data[i];
+                    for(var j=0;j<instances.data.length;j++)
+                    {
+                        if(instances.data[j].processDefinitionId == definition.id)
+                        {
+                            instances.data[j].name = definition.name;
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    $scope.loadDefinitions();
+
+
+
+    var InstancesDetailsCtrl = function ($scope, $modalInstance,instance)
+    {
+        $scope.instance =  instance;
+        $scope.ok = function () {
+            $modalInstance.close(group);
+        };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
+        $scope.delete = function (instance) {
+
+
+            $modalInstance.dismiss('cancel');
+        };
+
+        $scope.diagram = "/service/process-instance/"+instance.id+"/diagram";
+
+
+
+        $scope.instance.details = ProcessInstanceService.get({processInstance:instance.id});
+    }
+
+    $scope.showDetails = function (instance) {
+        var modalInstance = $ionicModal.open({
+            templateUrl: 'views/modals/instanceDetails.html',
+            controller: InstancesDetailsCtrl,
+            resolve: {
+                instance: function () {
+                    return instance;
+                }
+            }
+        });
+        modalInstance.result.then(function (newGroup) {
+
+        }, function () {
+        });
+    };
+
+    $scope.query = "";
+})
+.controller('InstanceDetailCtrl', function($scope,$rootScope,$stateParams, ProcessInstanceService,$log) {
+    ProcessInstanceService.get({processInstanceId:$stateParams.processInstanceId}, function (response) {
+        $log.debug("ProcessInstanceService.getProcessInstanceInfo success!",response);
+        $scope.processInstance = response;
+        $log.debug("InstanceDetailCtrl $scope.processInstance",$scope.processInstance);
+    });
+})
+;
