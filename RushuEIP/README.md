@@ -20,3 +20,10 @@ http://www.activiti.org/
 https://activemq.apache.org
 
 http://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol
+
+
+LDAP:
+
+http://www.ibm.com/developerworks/cn/linux/l-openldap/
+
+http://fanqiang.chinaunix.net/app/ldap/2005-03-23/2979.shtml
