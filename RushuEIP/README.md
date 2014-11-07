@@ -27,3 +27,5 @@ LDAP:
 http://www.ibm.com/developerworks/cn/linux/l-openldap/
 
 http://fanqiang.chinaunix.net/app/ldap/2005-03-23/2979.shtml
+
+http://hermanbanken.nl/2011/01/22/openldap-server-mac-osx-clients/
