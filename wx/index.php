@@ -22,9 +22,10 @@ if (!isset($_GET['echostr'])) {
 }else{
     $wechatObj->valid();
 }
-
+//
 class wechatCallbackapiTest
 {
+    private $RX_OPEN_ID;//FromUserName
     //验证签名
     public function valid()
     {
@@ -50,8 +51,17 @@ class wechatCallbackapiTest
 //        file_put_contents(getcwd().'/log/log_wechat.txt','$postStr:'.$postStr."\n",FILE_APPEND);
         if (!empty($postStr)){
             $this->logger("R ".$postStr);
+//<xml>
+// <ToUserName><![CDATA[toUser]]></ToUserName>
+// <FromUserName><![CDATA[fromUser]]></FromUserName>
+// <CreateTime>1348831860</CreateTime>
+// <MsgType><![CDATA[text]]></MsgType>
+// <Content><![CDATA[this is a test]]></Content>
+// <MsgId>1234567890123456</MsgId>
+// </xml>
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $RX_TYPE = trim($postObj->MsgType);
+            $this->RX_OPEN_ID = trim($postObj->FromUserName);
 
             //消息类型分离
             switch ($RX_TYPE)
@@ -161,7 +171,7 @@ class wechatCallbackapiTest
                 $content = array();
                 $content[] = array("Title"=>SITE_TITLE,  "Description"=>SITE_SUBTITLE,
                     "PicUrl"=>SITE_URL_LOGO,
-                    "Url" =>SITE_URL_EEM);
+                    "Url" =>SITE_URL_EEM."?openid=".$this->RX_OPEN_ID);
             }else if (strstr($keyword, "图文") || strstr($keyword, "多图文")){
                 $content = array();
                 $content[] = array("Title"=>SITE_TITLE."1", "Description"=>SITE_SUBTITLE,

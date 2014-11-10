@@ -358,10 +358,38 @@ $rootScope.hideLoading = function(){
 
 .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log,
                                    TaskService,ProcessService,JobService,ExecutionService,
-                                   HistoryService,FormDataService) {
+                                   HistoryService) {
+    //
     $rootScope.loggedUser = {};
     $rootScope.loggedin = false;
+    $scope.getUrlParameters = function(parameter, staticURL, decode){
+        /*
+         Function: getUrlParameters
+         Description: Get the value of URL parameters either from
+         current URL or static URL
+         Author: Tirumal
+         URL: www.code-tricks.com
+         */
+        var currLocation = (staticURL.length)? staticURL : window.location.search,
+            parArr = currLocation.split("?")[1].split("&"),
+            returnBool = true;
 
+        for(var i = 0; i < parArr.length; i++){
+            parr = parArr[i].split("=");
+            if(parr[0] == parameter){
+                return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+                returnBool = true;
+            }else{
+                returnBool = false;
+            }
+        }
+
+        if(!returnBool) return false;
+    }
+//Get_Wechat_OpenId
+    $rootScope.wx_openid = $scope.getUrlParameters("openid", "", true);
+    $log.info("wx_openid:",$rootScope.wx_openid);
+//
     $scope.userLogin = function () {
 //        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);

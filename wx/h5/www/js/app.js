@@ -42,7 +42,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
     }
   });
 })
-
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
