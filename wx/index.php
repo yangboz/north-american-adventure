@@ -10,7 +10,7 @@ define("APP_ID","wx34ff2a71ac3c7510");
 define("APP_SECRET","cfc67c1d52476b2dd8a93b32ef8c4617");
 define("SITE_URL_LOGO","http://wx.rushucloud.com/logo.jpg");
 define("SITE_URL_WWW","http://www.rushucloud.com");
-define("SITE_URL_EEM","wx.rushucloud.com/h5/");
+define("SITE_URL_EEM","wx.rushucloud.com/h5/www/");
 define("SITE_TITLE","云报销");
 define("SITE_SUBTITLE","解放EXCEL,方便快捷的在线报销软件.");
 define("SITE_URL_PIC","");
