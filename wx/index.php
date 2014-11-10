@@ -5,9 +5,16 @@
  * Date: 14-9-29
  * Time: 下午11:04
  */
-
-define("TOKEN", "magenta0cat0purple0spider");
-
+define("TOKEN","magenta0cat0purple0spider");
+define("APP_ID","wx34ff2a71ac3c7510");
+define("APP_SECRET","cfc67c1d52476b2dd8a93b32ef8c4617");
+define("SITE_URL_LOGO","http://wx.rushucloud.com/logo.jpg");
+define("SITE_URL_WWW","http://www.rushucloud.com");
+define("SITE_TITLE","云报销");
+define("SITE_SUBTITLE","解放EXCEL,方便快捷的在线报销软件.");
+define("SITE_URL_PIC","");
+define("SITE_URL_MUSIC","");
+//
 $wechatObj = new wechatCallbackapiTest();
 if (!isset($_GET['echostr'])) {
     $wechatObj->responseMsg();
@@ -39,7 +46,7 @@ class wechatCallbackapiTest
     public function responseMsg()
     {
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-        file_put_contents(getcwd().'/log/log_wechat.txt','$postStr:'.$postStr."\n",FILE_APPEND);
+//        file_put_contents(getcwd().'/log/log_wechat.txt','$postStr:'.$postStr."\n",FILE_APPEND);
         if (!empty($postStr)){
             $this->logger("R ".$postStr);
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -88,7 +95,7 @@ class wechatCallbackapiTest
         switch ($object->Event)
         {
             case "subscribe":
-                $content = "Welcome! ";
+                $content = "欢迎使用".SITE_TITLE."!".SITE_SUBTITLE;
                 $content .= (!empty($object->EventKey))?("\n来自二维码场景 ".str_replace("qrscene_","",$object->EventKey)):"";
                 break;
             case "unsubscribe":
@@ -102,7 +109,9 @@ class wechatCallbackapiTest
                 {
                     case "COMPANY":
                         $content = array();
-                        $content[] = array("Title"=>"多图文1标题", "Description"=>"", "PicUrl"=>"http://discuz.comli.com/weixin/weather/icon/cartoon.jpg", "Url" =>"http://m.cnblogs.com/?u=txw1958");
+                        $content[] = array("Title"=>SITE_TITLE, "Description"=>SITE_SUBTITLE,
+                            "PicUrl"=>SITE_URL_LOGO,
+                            "Url" =>SITE_URL_WWW);
                         break;
                     default:
                         $content = "点击菜单：".$object->EventKey;
@@ -149,17 +158,27 @@ class wechatCallbackapiTest
                 $content = "这是个文本消息";
             }else if (strstr($keyword, "单图文")){
                 $content = array();
-                $content[] = array("Title"=>"单图文标题",  "Description"=>"单图文内容", "PicUrl"=>"http://discuz.comli.com/weixin/weather/icon/cartoon.jpg", "Url" =>"http://m.cnblogs.com/?u=txw1958");
+                $content[] = array("Title"=>SITE_TITLE,  "Description"=>SITE_SUBTITLE,
+                    "PicUrl"=>SITE_URL_LOGO,
+                    "Url" =>SITE_URL_WWW);
             }else if (strstr($keyword, "图文") || strstr($keyword, "多图文")){
                 $content = array();
-                $content[] = array("Title"=>"多图文1标题", "Description"=>"", "PicUrl"=>"http://discuz.comli.com/weixin/weather/icon/cartoon.jpg", "Url" =>"http://m.cnblogs.com/?u=txw1958");
-                $content[] = array("Title"=>"多图文2标题", "Description"=>"", "PicUrl"=>"http://d.hiphotos.bdimg.com/wisegame/pic/item/f3529822720e0cf3ac9f1ada0846f21fbe09aaa3.jpg", "Url" =>"http://m.cnblogs.com/?u=txw1958");
-                $content[] = array("Title"=>"多图文3标题", "Description"=>"", "PicUrl"=>"http://g.hiphotos.bdimg.com/wisegame/pic/item/18cb0a46f21fbe090d338acc6a600c338644adfd.jpg", "Url" =>"http://m.cnblogs.com/?u=txw1958");
+                $content[] = array("Title"=>SITE_TITLE."1", "Description"=>SITE_SUBTITLE,
+                    "PicUrl"=>SITE_URL_LOGO,
+                    "Url" =>SITE_URL_WWW);
+                $content[] = array("Title"=>SITE_TITLE."2", "Description"=>SITE_SUBTITLE,
+                    "PicUrl"=>SITE_URL_LOGO,
+                    "Url" =>SITE_URL_WWW);
+                $content[] = array("Title"=>SITE_TITLE."3", "Description"=>SITE_SUBTITLE,
+                    "PicUrl"=>SITE_URL_LOGO,
+                    "Url" =>SITE_URL_WWW);
             }else if (strstr($keyword, "音乐")){
                 $content = array();
-                $content = array("Title"=>"最炫民族风", "Description"=>"歌手：凤凰传奇", "MusicUrl"=>"http://121.199.4.61/music/zxmzf.mp3", "HQMusicUrl"=>"http://121.199.4.61/music/zxmzf.mp3");
+                $content = array("Title"=>SITE_TITLE, "Description"=>SITE_SUBTITLE,
+                    "MusicUrl"=>SITE_URL_MUSIC,
+                    "HQMusicUrl"=>SITE_URL_MUSIC);
             }else{
-                $content = date("Y-m-d H:i:s",time())."\n技术支持 方倍工作室";
+                $content = date("Y-m-d H:i:s",time())."\n ".SITE_URL_WWW;
             }
 
             if(is_array($content)){
@@ -374,7 +393,7 @@ $item_str
     private function logger($log_content)
     {
         $max_size = 10000;
-        $log_filename = getcwd()."/log.xml";
+        $log_filename = getcwd()."/log/log_wechat.txt";
         if(file_exists($log_filename) and (abs(filesize($log_filename)) > $max_size)){unlink($log_filename);}
         file_put_contents($log_filename, date('H:i:s')." ".$log_content."\r\n", FILE_APPEND);
     }
