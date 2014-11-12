@@ -1,11 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>com.rushucloud.eip</groupId>
 	<artifactId>eip-rushucloud</artifactId>
 	<version>0.0.1</version>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -40,11 +38,16 @@
 	<properties>
 		<start-class>com.rushucloud.eip.Application</start-class>
 	</properties>
+
 	<repositories>
 		<repository>
 			<id>oss-jfrog-artifactory</id>
 			<name>oss-jfrog-artifactory-releases</name>
 			<url>http://oss.jfrog.org/artifactory/oss-release-local</url>
+		</repository>
+		<repository>
+			<id>spring-releases</id>
+			<url>http://repo.spring.io/libs-release</url>
 		</repository>
 	</repositories>
 	<build>
@@ -59,4 +62,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<pluginRepositories>
+			<pluginRepository>
+				<id>spring-releases</id>
+				<url>http://repo.spring.io/libs-release</url>
+			</pluginRepository>
+		</pluginRepositories>
 </project>
