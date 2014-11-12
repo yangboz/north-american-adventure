@@ -26,7 +26,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
     'api_endpoint': 'http://www.rushucloud.com:90/activiti-rest/',
     'api_version': '5.16.3',
     'stomp_uri':'ws://www.rushucloud.com:61614/stomp',
-    'stomp_protocol':'v11.stomp'
+    'stomp_protocol':'v11.stomp',
+    'proxy_url':'http://wx.rushucloud.com/h5/www/proxy.php',
+    'debug':false
 })
 ///App run
 .run(function($ionicPlatform) {

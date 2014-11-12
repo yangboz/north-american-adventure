@@ -1,19 +1,20 @@
 <ion-modal-view ng-controller="LoginCtrl">
     <ion-header-bar class="bar bar-header">
         <h1 class="title">Login</h1>
-        <button class="button button-icon icon ion-close" ng-click="loginModal.hide()"></button>
+        <button class="button button-icon icon ion-close" ng-click="loginModal.hide()" ng-show="{{debug}}"></button>
     </ion-header-bar>
     <ion-content class="padding">
         <div class="list">
-            <label class="item item-input">
+            <label class="item item-input" >
                 <span class="input-label">Username:</span>
-                <input placeholder="" ng-model="{{loginModal.user.username}}" type="text">
+                <input placeholder="" type="text" value="{{wx_openid}}" ng-disabled="{{wx_openid!=undefined}}">
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-show="{{wx_openid==undefined}}">
                 <span class="input-label">Password:</span>
                 <input placeholder="{{loginModal.user.password}}" type="text">
             </label>
-            <button class="button button-full" ng-click="userLogin()">Submit</button>
+            <button ng-hide="{{wx_openid!=undefined}}" class="button button-full" ng-click="userLogin()">Submit</button>
+            <button ng-show="{{wx_openid!=undefined}}" class="button button-full" ng-click="userBind()">绑定</button>
         </div>
     </ion-content>
 </ion-modal-view>

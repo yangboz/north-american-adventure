@@ -358,8 +358,9 @@ $rootScope.hideLoading = function(){
 
 .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location,$log,
                                    TaskService,ProcessService,JobService,ExecutionService,
-                                   HistoryService) {
+                                   HistoryService,CONFIG_ENV) {
     //
+    $rootScope.debug = CONFIG_ENV.debug;
     $rootScope.loggedUser = {};
     $rootScope.loggedin = false;
     $scope.getUrlParameters = function(parameter, staticURL, decode){
@@ -386,9 +387,31 @@ $rootScope.hideLoading = function(){
 
         if(!returnBool) return false;
     }
-//Get_Wechat_OpenId
-    $rootScope.wx_openid = $scope.getUrlParameters("openid", "", true);
-    $log.info("wx_openid:",$rootScope.wx_openid);
+//Get_wx_open_id,@see:http://www.abyssly.com/2013/09/20/wx_bind/
+    $scope.wx_openid = $scope.getUrlParameters("openid", "", true);
+    $log.info("wx_openid:",$scope.wx_openid);
+    //$scope.wx_token = $scope.getUrlParameters("token", "", true);
+    $scope.wx_token = "token";
+    $log.info("wx_token:",$scope.wx_token);
+    //ng-model
+    $scope.newWxUser = {"name": $scope.wx_openid, "password": "aaabbbccc","token":$scope.wx_token};
+    $scope.userBind = function(){
+        $log.debug("userBind func call!");
+        //Simple bind service call for testing.
+        $http({
+            method: 'POST',
+            url: CONFIG_ENV.proxy_url,
+            data:
+            $scope.newWxUser
+        })
+        .success(function(data, status)
+        {
+            $log.debug('wx_user_bind success!',data,status);
+        })
+        .error(function(data, status) {
+            $log.debug('wx_user_bind failure!',data,status);
+        });
+    }
 //
     $scope.userLogin = function () {
 //        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
