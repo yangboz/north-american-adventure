@@ -1,4 +1,4 @@
-package com.rushucloud.eip;
+package com.rushucloud.eip.utils;
 
 import java.io.IOException;
 import javax.servlet.Filter;

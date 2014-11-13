@@ -1,4 +1,4 @@
-package com.rushucloud.eip;
+package com.rushucloud.eip.config;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
