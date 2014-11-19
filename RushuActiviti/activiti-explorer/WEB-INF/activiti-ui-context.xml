@@ -84,6 +84,16 @@
     <property name="workflowDefinitionConversionFactory" ref="workflowDefinitionConversionFactory" />
     <property name="loginHandler" ref="activitiLoginHandler" />
     <property name="simpleWorkflowJsonConverter" ref="simpleWorkflowJsonConverter" />
+    <property name="adminGroups">
+      <list>
+        <value>admin</value>
+      </list>
+    </property>
+    <property name="userGroups">
+	    <list>
+          <value>user</value>
+        </list>
+    </property>
   </bean>
   
   <bean id="simpleWorkflowJsonConverter" class="org.activiti.workflow.simple.converter.json.SimpleWorkflowJsonConverter" />
