@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="www.RushuCloud.com">
-    <serverData>
-      <paths name="www.RushuCloud.com">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/h5" local="$PROJECT_DIR$/www" web="/h5" />
-          </mappings>
-        </serverdata>
-      </paths>
-    </serverData>
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
-
