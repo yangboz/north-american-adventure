@@ -14,5 +14,4 @@ public class HelloController {
 	public JsonString sayHello() {
 		return new JsonString("world!");
 	}
-
 }
