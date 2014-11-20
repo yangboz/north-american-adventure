@@ -79,10 +79,9 @@ public class Company {
 		this.id = id;
 	}
 
-	public Company(String email, String name) {
+	public Company(String email, String name, String domain) {
 		this.email = email;
 		this.name = name;
+		this.domain = domain;
 	}
-	// Getter and setter methods
-	// ...
 }

@@ -7,9 +7,11 @@ package com.rushucloud.eip.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rushucloud.eip.dto.JsonString;
 import com.rushucloud.eip.models.Company;
 import com.rushucloud.eip.models.CompanyDao;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -42,14 +44,18 @@ public class CompanyController {
 	// @ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "create")
 	@ApiOperation(httpMethod = "GET", value = "a string describing if the company is successfully created or not.")
-	public String create(String email, String name) {
+	public JsonString create(
+			@RequestParam(value="email", required=true, defaultValue="test@test.com") String email,
+			@RequestParam(value="name", required=true, defaultValue="tester") String name,
+			@RequestParam(value="domain", required=true, defaultValue="example.com") String domain
+			) {
 		try {
-			Company company = new Company(email, name);
+			Company company = new Company(email, name,domain);
 			_companyDao.save(company);
 		} catch (Exception ex) {
-			return "Error creating the company: " + ex.toString();
+			return new JsonString("Error creating the company: " + ex.toString());
 		}
-		return "company succesfully created!";
+		return new JsonString("company succesfully created!");
 	}
 
 	/**
