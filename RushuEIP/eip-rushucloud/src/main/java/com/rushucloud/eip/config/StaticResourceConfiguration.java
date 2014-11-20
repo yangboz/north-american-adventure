@@ -7,11 +7,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-        "classpath:/META-INF/resources/", "classpath:/resources/",
-        "classpath:/static/", "classpath:/public/" };
+//        "classpath:/META-INF/resources/", "classpath:/resources/",
+//        "classpath:/static/", "classpath:/public/",
+        "classpath:/resources/api/",
+        "classpath:/resources/webapp/" };
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-        registry.addResourceHandler("/**").addResourceLocations("file:/Users/yangboz/Documents/Git/north-american-adventure/RushuEIP/eip-rushucloud/src/main/resources/static");
+//        registry.addResourceHandler("/api/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS[0]);
+//        registry.addResourceHandler("/webapp/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS[1]);
+		//FIXME:using class path!
+        registry.addResourceHandler("/**").addResourceLocations("file:/Users/yangboz/Documents/Git/north-american-adventure/RushuEIP/eip-rushucloud/src/main/resources/api");
     }
 }

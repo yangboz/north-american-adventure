@@ -18,6 +18,10 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 @RestController
 public class CompanyController {
+	@RequestMapping("/home")
+	public String home(){
+		return "index";
+	}
 	// ==============
 	// PRIVATE FIELDS
 	// ==============
