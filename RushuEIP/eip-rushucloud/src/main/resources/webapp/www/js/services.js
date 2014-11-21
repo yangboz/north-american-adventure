@@ -15,7 +15,7 @@ angular.module('starter.services', [])
 //@see:http://www.activiti.org/userguide/#N1301E
 ///UserService
 .factory('UserService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/identity/users/:user', {user: "@user"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'identity/users/:user', {user: "@user"});
     return data;
 })
 ///GroupService
