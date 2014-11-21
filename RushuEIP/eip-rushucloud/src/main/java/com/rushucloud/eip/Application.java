@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+//@ComponentScan
 // @EnableAutoConfiguration(exclude = ProcessEngineAutoConfiguration.class)
 //@ImportResource("classpath:/activiti-context.xml")
 public class Application {
