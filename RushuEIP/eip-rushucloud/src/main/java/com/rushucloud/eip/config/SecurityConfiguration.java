@@ -24,14 +24,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//
 	private static Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
 	//
-	/*
 	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
             auth.inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("USER"); // ... etc.
     }
-	*/
     // ... other stuff for application security
+	/*
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/css/**").permitAll().anyRequest()
@@ -43,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		@Override
 		public void init(AuthenticationManagerBuilder auth) throws Exception{
 			LdapContextSource contextSource = new LdapContextSource();
-			contextSource.setUrl("ldap://localhost:11389");
+			contextSource.setUrl("ldap://localhost:10389");
 			contextSource.setUserDn("uid=admin,ou=system");
 			contextSource.setPassword("secret");
 			//
@@ -58,4 +57,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			LOG.info("LDAP authentication:",authentication.toString());
 		}
 	}
+	*/
 }

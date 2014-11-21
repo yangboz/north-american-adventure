@@ -1,0 +1,17 @@
+#@see http://hoserdude.com/2014/06/19/spring-boot-configurationproperties-and-profile-management-using-yaml/
+spring:
+  profiles.active: dev
+---
+spring:
+  profiles: dev
+ldap:
+  url: ldap://localhost:10389
+  userOn: uid=admin,ou=system
+  password: secret
+---
+spring:
+  profiles: prod
+ldap:
+  url: ldap://localhost:10389
+  userOn: uid=admin,ou=system
+  password: secret
