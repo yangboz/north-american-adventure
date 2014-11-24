@@ -13,6 +13,7 @@ public class LDAPConfiguration {
 		LDAPConfigurator ldapConfig = new LDAPConfigurator();
 		//
 		ldapConfig.setServer("ldap://localhost");
+//		ldapConfig.setServer("localhost");
 		ldapConfig.setPort(10389);
 		ldapConfig.setUser("uid=admin,ou=system");
 		ldapConfig.setPassword("secret");

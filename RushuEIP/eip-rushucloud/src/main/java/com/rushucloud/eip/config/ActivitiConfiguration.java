@@ -24,6 +24,7 @@ import org.activiti.spring.annotations.EnableActiviti;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -42,6 +43,7 @@ import com.rushucloud.eip.config.LDAPConfiguration;
 @EnableTransactionManagement(proxyTargetClass = true)
 @Import({ LDAPConfiguration.class })
 // @PropertySource("file:conf/lc-merged.properties")
+@EnableAutoConfiguration
 public class ActivitiConfiguration {
 	@Autowired
 	LDAPConfigurator ldapConfigurator;
@@ -72,6 +74,8 @@ public class ActivitiConfiguration {
 				.setPackagesToScan(new String[] { "com.rushucloud.eip.models" });
 		localContainerEntityManagerFactoryBean
 				.setPersistenceUnitName("company");
+		localContainerEntityManagerFactoryBean
+		.setPersistenceUnitName("activitiprocess");
 		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 
 		jpaVendorAdapter.setGenerateDdl(false);
@@ -113,7 +117,7 @@ public class ActivitiConfiguration {
 				engine.setJpaHandleTransaction(true);
 				engine.setJobExecutorActivate(true);
 				engine.setJpaCloseEntityManager(false);
-				engine.setMailServerDefaultFrom("test@rushucloud.com");
+				engine.setMailServerDefaultFrom("activiti@rushucloud.com");
 				engine.setMailServerHost(mailHost);
 				engine.setMailServerPort(587);
 				engine.setMailServerUsername(mailUsername);
