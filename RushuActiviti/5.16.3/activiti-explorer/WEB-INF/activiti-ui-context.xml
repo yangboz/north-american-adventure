@@ -86,12 +86,12 @@
     <property name="simpleWorkflowJsonConverter" ref="simpleWorkflowJsonConverter" />
     <property name="adminGroups">
       <list>
-        <value>admins</value>
+        <value>admin</value>
       </list>
     </property>
     <property name="userGroups">
 	    <list>
-          <value>employees</value>
+          <value>user</value>
         </list>
     </property>
   </bean>
