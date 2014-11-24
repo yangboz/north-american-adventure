@@ -22,6 +22,7 @@ import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.activiti.spring.annotations.AbstractActivitiConfigurer;
 import org.activiti.spring.annotations.EnableActiviti;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -178,12 +179,15 @@ public class ActivitiConfiguration {
 		IdentityServiceImpl identityService = new IdentityServiceImpl();
 		return identityService;
 	}
-
+	
+	@Rule
+	public ActivitiRule activitiRule = new ActivitiRule();
+	
 	@Bean
 	public ActivitiRule activityRule(
 			ProcessEngineConfigurationImpl abstractActivitiConfigurer) {
-		ActivitiRule activityRule = new ActivitiRule();
-		activityRule.setProcessEngineConfiguration(abstractActivitiConfigurer);
-		return activityRule;
+//		activitiRule activityRule = new ActivitiRule();
+		activitiRule.setProcessEngineConfiguration(abstractActivitiConfigurer);
+		return activitiRule;
 	}
 }
