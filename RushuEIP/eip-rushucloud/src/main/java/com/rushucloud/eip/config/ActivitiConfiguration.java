@@ -2,8 +2,6 @@ package com.rushucloud.eip.config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -39,130 +37,149 @@ import org.springframework.core.io.Resource;
 
 import com.rushucloud.eip.config.LDAPConfiguration;
 
-//@Configuration
+@Configuration
 @EnableActiviti
 @EnableTransactionManagement(proxyTargetClass = true)
-@Import({LDAPConfiguration.class})
-//@PropertySource("file:conf/lc-merged.properties")
+@Import({ LDAPConfiguration.class })
+// @PropertySource("file:conf/lc-merged.properties")
 public class ActivitiConfiguration {
 	@Autowired
-    LDAPConfigurator ldapConfigurator;
-     
-    @Bean
-    public DataSource inMemoryDataSource() {
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUsername("sa");
-        basicDataSource.setUrl("jdbc:h2:mem:activiti");
-        basicDataSource.setDefaultAutoCommit(false);
-        basicDataSource.setDriverClassName(org.h2.Driver.class.getName());
-        basicDataSource.setPassword("");
-        return basicDataSource;
-    }
- 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource inMemoryDataSource) {
-      LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-      localContainerEntityManagerFactoryBean.setDataSource(inMemoryDataSource);
-      localContainerEntityManagerFactoryBean.setPackagesToScan(new String[]{"com.rushucloud.eip.models"});
-      localContainerEntityManagerFactoryBean.setPersistenceUnitName("company");
-      HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-       
-      jpaVendorAdapter.setGenerateDdl(false);
-      jpaVendorAdapter.setShowSql(false);
-      jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");
-      localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-      return localContainerEntityManagerFactoryBean;
-    }
- 
-    @Bean
-    public PlatformTransactionManager jpaTransactionManager(EntityManagerFactory entityManagerFactoryBean) {
-        return new JpaTransactionManager(entityManagerFactoryBean);
-    } 
-     
-        
-    @Value("${LC_NUKE_MAIL_HOST}")
-    private String mailHost;
-    @Value("${LC_NUKE_MAIL_USERNAME}")
-    private String mailUsername;
-    @Value("${LC_NUKE_MAIL_PASSWORD}")
-    private String mailServerPassword;
-     
-    @Bean
-    public AbstractActivitiConfigurer abstractActivitiConfigurer(final EntityManagerFactory entityManagerFactoryBean, final PlatformTransactionManager jpaTransactionManager) {
-        return new AbstractActivitiConfigurer() {
-            @Override
-            public void postProcessSpringProcessEngineConfiguration(SpringProcessEngineConfiguration engine) {
-                engine.setDatabaseType("h2");
-                engine.setDataSource(inMemoryDataSource());
-                engine.setTransactionManager(jpaTransactionManager);
-                engine.setJpaEntityManagerFactory(entityManagerFactoryBean);
-                engine.setJpaHandleTransaction(true);
-                engine.setJobExecutorActivate(true);
-                engine.setJpaCloseEntityManager(false);
-                engine.setMailServerDefaultFrom("test@rushucloud.com");
-                engine.setMailServerHost(mailHost);
-                engine.setMailServerPort(587);
-                engine.setMailServerUsername(mailUsername);
-                engine.setMailServerPassword(mailServerPassword);
-                engine.setMailServerUseSSL(true);
-                engine.setMailServerUseTLS(true);
-                engine.setRepositoryService(repositoryService());
-                engine.setTaskService(taskService());
-                engine.setManagementService(managementService());
-                engine.setRuntimeService(runtimeService());
-                engine.setIdentityService(identityService());
-                engine.setHistoryService(historyService());
-                engine.setHistoryLevel(HistoryLevel.AUDIT);
-                Resource[] processResources = new Resource[1] ;
-                ClassPathResource underwritingQueueProcess = new ClassPathResource("org/activiti/test/my-process.bpmn20.xml");
-                processResources[0]=underwritingQueueProcess;
-                engine.setDeploymentResources(processResources);
-                engine.setConfigurators(new ArrayList<ProcessEngineConfigurator>(Arrays.asList(ldapConfigurator)));
-                engine.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
-            }
-        };
-    }
-     
-    @Bean
-    public RepositoryServiceImpl repositoryService(){
-        RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
-        return repositoryService;
-    }
-     
-    @Bean
-    public TaskServiceImpl taskService(){
-        TaskServiceImpl taskService = new TaskServiceImpl();
-        return taskService;
-    }
-     
-    @Bean
-    public ManagementServiceImpl managementService(){
-        ManagementServiceImpl managementService = new ManagementServiceImpl();
-        return managementService;
-    }
-     
-    @Bean
-    public RuntimeServiceImpl runtimeService(){
-        RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
-        return runtimeService;
-    }
-     
-    @Bean
-    public HistoryServiceImpl historyService(){
-        HistoryServiceImpl historyService = new HistoryServiceImpl();
-        return historyService;
-    }
-     
-    @Bean
-    public IdentityServiceImpl identityService(){
-        IdentityServiceImpl identityService = new IdentityServiceImpl();
-        return identityService;
-    }
-     
-    @Bean
-    public ActivitiRule activityRule(ProcessEngineConfigurationImpl abstractActivitiConfigurer){
-        ActivitiRule activityRule = new ActivitiRule();
-        activityRule.setProcessEngineConfiguration(abstractActivitiConfigurer);
-        return activityRule;
-    }
+	LDAPConfigurator ldapConfigurator;
+
+	@Bean
+	public DataSource inMemoryDataSource() {
+		BasicDataSource basicDataSource = new BasicDataSource();
+		// basicDataSource.setUsername("sa");
+		basicDataSource.setUsername("root");
+		// basicDataSource.setUrl("jdbc:h2:mem:activiti");
+		basicDataSource
+				.setUrl("jdbc:mysql://localhost:3306/activiti?useUnicode=true&characterEncoding=UTF-8");
+		basicDataSource.setDefaultAutoCommit(false);
+		// basicDataSource.setDriverClassName(org.h2.Driver.class.getName());
+		basicDataSource.setDriverClassName(com.mysql.jdbc.Driver.class
+				.getName());
+		basicDataSource.setPassword("");
+		return basicDataSource;
+	}
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(
+			DataSource inMemoryDataSource) {
+		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		localContainerEntityManagerFactoryBean
+				.setDataSource(inMemoryDataSource);
+		localContainerEntityManagerFactoryBean
+				.setPackagesToScan(new String[] { "com.rushucloud.eip.models" });
+		localContainerEntityManagerFactoryBean
+				.setPersistenceUnitName("company");
+		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+
+		jpaVendorAdapter.setGenerateDdl(false);
+		jpaVendorAdapter.setShowSql(false);
+		// jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");
+		jpaVendorAdapter
+				.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
+		localContainerEntityManagerFactoryBean
+				.setJpaVendorAdapter(jpaVendorAdapter);
+		return localContainerEntityManagerFactoryBean;
+	}
+
+	@Bean
+	public PlatformTransactionManager jpaTransactionManager(
+			EntityManagerFactory entityManagerFactoryBean) {
+		return new JpaTransactionManager(entityManagerFactoryBean);
+	}
+
+	@Value("${LC_NUKE_MAIL_HOST}")
+	private String mailHost;
+	@Value("${LC_NUKE_MAIL_USERNAME}")
+	private String mailUsername;
+	@Value("${LC_NUKE_MAIL_PASSWORD}")
+	private String mailServerPassword;
+
+	@Bean
+	public AbstractActivitiConfigurer abstractActivitiConfigurer(
+			final EntityManagerFactory entityManagerFactoryBean,
+			final PlatformTransactionManager jpaTransactionManager) {
+		return new AbstractActivitiConfigurer() {
+			@Override
+			public void postProcessSpringProcessEngineConfiguration(
+					SpringProcessEngineConfiguration engine) {
+				// engine.setDatabaseType("h2");
+				engine.setDatabaseType("mysql");
+				engine.setDataSource(inMemoryDataSource());
+				engine.setTransactionManager(jpaTransactionManager);
+				engine.setJpaEntityManagerFactory(entityManagerFactoryBean);
+				engine.setJpaHandleTransaction(true);
+				engine.setJobExecutorActivate(true);
+				engine.setJpaCloseEntityManager(false);
+				engine.setMailServerDefaultFrom("test@rushucloud.com");
+				engine.setMailServerHost(mailHost);
+				engine.setMailServerPort(587);
+				engine.setMailServerUsername(mailUsername);
+				engine.setMailServerPassword(mailServerPassword);
+				engine.setMailServerUseSSL(true);
+				engine.setMailServerUseTLS(true);
+				engine.setRepositoryService(repositoryService());
+				engine.setTaskService(taskService());
+				engine.setManagementService(managementService());
+				engine.setRuntimeService(runtimeService());
+				engine.setIdentityService(identityService());
+				engine.setHistoryService(historyService());
+				engine.setHistoryLevel(HistoryLevel.AUDIT);
+				Resource[] processResources = new Resource[1];
+				ClassPathResource underwritingQueueProcess = new ClassPathResource(
+						"org/activiti/test/my-process.bpmn20.xml");
+				processResources[0] = underwritingQueueProcess;
+				engine.setDeploymentResources(processResources);
+				engine.setConfigurators(new ArrayList<ProcessEngineConfigurator>(
+						Arrays.asList(ldapConfigurator)));
+				engine.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+			}
+		};
+	}
+
+	@Bean
+	public RepositoryServiceImpl repositoryService() {
+		RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+		return repositoryService;
+	}
+
+	@Bean
+	public TaskServiceImpl taskService() {
+		TaskServiceImpl taskService = new TaskServiceImpl();
+		return taskService;
+	}
+
+	@Bean
+	public ManagementServiceImpl managementService() {
+		ManagementServiceImpl managementService = new ManagementServiceImpl();
+		return managementService;
+	}
+
+	@Bean
+	public RuntimeServiceImpl runtimeService() {
+		RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
+		return runtimeService;
+	}
+
+	@Bean
+	public HistoryServiceImpl historyService() {
+		HistoryServiceImpl historyService = new HistoryServiceImpl();
+		return historyService;
+	}
+
+	@Bean
+	public IdentityServiceImpl identityService() {
+		IdentityServiceImpl identityService = new IdentityServiceImpl();
+		return identityService;
+	}
+
+	@Bean
+	public ActivitiRule activityRule(
+			ProcessEngineConfigurationImpl abstractActivitiConfigurer) {
+		ActivitiRule activityRule = new ActivitiRule();
+		activityRule.setProcessEngineConfiguration(abstractActivitiConfigurer);
+		return activityRule;
+	}
 }

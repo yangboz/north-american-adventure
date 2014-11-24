@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 //@see http://thysmichels.com/2014/05/25/activiti-bpm-tutorial-ldap/#comment-10436
 //TODO: LDAP user verification.
-//@Configuration
+@Configuration
 public class LDAPConfiguration {
 
 	@Bean
