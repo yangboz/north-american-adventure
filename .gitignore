@@ -6,3 +6,5 @@
 #
 # Pods/
 
+# Maven target files
+target/
