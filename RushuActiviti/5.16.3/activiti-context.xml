@@ -63,7 +63,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
                 <property name="password" value="secret" />
                  
                 <!-- Query params -->
-                <property name="baseDn" value="ou=employees,dc=rushucloud,dc=com" /> 
+                <property name="baseDn" value="dc=rushucloud,dc=com" /> 
                 <property name="queryUserByUserId" value="(&amp;(objectClass=inetOrgPerson)(uid={0}))" />
                 <property name="queryUserByFullNameLike" value="(&amp;(objectClass=inetOrgPerson)(|({0}=*{1}*)({2}=*{3}*)))" />
                 <property name="queryGroupsForUser" value="(&amp;(objectClass=groupOfUniqueNames)(uniqueMember={0}))" />

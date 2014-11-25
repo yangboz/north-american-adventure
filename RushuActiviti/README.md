@@ -5,6 +5,8 @@ How to configure Activiti-Explorer and Activiti-Rest with same MySQL database.
 
 http://www.attuneuniversity.com/blog/change-database-from-h2-to-mysql-in-activiti.html
 
+http://www.sambhashanam.com/setup-activiti-and-run-first-process-using-activiti/
+
 ###Local steps:
 
 ###Scp files:

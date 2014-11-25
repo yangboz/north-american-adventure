@@ -23,7 +23,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
 //var API_URL = "http://www.rushucloud.com:90/activiti-rest/";///usr/share/tomcat6/webapps/h5
 //var API_URL = "http://localhost:8080/activiti-rest/";
 //var API_URL = "/activiti-rest/";
+<<<<<<< HEAD
     'api_endpoint': 'http://localhost:8082/eip-rushucloud/',
+=======
+//    'api_endpoint': 'http://localhost:8082/eip-rushucloud/',
+    'api_endpoint': 'http://localhost:8080/activiti-rest/service/',
+>>>>>>> 1664948d6c2529cc2350f47393fab954e8781c1d
     'api_version': '5.16.3',
     'stomp_uri':'ws://www.rushucloud.com:61614/stomp',
     'stomp_protocol':'v11.stomp'

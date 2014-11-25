@@ -134,6 +134,7 @@
 		</dependency>
 		<!-- JMS/ActiveMQ -->
 		<dependency>
+<<<<<<< HEAD
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
 		</dependency>
@@ -141,6 +142,15 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-broker</artifactId>
 		</dependency>
+=======
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+        </dependency>
+>>>>>>> 1664948d6c2529cc2350f47393fab954e8781c1d
 	</dependencies>
 
 	<properties>

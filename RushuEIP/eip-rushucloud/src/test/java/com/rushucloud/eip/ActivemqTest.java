@@ -51,4 +51,8 @@ public class ActivemqTest {
 		System.out.println("ActivemqTest->testActivemq->sendingMessage!");
 		jmsTemplate.send(JMSConstants.JMS_DESTINATION_ACTIVEMQ,messageCreator);
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1664948d6c2529cc2350f47393fab954e8781c1d

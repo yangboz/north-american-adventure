@@ -1,6 +1,7 @@
 package com.rushucloud.eip.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -12,8 +13,16 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-@EnableWebMvc
+/**
+ * Web configuration.
+ *
+ */
+// Marks this class as configuration
 @Configuration
+// Specifies which package to scan
+@ComponentScan("com.rushucloud.eip")
+// Enables Spring's annotations
+//@EnableWebMvc
 public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
 	//@see http://www.netthreads.co.uk/2014/07/21/web-spring-4-thymeleaf-hot-cache/
 	public static final String DEFAULT_PREFIX = "/templates/";
@@ -82,6 +91,7 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
+//    	registry.addResourceHandler("/api/**").addResourceLocations("file:/Users/yangboz/Documents/Git/north-american-adventure/RushuEIP/eip-rushucloud/src/main/resources/api");
         registry.addResourceHandler("/api/**").addResourceLocations("classpath:/api/");
         registry.addResourceHandler("/webapp/**").addResourceLocations("classpath:/webapp/www/");
         registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/admin/");
