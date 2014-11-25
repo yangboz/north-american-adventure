@@ -4,7 +4,7 @@ angular.module('starter.services', [])
 
 //TaskService where asignee==userId
 .factory('ReportService', function($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/runtime/tasks/:taskId', {taskId: "@taskId"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'runtime/tasks/:taskId', {taskId: "@taskId"});
     return data;
 })
 //
@@ -15,27 +15,27 @@ angular.module('starter.services', [])
 //@see:http://www.activiti.org/userguide/#N1301E
 ///UserService
 .factory('UserService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/identity/users/:user', {user: "@user"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'identity/users/:user', {user: "@user"});
     return data;
 })
 ///GroupService
 .factory('GroupService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/identity/groups/:group', {group: "@group"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'identity/groups/:group', {group: "@group"});
     return data;
 })
 ///GroupUserService
 .factory('GroupUserService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.endpoint+'service/identity/groups/:group/members/:userId', {group: "@group",userId:"@userUrlId"});
+    var data = $resource(CONFIG_ENV.endpoint+'identity/groups/:group/members/:userId', {group: "@group",userId:"@userUrlId"});
     return data;
 })
 ///TaskService
 .factory('TaskService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/runtime/tasks/:taskId', {taskId: "@taskId"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'runtime/tasks/:taskId', {taskId: "@taskId"});
     return data;
 })
 ///TasksService
 .factory('TasksService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/runtime/tasks/:taskId', {taskId: "@taskId"},{
+    var data = $resource(CONFIG_ENV.api_endpoint+'runtime/tasks/:taskId', {taskId: "@taskId"},{
         update: {method: 'PUT', params: {taskId: "@taskId"}}
     });
     return data;
@@ -295,17 +295,17 @@ angular.module('starter.services', [])
 })
 ///HistoryService
 .factory('HistoryService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/history/historic-process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'history/historic-process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});
     return data;
 })
 ///ProcessInstancesService
 .factory('ProcessService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});
     return data;
 })
 ///ProcessDefinitionService
 .factory('ProcessDefinitionService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/repository/process-definitions/:processDefinitionId', {processDefinitionId: "@processDefinitionId"},{
+    var data = $resource(CONFIG_ENV.api_endpoint+'repository/process-definitions/:processDefinitionId', {processDefinitionId: "@processDefinitionId"},{
             update: {method: 'PUT', params: {processDefinitionId: "@processDefinitionId"}}
         }
     );
@@ -313,31 +313,31 @@ angular.module('starter.services', [])
 })
 ///ProcessInstanceService
 .factory('ProcessInstanceService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/process-instance/:processInstance', {processInstance: "@processInstance"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'process-instance/:processInstance', {processInstance: "@processInstance"});
     return data;
 })
 ///JobsService
 .factory('JobService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/management/jobs/:jobId', {jobId: "@jobId"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'management/jobs/:jobId', {jobId: "@jobId"});
     return data;
 })
 ///ExecutionsService
 .factory('ExecutionService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/runtime/executions/:executionId', {executionId: "@executionId"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'runtime/executions/:executionId', {executionId: "@executionId"});
     return data;
 })
 ///FormDataService
 .factory('FormDataService', function ($resource,CONFIG_ENV) {
 //    var data = $resource(API_URL+'service/form/form-data?taskId=:taskId', {taskId: "@taskId"});
 //    return data;
-        var data = $resource(CONFIG_ENV.api_endpoint+'service/form/form-data', {}, {
+        var data = $resource(CONFIG_ENV.api_endpoint+'form/form-data', {}, {
             startTask: {method:'GET',  params: {processDefinitionId: "@processDefinitionId"}}
         });
         return data;
 })
 ///GroupService
 .factory('GroupService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'service/identity/groups/:group', {group: "@group"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'identity/groups/:group', {group: "@group"});
     return data;
 })
 

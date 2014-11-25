@@ -414,7 +414,7 @@ $rootScope.hideLoading = function(){
 
 .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location,$log,
                                    ProcessDefinitionService,TasksService, FormDataService,
-                                   TasksModalService, ProcessDefinitionService, GroupService) {
+                                   TasksModalService, ProcessDefinitionService, GroupService,TaskService) {
     //ng-model
     $scope.newTask = {"name": "", "description": "","dueDate":"","owner":$rootScope.username,"parentTaskId":""};
     //CREATE, //@see:http://www.activiti.org/userguide/#N1693F

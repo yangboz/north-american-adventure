@@ -115,6 +115,32 @@
 			<artifactId>apacheds-server-jndi</artifactId>
 			<version>1.5.5</version>
 		</dependency>
+		<!-- Activiti/LDAP/Spring -->
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-explorer</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-ldap</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		<!-- @see http://forums.activiti.org/content/enableactiviti-5164 -->
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+			<version>5.16.3</version>
+		</dependency>
+		<!-- JMS/ActiveMQ -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-broker</artifactId>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -143,10 +169,8 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!--
-				<configuration> <jvmArguments> -Xdebug -Xrunjdwp:transport=jidt_socket,server=y,suspend=y,address=5005 
-					</jvmArguments> </configuration>
-				-->
+				<!-- <configuration> <jvmArguments> -Xdebug -Xrunjdwp:transport=jidt_socket,server=y,suspend=y,address=5005 
+					</jvmArguments> </configuration> -->
 			</plugin>
 		</plugins>
 	</build>
