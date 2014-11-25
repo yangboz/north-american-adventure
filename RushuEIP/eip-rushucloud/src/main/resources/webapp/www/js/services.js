@@ -328,7 +328,7 @@ angular.module('starter.services', [])
 })
 ///FormDataService
 .factory('FormDataService', function ($resource,CONFIG_ENV) {
-//    var data = $resource(API_URL+'service/form/form-data?taskId=:taskId', {taskId: "@taskId"});
+//    var data = $resource(API_URL+'form/form-data?taskId=:taskId', {taskId: "@taskId"});
 //    return data;
         var data = $resource(CONFIG_ENV.api_endpoint+'form/form-data', {}, {
             startTask: {method:'GET',  params: {processDefinitionId: "@processDefinitionId"}}
