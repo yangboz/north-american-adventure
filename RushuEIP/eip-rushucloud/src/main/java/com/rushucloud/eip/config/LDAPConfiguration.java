@@ -18,7 +18,7 @@ public class LDAPConfiguration {
 		ldapConfig.setUser("uid=admin,ou=system");
 		ldapConfig.setPassword("secret");
 
-		ldapConfig.setBaseDn("ou=employees,dc=inflinx,dc=com");
+		ldapConfig.setBaseDn("dc=inflinx,dc=com");
 		// ldapConfig.setBaseDn("ou=users");
 		ldapConfig
 				.setQueryUserByUserId("(&(objectClass=inetOrgPerson)(uid={0}))");

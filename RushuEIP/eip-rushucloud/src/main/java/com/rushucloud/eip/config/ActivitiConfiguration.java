@@ -39,7 +39,7 @@ import org.springframework.core.io.Resource;
 
 import com.rushucloud.eip.config.LDAPConfiguration;
 
-@Configuration
+//@Configuration
 @EnableActiviti
 @EnableTransactionManagement(proxyTargetClass = true)
 @Import({ LDAPConfiguration.class })
@@ -110,6 +110,8 @@ public class ActivitiConfiguration {
 			@Override
 			public void postProcessSpringProcessEngineConfiguration(
 					SpringProcessEngineConfiguration engine) {
+				engine.setConfigurators(new ArrayList<ProcessEngineConfigurator>(
+						Arrays.asList(ldapConfigurator)));
 				// engine.setDatabaseType("h2");
 				engine.setDatabaseType("mysql");
 				engine.setDataSource(inMemoryDataSource());
