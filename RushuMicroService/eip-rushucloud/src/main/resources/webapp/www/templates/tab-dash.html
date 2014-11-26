@@ -7,7 +7,7 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-plus" ng-click="taskModal.show();">
         </button>
-        <select>
+        <select ng-show="false">
             <option ng-class="{selected: tasksType=='assigned'}"><a ng-click="loadTasksType('assigned')">My tasks</a></option>
             <option ng-class="{selected: tasksType=='owned'}"><a ng-click="loadTasksType('owned')">Owned</a></option>
             <option ng-class="{selected: tasksType=='involved'}"><a

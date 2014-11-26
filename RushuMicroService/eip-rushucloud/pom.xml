@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.1.6.RELEASE</version>
+		<version>1.2.0.RC1</version>
 	</parent>
 
 	<dependencies>
@@ -133,14 +133,7 @@
 			<version>5.16.3</version>
 		</dependency>
 		<!-- JMS/ActiveMQ -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jms</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-broker</artifactId>
-		</dependency>
+		<!-- @Issue: https://jira.spring.io/browse/SPR-11498 -->
 	</dependencies>
 
 	<properties>
@@ -148,6 +141,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<activiti.version>5.17.0-SNAPSHOT</activiti.version>
+		<activemq.version>5.9.1</activemq.version>
+		<spring.version>4.1.2.RELEASE</spring.version>
 	</properties>
 
 	<repositories>
@@ -160,6 +155,22 @@
 			<id>spring-releases</id>
 			<url>http://repo.spring.io/libs-release</url>
 		</repository>
+		<repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
 	</repositories>
 	<build>
 		<plugins>
@@ -176,8 +187,20 @@
 	</build>
 	<pluginRepositories>
 		<pluginRepository>
-			<id>spring-releases</id>
-			<url>http://repo.spring.io/libs-release</url>
-		</pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
 	</pluginRepositories>
 </project>

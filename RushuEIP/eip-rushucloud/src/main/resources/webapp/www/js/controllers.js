@@ -367,6 +367,7 @@ $rootScope.hideLoading = function(){
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
         UserService.get({user: $scope.loginModal.user.username}, function (response) {
+
             $log.debug("UserService.get(login) success!",response);
             $rootScope.loggedin = true;
             $rootScope.loggedUser = response;

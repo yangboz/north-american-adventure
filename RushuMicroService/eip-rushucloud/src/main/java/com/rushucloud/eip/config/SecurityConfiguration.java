@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.slf4j.Logger;
@@ -19,7 +20,8 @@ import org.slf4j.LoggerFactory;
 
 @Configuration
 @Order(201)
-@EnableWebMvcSecurity
+//@EnableWebMvcSecurity
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//
 	private static Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
@@ -28,6 +30,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
             auth.inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("USER"); // ... etc.
+            //security, because we need to log in to chat testing, right?
+            auth.inMemoryAuthentication().withUser("ian").password("ian").roles("USER");
+            auth.inMemoryAuthentication().withUser("dan").password("dan").roles("USER");
+            auth.inMemoryAuthentication().withUser("chris").password("chris").roles("USER");
     }
     // ... other stuff for application security
 	/*
