@@ -35,8 +35,8 @@ public class Application {
 				.name("reimbursmentApproveSimple")
 				.deploy();
 		// Log information
-		// LOG.info("Number of process definitions: " +
-		// repositoryService.createProcessDefinitionQuery().desc().toString());
+		 LOG.info("Process definitions: " +
+		 repositoryService.createProcessDefinitionQuery().list().toString());
 		LOG.info("Number of process definitions: "
 				+ repositoryService.createProcessDefinitionQuery().count());
 	}
