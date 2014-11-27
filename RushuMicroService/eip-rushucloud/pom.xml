@@ -126,6 +126,11 @@
 		</dependency>
 		<!-- JMS/ActiveMQ -->
 		<!-- @Issue: https://jira.spring.io/browse/SPR-11498 -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-all</artifactId>
+			<version>5.10.0</version>
+		</dependency>
 	</dependencies>
 
 	<properties>

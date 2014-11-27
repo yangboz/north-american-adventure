@@ -37,3 +37,9 @@ http://hermanbanken.nl/2011/01/22/openldap-server-mac-osx-clients/
 MVN:
 
 http://docs.spring.io/autorepo/docs/spring-boot/1.2.0.BUILD-SNAPSHOT/maven-plugin/examples/run-debug.html
+
+Notice:
+
+###1.mysql-grant-all-privileges-on-database:
+
+GRANT ALL PRIVILEGES ON * . * TO 'root'@'localhost'
