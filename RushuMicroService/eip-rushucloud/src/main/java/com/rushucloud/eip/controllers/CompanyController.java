@@ -20,11 +20,11 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @RestController
 public class CompanyController {
 	// @RequestMapping("company/index")
-	@RequestMapping(method = RequestMethod.GET, value = "company/index")
-	@ApiOperation(httpMethod = "GET", value = "Response a static index html view.")
-	public String home() {
-		return "index";
-	}
+//	@RequestMapping(method = RequestMethod.GET, value = "company/index")
+//	@ApiOperation(httpMethod = "GET", value = "Response a static index html view.")
+//	public String home() {
+//		return "index";
+//	}
 
 	// ==============
 	// PRIVATE FIELDS
