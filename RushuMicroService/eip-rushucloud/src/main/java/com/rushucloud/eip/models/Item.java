@@ -1,10 +1,8 @@
-/**
- * @author yangboz
- * @see http://blog.netgloo.com/2014/10/27/using-mysql-in-spring-boot-via-spring-data-jpa-and-hibernate/
- */
 package com.rushucloud.eip.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +10,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "companies")
-public class Company  extends ModelBase{
+@Table(name = "items")
+public class Item extends ModelBase {
+	// ApproveAhead,CostComsumed
+	public enum ItemType {
+		ApproveAhead, CostComsumed
+	}
 
 	// ==============
 	// PRIVATE FIELDS
@@ -32,31 +34,19 @@ public class Company  extends ModelBase{
 		this.id = value;
 	}
 
-	// The company email
+	// The item money amount
 	@NotNull
-	private String email;
+	private double amount;
 
-	public String getEmail() {
-		return email;
+	public double getAmount() {
+		return amount;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
-	// The company domain
-	// @NotNull
-	private String domain;
-
-	public String getDomain() {
-		return domain;
-	}
-
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
-
-	// The company name
+	// The item name
 	@NotNull
 	private String name;
 
@@ -68,20 +58,34 @@ public class Company  extends ModelBase{
 		this.name = name;
 	}
 
+	// The item type
+	@Enumerated(EnumType.STRING)
+	private ItemType type;
+
+	public ItemType getType() {
+		return type;
+	}
+
+	public void setType(ItemType type) {
+		this.type = type;
+	}
+
+	// The item invoices
+	// @CollectionOfElements
+
 	// ==============
 	// PUBLIC METHODS
 	// ==============
-
-	public Company() {
+	public Item() {
 	}
 
-	public Company(long id) {
+	public Item(long id) {
 		this.id = id;
 	}
 
-	public Company(String email, String name, String domain) {
-		this.email = email;
+	public Item(double amount, String name, ItemType type) {
+		this.amount = amount;
 		this.name = name;
-		this.domain = domain;
+		this.type = type;
 	}
 }

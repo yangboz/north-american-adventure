@@ -28,7 +28,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 //@see http://www.kafeitu.me/activiti/2012/08/05/diff-activiti-workflow-forms.html
-public class ActivitiDynamicFormFormTest {
+public class ActivitiDynamicFormTest {
 //	private String filename = "/Users/yangboz/Documents/Git/north-american-adventure/RushuMicroService/eip-rushucloud/src/main/resources/test/DynamicForm.bpmn";
 
 	@Rule
