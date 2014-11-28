@@ -108,6 +108,13 @@
 			<version>1.5.5</version>
 		</dependency>
 		<!-- Activiti/LDAP/Spring -->
+		<!--  
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+		-->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>

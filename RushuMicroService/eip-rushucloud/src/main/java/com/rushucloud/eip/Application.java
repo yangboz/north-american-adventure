@@ -1,8 +1,13 @@
 package com.rushucloud.eip;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +26,7 @@ public class Application {
 
 	private static Logger LOG = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(Application.class, args);
 		// Deploying the process here,avoid duplication to @see: http://forums.activiti.org/content/duplicate-deployment-processes
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
@@ -29,16 +34,32 @@ public class Application {
 				.getRepositoryService();
 		repositoryService
 				.createDeployment()
-				.addClasspathResource(
-						"org/activiti/test/ReimbursementRequest.bpmn20.xml")
+				.addClasspathResource("processes/ReimbursementRequest.bpmn20.xml")
+				.addClasspathResource("processes/ReimbursementRequest.bpmn20.png")
 				.enableDuplicateFiltering()
 				.name("reimbursmentApproveSimple")
 				.deploy();
+		//Sleep some time.
+//		Thread.sleep(5000);
 		// Log information
 		 LOG.info("Process definitions: " +
 		 repositoryService.createProcessDefinitionQuery().list().toString());
 		LOG.info("Number of process definitions: "
 				+ repositoryService.createProcessDefinitionQuery().count());
+		/*
+		//Starting a process instance
+		Map<String,Object> variables = new HashMap<String,Object>();
+		variables.put("employeeName", "YangboZ");
+		variables.put("amountOfMoney", (long)99.8);
+		variables.put("reimbursmentMotivation", "Need reimbursement for taxi.");
+		//
+		RuntimeService runtimeService = processEngine.getRuntimeService();
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("reimbursementRequest",variables);
+		//Verify that we started anew process instance
+		LOG.info("Process instance:"+processInstance.getId());
+		LOG.info("Process instances:"+runtimeService.createProcessInstanceQuery().list().toString());
+		LOG.info("Number of process instances:"+runtimeService.createProcessInstanceQuery().count());
+		*/
 	}
 
 }

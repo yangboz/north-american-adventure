@@ -18,7 +18,7 @@ public class ActivitiUnitTest {
 	
 	@Test
 //	@Deployment(resources = {"org/activiti/test/my-process.bpmn20.xml"})
-	@Deployment(resources = {"org/activiti/test/ReimbursementRequest.bpmn20.xml"})
+	@Deployment(resources = {"processes/ReimbursementRequest.bpmn20.xml"})
 	public void test() {
 //		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("my-process");
 		ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("reimbursementRequest");

@@ -3,13 +3,13 @@
   <process id="reimbursementRequest" name="Reimbursement request" isExecutable="true">
     <startEvent id="request" activiti:initiator="employeeName">
       <extensionElements>
-        <activiti:formProperty id="numberOfDays" name="Number of days" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="amountOfMoney" name="Amout of money" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
         <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="request" targetRef="handleRequest"></sequenceFlow>
-    <userTask id="handleRequest" name="Handle reimbursement request" activiti:candidateGroups="management">
+    <userTask id="handleRequest" name="Handle reimbursement request" activiti:candidateGroups="managements">
       <documentation>${employeeName} would like to take ${numberOfDays} day(s) of reimbursement (Motivation: ${reimbursementMotivation}).</documentation>
       <extensionElements>
         <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement" type="enum" required="true">
@@ -17,10 +17,16 @@
           <activiti:value id="false" name="Reject"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="managerMotivation" name="Motivation" type="string"></activiti:formProperty>
+        <activiti:taskListener event="all" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow2" sourceRef="handleRequest" targetRef="requestApprovedDecision"></sequenceFlow>
-    <exclusiveGateway id="requestApprovedDecision" name="Request approved?"></exclusiveGateway>
+    <exclusiveGateway id="requestApprovedDecision" name="Request approved?">
+      <extensionElements>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
+        <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
+      </extensionElements>
+    </exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="requestApprovedDecision" targetRef="sendApprovalMail">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved == 'true'}]]></conditionExpression>
     </sequenceFlow>
@@ -41,10 +47,16 @@
           <activiti:value id="true" name="Yes"></activiti:value>
           <activiti:value id="false" name="No"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="all" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow6" sourceRef="adjustReimbursementRequestTask" targetRef="resendRequestDecision"></sequenceFlow>
-    <exclusiveGateway id="resendRequestDecision" name="Resend request?"></exclusiveGateway>
+    <exclusiveGateway id="resendRequestDecision" name="Resend request?">
+      <extensionElements>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
+        <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
+      </extensionElements>
+    </exclusiveGateway>
     <sequenceFlow id="flow7" sourceRef="resendRequestDecision" targetRef="handleRequest">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'true'}]]></conditionExpression>
     </sequenceFlow>
