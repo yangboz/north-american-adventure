@@ -3,6 +3,8 @@ package com.rushucloud.eip;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.MultipartConfigElement;
+
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
@@ -12,11 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-//@Configuration
+@Configuration
 @ComponentScan
 // @EnableWebSecurity
 @EnableAutoConfiguration
@@ -61,5 +65,13 @@ public class Application {
 		LOG.info("Number of process instances:"+runtimeService.createProcessInstanceQuery().count());
 		*/
 	}
-
+	//Support file upload function
+	//@see https://spring.io/guides/gs/uploading-files/
+	@Bean
+    MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("128MB");
+        factory.setMaxRequestSize("128MB");
+        return factory.createMultipartConfig();
+    }
 }
