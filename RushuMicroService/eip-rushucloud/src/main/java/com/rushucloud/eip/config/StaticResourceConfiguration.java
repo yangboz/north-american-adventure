@@ -86,5 +86,6 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/webapp/**").addResourceLocations("classpath:/webapp/www/");
         registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/admin/");
         registry.addResourceHandler("/angularweb/**").addResourceLocations("classpath:/angularweb/");
+        registry.addResourceHandler("/uploads/**").addResourceLocations("classpath:/uploads/");
     }
 }
