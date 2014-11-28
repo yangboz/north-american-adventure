@@ -58,7 +58,7 @@ public class FileUploadController {
         			LOG.error(ex.toString());
         		}
                 //TODO:image convert options; @see: http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/
-                return "You successfully uploaded " + name + " into " + fullFileName + "-uploaded !";
+                return "You successfully uploaded " + name + " into " + fullFileName;
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
             }

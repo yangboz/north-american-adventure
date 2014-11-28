@@ -1,5 +1,7 @@
 package com.rushucloud.eip.models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -71,8 +73,38 @@ public class Item extends ModelBase {
 	}
 
 	// The item invoices
-	// @CollectionOfElements
+//	 @CollectionOfElements,@see:https://jazzy.id.au/2008/03/24/jpa_2_0_new_features_part_1.html
+	private String invoices="1";//sort of invoice ids:"1,2,3,4"
+	
+	public String getInvoices() {
+		return invoices;
+	}
 
+	public void setInvoices(String invoices) {
+		this.invoices = invoices;
+	}
+	// The item vendors
+	private String vendors="1";//sort of vendor ids:"1,2,3,4"
+	
+	public String getVendors() {
+		return vendors;
+	}
+
+	public void setVendors(String vendors) {
+		this.vendors = vendors;
+	}
+
+	// The item date
+	@NotNull
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	// ==============
 	// PUBLIC METHODS
 	// ==============
@@ -83,9 +115,10 @@ public class Item extends ModelBase {
 		this.id = id;
 	}
 
-	public Item(double amount, String name, ItemType type) {
+	public Item(double amount, String name, ItemType type,Date date) {
 		this.amount = amount;
 		this.name = name;
 		this.type = type;
+		this.date = date;
 	}
 }
