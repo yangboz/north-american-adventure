@@ -108,13 +108,8 @@
 			<version>1.5.5</version>
 		</dependency>
 		<!-- Activiti/LDAP/Spring -->
-		<!--  
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-engine</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>org.activiti</groupId> <artifactId>activiti-engine</artifactId> 
+			<version>${activiti.version}</version> </dependency> -->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
@@ -137,6 +132,12 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
 			<version>5.10.0</version>
+		</dependency>
+		<!-- ImageMagick for Java -->
+		<dependency>
+			<groupId>org.im4java</groupId>
+			<artifactId>im4java</artifactId>
+			<version>1.4.0</version>
 		</dependency>
 	</dependencies>
 

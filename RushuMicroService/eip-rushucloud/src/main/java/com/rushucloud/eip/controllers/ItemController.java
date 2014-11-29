@@ -2,6 +2,8 @@ package com.rushucloud.eip.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +51,11 @@ public class ItemController {
 			@RequestParam(value = "amount", required = true, defaultValue = "1.88") double amount,
 			@RequestParam(value = "name", required = true, defaultValue = "Reim_item_00") String name,
 			@RequestParam(value = "type", required = true, defaultValue = "CostComsumed") ItemType type,
-			@RequestParam(value = "date", required = true, defaultValue = "09/22/2009") String date) {
+			@RequestParam(value = "date", required = true, defaultValue = "09/22/2009") String date,
+			@RequestParam(value = "invoices", required = false, defaultValue = "1") String invoices,
+			@RequestParam(value = "vendors", required = false, defaultValue = "1") String vendors) {
 		try {
-			Item item = new Item(amount, name, type, stringToDate(date));
+			Item item = new Item(amount, name, type, stringToDate(date),invoices,vendors);
 			_itemDao.save(item);
 		} catch (Exception ex) {
 			return new JsonString("Error creating the item: " + ex.toString());

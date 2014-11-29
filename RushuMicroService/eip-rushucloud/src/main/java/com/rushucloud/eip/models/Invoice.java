@@ -1,5 +1,9 @@
 package com.rushucloud.eip.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,13 +47,23 @@ public class Invoice extends ModelBase {
 	// The invoice picture
 	// TODO:big/middle/small size generation.
 	@NotNull
-	private String picture;
+	@ElementCollection
+	Map<String,String> picture;
+//	private String picture;
+//
+//	public String getPicture() {
+//		return picture;
+//	}
+//
+//	public void setPicture(String picture) {
+//		this.picture = picture;
+//	}
 
-	public String getPicture() {
+	public Map<String, String> getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String picture) {
+	public void setPicture(Map<String, String> picture) {
 		this.picture = picture;
 	}
 
@@ -63,7 +77,7 @@ public class Invoice extends ModelBase {
 		this.id = id;
 	}
 
-	public Invoice(String name, String picture) {
+	public Invoice(String name, Map<String,String> picture) {
 		this.name = name;
 		this.picture = picture;
 	}

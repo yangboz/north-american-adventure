@@ -1,7 +1,9 @@
 package com.rushucloud.eip.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -73,9 +75,10 @@ public class Item extends ModelBase {
 	}
 
 	// The item invoices
-//	 @CollectionOfElements,@see:https://jazzy.id.au/2008/03/24/jpa_2_0_new_features_part_1.html
-	private String invoices="1";//sort of invoice ids:"1,2,3,4"
-	
+	// @CollectionOfElements,@see:
+	// https://jazzy.id.au/2008/03/24/jpa_2_0_new_features_part_1.html
+	private String invoices = "1";// sort of invoice ids:"1,2,3,4"
+
 	public String getInvoices() {
 		return invoices;
 	}
@@ -83,9 +86,10 @@ public class Item extends ModelBase {
 	public void setInvoices(String invoices) {
 		this.invoices = invoices;
 	}
+
 	// The item vendors
-	private String vendors="1";//sort of vendor ids:"1,2,3,4"
-	
+	private String vendors = "1";// sort of vendor ids:"1,2,3,4"
+
 	public String getVendors() {
 		return vendors;
 	}
@@ -105,6 +109,7 @@ public class Item extends ModelBase {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	// ==============
 	// PUBLIC METHODS
 	// ==============
@@ -115,10 +120,13 @@ public class Item extends ModelBase {
 		this.id = id;
 	}
 
-	public Item(double amount, String name, ItemType type,Date date) {
+	public Item(double amount, String name, ItemType type, Date date,
+			String invoices,String vendors) {
 		this.amount = amount;
 		this.name = name;
 		this.type = type;
 		this.date = date;
+		this.invoices = invoices;
+		this.vendors = vendors;
 	}
 }
