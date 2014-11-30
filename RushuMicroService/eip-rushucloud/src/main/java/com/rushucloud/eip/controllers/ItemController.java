@@ -96,9 +96,9 @@ public class ItemController {
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "item/delete")
 	@ApiOperation(httpMethod = "DELETE", value = "Response a string describing if the item is successfully delete or not.")
-	public JsonString delete(long id) {
+	public JsonString delete(@RequestParam(value = "id", required = false, defaultValue = "1") String id) {
 		try {
-			Item item = new Item(id);
+			Item item = new Item(Long.valueOf(id).longValue());
 			_itemDao.delete(item);
 		} catch (Exception ex) {
 			return new JsonString("Error deleting the item:" + ex.toString());
