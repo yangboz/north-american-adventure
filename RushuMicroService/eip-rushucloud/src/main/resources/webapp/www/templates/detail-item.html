@@ -1,0 +1,24 @@
+<!--
+  This template loads for the 'tab.item-detail' state (app.js)
+  'item' is a $scope variable created in the itemsCtrl controller (controllers.js)
+  The itemsCtrl pulls data from the item service (service.js)
+  The item service returns an array of item data
+-->
+<!--
+<icon-nav-bar>
+    <ion-nav-buttons side="left">
+        <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="$root.goBack()">Back</a>
+    </ion-nav-buttons>
+</icon-nav-bar>
+-->
+<ion-view title="{{item.name}}">
+  <ion-content has-header="true" padding="true">
+
+      <label class="item item-input">assignee:
+          <input type="text" placeholder="assignee" disabled value="{{item.assignee}}">
+      </label>
+      <label class="item item-input">createTime:
+          <input type="text" placeholder="createTime" disabled value="{{item.createTime}}">
+      </label>
+  </ion-content>
+</ion-view>

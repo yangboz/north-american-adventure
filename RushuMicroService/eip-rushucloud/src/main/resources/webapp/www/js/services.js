@@ -341,6 +341,22 @@ angular.module('starter.services', [])
     return data;
 })
 
+///ItemService
+.factory('ItemService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'item/:item', {item: "@item"});
+    return data;
+})
+///InvoiceService
+.factory('InvoiceService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'invoice/:invoice', {invoice: "@invoice"});
+    return data;
+})
+///VendorService
+.factory('VendorService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'vendor/:vendor', {vendor: "@vendor"});
+    return data;
+})
+
 ///HTTP Header communication.
 .factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOP' +
