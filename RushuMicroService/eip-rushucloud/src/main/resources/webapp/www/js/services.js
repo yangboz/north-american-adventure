@@ -342,7 +342,7 @@ angular.module('starter.services', [])
 })
 ///ItemService
 .factory('ItemService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'rest/items/:itemId', {itemId: "@itemId"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'items/:itemId', {itemId: "@itemId"});
     return data;
 })
 ///HTTP Header communication.
