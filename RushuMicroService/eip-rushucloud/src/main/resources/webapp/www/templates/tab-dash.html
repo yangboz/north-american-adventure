@@ -1,78 +1,30 @@
-<ion-view title="HOME" name="tab-dash" ng-controller="TasksCtrl">
+<ion-view title="HOME" name="tab-dash" ng-controller="ItemsCtrl">
     <ion-nav-buttons side="left">
-        <button class="button" ng-click="orderTasks();">
+        <button class="button" ng-click="orderItems();">
             排序
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon icon ion-plus" ng-click="taskModal.show();">
-        </button>
-        <select ng-show="false">
-            <option ng-class="{selected: tasksType=='assigned'}"><a ng-click="loadTasksType('assigned')">My tasks</a></option>
-            <option ng-class="{selected: tasksType=='owned'}"><a ng-click="loadTasksType('owned')">Owned</a></option>
-            <option ng-class="{selected: tasksType=='involved'}"><a
-                    ng-click="loadTasksType('involved')">Involved</a></option>
-            <option ng-class="{selected: tasksType=='unassigned'}"><a ng-click="loadTasksType('unassigned')">Unassigned</a>
-            </option>
-
-            <option ng-hide="userGroups.data.length==0" class="divider"></option>
-            <option ng-repeat="group in userGroups.data ">
-                <a ng-click="loadTasksGroups(group)">{{group.name}}</a>
-            </option>
-        </select>
+        <ion-nav-buttons side="right">
+            <button class="button button-icon icon ion-plus" ng-click="itemModal.show();">
+            </button>
+        </ion-nav-buttons>
     </ion-nav-buttons>
   <ion-content >
       <ion-list>
 
-          <ion-item ng-repeat="task in tasks.data" type="item-text-wrap"
-                    ng-class="task.priority<31?'button-light':task.priority<51?'button-energized':'button-assertive'">
+          <ion-item ng-repeat="item in items.data" type="item-text-wrap"
+                    >
               <div class="item item-button-right">
-                  <i class="icon ion-mic-a"></i>
-                  <a href="#/tab/dash/{{task.id}}"><h2>{{task.name}} {{task.createTimeDate}}</h2></a>
-                  <span class="item-note">{{task.dueDate}}</span>
-                  <p>{{task.description}}</p>
-                  <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 text-right" aa-past="task.dueDate">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                      <span am-time-ago="task.dueDate"></span>
-                  </div>
-                  <button class="button button-icon icon ion-ios7-close-empty" ng-click="removeTask('{{task.id}}')"></button>
+                  <i class="icon ion-document"></i>
+                  <a href="#/tab/dash/{{item.id}}"><h2>{{item.name}} {{item.date}}</h2></a>
+                  <span class="item-note">{{item.vendors}}</span>
+                  <p>{{item.invoices}}</p>
+                  <button class="button button-icon icon ion-ios7-close-empty" ng-click="removeItem('{{item.id}}')"></button>
               </div>
           </ion-item>
 
       </ion-list>
-<!--WebSocket
-      <div class="users">
-          <div class="form-description" style="margin-bottom:10px">Firstly you must type your username:</div>
-          <form ng-submit="wsLogin()">
-              <input type="text" ng-model="alias" placeholder="Type your name" ng-disabled="isLogged" style="width:180px" autofocus="autofocus" />
-          </form>
-          <div ng-show="isLogged">
-              <button ng-click="wsLogoff()" class="logoff">Logoff</button>
-          </div>
-          <br />
-          <br />
-          <div ng-show="isLogged"><strong>Online users ({{ users.length }})</strong></div>
-          <ul>
-              <li ng-repeat="user in users">{{ user }}</li>
-          </ul>
-      </div>
-      <div class="chat">
-          <div ng-show="isLogged">
-              <div class="form-description" style="margin-bottom:10px">Your message:</div>
-              <form ng-submit="wsSend()">
-                  <input type="text" ng-model="message" placeholder="Type your message ..." maxlength="100" ng-disabled="!isLogged" style="width:540px" />
-              </form>
-              <br />
-              <br />
-              <ul class="messages">
-                  <li ng-repeat="message in messages">
-                      <span>{{ message.date | date: 'yyyy-MM-dd HH:mm:ss' }} - {{ message.user }}</span>
-                      {{ message.message }}
-                  </li>
-              </ul>
-          </div>
-      </div>
--->
 
   </ion-content>
 </ion-view>

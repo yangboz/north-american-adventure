@@ -18,7 +18,10 @@ import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
 @Configuration
 @ComponentScan
@@ -26,6 +29,10 @@ import org.springframework.context.annotation.ImportResource;
 @EnableAutoConfiguration
 // @EnableAutoConfiguration(exclude={WebSocketAutoConfiguration.class,JpaProcessEngineAutoConfiguration.class})
 @ImportResource("classpath:activiti-standalone-context.xml")
+//@see: http://spring.io/guides/gs/accessing-data-rest/
+@EnableJpaRepositories
+@Import(RepositoryRestMvcConfiguration.class)
+//
 public class Application {
 
 	private static Logger LOG = LoggerFactory.getLogger(Application.class);

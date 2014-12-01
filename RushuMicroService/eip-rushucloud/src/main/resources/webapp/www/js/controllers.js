@@ -59,6 +59,14 @@ angular.module('starter.controllers', [])
                 $scope.loginModal.show();
             }
         });
+        ///ItemModal
+        $ionicModal.fromTemplateUrl('templates/modal-item.html', {
+            scope: $scope,
+            backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-item.html init!!!");
+            $scope.itemModal = modal;
+        });
         ///TaskModal
         $ionicModal.fromTemplateUrl('templates/modal-task.html', {
             scope: $scope,
@@ -74,14 +82,6 @@ angular.module('starter.controllers', [])
         }).then(function (modal) {
 //        console.log("modal-task.html init!!!");
             $scope.reportModal = modal;
-        });
-        ///ItemModal
-        $ionicModal.fromTemplateUrl('templates/modal-item.html', {
-            scope: $scope,
-            backdropClickToClose: false
-        }).then(function (modal) {
-//        console.log("modal-item.html init!!!");
-            $scope.itemModal = modal;
         });
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
@@ -381,6 +381,7 @@ angular.module('starter.controllers', [])
             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
             UserService.get({user: $scope.loginModal.user.username}, function (response) {
+
                 $log.debug("UserService.get(login) success!", response);
                 $rootScope.loggedin = true;
                 $rootScope.loggedUser = response;
@@ -391,13 +392,13 @@ angular.module('starter.controllers', [])
                 $scope.loginModal.hide();
                 //Default getTasks;
                 $log.debug("$rootScope.username:", $rootScope.username, ",$rootScope.password:", $rootScope.password);
-                //getTask test
+                //
                 TaskService.get({}, function (response) {
 //            TaskService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
                     $rootScope.tasks = response.data;
                 });
-                //getItem test
+                //
                 ItemService.get({}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
@@ -430,7 +431,62 @@ angular.module('starter.controllers', [])
             });
         };
     })
-
+    .controller('ItemsCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
+                                       ItemService) {
+        //ng-model
+        $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": ""};
+        //CREATE,
+        $scope.createItem = function () {
+            $log.debug("createItem(),$scope.newItem:", $scope.newItem);
+            var anewItem = new ItemService($scope.newItem);
+            anewItem.name = $scope.newItem.name;
+            anewItem.vendors = $scope.newItem.vendors;
+            anewItem.invoices = $scope.newItem.invoices;
+            anewItem.date = $scope.newItem.date;
+            //
+            //Save
+            anewItem.$save(function (t, putResponseHeaders) {
+                $log.info("createItem() success, response:", t);
+                //Hide item modal
+                $scope.itemModal.hide();
+                //Refresh task list
+                ItemService.get({}, function (response) {
+                    $log.debug("ItemService.get() success!", response);
+                    $rootScope.items = response.data;
+                });
+                //Reset value
+                $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": ""};
+            });
+        }
+        //DELETE
+        $scope.removeItem = function (itemId) {
+            ItemService.delete({"itemId": itemId}, function (data) {
+                $log.debug("ItemService.delete:", data);
+                //Refresh item list
+                ItemService.get({}, function (response) {
+                    $log.debug("ItemService.get() success!", response);
+                    $rootScope.tasks = response.data;
+                });
+            });
+            //
+        }
+        $scope.orderValue = 'asc';//desc
+        //ORDER
+        $scope.orderItems = function () {
+            $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
+            //
+            ItemService.get({order: $scope.orderValue}, function (response) {
+                $log.debug("ItemService.get(order) success!", response);
+                $rootScope.items = response.data;
+            });
+        }
+        //LoadTask()
+        $scope.loadItem = function (item) {
+            $scope.items = ItemService.get();
+        };
+        ///Initialization call.
+        $scope.loadItem();
+    })
     .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, ProcessDefinitionService, GroupService, TaskService) {
@@ -785,73 +841,6 @@ angular.module('starter.controllers', [])
             $log.debug("ProcessInstanceService.getProcessInstanceInfo success!", response);
             $scope.processInstance = response;
             $log.debug("InstanceDetailCtrl $scope.processInstance", $scope.processInstance);
-        });
-    })
-    .controller('ItemsCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
-                                       ItemService) {
-        //ng-model
-        $scope.newItem = {"name": "", "date": "", "vendor": "", "invoice": ""}
-        //CREATE, //@see:
-        $scope.createItem = function () {
-            $log.debug("createItem(),$scope.newItem:", $scope.newItem);
-            var anewItem = new TaskService($scope.newItem);
-            anewItem.name = $scope.newItem.name;
-            anewItem.date = $scope.newItem.date;
-            anewItem.vendor = $scope.newItem.vendor;
-            anewItem.invoice = $scope.newItem.invoice;
-            //Save
-            anewItem.$save(function (t, putResponseHeaders) {
-                $log.info("createItem() success, response:", t);
-                //Hide item modal
-                $scope.itemModal.hide();
-                //Refresh item list
-                ItemService.get({}, function (response) {
-                    $log.debug("ItemService.get() success!", response);
-                    $rootScope.items = response.data;
-                });
-                //Reset value
-                $scope.newItem = {"name": "", "date": "", "vendor": "", "invoice": ""};
-            });
-        }
-        //DELETE item/{itemId}?cascadeHistory={cascadeHistory}&deleteReason={deleteReason}
-        $scope.removeItem = function (itemId) {
-            ItemService.delete({"itemId": itemId}, function (data) {
-                $log.debug("ItemService.delete:", data);
-                //Refresh item list
-                ItemService.get({}, function (response) {
-                    $log.debug("ItemService.get() success!", response);
-                    $rootScope.items = response.data;
-                });
-            });
-            //
-        }
-        $scope.orderValue = 'asc';//desc
-        //ORDER
-        $scope.orderItems = function () {
-            $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
-            //
-            ItemService.get({order: $scope.orderValue}, function (response) {
-                $log.debug("ItemService.get(order) success!", response);
-                $rootScope.items = response.data;
-            });
-        }
-        //LoadItem()
-        $scope.loadItem = function (item) {
-            $log.info("loadItem():", item);
-            ItemService.get({"itemId": item.id}, function (response) {
-                $log.debug("ItemService.get(order) success!", response);
-                $rootScope.items = response.data;
-            });
-        };
-
-    })
-    .controller('ItemDetailCtrl', function ($scope, $rootScope, $stateParams, ItemService, $log) {
-        $log.info("$stateParams.taskId:", $stateParams.itemId);
-        //
-        ItemService.get({itemId: $stateParams.itemId}, function (response) {
-            $log.debug("ItemService.getItemInfo success!", response);
-            $scope.item = response;
-            $log.debug("ItemDetailCtrl $scope.item", $scope.item);
         });
     })
 ;

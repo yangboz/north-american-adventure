@@ -328,7 +328,7 @@ angular.module('starter.services', [])
 })
 ///FormDataService
 .factory('FormDataService', function ($resource,CONFIG_ENV) {
-//    var data = $resource(API_URL+'service/form/form-data?taskId=:taskId', {taskId: "@taskId"});
+//    var data = $resource(API_URL+'form/form-data?taskId=:taskId', {taskId: "@taskId"});
 //    return data;
         var data = $resource(CONFIG_ENV.api_endpoint+'form/form-data', {}, {
             startTask: {method:'GET',  params: {processDefinitionId: "@processDefinitionId"}}
@@ -340,23 +340,11 @@ angular.module('starter.services', [])
     var data = $resource(CONFIG_ENV.api_endpoint+'identity/groups/:group', {group: "@group"});
     return data;
 })
-
 ///ItemService
 .factory('ItemService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'item/:item', {item: "@item"});
+    var data = $resource(CONFIG_ENV.api_endpoint+'rest/items/:itemId', {itemId: "@itemId"});
     return data;
 })
-///InvoiceService
-.factory('InvoiceService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'invoice/:invoice', {invoice: "@invoice"});
-    return data;
-})
-///VendorService
-.factory('VendorService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'vendor/:vendor', {vendor: "@vendor"});
-    return data;
-})
-
 ///HTTP Header communication.
 .factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOP' +

@@ -5,39 +5,36 @@
 -->
 <ion-tabs class="tabs-icon-top" delegate-handle="my-tabs" ng-controller="TabsCtrl">
 
-    <!-- Dashboard Tab -->
-    <ion-tab title="报销" icon="icon ion-document" href="#/tab/dash" icon-on="ion-document is-active"
-             icon-off="ion-document"
-             ng-click="onTabSelected()" ng-controller="TabLocalCtrlDash">
-        <!--<ion-nav-view name="tab-dash"></ion-nav-view>-->
-        <ion-nav-view name="tab-dash"></ion-nav-view>
-    </ion-tab>
+  <!-- Dashboard Tab -->
+  <ion-tab title="报销" icon="icon ion-document" href="#/tab/dash" icon-on="ion-document is-active" icon-off="ion-document"
+           ng-click="onTabSelected()" ng-controller="TabLocalCtrlDash">
+      <ion-nav-view name="tab-dash"></ion-nav-view>
+  </ion-tab>
 
-    <!-- Reports Tab -->
-    <ion-tab badge="0" title="报告" icon="icon ion-document-text" href="#/tab/reports"
-             icon-on="ion-document-text is-active" icon-off="ion-document-text"
-             ng-click="onTabSelected()" ng-controller="TabLocalCtrlReports">
-        <ion-nav-view name="tab-reports"></ion-nav-view>
-    </ion-tab>
+  <!-- Reports Tab -->
+  <ion-tab badge="0" title="报告" icon="icon ion-document-text" href="#/tab/reports" icon-on="ion-document-text is-active" icon-off="ion-document-text"
+           ng-click="onTabSelected()" ng-controller="TabLocalCtrlReports">
+    <ion-nav-view name="tab-reports"></ion-nav-view>
+  </ion-tab>
 
-    <!-- Statistic Tab -->
-    <ion-tab title="统计" icon="icon ion-stats-bars" href="#/tab/stats" icon-on="ion-stats-bars is-active"
-             icon-off="ion-stats-bars">
-        <ion-nav-view name="tab-stats"></ion-nav-view>
-    </ion-tab>
+   <!-- Statistic Tab -->
+  <ion-tab title="统计" icon="icon ion-stats-bars" href="#/tab/stats" icon-on="ion-stats-bars is-active" icon-off="ion-stats-bars">
+    <ion-nav-view name="tab-stats"></ion-nav-view>
+  </ion-tab>
 
-    <!-- Account Tab -->
-    <ion-tab title="我!" icon="icon ion-man" href="#/tab/my" icon-on="ion-man is-active" icon-off="ion-man"
-             ui-sref="tabs.my">
-        <ion-nav-view name="tab-my"></ion-nav-view>
-    </ion-tab>
+  <!-- Account Tab -->
+  <ion-tab title="我!" icon="icon ion-man" href="#/tab/my" icon-on="ion-man is-active" icon-off="ion-man" ui-sref="tabs.my">
+    <ion-nav-view name="tab-my"></ion-nav-view>
+  </ion-tab>
 
-    <!-- Process Tab
+    <!-- Process Tab -->
+    <!--
     <ion-tab title="Process" icon="icon ion-man" href="#/tab/processes" icon-on="ion-man is-active" icon-off="ion-eye" >
         <ion-nav-view name="tab-processes"></ion-nav-view>
     </ion-tab>
     -->
-    <!-- Instance Tab
+    <!-- Instance Tab -->
+    <!--
     <ion-tab title="Instance" icon="icon ion-man" href="#/tab/instances" icon-on="ion-man is-active" icon-off="ion-wand" >
         <ion-nav-view name="tab-instances"></ion-nav-view>
     </ion-tab>

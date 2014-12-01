@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rushucloud.eip.dto.JsonObject;
 import com.rushucloud.eip.dto.JsonString;
 import com.rushucloud.eip.models.Item;
 import com.rushucloud.eip.models.Item.ItemType;
@@ -105,7 +106,6 @@ public class ItemController {
 		}
 		return new JsonString("item succesfully deleted!");
 	}
-
 	/**
 	 * Return the id for the item having the passed email.
 	 *
@@ -113,18 +113,44 @@ public class ItemController {
 	 *            the id to search in the database.
 	 * @return the item id or a message error if the item is not found.
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "item/get-by-id")
+	@RequestMapping(method = RequestMethod.GET, value = "item/")
+	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of item that is successfully get or not.")
+	public JsonObject findAll() {
+		JsonObject result = new JsonObject(null);
+		try {
+			Iterable<Item> item = _itemDao.findAll();
+			result.setData(item);
+		} catch (Exception ex) {
+//			return new JsonString("item not found");
+			LOG.error("item not found.");
+		}
+//		return new JsonString("The item id is: " + itemId);
+		LOG.debug(result.toString());
+		return result;
+	}
+	/**
+	 * Return the id for the item having the passed email.
+	 *
+	 * @param id
+	 *            the id to search in the database.
+	 * @return the item id or a message error if the item is not found.
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "item/{itemId}")
 	@ApiOperation(httpMethod = "GET", value = "Response a string describing if the item id is successfully get or not.")
-	public JsonString getById(
+	public Item getById(
 			@RequestParam(value = "id", required = true, defaultValue = "1") long id) {
-		String itemId;
+//		String itemId;
+		Item result=null;
 		try {
 			Item item = _itemDao.findById(id);
-			itemId = String.valueOf(item.getId());
+//			itemId = String.valueOf(item.getId());
+			result = item;
 		} catch (Exception ex) {
-			return new JsonString("item not found");
+//			return new JsonString("item not found");
+			LOG.error("item not found");
 		}
-		return new JsonString("The item id is: " + itemId);
+//		return new JsonString("The item id is: " + itemId);
+		return result;
 	}
 
 	/**

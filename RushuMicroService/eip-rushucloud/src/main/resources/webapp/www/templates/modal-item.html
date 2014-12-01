@@ -8,11 +8,23 @@
             <label class="item item-input">
                 <input type="text" placeholder="名称" ng-model="newItem.name">
             </label>
-            <label class="item item-input">
-                <textarea placeholder="发票" ng-model="newItem.description"></textarea>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    类型
+                </div>
+                <select>
+                    <option selected>已消费</option>
+                    <option>预审批</option>
+                </select>
             </label>
             <label class="item item-input">
-                <input type="date" placeholder="时间" ng-model="newItem.dueDate">
+                <textarea placeholder="照片" ng-model="newItem.invoices"></textarea>
+            </label>
+            <label class="item item-input">
+                <input type="date" placeholder="日期" ng-model="newItem.date">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="供应商" ng-model="newItem.vendors">
             </label>
             <button class="button button-full" ng-click="createItem()">Submit</button>
         </div>
