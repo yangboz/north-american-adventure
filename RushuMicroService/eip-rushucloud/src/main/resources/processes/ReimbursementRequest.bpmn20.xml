@@ -6,11 +6,12 @@
         <activiti:formProperty id="amountOfMoney" name="Amout of money" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
         <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string"></activiti:formProperty>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="request" targetRef="handleRequest"></sequenceFlow>
-    <userTask id="handleRequest" name="Handle reimbursement request" activiti:candidateGroups="managements">
-      <documentation>${employeeName} would like to take ${numberOfDays} day(s) of reimbursement (Motivation: ${reimbursementMotivation}).</documentation>
+    <userTask id="handleRequest" name="Handle reimbursement request" activiti:assignee="{assignee}" activiti:candidateUsers="{ldapService.findCandidateUserForEmployee()}" activiti:candidateGroups="{ldapService.findCandidateGroupForEmployee()}">
+      <documentation>{employeeName} would like to take {numberOfDays} day(s) of reimbursement (Motivation: {reimbursementMotivation}).</documentation>
       <extensionElements>
         <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement" type="enum" required="true">
           <activiti:value id="true" name="Approve"></activiti:value>
@@ -28,17 +29,17 @@
       </extensionElements>
     </exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="requestApprovedDecision" targetRef="sendApprovalMail">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved == 'true'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[{reimbursementApproved == 'true'}]]></conditionExpression>
     </sequenceFlow>
     <manualTask id="sendApprovalMail" name="Send confirmation e-mail"></manualTask>
     <sequenceFlow id="flow4" sourceRef="sendApprovalMail" targetRef="theEnd1"></sequenceFlow>
     <endEvent id="theEnd1"></endEvent>
     <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="adjustReimbursementRequestTask">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved == 'false'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[{reimbursementApproved == 'false'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="${employeeName}">
-      <documentation>Your manager has disapproved your reimbursement request for ${numberOfDays} days.
-        Reason: ${managerMotivation}</documentation>
+    <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="{employeeName}">
+      <documentation>Your manager has disapproved your reimbursement request for {numberOfDays} days.
+        Reason: {managerMotivation}</documentation>
       <extensionElements>
         <activiti:formProperty id="numberOfDays" name="Number of days" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
@@ -58,10 +59,10 @@
       </extensionElements>
     </exclusiveGateway>
     <sequenceFlow id="flow7" sourceRef="resendRequestDecision" targetRef="handleRequest">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'true'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[{resendRequest == 'true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="resendRequestDecision" targetRef="theEnd2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'false'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[{resendRequest == 'false'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="theEnd2"></endEvent>
   </process>

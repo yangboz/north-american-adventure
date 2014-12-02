@@ -39,8 +39,8 @@ public class Application {
 	private static Logger LOG = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) throws InterruptedException {
-//		SpringApplication.run(Application.class, args);
-		new SpringApplicationBuilder(Application.class).profiles("test").run(args);
+		SpringApplication.run(Application.class, args);
+//		new SpringApplicationBuilder(Application.class).profiles("test").run(args);
 		// Deploying the process here,avoid duplication to @see: http://forums.activiti.org/content/duplicate-deployment-processes
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 		RepositoryService repositoryService = processEngine
@@ -59,10 +59,9 @@ public class Application {
 		 repositoryService.createProcessDefinitionQuery().list().toString());
 		LOG.info("Number of process definitions: "
 				+ repositoryService.createProcessDefinitionQuery().count());
-		/*
 		//Starting a process instance
 		Map<String,Object> variables = new HashMap<String,Object>();
-		variables.put("employeeName", "YangboZ");
+		variables.put("employeeName", "employee1");
 		variables.put("amountOfMoney", (long)99.8);
 		variables.put("reimbursmentMotivation", "Need reimbursement for taxi.");
 		//
@@ -72,7 +71,6 @@ public class Application {
 		LOG.info("Process instance:"+processInstance.getId());
 		LOG.info("Process instances:"+runtimeService.createProcessInstanceQuery().list().toString());
 		LOG.info("Number of process instances:"+runtimeService.createProcessInstanceQuery().count());
-		*/
 	}
 	//Support file upload function
 	//@see https://spring.io/guides/gs/uploading-files/

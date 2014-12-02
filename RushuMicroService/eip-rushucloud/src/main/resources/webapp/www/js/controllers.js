@@ -4,15 +4,15 @@ angular.module('starter.controllers', [])
                                       CONFIG_ENV, $log, $cordovaToast) {
 //Websocket/Stomp testing:
         var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
-        client.connect("", "",
+        client.connect("employee1", "passwordpassword",
             function () {
-                client.subscribe("jms.topic.test",
+                client.subscribe("SAMPLEQUEUE",
                     function (message) {
                         $log.debug(message);
                     },
                     {priority: 9}
                 );
-                client.send("jms.topic.test", {priority: 9}, "Pub/Sub over STOMP!");
+                client.send("SAMPLEQUEUE", {priority: 9}, "Pub/Sub over STOMP!");
             }
         );
 //app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
@@ -253,8 +253,6 @@ angular.module('starter.controllers', [])
             anewReport.owner = $scope.newReport.owner;
             anewReport.assignee = $rootScope.username;
             $log.debug("createReport(),$scope.newReport:", $scope.newReport);
-            //
-            $http.defaults.headers.common['Content-Type'] = 'application/json; charset=UTF-8';
             //Save
             anewReport.$save(function (r, putResponseHeaders) {
                 $log.info("createReport() success, response:", r);
@@ -268,6 +266,13 @@ angular.module('starter.controllers', [])
                 //Reset value
                 $scope.newTask = {"name": "", "description": "", "dueDate": "", "owner": $rootScope.username};
             });
+        }
+        //Add an involved user to a process instance
+        //@see: http://activiti.org/userguide/index.html#N1400A
+        //POST runtime/process-instances/{processInstanceId}/identitylinks
+        $scope.addInvolvedUsers = function (args){
+            //
+
         }
     })
     .controller('ReportDetailCtrl', function ($scope, $rootScope, $stateParams, ReportService, $log) {
