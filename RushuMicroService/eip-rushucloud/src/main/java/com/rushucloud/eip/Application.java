@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,7 +39,8 @@ public class Application {
 	private static Logger LOG = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(Application.class, args);
+//		SpringApplication.run(Application.class, args);
+		new SpringApplicationBuilder(Application.class).profiles("test").run(args);
 		// Deploying the process here,avoid duplication to @see: http://forums.activiti.org/content/duplicate-deployment-processes
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 		RepositoryService repositoryService = processEngine

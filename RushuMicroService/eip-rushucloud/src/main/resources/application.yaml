@@ -34,11 +34,11 @@ db:
 #     naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
 ---
 spring:
-  profiles: prod
+  profiles: test
 ldap:
-  url: ldap://localhost:10389
-  userOn: uid=admin,ou=system
-  password: secret
+  url: ldap://182.92.232.131:389
+  userOn: cn=admin,dc=182,dc=92,dc=232,dc=131
+  password: rushu0915
 db:
   driver: com.mysql.jdbc.Driver
   url: jdbc:mysql://localhost:3306/eip_rushucloud

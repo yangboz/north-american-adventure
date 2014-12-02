@@ -43,3 +43,12 @@ Notice:
 ###1.mysql-grant-all-privileges-on-database:
 
 GRANT ALL PRIVILEGES ON * . * TO 'root'@'localhost'
+
+Profile:
+
+###Test:
+
+####OpenLDAP:http://www.server-world.info/en/note?os=Debian_7.0&p=ldap
+
+sudo apt-get install slapd ldap-utils libldap-2.4-2 libdb4.6
+
