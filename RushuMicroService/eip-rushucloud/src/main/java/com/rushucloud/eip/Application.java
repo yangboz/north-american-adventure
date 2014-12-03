@@ -24,6 +24,9 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
+import com.rushucloud.eip.activemq.ActivemqReceiver;
+import com.rushucloud.eip.consts.JMSConstants;
+
 @Configuration
 @ComponentScan
 // @EnableWebSecurity
@@ -52,8 +55,6 @@ public class Application {
 				.enableDuplicateFiltering()
 				.name("reimbursmentApproveSimple")
 				.deploy();
-		//Sleep some time.
-//		Thread.sleep(5000);
 		// Log information
 		 LOG.info("Process definitions: " +
 		 repositoryService.createProcessDefinitionQuery().list().toString());
@@ -71,6 +72,10 @@ public class Application {
 		LOG.info("Process instance:"+processInstance.getId());
 		LOG.info("Process instances:"+runtimeService.createProcessInstanceQuery().list().toString());
 		LOG.info("Number of process instances:"+runtimeService.createProcessInstanceQuery().count());
+		//ActiveMQ message receiver
+//		ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");
+//		ActivemqReceiver receiver = ActivemqReceiver.getInstance("SAMPLEQUEUE");
+//		receiver.receiveMessage();
 	}
 	//Support file upload function
 	//@see https://spring.io/guides/gs/uploading-files/

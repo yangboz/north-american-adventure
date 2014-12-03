@@ -8,11 +8,19 @@ angular.module('starter.controllers', [])
             function () {
                 client.subscribe("SAMPLEQUEUE",
                     function (message) {
-                        $log.debug(message);
+                        //$log.debug(message);
+                        console.log(message.body);
+                        //$cordovaToast.showLongTop(message);
+                        if (window.plugins && window.plugins.toast) {
+                            window.plugins.toast.showShortCenter(message.body);
+                        }
+                        else {
+                            $ionicLoading.show({template: message.body, noBackdrop: true, duration: 2000});
+                        }
                     },
                     {priority: 9}
                 );
-                client.send("SAMPLEQUEUE", {priority: 9}, "Pub/Sub over STOMP!");
+                //client.send("SAMPLEQUEUE", {priority: 9}, "Pub/Sub over STOMP from Ionic!");//For testing...
             }
         );
 //app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
@@ -270,7 +278,7 @@ angular.module('starter.controllers', [])
         //Add an involved user to a process instance
         //@see: http://activiti.org/userguide/index.html#N1400A
         //POST runtime/process-instances/{processInstanceId}/identitylinks
-        $scope.addInvolvedUsers = function (args){
+        $scope.addInvolvedUsers = function (args) {
             //
 
         }

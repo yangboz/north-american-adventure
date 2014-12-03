@@ -27,6 +27,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
     //'api_endpoint': 'http://localhost:8080/activiti-rest/service/',
     'api_version': '5.16.3',
     'stomp_uri':'ws://127.0.0.1:61614/stomp',
+    //'stomp_uri':'ws://182.92.232.131:61614/stomp',
     'stomp_protocol':'v11.stomp'
 })
 ///App run
