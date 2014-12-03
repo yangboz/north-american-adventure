@@ -71,12 +71,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
         }
       }
     })
-    .state('tab.task-detail', {
-      url: '/dash/:taskId',
+    .state('tab.item-detail', {
+      url: '/dash/:itemId',
       views: {
           'tab-dash': {
-              templateUrl: 'templates/detail-task.html',
-              controller: 'TaskDetailCtrl'
+              templateUrl: 'templates/detail-item.html',
+              controller: 'ItemDetailCtrl'
           }
       }
     })

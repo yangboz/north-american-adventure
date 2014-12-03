@@ -2,26 +2,28 @@ angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
                                       CONFIG_ENV, $log, $cordovaToast) {
-//Websocket/Stomp testing:
-        var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
-        client.connect("employee1", "passwordpassword",
-            function () {
-                client.subscribe("SAMPLEQUEUE",
-                    function (message) {
-                        //$log.debug(message);
-                        //console.log(message.body);
-                        if (window.plugins && window.plugins.toast) {
-                            window.plugins.toast.showShortCenter(message.body);
-                        }
-                        else {
-                            $ionicLoading.show({template: message.body, noBackdrop: true, duration: 10000});
-                        }
-                    },
-                    {priority: 9}
-                );
-                //client.send("SAMPLEQUEUE", {priority: 9}, "Pub/Sub over STOMP from Ionic!");//For testing...
-            }
-        );
+//Websocket/Stomp handler:
+        $rootScope.connectStomp = function (username, password) {
+            var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
+            client.connect(username, password,
+                function () {
+                    client.subscribe("SAMPLEQUEUE",
+                        function (message) {
+                            //$log.debug(message);
+                            //console.log(message.body);
+                            if (window.plugins && window.plugins.toast) {
+                                window.plugins.toast.showShortCenter(message.body);
+                            }
+                            else {
+                                $ionicLoading.show({template: message.body, noBackdrop: true, duration: 10000});
+                            }
+                        },
+                        {priority: 9}
+                    );
+                    //client.send("SAMPLEQUEUE", {priority: 9}, "Pub/Sub over STOMP from Ionic!");//For testing...
+                }
+            );
+        }
 //app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
 //    console.log("MainController init!!!");
 ///GoBack
@@ -55,7 +57,7 @@ angular.module('starter.controllers', [])
 //        console.log("modal-login.html init!!!");
             $scope.loginModal = modal;
             $scope.loginModal.user = {
-                username: "employee0",
+                username: "employee1",
                 password: "passwordpassword"
             };
             //Login Modal
@@ -114,6 +116,7 @@ angular.module('starter.controllers', [])
             $scope.loginModal.remove();
             $scope.taskModal.remove();
             $scope.reportModal.remove();
+            $scope.itemModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -416,10 +419,10 @@ angular.module('starter.controllers', [])
                     $rootScope.items = response.data;
                 });
                 //getProcesses test
-                ProcessService.get({user: $rootScope.username}, function (response) {
-                    $log.debug("ProcessService.get() success!", response);
-                    $rootScope.processes = response.data;
-                });
+                //ProcessService.get({user: $rootScope.username}, function (response) {
+                //    $log.debug("ProcessService.get() success!", response);
+                //    $rootScope.processes = response.data;
+                //});
                 //getJobs test
                 JobService.get({user: $rootScope.username}, function (response) {
                     $log.debug("JobService.get() success!", response);
@@ -439,14 +442,24 @@ angular.module('starter.controllers', [])
 //            FormDataService.get({"taskId": 2513}, function (data) {
 //                $log.debug("FormDataService.get() success!",data);
 //            });
-
+                //Connect to STOMP server.
+                $rootScope.connectStomp($rootScope.username, $rootScope.password);
             });
         };
+    })
+    .controller('ItemDetailCtrl', function ($scope, $rootScope, $stateParams, ItemService, $log) {
+        $log.info("$stateParams.itemId:", $stateParams.itemId);
+        //
+        ItemService.get({itemId: $stateParams.itemId}, function (response) {
+            $log.debug("ItemService.getTaskInfo success!", response);
+            $scope.item = response;
+            $log.debug("ItemDetailCtrl $scope.item", $scope.item);
+        });
     })
     .controller('ItemsCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ItemService) {
         //ng-model
-        $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": ""};
+        $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "","owner":""};
         //CREATE,
         $scope.createItem = function () {
             $log.debug("createItem(),$scope.newItem:", $scope.newItem);
@@ -455,6 +468,7 @@ angular.module('starter.controllers', [])
             anewItem.vendors = $scope.newItem.vendors;
             anewItem.invoices = $scope.newItem.invoices;
             anewItem.date = $scope.newItem.date;
+            anewItem.owner = $rootScope.username;
             //
             //Save
             anewItem.$save(function (t, putResponseHeaders) {
@@ -467,7 +481,7 @@ angular.module('starter.controllers', [])
                     $rootScope.items = response.data;
                 });
                 //Reset value
-                $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": ""};
+                $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "","owner":""};
             });
         }
         //DELETE
@@ -477,7 +491,7 @@ angular.module('starter.controllers', [])
                 //Refresh item list
                 ItemService.get({}, function (response) {
                     $log.debug("ItemService.get() success!", response);
-                    $rootScope.tasks = response.data;
+                    $rootScope.items = response.data;
                 });
             });
             //
@@ -493,11 +507,11 @@ angular.module('starter.controllers', [])
             });
         }
         //LoadTask()
-        $scope.loadItem = function (item) {
-            $scope.items = ItemService.get();
+        $scope.loadItems = function (item) {
+            $rootScope.items = ItemService.get();
         };
         ///Initialization call.
-        $scope.loadItem();
+        //$scope.loadItems();
     })
     .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
@@ -687,8 +701,8 @@ angular.module('starter.controllers', [])
 
         ///Initialization call.
         //$scope.loadUserGroups();
-        $scope.loadTasks();
-        $scope.loadDefinitions();
+        //$scope.loadTasks();
+        //$scope.loadDefinitions();
     })
     .controller('TaskDetailCtrl', function ($scope, $rootScope, $stateParams, TaskService, $log) {
         $log.info("$stateParams.taskId:", $stateParams.taskId);

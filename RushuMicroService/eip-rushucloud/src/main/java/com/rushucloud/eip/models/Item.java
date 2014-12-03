@@ -61,6 +61,18 @@ public class Item extends ModelBase {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	// The item owner name or id.
+	@NotNull
+	private String owner;
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 
 	// The item type
 	@Enumerated(EnumType.STRING)
@@ -121,12 +133,13 @@ public class Item extends ModelBase {
 	}
 
 	public Item(double amount, String name, ItemType type, Date date,
-			String invoices,String vendors) {
+			String invoices,String vendors,String owner) {
 		this.amount = amount;
 		this.name = name;
 		this.type = type;
 		this.date = date;
 		this.invoices = invoices;
 		this.vendors = vendors;
+		this.owner = owner;
 	}
 }
