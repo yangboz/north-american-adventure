@@ -76,10 +76,20 @@ angular.module('starter.controllers', [])
 //        console.log("modal-item.html init!!!");
             $scope.itemModal = modal;
         });
-        ///TaskModal
-        $ionicModal.fromTemplateUrl('templates/modal-task.html', {
+        ///ItemListModal
+        $ionicModal.fromTemplateUrl('templates/modal-item-list.html', {
             scope: $scope,
             backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-item-list.html init!!!");
+            $scope.itemListModal = modal;
+        });
+        ///TaskModal
+        $ionicModal.fromTemplateUrl('templates/modal-task.html', {
+            scope: $scope
+            ,backdropClickToClose: false
+            ,animation: 'slide-in-up'
+            ,focusFirstInput: true
         }).then(function (modal) {
 //        console.log("modal-task.html init!!!");
             $scope.taskModal = modal;
@@ -117,6 +127,7 @@ angular.module('starter.controllers', [])
             $scope.taskModal.remove();
             $scope.reportModal.remove();
             $scope.itemModal.remove();
+            $scope.itemListModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -156,30 +167,28 @@ angular.module('starter.controllers', [])
             $ionicViewService.goToHistoryRoot($rootScope.DashHistoryID);
         }
     })
-    .controller('TabLocalCtrlReports', function ($scope, $rootScope, $state, $ionicViewService) {
-        console.log('TabLocalCtrlReports init!');
+    .controller('TabLocalCtrlTasks', function ($scope, $rootScope, $state, $ionicViewService) {
+        console.log('TabLocalCtrlTasks init!');
         $scope.onTabSelected = function () {
-            $state.go('tab.reports');
-            $ionicViewService.goToHistoryRoot($rootScope.ReportHistoryID);
+            $state.go('tab.tasks');
+            $ionicViewService.goToHistoryRoot($rootScope.TaskHistoryID);
         }
     })
-    .controller('TabCtrlReports', function ($scope, $rootScope, $ionicViewService, ReportService, $log, $http) {
-//    $rootScope.ReportHistoryID = $ionicViewService.getCurrentView().historyId;
-//    console.log('TabCtrlReports,ReportHistoryID:',$rootScope.ReportHistoryID);
+    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log, $http) {
         //    $log.debug("$rootScope.username:",$rootScope.username);
-        ReportService.get({assignee: $rootScope.username}, function (response) {
+        TaskService.get({assignee: $rootScope.username}, function (response) {
             $log.debug("TaskService.get() success!", response);
-            $rootScope.reports = response.data;
+            $rootScope.tasks = response.data;
         });
         //
         $scope.orderValue = 'asc';//desc
         //ORDER
-        $scope.orderReports = function () {
+        $scope.orderTasks = function () {
             $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
             //
             ReportService.get({assignee: $rootScope.username, order: $scope.orderValue}, function (response) {
-                $log.debug("ReportService.get(order) success!", response);
-                $rootScope.reports = response.data;
+                $log.debug("TaskService.get(order) success!", response);
+                $rootScope.tasks = response.data;
             });
         };
         /**
@@ -202,7 +211,7 @@ angular.module('starter.controllers', [])
 //            $log.info('Couldn\'t claim task : ' + status);
 //        });
 
-            var action = new ReportService();
+            var action = new TaskService();
             action.action = "claim";
             action.$save({"taskId": taskId}, function (resp) {
                 //after finishing remove the task from the tasks list
@@ -703,6 +712,22 @@ angular.module('starter.controllers', [])
         //$scope.loadUserGroups();
         //$scope.loadTasks();
         //$scope.loadDefinitions();
+
+        //AddItems
+        $scope.addItemFromList = function(){
+            $ionicPopup.show({
+                templateUrl: 'modal-item-list.html',
+                title: 'ItemList',
+                scope: $scope,
+                buttons: [{
+                    text: 'Ok',
+                    type: 'button-positive',
+                    onTap: function() {
+                        return true;
+                    }
+                }]
+            });
+        }
     })
     .controller('TaskDetailCtrl', function ($scope, $rootScope, $stateParams, TaskService, $log) {
         $log.info("$stateParams.taskId:", $stateParams.taskId);

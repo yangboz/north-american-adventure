@@ -316,6 +316,12 @@ angular.module('starter.services', [])
     var data = $resource(CONFIG_ENV.api_endpoint+'process-instance/:processInstance', {processInstance: "@processInstance"});
     return data;
 })
+///ProcessInstancesService
+//@see http://www.activiti.org/userguide/#N13DF1
+.factory('ProcessInstancesService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'process-instances', {});
+    return data;
+})
 ///JobsService
 .factory('JobService', function ($resource,CONFIG_ENV) {
     var data = $resource(CONFIG_ENV.api_endpoint+'management/jobs/:jobId', {jobId: "@jobId"});

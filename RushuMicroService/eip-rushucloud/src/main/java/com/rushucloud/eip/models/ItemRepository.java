@@ -9,5 +9,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel="items",path="items")
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 	List<Item> findById(@Param("id") long id);
-//	List<Item> findByOwner(@Param("owner") String owener);
+//	List<Item> findByOwner(@Param("owner") String owner);
 }
