@@ -6,7 +6,7 @@
         <activiti:formProperty id="amountOfMoney" name="Amout of money" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
         <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string"></activiti:formProperty>
-        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="request" targetRef="handleRequest"></sequenceFlow>
@@ -24,16 +24,24 @@
     <sequenceFlow id="flow2" sourceRef="handleRequest" targetRef="requestApprovedDecision"></sequenceFlow>
     <exclusiveGateway id="requestApprovedDecision" name="Request approved?">
       <extensionElements>
-        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
-        <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+        <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="requestApprovedDecision" targetRef="sendApprovalMail">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{reimbursementApproved == 'true'}]]></conditionExpression>
     </sequenceFlow>
-    <manualTask id="sendApprovalMail" name="Send confirmation e-mail"></manualTask>
+    <manualTask id="sendApprovalMail" name="Send confirmation e-mail">
+      <extensionElements>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+      </extensionElements>
+    </manualTask>
     <sequenceFlow id="flow4" sourceRef="sendApprovalMail" targetRef="theEnd1"></sequenceFlow>
-    <endEvent id="theEnd1"></endEvent>
+    <endEvent id="theEnd1">
+      <extensionElements>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+      </extensionElements>
+    </endEvent>
     <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="adjustReimbursementRequestTask">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{reimbursementApproved == 'false'}]]></conditionExpression>
     </sequenceFlow>
@@ -54,8 +62,8 @@
     <sequenceFlow id="flow6" sourceRef="adjustReimbursementRequestTask" targetRef="resendRequestDecision"></sequenceFlow>
     <exclusiveGateway id="resendRequestDecision" name="Resend request?">
       <extensionElements>
-        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
-        <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:executionListener>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+        <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </exclusiveGateway>
     <sequenceFlow id="flow7" sourceRef="resendRequestDecision" targetRef="handleRequest">

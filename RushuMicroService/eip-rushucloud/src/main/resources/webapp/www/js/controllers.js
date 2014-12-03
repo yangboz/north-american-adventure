@@ -9,13 +9,12 @@ angular.module('starter.controllers', [])
                 client.subscribe("SAMPLEQUEUE",
                     function (message) {
                         //$log.debug(message);
-                        console.log(message.body);
-                        //$cordovaToast.showLongTop(message);
+                        //console.log(message.body);
                         if (window.plugins && window.plugins.toast) {
                             window.plugins.toast.showShortCenter(message.body);
                         }
                         else {
-                            $ionicLoading.show({template: message.body, noBackdrop: true, duration: 2000});
+                            $ionicLoading.show({template: message.body, noBackdrop: true, duration: 10000});
                         }
                     },
                     {priority: 9}
@@ -687,7 +686,7 @@ angular.module('starter.controllers', [])
         }
 
         ///Initialization call.
-        $scope.loadUserGroups();
+        //$scope.loadUserGroups();
         $scope.loadTasks();
         $scope.loadDefinitions();
     })
