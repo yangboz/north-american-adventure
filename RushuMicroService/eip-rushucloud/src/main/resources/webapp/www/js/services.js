@@ -2,11 +2,6 @@
 //
 angular.module('starter.services', [])
 
-//TaskService where asignee==userId
-.factory('ReportService', function($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'runtime/tasks/:taskId', {taskId: "@taskId"});
-    return data;
-})
 //
 .factory('StatsService', function() {
 
@@ -319,7 +314,7 @@ angular.module('starter.services', [])
 ///ProcessInstancesService
 //@see http://www.activiti.org/userguide/#N13DF1
 .factory('ProcessInstancesService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'process-instances', {});
+    var data = $resource(CONFIG_ENV.api_endpoint+'runtime/process-instances', {});
     return data;
 })
 ///JobsService

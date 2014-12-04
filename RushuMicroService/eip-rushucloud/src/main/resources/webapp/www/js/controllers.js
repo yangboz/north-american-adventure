@@ -524,7 +524,8 @@ angular.module('starter.controllers', [])
     })
     .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
-                                       TasksModalService, ProcessDefinitionService, GroupService, TaskService) {
+                                       TasksModalService, GroupService,
+                                       TaskService,ProcessInstancesService) {
         //ng-model
         $scope.newTask = {
             "name": "",
@@ -726,6 +727,17 @@ angular.module('starter.controllers', [])
                         return true;
                     }
                 }]
+            });
+        }
+        //submitStartForm to start process
+        $scope.startProcessInstance = function(businessKey,processDefinitionId){
+            var anewProcessInstance = new ProcessInstancesService();
+            anewProcessInstance.processDefinitionId = processDefinitionId;
+            anewProcessInstance.businessKey = businessKey;
+            anewProcessInstance.variables = [];
+            //Save
+            anewProcessInstance.$save(function (t, putResponseHeaders) {
+                $log.info("startProcessInstance() success, response:",putResponseHeaders, t);
             });
         }
     })
