@@ -121,16 +121,18 @@ public class Item extends ModelBase {
 		this.vendors = vendors;
 	}
 
-	// The item category
-	@CollectionTable(name = "item_category", joinColumns = @JoinColumn(name = "idcategory"))
-	private Category category = new Category();
+	// The item category,only one Set.
+	@ElementCollection
+	@CollectionTable(name = "item_categories", joinColumns = @JoinColumn(name = "idcategory"))
+	private Set<Category> categories = new HashSet<Category>();
 
-	public Category getCategory() {
-		return category;
+
+	public Set<Category> getCategories() {
+		return categories;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 
 	// The item date
@@ -157,7 +159,7 @@ public class Item extends ModelBase {
 
 	public Item(double amount, String name, ItemType type, Date date,
 			Set<Invoice> invoices, Set<Vendor> vendors, String owner,
-			Category category) {
+			Set<Category> category) {
 		this.amount = amount;
 		this.name = name;
 		this.type = type;

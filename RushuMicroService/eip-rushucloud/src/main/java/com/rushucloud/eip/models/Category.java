@@ -3,7 +3,6 @@ package com.rushucloud.eip.models;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categories")
-@Embeddable
 public class Category extends ModelBase {
 	// ==============
 	// PRIVATE FIELDS
