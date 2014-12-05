@@ -87,9 +87,9 @@ angular.module('starter.controllers', [])
         ///TaskModal
         $ionicModal.fromTemplateUrl('templates/modal-task.html', {
             scope: $scope
-            ,backdropClickToClose: false
-            ,animation: 'slide-in-up'
-            ,focusFirstInput: true
+            , backdropClickToClose: false
+            , animation: 'slide-in-up'
+            , focusFirstInput: true
         }).then(function (modal) {
 //        console.log("modal-task.html init!!!");
             $scope.taskModal = modal;
@@ -147,6 +147,8 @@ angular.module('starter.controllers', [])
 //            console.log("The toast was not shown due to " + error);
 //        });
         }
+        //Badge numbers for task notification.
+        $rootScope.numberOfTasks = 1;
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -186,7 +188,7 @@ angular.module('starter.controllers', [])
         $scope.orderTasks = function () {
             $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
             //
-            ReportService.get({assignee: $rootScope.username, order: $scope.orderValue}, function (response) {
+            TaskService.get({assignee: $rootScope.username, order: $scope.orderValue}, function (response) {
                 $log.debug("TaskService.get(order) success!", response);
                 $rootScope.tasks = response.data;
             });
@@ -194,9 +196,9 @@ angular.module('starter.controllers', [])
         /**
          * Used to determine whether to show the claim button or not
          */
-//    $scope.isUnclaimedTask = function() {
-//        return $scope.candidateGroup && $scope.candidateGroup.id != noGroupId;
-//    };
+        //$scope.isUnclaimedTask = function () {
+        //    return $scope.candidateGroup && $scope.candidateGroup.id != noGroupId;
+        //};
 
         /**
          * Claim a task
@@ -225,13 +227,13 @@ angular.module('starter.controllers', [])
         };
         //CompleteTask
         $scope.completeTask = function (taskId) {
-            var action = new ReportService();
+            var action = new TaskService();
             action.action = "complete";
             action.$save({"taskId": taskId}, function (resp) {
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.complete() success!", resp);
                 //refresh reports list view.
-                ReportService.get({assignee: $rootScope.username}, function (response) {
+                TaskService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
                     $rootScope.reports = response.data;
                 });
@@ -242,7 +244,7 @@ angular.module('starter.controllers', [])
          * Resolve a task
          */
         $scope.resolveTask = function (taskId) {
-            var action = new ReportService();
+            var action = new TaskService();
             action.action = "resolve";
             action.$save({"taskId": taskId}, function (resp) {
                 //after finishing remove the task from the tasks list
@@ -250,42 +252,10 @@ angular.module('starter.controllers', [])
                 //refresh reports list view.
                 ReportService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
-                    $rootScope.reports = response.data;
+                    $rootScope.tasks = response.data;
                 });
             });
         };
-        //ng-model
-        $scope.newReport = {
-            "name": "",
-            "description": "",
-            "dueDate": "",
-            "owner": $rootScope.username,
-            "parentTaskId": ""
-        };
-        //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
-        $scope.createReport = function () {
-            //
-            var anewReport = new ReportService($scope.newTask);
-            anewReport.name = $scope.newReport.name;
-            anewReport.description = $scope.newReport.description;
-            anewReport.dueDate = $scope.newReport.dueDate;
-            anewReport.owner = $scope.newReport.owner;
-            anewReport.assignee = $rootScope.username;
-            $log.debug("createReport(),$scope.newReport:", $scope.newReport);
-            //Save
-            anewReport.$save(function (r, putResponseHeaders) {
-                $log.info("createReport() success, response:", r);
-                //Hide report modal
-                $scope.reportModal.hide();
-                //Refresh report list
-                ReportService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("ReportService.get() success!", response);
-                    $rootScope.reports = response.data;
-                });
-                //Reset value
-                $scope.newTask = {"name": "", "description": "", "dueDate": "", "owner": $rootScope.username};
-            });
-        }
         //Add an involved user to a process instance
         //@see: http://activiti.org/userguide/index.html#N1400A
         //POST runtime/process-instances/{processInstanceId}/identitylinks
@@ -468,7 +438,7 @@ angular.module('starter.controllers', [])
     .controller('ItemsCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ItemService) {
         //ng-model
-        $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "","owner":""};
+        $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
         //CREATE,
         $scope.createItem = function () {
             $log.debug("createItem(),$scope.newItem:", $scope.newItem);
@@ -490,7 +460,7 @@ angular.module('starter.controllers', [])
                     $rootScope.items = response.data;
                 });
                 //Reset value
-                $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "","owner":""};
+                $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
             });
         }
         //DELETE
@@ -525,7 +495,7 @@ angular.module('starter.controllers', [])
     .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
-                                       TaskService,ProcessInstancesService) {
+                                       TaskService, ProcessInstancesService) {
         //ng-model
         $scope.newTask = {
             "name": "",
@@ -715,7 +685,7 @@ angular.module('starter.controllers', [])
         //$scope.loadDefinitions();
 
         //AddItems
-        $scope.addItemFromList = function(){
+        $scope.addItemFromList = function () {
             $ionicPopup.show({
                 templateUrl: 'modal-item-list.html',
                 title: 'ItemList',
@@ -723,21 +693,21 @@ angular.module('starter.controllers', [])
                 buttons: [{
                     text: 'Ok',
                     type: 'button-positive',
-                    onTap: function() {
+                    onTap: function () {
                         return true;
                     }
                 }]
             });
         }
         //submitStartForm to start process
-        $scope.startProcessInstance = function(businessKey,processDefinitionId){
+        $scope.startProcessInstance = function (businessKey, processDefinitionKey) {
             var anewProcessInstance = new ProcessInstancesService();
-            anewProcessInstance.processDefinitionId = processDefinitionId;
+            anewProcessInstance.processDefinitionKey = processDefinitionKey;
             anewProcessInstance.businessKey = businessKey;
             anewProcessInstance.variables = [];
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {
-                $log.info("startProcessInstance() success, response:",putResponseHeaders, t);
+                $log.info("startProcessInstance() success, response:", putResponseHeaders, t);
             });
         }
     })

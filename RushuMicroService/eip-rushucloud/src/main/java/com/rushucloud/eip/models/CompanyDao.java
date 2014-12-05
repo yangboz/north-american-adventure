@@ -14,9 +14,9 @@ public interface CompanyDao extends CrudRepository<Company, Long> {
 	 * This method is not implemented and its working code will be
 	 * auto-magically generated from its signature by Spring Data JPA.
 	 *
-	 * @param email
-	 *            the user email.
-	 * @return the user having the passed email or null if no user is found.
+	 * @param domain
+	 *            the company domain.
+	 * @return the user having the passed domain or null if no company is found.
 	 */
-	public Company findByEmail(String email);
+	public Company findByDomain(String domain);
 }

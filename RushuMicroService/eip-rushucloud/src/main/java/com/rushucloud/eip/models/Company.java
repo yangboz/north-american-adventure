@@ -67,7 +67,17 @@ public class Company  extends ModelBase{
 	public void setName(String name) {
 		this.name = name;
 	}
+	// The company business keys
+	@NotNull
+	private String businessKey = "reimbursementRequest";//default value for Reimbursement.
+	//
+	public String getBusinessKey() {
+		return businessKey;
+	}
 
+	public void setBusinessKey(String businessKey) {
+		this.businessKey = businessKey;
+	}
 	// ==============
 	// PUBLIC METHODS
 	// ==============
@@ -79,9 +89,10 @@ public class Company  extends ModelBase{
 		this.id = id;
 	}
 
-	public Company(String email, String name, String domain) {
+	public Company(String email, String name, String domain,String businessKey) {
 		this.email = email;
 		this.name = name;
 		this.domain = domain;
+		this.businessKey = businessKey;
 	}
 }
