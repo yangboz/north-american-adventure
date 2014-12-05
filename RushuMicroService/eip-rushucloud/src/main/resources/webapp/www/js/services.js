@@ -341,11 +341,17 @@ angular.module('starter.services', [])
     var data = $resource(CONFIG_ENV.api_endpoint+'identity/groups/:group', {group: "@group"});
     return data;
 })
-///ItemService
-.factory('ItemService', function ($resource,CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint+'items/:itemId', {itemId: "@itemId"});
+///CompanyService
+.factory('CompanyService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'company/:companyId', {companyId: "@companyId"});
     return data;
 })
+///ItemService
+.factory('ItemService', function ($resource,CONFIG_ENV) {
+var data = $resource(CONFIG_ENV.api_endpoint+'items/:itemId', {itemId: "@itemId"});
+return data;
+})
+
 ///HTTP Header communication.
 .factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOP' +

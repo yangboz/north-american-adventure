@@ -27,8 +27,8 @@ public class Tag extends ModelBase {
 		this.id = value;
 	}
 
-	// The category icon
-	@NotNull
+	// The tag icon
+//	@NotNull
 	private String icon;
 
 	public String getIcon() {
@@ -39,16 +39,28 @@ public class Tag extends ModelBase {
 		this.icon = icon;
 	}
 
-	// The category name
+	// The tag name
 	@NotNull
 	private String name;
 
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	// The tag name
+//	@NotNull
+	private String label;
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	// Foreign key(item_id)

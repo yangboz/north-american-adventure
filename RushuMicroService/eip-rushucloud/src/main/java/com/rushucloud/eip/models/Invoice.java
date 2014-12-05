@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "invoices")
-@Embeddable
+//@Embeddable
 public class Invoice extends ModelBase {
 
 	// ==============

@@ -89,50 +89,75 @@ public class Item extends ModelBase {
 		this.type = type;
 	}
 
-	// The item invoices
+	// The item invoices,id strings
 	// @CollectionOfElements,@see:
 	// https://jazzy.id.au/2008/03/24/jpa_2_0_new_features_part_1.html
-	// private String invoices = "1";// sort of invoice ids:"1,2,3,4"
-	@ElementCollection
-	@CollectionTable(name = "item_invoices", joinColumns = @JoinColumn(name = "idinvoice"))
-	private Set<Invoice> invoices = new HashSet<Invoice>();
+	 private String invoices = "1";// sort of invoice ids:"1,2,3,4"
+//	@ElementCollection
+//	@CollectionTable(name = "item_invoices", joinColumns = @JoinColumn(name = "itemId"))
+//	private Set<Invoice> invoices = new HashSet<Invoice>();
+//
+//	public Set<Invoice> getInvoices() {
+//		return invoices;
+//	}
+//
+//	public void setInvoices(Set<Invoice> invoices) {
+//		this.invoices = invoices;
+//	}
 
-	public Set<Invoice> getInvoices() {
+	public String getInvoices() {
 		return invoices;
 	}
 
-	public void setInvoices(Set<Invoice> invoices) {
+	public void setInvoices(String invoices) {
 		this.invoices = invoices;
 	}
 
-	// The item vendors
-	// private String vendors = "1";// sort of vendor ids:"1,2,3,4"
+	// The item vendors,id strings
+	 private String vendors = "1";// sort of vendor ids:"1,2,3,4"
 	// @see:
 	// http://www.thejavageek.com/2014/01/31/jpa-elementcollection-annotation/
-	@ElementCollection
-	@CollectionTable(name = "item_vendors", joinColumns = @JoinColumn(name = "iditem"))
-	private Set<Vendor> vendors = new HashSet<Vendor>();
+//	@ElementCollection
+//	@CollectionTable(name = "item_vendors", joinColumns = @JoinColumn(name = "itemId"))
+//	private Set<Vendor> vendors = new HashSet<Vendor>();
+//
+//	public Set<Vendor> getVendors() {
+//		return vendors;
+//	}
+//
+//	public void setVendors(Set<Vendor> vendors) {
+//		this.vendors = vendors;
+//	}
 
-	public Set<Vendor> getVendors() {
+	public String getVendors() {
 		return vendors;
 	}
 
-	public void setVendors(Set<Vendor> vendors) {
+	public void setVendors(String vendors) {
 		this.vendors = vendors;
 	}
 
-	// The item category,only one Set.
-	@ElementCollection
-	@CollectionTable(name = "item_categories", joinColumns = @JoinColumn(name = "idcategory"))
-	private Set<Category> categories = new HashSet<Category>();
+	// The item category,id strings.
+	 private String category = "1";// sort of vendor ids:"1,2,3,4"
+//	@ElementCollection
+//	@CollectionTable(name = "item_categories", joinColumns = @JoinColumn(name = "itemId"))
+//	private Set<Category> categories = new HashSet<Category>();
+//
+//
+//	public Set<Category> getCategories() {
+//		return categories;
+//	}
+//
+//	public void setCategories(Set<Category> categories) {
+//		this.categories = categories;
+//	}
 
-
-	public Set<Category> getCategories() {
-		return categories;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	// The item date
@@ -157,9 +182,12 @@ public class Item extends ModelBase {
 		this.id = id;
 	}
 
+//	public Item(double amount, String name, ItemType type, Date date,
+//			Set<Invoice> invoices, Set<Vendor> vendors, String owner,
+//			Set<Category> category) {
 	public Item(double amount, String name, ItemType type, Date date,
-			Set<Invoice> invoices, Set<Vendor> vendors, String owner,
-			Set<Category> category) {
+			String invoices, String vendors, String owner,
+			String category) {	
 		this.amount = amount;
 		this.name = name;
 		this.type = type;

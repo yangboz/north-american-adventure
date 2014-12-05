@@ -22,7 +22,7 @@ public class Company  extends ModelBase{
 	// An auto-generated id (unique for each user in the db)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long id = 0;
 
 	public long getId() {
 		return id;
@@ -34,7 +34,7 @@ public class Company  extends ModelBase{
 
 	// The company email
 	@NotNull
-	private String email;
+	private String email = "demo@rushucloud.com";
 
 	public String getEmail() {
 		return email;
@@ -46,7 +46,7 @@ public class Company  extends ModelBase{
 
 	// The company domain
 	// @NotNull
-	private String domain;
+	private String domain = "rushucloud.com";
 
 	public String getDomain() {
 		return domain;

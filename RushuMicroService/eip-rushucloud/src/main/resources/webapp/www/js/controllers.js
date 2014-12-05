@@ -219,7 +219,7 @@ angular.module('starter.controllers', [])
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.claim() success!", resp);
                 //refresh reports list view.
-                ReportService.get({assignee: $rootScope.username}, function (response) {
+                TaskService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
                     $rootScope.reports = response.data;
                 });
@@ -250,7 +250,7 @@ angular.module('starter.controllers', [])
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.resolve() success!", resp);
                 //refresh reports list view.
-                ReportService.get({assignee: $rootScope.username}, function (response) {
+                TaskService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
                     $rootScope.tasks = response.data;
                 });
@@ -366,7 +366,7 @@ angular.module('starter.controllers', [])
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        TaskService, ProcessService, JobService, ExecutionService,
-                                       HistoryService, FormDataService, ItemService) {
+                                       HistoryService, FormDataService, ItemService,CompanyService) {
         $rootScope.loggedUser = {};
         $rootScope.loggedin = false;
 
@@ -417,12 +417,19 @@ angular.module('starter.controllers', [])
                     $log.debug("HistoryService.get() success!", response);
                     $rootScope.historices = response.data;
                 });
+                //getBusinessDefinitionkey
+                CompanyService.get({}, function (response) {
+                    $log.debug("CompanyService.get() success!", response);
+                    $rootScope.processDefinitionKey = response.data.processDefinitionKey;
+                    $rootScope.businessKey = response.data.businessKey;
+                });
                 //formData test
 //            FormDataService.get({"taskId": 2513}, function (data) {
 //                $log.debug("FormDataService.get() success!",data);
 //            });
                 //Connect to STOMP server.
                 $rootScope.connectStomp($rootScope.username, $rootScope.password);
+
             });
         };
     })
@@ -496,194 +503,6 @@ angular.module('starter.controllers', [])
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
                                        TaskService, ProcessInstancesService) {
-        //ng-model
-        $scope.newTask = {
-            "name": "",
-            "description": "",
-            "dueDate": "",
-            "owner": $rootScope.username,
-            "parentTaskId": ""
-        };
-        //CREATE, //@see:http://www.activiti.org/userguide/#N1693F
-        $scope.createTask = function () {
-            $log.debug("createTask(),$scope.newTask:", $scope.newTask);
-            var anewTask = new TaskService($scope.newTask);
-            anewTask.name = $scope.newTask.name;
-            anewTask.description = $scope.newTask.description;
-            anewTask.dueDate = $scope.newTask.dueDate;
-            anewTask.owner = $scope.newTask.owner;
-            //
-            $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
-            //Save
-            anewTask.$save(function (t, putResponseHeaders) {
-                $log.info("createTask() success, response:", t);
-                //Hide task modal
-                $scope.taskModal.hide();
-                //Refresh task list
-                TaskService.get({}, function (response) {
-//            TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.tasks = response.data;
-                });
-                //Reset value
-                $scope.newTask = {"name": "", "description": "", "dueDate": "", "owner": $rootScope.username};
-            });
-        }
-        //DELETE runtime/tasks/{taskId}?cascadeHistory={cascadeHistory}&deleteReason={deleteReason}
-        $scope.removeTask = function (taskId) {
-            TaskService.delete({"taskId": taskId, cascadeHistory: true, deleteReason: 'testing'}, function (data) {
-                $log.debug("TaskService.delete:", data);
-                //Refresh task list
-                TaskService.get({}, function (response) {
-//            TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.tasks = response.data;
-                });
-            });
-            //
-        }
-        $scope.orderValue = 'asc';//desc
-        //ORDER
-        $scope.orderTasks = function () {
-            $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
-            //
-            TaskService.get({order: $scope.orderValue}, function (response) {
-                $log.debug("TaskService.get(order) success!", response);
-                $rootScope.tasks = response.data;
-            });
-        }
-        //LoadTask()
-        $scope.loadTask = function (task) {
-            $log.info("loadTask():", task);
-            FormDataService.get({"taskId": task.id}, function (data) {
-                extractForm(task, data);
-            }, function (data) {
-
-                if (data.data.statusCode == 404) {
-                    $log.error("there was an error!", data.data);
-                }
-
-            });
-        };
-        function extractForm(task, data) {
-            var propertyForSaving = {};
-
-            for (var i = 0; i < data.formProperties.length; i++) {
-                var elem = data.formProperties[i];
-                propertyForSaving[elem.id] = {
-                    "value": elem.value,
-                    "id": elem.id,
-                    "writable": elem.writable
-                };
-
-                if (elem.datePattern != null) {//if date
-                    propertyForSaving[elem.id].opened = false; //for date picker
-                    propertyForSaving[elem.id].datePattern = elem.datePattern;
-                }
-
-                if (elem.required == true && elem.type == "boolean") {
-                    if (elem.value == null) {
-                        propertyForSaving[elem.id].value = false;
-                    }
-                }
-
-                if (elem.type == "user") {
-                    elem.enumValues = UserService.get();
-                }
-            }
-
-            task.form = data;
-            task.propertyForSaving = propertyForSaving;
-        }
-
-        /**
-         * involved
-         * owned
-         * assigned
-         *
-         * @type {string}
-         */
-        $scope.tasksType = "assigned";
-
-        function getTasksQuery() {
-            if ($scope.tasksType == "involved") {
-                return {"size": 1000, "involvedUser": $rootScope.username};
-            } else if ($scope.tasksType == "owned") {
-                return {"size": 1000, "owner": $rootScope.username};
-            } else if ($scope.tasksType == "unassigned") {
-                return {"size": 1000, "unassigned": true};
-            } else {//assigned
-                return {"size": 1000, "assignee": $rootScope.username};
-            }
-        }
-
-
-        /**
-         * Performs the load of the tasks and sets the tasksType
-         * @param tasksType
-         */
-        $scope.loadTasksType = function (tasksType) {
-            $scope.tasksType = tasksType;
-            $scope.loadTasks();
-        }
-
-        /**
-         * Loads the tasks
-         */
-        $scope.loadTasks = function () {
-            //$scope.tasks = TasksService.get(getTasksQuery());
-            loadTasks(getTasksQuery());
-        }
-
-        var loadTasks = function (params) {
-            $scope.tasks = TasksService.get(params);
-        }
-
-        $scope.loadTask = function (task) {
-            TasksModalService.loadTaskForm(task);
-        };
-
-
-        $rootScope.$on('refreshData', function (event, data) {
-            $scope.loadTasks();
-
-        });
-
-        /**
-         * Load definitions
-         */
-        $scope.loadDefinitions = function () {
-            $scope.processes = ProcessDefinitionService.get({latest: "true"});
-        }
-
-        /**
-         * starts the process
-         * @param processDefinition
-         */
-        $scope.startTheProcess = function (processDefinition) {
-
-            TasksModalService.loadProcessForm(processDefinition);
-
-            var formService = new FormDataService({processDefinitionId: processDefinition.id});
-            formService.$startTask(function (data) {
-                console.log(data);
-            });
-        };
-
-        $scope.loadUserGroups = function () {
-            $scope.userGroups = GroupService.get({"member": $rootScope.username});
-        }
-
-        $scope.loadTasksGroups = function (group) {
-            console.log(group);
-            loadTasks({"size": 1000, "candidateGroup": group.id});
-        }
-
-        ///Initialization call.
-        //$scope.loadUserGroups();
-        //$scope.loadTasks();
-        //$scope.loadDefinitions();
-
         //AddItems
         $scope.addItemFromList = function () {
             $ionicPopup.show({
@@ -700,10 +519,10 @@ angular.module('starter.controllers', [])
             });
         }
         //submitStartForm to start process
-        $scope.startProcessInstance = function (businessKey, processDefinitionKey) {
+        $scope.startProcessInstance = function () {
             var anewProcessInstance = new ProcessInstancesService();
-            anewProcessInstance.processDefinitionKey = processDefinitionKey;
-            anewProcessInstance.businessKey = businessKey;
+            anewProcessInstance.processDefinitionKey = $rootScope.processDefinitionKey;
+            anewProcessInstance.businessKey = $rootScope.businessKey;
             anewProcessInstance.variables = [];
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {

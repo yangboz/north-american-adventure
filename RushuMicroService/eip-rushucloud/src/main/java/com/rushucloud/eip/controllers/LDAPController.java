@@ -28,7 +28,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+//@see: http://www.javaworld.com/article/2076073/java-web-development/ldap-and-jndi--together-forever.html
 @RestController
 public class LDAPController {
 	//

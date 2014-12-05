@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "vendors")
+//@Embeddable
 public class Vendor extends ModelBase {
 
 	// ==============
