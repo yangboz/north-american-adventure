@@ -1,6 +1,5 @@
 package com.rushucloud.eip.models;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -122,6 +121,18 @@ public class Item extends ModelBase {
 		this.vendors = vendors;
 	}
 
+	// The item category
+	@CollectionTable(name = "item_category", joinColumns = @JoinColumn(name = "idcategory"))
+	private Category category = new Category();
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	// The item date
 	@NotNull
 	private Date date;
@@ -145,7 +156,8 @@ public class Item extends ModelBase {
 	}
 
 	public Item(double amount, String name, ItemType type, Date date,
-			Set<Invoice> invoices, Set<Vendor> vendors, String owner) {
+			Set<Invoice> invoices, Set<Vendor> vendors, String owner,
+			Category category) {
 		this.amount = amount;
 		this.name = name;
 		this.type = type;
@@ -153,5 +165,6 @@ public class Item extends ModelBase {
 		this.invoices = invoices;
 		this.vendors = vendors;
 		this.owner = owner;
+		this.category = category;
 	}
 }
