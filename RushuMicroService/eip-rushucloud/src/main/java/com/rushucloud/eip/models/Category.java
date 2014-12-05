@@ -67,11 +67,27 @@ public class Category extends ModelBase {
 			CascadeType.MERGE })
 	private Category parent;
 
+	public Category getParent() {
+		return parent;
+	}
+
+	public void setParent(Category parent) {
+		this.parent = parent;
+	}
+
 	// This field is not a table column
 	// It is a collection of those Category rows that have this row as a parent.
 	// This is the other side of the relationship defined by the parent field.
 	@OneToMany(mappedBy = "parent")
 	private Set<Category> children;
+
+	public Set<Category> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Category> children) {
+		this.children = children;
+	}
 
 	// ==============
 	// PUBLIC METHODS
@@ -84,7 +100,8 @@ public class Category extends ModelBase {
 		this.id = id;
 	}
 
-	public Category(String icon, String name,Category parent,Set<Category> children) {
+	public Category(String icon, String name, Category parent,
+			Set<Category> children) {
 		this.icon = icon;
 		this.name = name;
 		this.parent = parent;
