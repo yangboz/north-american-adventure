@@ -23,35 +23,43 @@ public class ActivemqSender {
 	private Destination destination = null;
 	private MessageProducer producer = null;
 	private static Logger LOG = LoggerFactory.getLogger(ActivemqSender.class);
+	//Queue name storage
+	static public String queueName = null;
+	
 
-	private String queueName = null;
-
-//	 public ActivemqSender(String queueName) {
-//	 this.queueName = queueName;
-//	 }
-
-	private static ActivemqSender instance = null;
-
-	protected ActivemqSender(String queueName) {
-		// Exists only to defeat instantiation.
-		this.queueName = queueName;
-	}
-
-	public static ActivemqSender getInstance(String queueName) {
-		if (instance == null) {
-			instance = new ActivemqSender(queueName);
-		}
-		return instance;
-	}
-
-	public void sendMessage(String value) {
+	public ActivemqSender(String queueName) {
+		ActivemqSender.queueName = queueName;
+		//
 		try {
 			factory = new ActiveMQConnectionFactory(
 					JMSConstants.URL_BROKER_ACTIVEMQ);
 			connection = factory.createConnection();
 			connection.start();
+			LOG.info("Start activemq success.");
+		} catch (JMSException e) {
+			// e.printStackTrace();
+			LOG.error(e.getMessage());
+		}
+	}
+
+	// private static ActivemqSender instance = null;
+	//
+	// protected ActivemqSender(String queueName) {
+	// // Exists only to defeat instantiation.
+	// this.queueName = queueName;
+	// }
+	//
+	// public static ActivemqSender getInstance(String queueName) {
+	// if (instance == null) {
+	// instance = new ActivemqSender(queueName);
+	// }
+	// return instance;
+	// }
+
+	public void sendMessage(String value) {
+		try {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			destination = session.createQueue(this.queueName);
+			destination = session.createQueue(ActivemqSender.queueName);
 			producer = session.createProducer(destination);
 			TextMessage message = session.createTextMessage();
 			// message.setText("Hello ...This is a sample message..sending from FirstClient");

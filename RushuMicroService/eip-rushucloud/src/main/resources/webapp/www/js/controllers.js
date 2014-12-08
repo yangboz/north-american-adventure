@@ -3,11 +3,11 @@ angular.module('starter.controllers', [])
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
                                       CONFIG_ENV, $log, $cordovaToast) {
 //Websocket/Stomp handler:
-        $rootScope.connectStomp = function (username, password) {
+        $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
             client.connect(username, password,
                 function () {
-                    client.subscribe("SAMPLEQUEUE",
+                    client.subscribe(queueName,
                         function (message) {
                             //$log.debug(message);
                             //console.log(message.body);
@@ -61,7 +61,7 @@ angular.module('starter.controllers', [])
                 password: "passwordpassword"
             };
             //Login Modal
-            if (window.localStorage['auth']) {
+            if (window.localStorage['auth_rsc']) {
                 $scope.loginModal.hide();
             } else {
 //     $urlRouterProvider.otherwise('/login');
@@ -177,6 +177,14 @@ angular.module('starter.controllers', [])
         }
     })
     .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log, $http) {
+        if (window.localStorage['auth_rsc']) {
+            //
+            TaskService.get({}, function (response) {
+//            TaskService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!", response);
+                $rootScope.tasks = response.data;
+            });
+        }
         //
         $scope.orderValue = 'asc';//desc
         //ORDER
@@ -361,7 +369,8 @@ angular.module('starter.controllers', [])
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        TaskService, ProcessService, JobService, ExecutionService,
-                                       HistoryService, FormDataService, ItemService, CompanyService) {
+                                       HistoryService, FormDataService, ItemService, CompanyService,
+                                       ProcessDefinitionsService) {
         $rootScope.loggedUser = {};
         $rootScope.loggedin = false;
 
@@ -381,13 +390,13 @@ angular.module('starter.controllers', [])
                 $scope.loginModal.hide();
                 //Default getTasks;
                 $log.debug("$rootScope.username:", $rootScope.username, ",$rootScope.password:", $rootScope.password);
-                //
+                //getTaskService test
                 TaskService.get({}, function (response) {
 //            TaskService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
                     $rootScope.tasks = response.data;
                 });
-                //
+                //default get items for usage.
                 ItemService.get({}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
@@ -418,12 +427,20 @@ angular.module('starter.controllers', [])
                     $log.debug("CompanyService.get(default) success!", response.data[0]);
                     $rootScope.companyInfo = response.data[0];//Default value index is 0.
                 });
+                //getProcessDefinitionsService
+                ProcessDefinitionsService.get({}, function (response) {
+                    $log.debug("ProcessDefinitionsService.get(default) success!", response.data[0]);
+                    $rootScope.companyInfo.processDefinitionId = response.data[0].id;
+                    $rootScope.companyInfo.processDefinitionKey = response.data[0].key;
+                    //Then
+                    $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey + "/" + $rootScope.companyInfo.processDefinitionId;
+                    //Connect to STOMP server with ActiveMQ QueueName.
+                    $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
+                });
                 //formData test
 //            FormDataService.get({"taskId": 2513}, function (data) {
 //                $log.debug("FormDataService.get() success!",data);
 //            });
-                //Connect to STOMP server.
-                $rootScope.connectStomp($rootScope.username, $rootScope.password);
 
             });
         };
@@ -533,7 +550,9 @@ angular.module('starter.controllers', [])
             });
         }
         //submitStartForm to start process
+        //@see: http://www.activiti.org/userguide/#N12EE4
         $scope.startProcessInstance = function () {
+            $log.debug("startProcessInstance() called!");
             var anewProcessInstance = new ProcessInstancesService();
             anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
             anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;

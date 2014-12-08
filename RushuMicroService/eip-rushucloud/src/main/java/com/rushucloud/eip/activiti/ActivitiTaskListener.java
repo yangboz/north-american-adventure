@@ -20,8 +20,8 @@ public class ActivitiTaskListener implements TaskListener {
 					+ delegateTask.getCandidates() + ",category:"
 					+ delegateTask.getCategory());
 			// Connect to ActiveMQ to send message.
-			// ActivemqSender sender = new ActivemqSender("SAMPLEQUEUE");
-			ActivemqSender sender = ActivemqSender.getInstance("SAMPLEQUEUE");
+			 ActivemqSender sender = new ActivemqSender(ActivemqSender.queueName);
+//			ActivemqSender sender = ActivemqSender.getInstance("SAMPLEQUEUE");
 			sender.sendMessage(delegateTask.toString());
 		} catch (Error err) {
 			LOG.error(err.toString());

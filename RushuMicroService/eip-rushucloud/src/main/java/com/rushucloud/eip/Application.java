@@ -25,6 +25,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
 import com.rushucloud.eip.activemq.ActivemqReceiver;
+import com.rushucloud.eip.activemq.ActivemqSender;
 import com.rushucloud.eip.consts.JMSConstants;
 
 @Configuration
@@ -48,6 +49,8 @@ public class Application {
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 		RepositoryService repositoryService = processEngine
 				.getRepositoryService();
+		//TODO:Assembel the process deployment with configuration.
+		//@see:
 		repositoryService
 				.createDeployment()
 				.addClasspathResource("processes/ReimbursementRequest.bpmn20.xml")
@@ -75,6 +78,13 @@ public class Application {
 		LOG.info("Number of process instances:"+runtimeService.createProcessInstanceQuery().count());
 		*/
 		//ActiveMQ message receiver
+//		ActivemqSender sender = ActivemqSender.getInstance("SAMPLEQUEUE");
+		String businessKey = repositoryService.createProcessDefinitionQuery().list().get(0).getKey();
+		String processDefinitionId = repositoryService.createProcessDefinitionQuery().list().get(0).getId();
+		String activemqQueueName = businessKey+"/"+processDefinitionId;
+		LOG.info("ActiveMQ initializing with queue name:"+activemqQueueName);
+		ActivemqSender sender = new ActivemqSender(activemqQueueName);
+		sender.sendMessage("echo");
 //		ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");
 //		ActivemqReceiver receiver = ActivemqReceiver.getInstance("SAMPLEQUEUE");
 //		receiver.receiveMessage();

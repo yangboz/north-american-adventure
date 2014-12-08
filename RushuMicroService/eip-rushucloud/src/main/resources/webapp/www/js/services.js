@@ -306,6 +306,11 @@ angular.module('starter.services', [])
     );
     return data;
 })
+///ProcessDefinitionsService
+.factory('ProcessDefinitionsService', function ($resource,CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint+'repository/process-definitions', {});
+    return data;
+})
 ///ProcessInstanceService
 .factory('ProcessInstanceService', function ($resource,CONFIG_ENV) {
     var data = $resource(CONFIG_ENV.api_endpoint+'process-instance/:processInstance', {processInstance: "@processInstance"});
