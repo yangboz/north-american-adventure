@@ -12,11 +12,11 @@ import javax.persistence.TemporalType;
 
 @MappedSuperclass
 public class ModelBase {
-//	@Version
-//	@Temporal(TemporalType.DATE)
-//	@Column(name = "created", nullable = false)
-//	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	@Column(name = "CREATED", nullable = false, insertable = true,     updatable = true, length = 19, precision = 0)
+	// @Version
+	// @Temporal(TemporalType.DATE)
+	// @Column(name = "created", nullable = false)
+	// @Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Column(name = "CREATED", nullable = false, insertable = true, updatable = true, length = 19, precision = 0)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
@@ -40,5 +40,18 @@ public class ModelBase {
 
 	public Date getUpdated() {
 		return updated;
+	}
+	
+	// The item date
+//	@NotNull
+//	private Date date = new Date();
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

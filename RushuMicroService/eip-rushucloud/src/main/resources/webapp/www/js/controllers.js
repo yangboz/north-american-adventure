@@ -177,11 +177,6 @@ angular.module('starter.controllers', [])
         }
     })
     .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log, $http) {
-        //    $log.debug("$rootScope.username:",$rootScope.username);
-        TaskService.get({assignee: $rootScope.username}, function (response) {
-            $log.debug("TaskService.get() success!", response);
-            $rootScope.tasks = response.data;
-        });
         //
         $scope.orderValue = 'asc';//desc
         //ORDER
@@ -366,7 +361,7 @@ angular.module('starter.controllers', [])
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        TaskService, ProcessService, JobService, ExecutionService,
-                                       HistoryService, FormDataService, ItemService,CompanyService) {
+                                       HistoryService, FormDataService, ItemService, CompanyService) {
         $rootScope.loggedUser = {};
         $rootScope.loggedin = false;
 
@@ -417,11 +412,11 @@ angular.module('starter.controllers', [])
                     $log.debug("HistoryService.get() success!", response);
                     $rootScope.historices = response.data;
                 });
-                //getBusinessDefinitionkey
+                //getCompanyInfo(businessKey,processDefinitionKey)
+                $rootScope.companyInfo = {};
                 CompanyService.get({}, function (response) {
-                    $log.debug("CompanyService.get() success!", response);
-                    $rootScope.processDefinitionKey = response.data.processDefinitionKey;
-                    $rootScope.businessKey = response.data.businessKey;
+                    $log.debug("CompanyService.get(default) success!", response.data[0]);
+                    $rootScope.companyInfo = response.data[0];//Default value index is 0.
                 });
                 //formData test
 //            FormDataService.get({"taskId": 2513}, function (data) {
@@ -446,20 +441,21 @@ angular.module('starter.controllers', [])
                                        ItemService) {
         //ng-model
         $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
-        $scope.preferences = {type: [
-            {
-                name : "预审批",
-                data : "ApproveAhead"
-            },
+        $scope.preferences = {
+            type: [
+                {
+                    name: "预审批",
+                    data: "ApproveAhead"
+                },
 
-            {
-                name : "已消费",
-                data : "CostComsumed"
-            }
-        ]
+                {
+                    name: "已消费",
+                    data: "CostComsumed"
+                }
+            ]
         };
         $scope.prefType = $scope.preferences.type[1];
-        $scope.setTypeSelected = function(type) {
+        $scope.setTypeSelected = function (type) {
             $scope.prefType = type;
         }
         //CREATE,
@@ -539,8 +535,8 @@ angular.module('starter.controllers', [])
         //submitStartForm to start process
         $scope.startProcessInstance = function () {
             var anewProcessInstance = new ProcessInstancesService();
-            anewProcessInstance.processDefinitionKey = $rootScope.processDefinitionKey;
-            anewProcessInstance.businessKey = $rootScope.businessKey;
+            anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
+            anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;
             anewProcessInstance.variables = [];
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {

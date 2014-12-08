@@ -4,6 +4,8 @@
  */
 package com.rushucloud.eip.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +17,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "companies")
-//public class Company  extends ModelBase{
-public class Company{
+public class Company  extends ModelBase{
+//public class Company{
 	// ==============
 	// PRIVATE FIELDS
 	// ==============
@@ -47,7 +49,7 @@ public class Company{
 	}
 
 	// The company domain
-	// @NotNull
+	@NotNull
 	private String domain = "rushucloud.com";
 
 	public String getDomain() {
@@ -84,6 +86,7 @@ public class Company{
 	@Version
     @Column(name = "version", columnDefinition = "integer DEFAULT 0", nullable = false)
     private long version = 0L;
+	
 	// ==============
 	// PUBLIC METHODS
 	// ==============

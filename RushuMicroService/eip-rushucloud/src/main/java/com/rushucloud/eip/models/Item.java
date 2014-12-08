@@ -160,18 +160,6 @@ public class Item extends ModelBase {
 		this.category = category;
 	}
 
-	// The item date
-	@NotNull
-	private Date date;
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	// ==============
 	// PUBLIC METHODS
 	// ==============

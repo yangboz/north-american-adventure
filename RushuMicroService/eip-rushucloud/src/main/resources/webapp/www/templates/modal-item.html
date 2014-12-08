@@ -21,7 +21,10 @@
                 </select>
             </label>
             <label class="item item-input">
-                <textarea placeholder="照片" ng-model="newItem.invoices"></textarea>
+                <div class="input-label" ng-model="newItem.invoices">
+                    照片<a class="ion-ios-plus-empty"></a>
+                </div>
+
             </label>
             <label class="item item-input">
                 <input type="date" placeholder="日期" ng-model="newItem.date">

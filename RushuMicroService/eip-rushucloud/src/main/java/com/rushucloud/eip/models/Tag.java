@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tags")
-//public class Tag extends ModelBase {
-public class Tag {
+public class Tag extends ModelBase {
+//public class Tag {
 	// ==============
 	// PRIVATE FIELDS
 	// ==============
