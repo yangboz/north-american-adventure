@@ -277,51 +277,47 @@ angular.module('starter.controllers', [])
 //@example:http://krispo.github.io/angular-nvd3/#/
     .controller('StatsCtrl', function ($scope) {
         /* Chart options */
-        $scope.options = {
+        //@example:http://plnkr.co/edit/jOoJik?p=preview
+        /* Chart options */
+        $scope.personTagsChartOptions = {
             chart: {
-                type: 'discreteBarChart',
-                // height:450,
-                margin: {
-                    top: 20,
-                    right: 20,
-                    bottom: 50,
-                    left: 55
-                },
-                x: function (d) {
-                    return d.label;
-                },
-                y: function (d) {
-                    return d.value;
-                },
-                showValues: true,
-                valueFormat: function (d) {
-                    return d3.format(',.4f')(d);
+                type: 'pieChart',
+                height: 350,
+                donut: true,
+                x: function(d){return d.key;},
+                y: function(d){return d.y;},
+                showLabels: true,
+                pie: {
+                    startAngle: function(d) { return d.startAngle/2 -Math.PI/2 },
+                    endAngle: function(d) { return d.endAngle/2 -Math.PI/2 }
                 },
                 transitionDuration: 500,
-                xAxis: {
-                    axisLabel: 'X Axis'
-                },
-                yAxis: {
-                    axisLabel: 'Y Axis',
-                    axisLabelDistance: 30
+                legend: {
+                    margin: {
+                        top: 5,
+                        right: 70,
+                        bottom: 5,
+                        left: 0
+                    }
                 }
             }
         };
 
         /* Chart data */
-        $scope.data = [{
-            key: "Cumulative Return",
-            values: [
-                {"label": "A", "value": 29.765957771107},
-                {"label": "B", "value": 0},
-                {"label": "C", "value": 32.807804682612},
-                {"label": "D", "value": 196.45946739256},
-                {"label": "E", "value": 0.19434030906893},
-                {"label": "F", "value": 98.079782601442},
-                {"label": "G", "value": 13.925743130903},
-                {"label": "H", "value": 5.1387322875705}
-            ]
-        }];
+        $scope.personTagsChartData = [
+            {
+                key: "已报销",
+                y: 5
+            },
+            {
+                key: "报销中",
+                y: 2
+            },
+            {
+                key: "未报销",
+                y: 9
+            }
+        ];
     })
 
     .controller('UsersCtrl', function ($rootScope, $scope, $http, UserService, $rootScope, $location) {
