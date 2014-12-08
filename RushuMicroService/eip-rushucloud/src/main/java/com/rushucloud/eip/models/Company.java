@@ -4,17 +4,19 @@
  */
 package com.rushucloud.eip.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "companies")
-public class Company  extends ModelBase{
-
+//public class Company  extends ModelBase{
+public class Company{
 	// ==============
 	// PRIVATE FIELDS
 	// ==============
@@ -78,6 +80,10 @@ public class Company  extends ModelBase{
 	public void setBusinessKey(String businessKey) {
 		this.businessKey = businessKey;
 	}
+	// @see: http://stackoverflow.com/questions/2572566/java-jpa-version-annotation
+	@Version
+    @Column(name = "version", columnDefinition = "integer DEFAULT 0", nullable = false)
+    private long version = 0L;
 	// ==============
 	// PUBLIC METHODS
 	// ==============

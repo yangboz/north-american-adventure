@@ -148,7 +148,7 @@ angular.module('starter.controllers', [])
 //        });
         }
         //Badge numbers for task notification.
-        $rootScope.numberOfTasks = 1;
+        $rootScope.numberOfTasks = 0;
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -446,15 +446,33 @@ angular.module('starter.controllers', [])
                                        ItemService) {
         //ng-model
         $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
+        $scope.preferences = {type: [
+            {
+                name : "预审批",
+                data : "ApproveAhead"
+            },
+
+            {
+                name : "已消费",
+                data : "CostComsumed"
+            }
+        ]
+        };
+        $scope.prefType = $scope.preferences.type[1];
+        $scope.setTypeSelected = function(type) {
+            $scope.prefType = type;
+        }
         //CREATE,
         $scope.createItem = function () {
             $log.debug("createItem(),$scope.newItem:", $scope.newItem);
             var anewItem = new ItemService($scope.newItem);
+            anewItem.amount = $scope.newItem.amount;
             anewItem.name = $scope.newItem.name;
             anewItem.vendors = $scope.newItem.vendors;
             anewItem.invoices = $scope.newItem.invoices;
             anewItem.date = $scope.newItem.date;
             anewItem.owner = $rootScope.username;
+            anewItem.type = $scope.prefType.data;
             //
             //Save
             anewItem.$save(function (t, putResponseHeaders) {

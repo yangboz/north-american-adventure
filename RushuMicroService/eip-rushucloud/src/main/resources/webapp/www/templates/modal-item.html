@@ -6,15 +6,18 @@
     <ion-content class="padding">
         <div class="list list-inset">
             <label class="item item-input">
+                <input type="number" placeholder="金额" ng-model="newItem.amount">
+            </label>
+            <label class="item item-input">
                 <input type="text" placeholder="名称" ng-model="newItem.name">
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
                     类型
                 </div>
-                <select>
-                    <option selected>已消费</option>
-                    <option>预审批</option>
+                <select ng-model="prefType"
+                        ng-options="type.name for type in preferences.type"
+                        ng-change="setTypeSelected(prefType)">
                 </select>
             </label>
             <label class="item item-input">

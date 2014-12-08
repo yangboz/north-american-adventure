@@ -9,7 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tags")
-public class Tag extends ModelBase {
+//public class Tag extends ModelBase {
+public class Tag {
 	// ==============
 	// PRIVATE FIELDS
 	// ==============
@@ -28,7 +29,7 @@ public class Tag extends ModelBase {
 	}
 
 	// The tag icon
-//	@NotNull
+	// @NotNull
 	private String icon;
 
 	public String getIcon() {
@@ -46,13 +47,13 @@ public class Tag extends ModelBase {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	// The tag name
-//	@NotNull
+	// @NotNull
 	private String label;
 
 	public String getLabel() {
@@ -64,9 +65,11 @@ public class Tag extends ModelBase {
 	}
 
 	// Foreign key(item_id)
-//	@CollectionTable(name = "tag_items", joinColumns = @JoinColumn(name = "idtag"))
+	// @CollectionTable(name = "tag_items", joinColumns = @JoinColumn(name =
+	// "idtag"))
 	@NotNull
 	private long itemId;
+
 	public long getItemId() {
 		return itemId;
 	}
