@@ -13,32 +13,40 @@
             <label class="item item-input">
                 <input type="date" placeholder="到期日" ng-model="processInstanceVariables.date">
             </label>
-            <label class="item item-input">
-                提交至
-                <input type="text" placeholder="" ng-model="processInstanceVariables.managerId" disabled>
-                <button class="button button-icon ion-chevron-right" ng-click="itemListModal.show()"></button>
-            </label>
-            <label class="item item-input">
-                抄送
-                <input type="text" placeholder="" ng-model="processInstanceVariables.participantIds" disabled>
-                <button class="button button-icon ion-chevron-right" ng-click="itemListModal.show()"></button>
-            </label>
-            <label class="item item-input">
-                总额
-                <input type="number" placeholder="0.00￥" ng-model="processInstanceVariables.amount" disabled>
-                添加条目
-                <button class="button button-icon ion-plus-round" ng-click="itemListModal.show()"></button>
-            </label>
-            <!--
-            <ion-list>
-                <div class="item item-button-right" ng-repeat="item in $root.items">
-                    <i class="icon ion-document"></i>
-                    <a href="#/tab/dash/{{item.id}}"><h2>{{item.name}} {{item.date}}</h2></a>
-                    <span class="item-note">{{item.vendors}}</span>
-                    <p>{{item.invoices}}</p>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        提交至:
+                        <input type="text" placeholder="" ng-model="processInstanceVariables.managerId" disabled>
+                    </label>
                 </div>
-            </ion-list>
-            -->
+                <div class="col-50">
+                    <button class="button button-icon ion-chevron-right" ng-click="showUserModal(1)"></button>
+                </div>
+            </div>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        抄送:
+                        <input type="text" placeholder="" ng-model="processInstanceVariables.participantIds" disabled>
+                    </label>
+                </div>
+                <div class="col-50">
+                    <button class="button button-icon ion-chevron-right" ng-click="showUserModal(0)"></button>
+                </div>
+            </div>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        总额:
+                        <input type="number" placeholder="{{$root.itemIDsSelAmount}}￥" ng-model="processInstanceVariables.amount" disabled>
+                        添加条目
+                    </label>
+                </div>
+                <div class="col-50">
+                    <button class="button button-icon ion-plus-round" ng-click="itemListModal.show()"></button>
+                </div>
+            </div>
             <button class="button button-full" ng-click="saveExpenseReport(true)">提交</button>
         </div>
     </ion-content>

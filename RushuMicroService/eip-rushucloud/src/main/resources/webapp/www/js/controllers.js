@@ -76,6 +76,14 @@ angular.module('starter.controllers', [])
 //        console.log("modal-item-list.html init!!!");
             $scope.itemListModal = modal;
         });
+        ///UserListModal
+        $ionicModal.fromTemplateUrl('templates/modal-user-list.html', {
+            scope: $scope,
+            backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-item-list.html init!!!");
+            $scope.userListModal = modal;
+        });
         ///ReportModal
         $ionicModal.fromTemplateUrl('templates/modal-report.html', {
             scope: $scope,
@@ -87,7 +95,7 @@ angular.module('starter.controllers', [])
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
             //Login Modal,only hide();
-            if (window.localStorage['auth']) {
+            if (window.localStorage['auth_rsc']) {
                 $scope.loginModal.hide();
             }
             //ShowLoading
@@ -107,7 +115,8 @@ angular.module('starter.controllers', [])
         $scope.$on('$destroy', function () {
             $scope.loginModal.remove();
             $scope.reportModal.remove();
-            $scope.itemListModal.remove();
+            $rootScope.itemListModal.remove();
+            $rootScope.userListModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -129,6 +138,12 @@ angular.module('starter.controllers', [])
         }
         //Badge numbers for task notification.
         $rootScope.numberOfTasks = 0;
+        $rootScope.items = [];
+        $rootScope.itemIDsSel = [];//selected item ids.
+        $rootScope.itemIDsSelAmount = 0;//total number of selected item's amount.
+        $rootScope.expenses = [];
+        $rootScope.employeeIDs = [];
+        $rootScope.managerIDs = [];
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -495,32 +510,24 @@ angular.module('starter.controllers', [])
                 $rootScope.items = response.data;
             });
         }
-        //LoadTask()
-        $scope.loadItems = function (item) {
-            $rootScope.items = ItemService.get();
-        };
-        ///Initialization call.
-        //$scope.loadItems();
+        //ItemListModal related
+        //@see: http://stackoverflow.com/questions/14514461/how-can-angularjs-bind-to-list-of-checkbox-values
+        $scope.toggleItemListSelection = function(itemId,index){
+            var idx = $rootScope.itemIDsSel.indexOf(itemId);
+            if(idx > -1){
+                $rootScope.itemIDsSel.splice(idx, 1);
+                $rootScope.itemIDsSelAmount -= $rootScope.items[index].amount;
+            }else{
+                $rootScope.itemIDsSel.push(itemId);
+                $rootScope.itemIDsSelAmount += $rootScope.items[index].amount;
+            }
+            //$log.debug("toggleItemListSelection:",$rootScope.itemIDsSel,$rootScope.itemIDsSelAmount);
+        }
     })
     .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
                                        TaskService, ProcessInstancesService, ExpenseService, Enum) {
-        //AddItems
-        $scope.addItemFromList = function () {
-            $ionicPopup.show({
-                templateUrl: 'modal-item-list.html',
-                title: 'ItemList',
-                scope: $scope,
-                buttons: [{
-                    text: 'Ok',
-                    type: 'button-positive',
-                    onTap: function () {
-                        return true;
-                    }
-                }]
-            });
-        }
         //Local variables
         $scope.processInstanceVariables = {};
         //Save the expense item at first.
@@ -570,6 +577,20 @@ angular.module('starter.controllers', [])
                 // failure handler
                 console.error("startProcessInstance.$save() failed:", JSON.stringify(error));
             });
+        }
+        //
+        $scope.curUsers = [];
+        //Popup user(employee/manager) list modal
+        $scope.showUserModal = function(type) {
+            //Load current user by type.
+            if(type==0)//employee
+            {
+
+            }else if(type==1)//manager
+            {
+
+            }
+            $scope.userListModal.show();
         }
     })
     .controller('TaskDetailCtrl', function ($scope, $rootScope, $stateParams, TaskService, $log) {
