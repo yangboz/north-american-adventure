@@ -1,32 +1,35 @@
-<ion-modal-view ng-controller="TasksCtrl">
+<ion-view title="添加报告">
     <ion-header-bar class="bar bar-header">
         <h1 class="title">添加报告</h1>
-        <button class="button button-icon icon ion-close" ng-click="taskModal.hide()"></button>
     </ion-header-bar>
-    <ion-content class="padding">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="saveExpenseReport(false)">保存</button>
+    </ion-nav-buttons>
+    <ion-content class="padding" has-header="true">
         <div class="list list-inset">
             <label class="item item-input">
-                <input type="text" placeholder="新报告" ng-model="newTask.name">
+                <input type="text" placeholder="新报告" ng-model="processInstanceVariables.name">
             </label>
             <label class="item item-input">
-                <input type="date" placeholder="到期日" ng-model="newTask.dueDate">
+                <input type="date" placeholder="到期日" ng-model="processInstanceVariables.date">
             </label>
             <label class="item item-input">
                 提交至
-                <input type="text" placeholder="" ng-model="newTask.reportManager" disabled>
+                <input type="text" placeholder="" ng-model="processInstanceVariables.managerId" disabled>
                 <button class="button button-icon ion-chevron-right" ng-click="itemListModal.show()"></button>
             </label>
             <label class="item item-input">
                 抄送
-                <input type="text" placeholder="" ng-model="newTask.cc" disabled>
+                <input type="text" placeholder="" ng-model="processInstanceVariables.participantIds" disabled>
                 <button class="button button-icon ion-chevron-right" ng-click="itemListModal.show()"></button>
             </label>
             <label class="item item-input">
                 总额
-                <input type="number" placeholder="0.00￥" ng-model="newTask.amountMoney" disabled>
+                <input type="number" placeholder="0.00￥" ng-model="processInstanceVariables.amount" disabled>
                 添加条目
                 <button class="button button-icon ion-plus-round" ng-click="itemListModal.show()"></button>
             </label>
+            <!--
             <ion-list>
                 <div class="item item-button-right" ng-repeat="item in $root.items">
                     <i class="icon ion-document"></i>
@@ -35,7 +38,9 @@
                     <p>{{item.invoices}}</p>
                 </div>
             </ion-list>
-            <button class="button button-full" ng-click="startProcessInstance()">提交</button>
+            -->
+            <button class="button button-full" ng-click="saveExpenseReport(true)">提交</button>
         </div>
     </ion-content>
-</ion-modal-view>
+
+</ion-view>

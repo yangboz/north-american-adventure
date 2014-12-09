@@ -1,9 +1,14 @@
-<ion-modal-view ng-controller="ItemsCtrl">
+<ion-view title="详情">
     <ion-header-bar class="bar bar-header">
-        <h1 class="title">Item</h1>
-        <button class="button button-icon icon ion-close" ng-click="itemModal.hide()"></button>
+        <h1 class="title">详情</h1>
     </ion-header-bar>
-    <ion-content class="padding">
+    <ion-nav-buttons side="left">
+        <button class="button button-clear"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="createItem()">保存</button>
+    </ion-nav-buttons>
+    <ion-content class="padding" has-header="true">
         <div class="list list-inset">
             <label class="item item-input">
                 <input type="number" placeholder="金额" ng-model="newItem.amount">
@@ -16,15 +21,12 @@
                     类型
                 </div>
                 <select ng-model="prefType"
-                        ng-options="type.name for type in preferences.type"
+                        ng-options="type.name for type in preferencesItemType"
                         ng-change="setTypeSelected(prefType)">
                 </select>
             </label>
             <label class="item item-input">
-                <div class="input-label" ng-model="newItem.invoices">
-                    照片<a class="ion-ios-plus-empty"></a>
-                </div>
-
+                <input type="text" placeholder="照片" ng-model="newItem.invoices">
             </label>
             <label class="item item-input">
                 <input type="date" placeholder="日期" ng-model="newItem.date">
@@ -32,7 +34,7 @@
             <label class="item item-input">
                 <input type="text" placeholder="供应商" ng-model="newItem.vendors">
             </label>
-            <button class="button button-full" ng-click="createItem()">Submit</button>
         </div>
     </ion-content>
-</ion-modal-view>
+
+</ion-view>

@@ -68,14 +68,6 @@ angular.module('starter.controllers', [])
                 $scope.loginModal.show();
             }
         });
-        ///ItemModal
-        $ionicModal.fromTemplateUrl('templates/modal-item.html', {
-            scope: $scope,
-            backdropClickToClose: false
-        }).then(function (modal) {
-//        console.log("modal-item.html init!!!");
-            $scope.itemModal = modal;
-        });
         ///ItemListModal
         $ionicModal.fromTemplateUrl('templates/modal-item-list.html', {
             scope: $scope,
@@ -83,16 +75,6 @@ angular.module('starter.controllers', [])
         }).then(function (modal) {
 //        console.log("modal-item-list.html init!!!");
             $scope.itemListModal = modal;
-        });
-        ///TaskModal
-        $ionicModal.fromTemplateUrl('templates/modal-task.html', {
-            scope: $scope
-            , backdropClickToClose: false
-            , animation: 'slide-in-up'
-            , focusFirstInput: true
-        }).then(function (modal) {
-//        console.log("modal-task.html init!!!");
-            $scope.taskModal = modal;
         });
         ///ReportModal
         $ionicModal.fromTemplateUrl('templates/modal-report.html', {
@@ -124,9 +106,7 @@ angular.module('starter.controllers', [])
         //Cleanup the modal when we're done with it!
         $scope.$on('$destroy', function () {
             $scope.loginModal.remove();
-            $scope.taskModal.remove();
             $scope.reportModal.remove();
-            $scope.itemModal.remove();
             $scope.itemListModal.remove();
         });
         // Execute action on hide modal
@@ -284,12 +264,20 @@ angular.module('starter.controllers', [])
                 type: 'pieChart',
                 height: 350,
                 donut: true,
-                x: function(d){return d.key;},
-                y: function(d){return d.y;},
+                x: function (d) {
+                    return d.key;
+                },
+                y: function (d) {
+                    return d.y;
+                },
                 showLabels: true,
                 pie: {
-                    startAngle: function(d) { return d.startAngle/2 -Math.PI/2 },
-                    endAngle: function(d) { return d.endAngle/2 -Math.PI/2 }
+                    startAngle: function (d) {
+                        return d.startAngle / 2 - Math.PI / 2
+                    },
+                    endAngle: function (d) {
+                        return d.endAngle / 2 - Math.PI / 2
+                    }
                 },
                 transitionDuration: 500,
                 legend: {
@@ -366,7 +354,7 @@ angular.module('starter.controllers', [])
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        TaskService, ProcessService, JobService, ExecutionService,
                                        HistoryService, FormDataService, ItemService, CompanyService,
-                                       ProcessDefinitionsService) {
+                                       ProcessDefinitionsService, CONFIG_ENV) {
         $rootScope.loggedUser = {};
         $rootScope.loggedin = false;
 
@@ -425,9 +413,9 @@ angular.module('starter.controllers', [])
                 });
                 //getProcessDefinitionsService
                 ProcessDefinitionsService.get({}, function (response) {
-                    $log.debug("ProcessDefinitionsService.get(default) success!", response.data[0]);
-                    $rootScope.companyInfo.processDefinitionId = response.data[0].id;
-                    $rootScope.companyInfo.processDefinitionKey = response.data[0].key;
+                    $log.debug("ProcessDefinitionsService.get(default) success!", response.data[CONFIG_ENV.A_PD_I]);
+                    $rootScope.companyInfo.processDefinitionId = response.data[CONFIG_ENV.A_PD_I].id;
+                    $rootScope.companyInfo.processDefinitionKey = response.data[CONFIG_ENV.A_PD_I].key;
                     //Then
                     $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey + "/" + $rootScope.companyInfo.processDefinitionId;
                     //Connect to STOMP server with ActiveMQ QueueName.
@@ -451,23 +439,11 @@ angular.module('starter.controllers', [])
         });
     })
     .controller('ItemsCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
-                                       ItemService) {
+                                       ItemService, Enum) {
         //ng-model
         $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
-        $scope.preferences = {
-            type: [
-                {
-                    name: "预审批",
-                    data: "ApproveAhead"
-                },
-
-                {
-                    name: "已消费",
-                    data: "CostComsumed"
-                }
-            ]
-        };
-        $scope.prefType = $scope.preferences.type[1];
+        $scope.preferencesItemType = Enum.itemType;
+        $scope.prefType = Enum.itemType[0];//Default setting.
         $scope.setTypeSelected = function (type) {
             $scope.prefType = type;
         }
@@ -529,7 +505,7 @@ angular.module('starter.controllers', [])
     .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
-                                       TaskService, ProcessInstancesService) {
+                                       TaskService, ProcessInstancesService, ExpenseService, Enum) {
         //AddItems
         $scope.addItemFromList = function () {
             $ionicPopup.show({
@@ -545,17 +521,54 @@ angular.module('starter.controllers', [])
                 }]
             });
         }
-        //submitStartForm to start process
+        //Local variables
+        $scope.processInstanceVariables = {};
+        //Save the expense item at first.
+        $scope.saveExpenseReport = function (startProcessInstance) {
+            var anewExpense = new ExpenseService();
+            anewExpense.name = $scope.processInstanceVariables.name;
+            anewExpense.ownder = $rootScope.loggedUser.username;
+            anewExpense.date = $scope.processInstanceVariables.date;
+            anewExpense.itemIds = $scope.processInstanceVariables.itemIds;
+            anewExpense.managerId = $scope.processInstanceVariables.managerId;
+            anewExpense.participantIds = $scope.processInstanceVariables.participantIds;
+            anewExpense.status = startProcessInstance?Enum.expenseStatus.Submitted:Enum.expenseStatus.Saved;
+            //Save
+            anewExpense.$save(function (t, putResponseHeaders) {
+                $log.info("saveExpenseItem() success, response:", t);
+                //SubmitStartForm to start process if necessary.
+                if(startProcessInstance)
+                {
+                    $scope.startProcessInstance();
+                }
+            }, function (error) {
+                // failure handler
+                console.error("saveExpenseItem() failed:", JSON.stringify(error));
+            });
+        }
         //@see: http://www.activiti.org/userguide/#N12EE4
         $scope.startProcessInstance = function () {
-            $log.debug("startProcessInstance() called!");
+            //$log.debug("startProcessInstance() called!");
+            //Then submitStartForm to start process
             var anewProcessInstance = new ProcessInstancesService();
             anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
             anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;
-            anewProcessInstance.variables = [];
+            //Assemble variables
+            //Assemble variables
+            anewProcessInstance.variables = [
+                {'name': 'taskName', 'value': $scope.processInstanceVariables.name}
+                , {'name': 'dueDate', 'value': $scope.processInstanceVariables.date}
+                //,{'reportManagerId':$scope.processInstanceVariables.reportManagerId}
+                //,{'participantIds':$scope.processInstanceVariables.participantIds}
+                //,{'amount':$scope.processInstanceVariables.amount}
+            ];
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {
-                $log.info("startProcessInstance() success, response:", putResponseHeaders, t);
+                $log.info("startProcessInstance() success, response:", t);
+                $scope.taskModal.hide();
+            }, function (error) {
+                // failure handler
+                console.error("startProcessInstance.$save() failed:", JSON.stringify(error));
             });
         }
     })

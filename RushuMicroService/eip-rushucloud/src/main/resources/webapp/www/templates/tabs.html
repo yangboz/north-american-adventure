@@ -7,18 +7,19 @@
 
   <!-- Dashboard Tab -->
   <ion-tab title="报销" icon="icon ion-document" href="#/tab/dash" icon-on="ion-document is-active" icon-off="ion-document"
-           ng-click="onTabSelected()" ng-controller="TabLocalCtrlDash">
+           ng-click="onTabSelected()" ng-controller="TabLocalCtrlDash" >
       <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
 
   <!-- Reports Tab -->
   <ion-tab badge="numberOfTasks" badge-style="badge-assertive" title="报告" icon="icon ion-document-text" href="#/tab/tasks" icon-on="ion-document-text is-active" icon-off="ion-document-text"
-           ng-click="onTabSelected()" ng-controller="TabLocalCtrlTasks">
+           ng-click="onTabSelected()" ng-controller="TabLocalCtrlTasks" >
     <ion-nav-view name="tab-tasks"></ion-nav-view>
   </ion-tab>
 
    <!-- Statistic Tab -->
-  <ion-tab title="统计" icon="icon ion-stats-bars" href="#/tab/stats" icon-on="ion-stats-bars is-active" icon-off="ion-stats-bars">
+  <ion-tab title="统计" icon="icon ion-stats-bars" href="#/tab/stats" icon-on="ion-stats-bars is-active"
+           icon-off="ion-stats-bars" >
     <ion-nav-view name="tab-stats"></ion-nav-view>
   </ion-tab>
 

@@ -45,7 +45,7 @@ public class ModelBase {
 	// The item date
 //	@NotNull
 //	private Date date = new Date();
-	private Date date;
+	protected Date date;
 
 	public Date getDate() {
 		return date;

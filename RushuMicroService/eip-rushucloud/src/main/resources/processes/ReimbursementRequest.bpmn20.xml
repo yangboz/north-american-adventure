@@ -11,9 +11,9 @@
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="request" targetRef="handleRequest"></sequenceFlow>
     <userTask id="handleRequest" name="Handle reimbursement request" activiti:assignee="{assignee}" activiti:candidateUsers="{ldapService.findCandidateUserForEmployee()}" activiti:candidateGroups="{ldapService.findCandidateGroupForEmployee()}">
-      <documentation>{employeeName} would like to take {numberOfDays} day(s) of reimbursement (Motivation: {reimbursementMotivation}).</documentation>
+      <documentation>{employeeName} would like to take {amountOfMoney} money of reimbursement (Motivation: {reimbursementMotivation}).</documentation>
       <extensionElements>
-        <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement" type="enum" required="true">
+        <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement?" type="enum" required="true">
           <activiti:value id="true" name="Approve"></activiti:value>
           <activiti:value id="false" name="Reject"></activiti:value>
         </activiti:formProperty>
@@ -46,10 +46,10 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[{reimbursementApproved == 'false'}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="{employeeName}">
-      <documentation>Your manager has disapproved your reimbursement request for {numberOfDays} days.
+      <documentation>Your manager has disapproved your reimbursement request for {amountOfMoney} days.
         Reason: {managerMotivation}</documentation>
       <extensionElements>
-        <activiti:formProperty id="numberOfDays" name="Number of days" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="amountOfMoney" name="Number of days" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
         <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string"></activiti:formProperty>
         <activiti:formProperty id="resendRequest" name="Resend reimbursement request to manager?" type="enum" required="true">

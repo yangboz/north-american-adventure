@@ -28,7 +28,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         'api_version': '5.16.3',
         'stomp_uri': 'ws://127.0.0.1:61614/stomp',
         //'stomp_uri':'ws://182.92.232.131:61614/stomp',
-        'stomp_protocol': 'v11.stomp'
+        'stomp_protocol': 'v11.stomp',
+        'A_PD_I':1//Activiti_process_definition_index value for switch;
     })
 ///App run
     .run(function ($ionicPlatform) {
@@ -80,6 +81,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     }
                 }
             })
+            .state('tab.item-add', {
+                url: '/item-add',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/add-item.html',
+                        controller: 'ItemsCtrl'
+                    }
+                }
+            })
             .state('tab.tasks', {
                 url: '/tasks',
                 views: {
@@ -95,6 +105,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     'tab-tasks': {
                         templateUrl: 'templates/detail-task.html',
                         controller: 'TaskDetailCtrl'
+                    }
+                }
+            })
+            .state('tab.task-add', {
+                url: '/task-add',
+                views: {
+                    'tab-tasks': {
+                        templateUrl: 'templates/add-task.html',
+                        controller: 'TasksCtrl'
                     }
                 }
             })
