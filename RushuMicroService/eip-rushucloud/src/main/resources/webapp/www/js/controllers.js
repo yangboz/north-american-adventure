@@ -174,6 +174,13 @@ angular.module('starter.controllers', [])
         }
     })
     .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log, $http) {
+        //Slide-box view
+        $scope.selectedViewIndex = 0;
+        $scope.changeViewIndex = function (index) {
+            $log.info("TabCtrlTasks selected view index:", index);
+            $scope.selectedViewIndex = index;
+        };
+        //
         if (window.localStorage['auth_rsc']) {
             //
             TaskService.get({}, function (response) {
@@ -264,11 +271,14 @@ angular.module('starter.controllers', [])
 
         }
     })
-    .controller('ReportDetailCtrl', function ($scope, $rootScope, $stateParams, ReportService, $log) {
-        ReportService.get({taskId: $stateParams.reportId}, function (response) {
-//        $log.debug("ReportService.getTaskInfo success!",response);
-            $scope.report = response;
-//        $log.debug("ReportDetailCtrl $scope.report",$scope.report);
+    .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log) {
+        $scope.expenses = [];
+        ExpenseService.get({}, function (response) {
+            $log.info("ExpenseService.get() success, response:", response);
+            $scope.expenses = response._embedded.expenses;
+        }, function (error) {
+            // failure handler
+            $log.error("ExpenseService.get() failed:", JSON.stringify(error));
         });
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
@@ -536,11 +546,11 @@ angular.module('starter.controllers', [])
         $scope.saveExpenseReport = function (startProcessInstance) {
             var anewExpense = new ExpenseService();
             anewExpense.name = $scope.processInstanceVariables.name;
-            anewExpense.ownder = $rootScope.loggedUser.username;
+            anewExpense.owner = $rootScope.username;
             anewExpense.date = $scope.processInstanceVariables.date;
-            anewExpense.itemIds = $scope.processInstanceVariables.itemIds;
-            anewExpense.managerId = $scope.processInstanceVariables.managerId;
-            anewExpense.participantIds = $scope.processInstanceVariables.participantIds;
+            anewExpense.itemIds = $rootScope.itemIDsSel.toString();
+            anewExpense.managerId = $rootScope.managerIDsSel[0];
+            anewExpense.participantIds = $rootScope.employeeIDsSel.toString();
             anewExpense.status = startProcessInstance ? Enum.expenseStatus.Submitted : Enum.expenseStatus.Saved;
             //Save
             anewExpense.$save(function (t, putResponseHeaders) {
@@ -562,13 +572,12 @@ angular.module('starter.controllers', [])
             anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
             anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;
             //Assemble variables
-            //Assemble variables
             anewProcessInstance.variables = [
                 {'name': 'taskName', 'value': $scope.processInstanceVariables.name}
                 , {'name': 'dueDate', 'value': $scope.processInstanceVariables.date}
-                //,{'reportManagerId':$scope.processInstanceVariables.reportManagerId}
-                //,{'participantIds':$scope.processInstanceVariables.participantIds}
-                //,{'amount':$scope.processInstanceVariables.amount}
+                , {'name': 'reportManagerId', 'value': $rootScope.managerIDsSel[0]}
+                , {'name': 'participantIds', 'value': $rootScope.employeeIDsSel.toString()}
+                , {'name': 'amount', 'value': $rootScope.itemIDsSelAmount}
             ];
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {
