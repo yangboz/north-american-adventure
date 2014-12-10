@@ -4,14 +4,11 @@
         <button class="button button-icon icon ion-close" ng-click="itemListModal.hide()"></button>
     </ion-header-bar>
     <ion-content class="padding">
-        <ul class="list">
-            <li class="item item-checkbox" ng-repeat="item in $root.items">
-                <label class="checkbox">
-                    <input type="checkbox" ng-click="toggleItemListSelection(item.id,$index)"
-                           ng-checked="$root.itemIDsSel.indexOf(item.id) != -1">
-                </label>
-                {{item.name}}
-            </li>
-        </ul>
+        <label class="item item-radio" ng-repeat="item in $root.items">
+            <input type="checkbox" name="group" ng-click="toggleItemListSelection(item.id,$index)"
+                   ng-checked="$root.itemIDsSel.indexOf(item.id) != -1">
+            <div class="item-content">{{item.name}}</div>
+            <i class="radio-icon ion-checkmark"></i>
+        </label>
     </ion-content>
 </ion-modal-view>

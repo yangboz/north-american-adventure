@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
-                                      CONFIG_ENV, $log, $cordovaToast,LDAPService) {
+                                      CONFIG_ENV, $log, $cordovaToast, LDAPService) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -92,14 +92,6 @@ angular.module('starter.controllers', [])
 //        console.log("modal-manager-list.html init!!!");
             $scope.managerListModal = modal;
         });
-        ///ReportModal
-        $ionicModal.fromTemplateUrl('templates/modal-report.html', {
-            scope: $scope,
-            backdropClickToClose: false
-        }).then(function (modal) {
-//        console.log("modal-task.html init!!!");
-            $scope.reportModal = modal;
-        });
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
             //Login Modal,only hide();
@@ -122,9 +114,9 @@ angular.module('starter.controllers', [])
         //Cleanup the modal when we're done with it!
         $scope.$on('$destroy', function () {
             $scope.loginModal.remove();
-            $scope.reportModal.remove();
             $rootScope.itemListModal.remove();
             $rootScope.userListModal.remove();
+            $rootScope.managerListModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -152,7 +144,8 @@ angular.module('starter.controllers', [])
         $rootScope.expenses = [];
         $rootScope.employeeIDs = [];
         $rootScope.managerIDs = [];
-
+        $rootScope.employeeIDsSel = [];
+        $rootScope.managerIDsSel = [];
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -332,54 +325,33 @@ angular.module('starter.controllers', [])
         ];
     })
 
-    .controller('UsersCtrl', function ($scope, $http, UserService, $rootScope, $location, $log, CONFIG_ENV, LDAPService) {
-//    console.log("$rootScope.loggedUser",$rootScope.loggedUser);
-        if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
-            $location.path('/login');
-            return;
+    .controller('UsersCtrl', function ($scope, $http, UserService, $rootScope, $location, $log) {
+        //UserListModal related
+        //@see: http://stackoverflow.com/questions/14514461/how-can-angularjs-bind-to-list-of-checkbox-values
+        $scope.toggleEmployeeListSelection = function (userId) {
+            var idx = $rootScope.employeeIDsSel.indexOf(userId);
+            if (idx > -1) {
+                $rootScope.employeeIDsSel.splice(idx, 1);
+            } else {
+                $rootScope.employeeIDsSel.push(userId);
+            }
+            $log.debug("toggleEmployeeListSelection:", $rootScope.employeeIDsSel);
         }
-        $scope.users = UserService.get();
-        /**
-         * New user Initial data
-         */
-        $scope.newUser = {
-            "id": "",
-            "firstName": "",
-            "lastName": "",
-            "email": "",
-            "password": ""
+        $scope.toggleManagerListSelection = function (userId) {
+            var idx = $rootScope.managerIDsSel.indexOf(userId);
+            if (idx > -1) {
+                $rootScope.managerIDsSel.splice(idx, 1);
+            } else {
+                $rootScope.managerIDsSel.push(userId);
+            }
+            $log.debug("toggleManagerListSelection:", $rootScope.managerIDsSel);
         }
-
-        /**
-         * Create user function
-         * @param newUser
-         */
-        $scope.createUser = function (newUser) {
-            var user = new UserService(newUser);
-            user.id = newUser.id;
-            user.firstName = newUser.firstName;
-            user.lastName = newUser.lastName;
-            user.email = newUser.email;
-            user.password = newUser.password;
-            ///
-            user.$save(function (u, putResponseHeaders) {
-                $scope.users.data.push(u);
-            });
-        };
-
-        $scope.removeUser = function (user) {
-            UserService.delete({"user": user.id}, function (data) {
-                $scope.users = UserService.get();
-            });
-        }
-
     })
-
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        TaskService, ProcessService, JobService, ExecutionService,
                                        HistoryService, FormDataService, ItemService, CompanyService,
-                                       ProcessDefinitionsService, CONFIG_ENV,Enum, LDAPService) {
+                                       ProcessDefinitionsService, CONFIG_ENV, Enum, LDAPService) {
         $rootScope.loggedUser = {};
         $rootScope.loggedin = false;
 
@@ -551,14 +523,13 @@ angular.module('starter.controllers', [])
                 $rootScope.itemIDsSel.push(itemId);
                 $rootScope.itemIDsSelAmount += $rootScope.items[index].amount;
             }
-            //$log.debug("toggleItemListSelection:",$rootScope.itemIDsSel,$rootScope.itemIDsSelAmount);
+            $log.debug("toggleItemListSelection:", $rootScope.itemIDsSel, $rootScope.itemIDsSelAmount);
         }
     })
     .controller('TasksCtrl', function ($scope, $rootScope, $http, Base64, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
-                                       TaskService, ProcessInstancesService, ExpenseService, Enum
-                                       ) {
+                                       TaskService, ProcessInstancesService, ExpenseService, Enum) {
         //Local variables
         $scope.processInstanceVariables = {};
         //Save the expense item at first.

@@ -17,7 +17,7 @@
                 <div class="col-50">
                     <label class="item item-input">
                         提交至:
-                        <input type="text" placeholder="" ng-model="processInstanceVariables.managerId" disabled>
+                        <input type="text" placeholder="{{$root.managerIDsSel}}" ng-model="processInstanceVariables.managerId" disabled>
                     </label>
                 </div>
                 <div class="col-50">
@@ -28,7 +28,7 @@
                 <div class="col-50">
                     <label class="item item-input">
                         抄送:
-                        <input type="text" placeholder="" ng-model="processInstanceVariables.participantIds" disabled>
+                        <input type="text" placeholder="{{$root.employeeIDsSel}}" ng-model="processInstanceVariables.participantIds" disabled>
                     </label>
                 </div>
                 <div class="col-50">
@@ -38,8 +38,8 @@
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
-                        总额:
-                        <input type="number" placeholder="{{$root.itemIDsSelAmount}}￥" ng-model="processInstanceVariables.amount" disabled>
+                        总额: {{$root.itemIDsSelAmount}}￥
+                        <input type="number" placeholder="{{$root.itemIDsSel}}" ng-model="processInstanceVariables.amount" disabled>
                         添加条目
                     </label>
                 </div>
