@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
-                                      CONFIG_ENV, $log, $cordovaToast) {
+                                      CONFIG_ENV, $log, $cordovaToast,LDAPService) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -81,8 +81,16 @@ angular.module('starter.controllers', [])
             scope: $scope,
             backdropClickToClose: false
         }).then(function (modal) {
-//        console.log("modal-item-list.html init!!!");
+//        console.log("modal-user-list.html init!!!");
             $scope.userListModal = modal;
+        });
+        ///ManagerListModal
+        $ionicModal.fromTemplateUrl('templates/modal-manager-list.html', {
+            scope: $scope,
+            backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-manager-list.html init!!!");
+            $scope.managerListModal = modal;
         });
         ///ReportModal
         $ionicModal.fromTemplateUrl('templates/modal-report.html', {
@@ -144,6 +152,7 @@ angular.module('starter.controllers', [])
         $rootScope.expenses = [];
         $rootScope.employeeIDs = [];
         $rootScope.managerIDs = [];
+
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -323,7 +332,7 @@ angular.module('starter.controllers', [])
         ];
     })
 
-    .controller('UsersCtrl', function ($rootScope, $scope, $http, UserService, $rootScope, $location) {
+    .controller('UsersCtrl', function ($scope, $http, UserService, $rootScope, $location, $log, CONFIG_ENV, LDAPService) {
 //    console.log("$rootScope.loggedUser",$rootScope.loggedUser);
         if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
             $location.path('/login');
@@ -363,13 +372,14 @@ angular.module('starter.controllers', [])
                 $scope.users = UserService.get();
             });
         }
+
     })
 
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        TaskService, ProcessService, JobService, ExecutionService,
                                        HistoryService, FormDataService, ItemService, CompanyService,
-                                       ProcessDefinitionsService, CONFIG_ENV) {
+                                       ProcessDefinitionsService, CONFIG_ENV,Enum, LDAPService) {
         $rootScope.loggedUser = {};
         $rootScope.loggedin = false;
 
@@ -440,7 +450,29 @@ angular.module('starter.controllers', [])
 //            FormDataService.get({"taskId": 2513}, function (data) {
 //                $log.debug("FormDataService.get() success!",data);
 //            });
-
+                ///Search LDAP users by ou(organization unit)
+                var ouEncode_0 = "ou=" + Enum.groupNames[0] + ",";//employee
+                LDAPService.get({
+                    partition: ouEncode_0 + CONFIG_ENV.LDAP_PARTITION,
+                    filter: CONFIG_ENV.LDAP_FILTER
+                }, function (response) {
+                    $log.info("LDAPService.get(0) success, response:", response);
+                    $rootScope.employeeIDs = response.data;
+                }, function (error) {
+                    // failure handler
+                    $log.error("LDAPService.get(0) failed:", JSON.stringify(error));
+                });
+                var ouEncode_1 = "ou=" + Enum.groupNames[1] + ",";//manager
+                LDAPService.get({
+                    partition: ouEncode_1 + CONFIG_ENV.LDAP_PARTITION,
+                    filter: CONFIG_ENV.LDAP_FILTER
+                }, function (response) {
+                    $log.info("LDAPService.get(1) success, response:", response);
+                    $rootScope.managerIDs = response.data;
+                }, function (error) {
+                    // failure handler
+                    $log.error("LDAPService.get(1) failed:", JSON.stringify(error));
+                });
             });
         };
     })
@@ -477,9 +509,7 @@ angular.module('starter.controllers', [])
             //Save
             anewItem.$save(function (t, putResponseHeaders) {
                 $log.info("createItem() success, response:", t);
-                //Hide item modal
-                $scope.itemModal.hide();
-                //Refresh task list
+                //Refresh item list
                 ItemService.get({}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
@@ -512,22 +542,23 @@ angular.module('starter.controllers', [])
         }
         //ItemListModal related
         //@see: http://stackoverflow.com/questions/14514461/how-can-angularjs-bind-to-list-of-checkbox-values
-        $scope.toggleItemListSelection = function(itemId,index){
+        $scope.toggleItemListSelection = function (itemId, index) {
             var idx = $rootScope.itemIDsSel.indexOf(itemId);
-            if(idx > -1){
+            if (idx > -1) {
                 $rootScope.itemIDsSel.splice(idx, 1);
                 $rootScope.itemIDsSelAmount -= $rootScope.items[index].amount;
-            }else{
+            } else {
                 $rootScope.itemIDsSel.push(itemId);
                 $rootScope.itemIDsSelAmount += $rootScope.items[index].amount;
             }
             //$log.debug("toggleItemListSelection:",$rootScope.itemIDsSel,$rootScope.itemIDsSelAmount);
         }
     })
-    .controller('TasksCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
+    .controller('TasksCtrl', function ($scope, $rootScope, $http, Base64, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
-                                       TaskService, ProcessInstancesService, ExpenseService, Enum) {
+                                       TaskService, ProcessInstancesService, ExpenseService, Enum
+                                       ) {
         //Local variables
         $scope.processInstanceVariables = {};
         //Save the expense item at first.
@@ -539,18 +570,17 @@ angular.module('starter.controllers', [])
             anewExpense.itemIds = $scope.processInstanceVariables.itemIds;
             anewExpense.managerId = $scope.processInstanceVariables.managerId;
             anewExpense.participantIds = $scope.processInstanceVariables.participantIds;
-            anewExpense.status = startProcessInstance?Enum.expenseStatus.Submitted:Enum.expenseStatus.Saved;
+            anewExpense.status = startProcessInstance ? Enum.expenseStatus.Submitted : Enum.expenseStatus.Saved;
             //Save
             anewExpense.$save(function (t, putResponseHeaders) {
                 $log.info("saveExpenseItem() success, response:", t);
                 //SubmitStartForm to start process if necessary.
-                if(startProcessInstance)
-                {
+                if (startProcessInstance) {
                     $scope.startProcessInstance();
                 }
             }, function (error) {
                 // failure handler
-                console.error("saveExpenseItem() failed:", JSON.stringify(error));
+                $log.error("saveExpenseItem() failed:", JSON.stringify(error));
             });
         }
         //@see: http://www.activiti.org/userguide/#N12EE4
@@ -572,25 +602,10 @@ angular.module('starter.controllers', [])
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {
                 $log.info("startProcessInstance() success, response:", t);
-                $scope.taskModal.hide();
             }, function (error) {
                 // failure handler
-                console.error("startProcessInstance.$save() failed:", JSON.stringify(error));
+                $log.error("startProcessInstance.$save() failed:", JSON.stringify(error));
             });
-        }
-        //
-        $scope.curUsers = [];
-        //Popup user(employee/manager) list modal
-        $scope.showUserModal = function(type) {
-            //Load current user by type.
-            if(type==0)//employee
-            {
-
-            }else if(type==1)//manager
-            {
-
-            }
-            $scope.userListModal.show();
         }
     })
     .controller('TaskDetailCtrl', function ($scope, $rootScope, $stateParams, TaskService, $log) {

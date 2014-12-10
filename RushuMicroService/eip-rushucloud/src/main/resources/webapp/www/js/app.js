@@ -1,6 +1,6 @@
 //@ref:http://alfrescoblog.com/2014/09/04/angular-js-activiti-webapp-part-iii-final/
 // Ionic Starter App
-
+// Have fun: http://codepen.io/mikkokam/pen/Geotz
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -23,13 +23,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 //var API_URL = "http://www.rushucloud.com:90/activiti-rest/";///usr/share/tomcat6/webapps/h5
 //var API_URL = "http://localhost:8080/activiti-rest/";
 //var API_URL = "/activiti-rest/";
-        'api_endpoint': 'http://localhost:8082/eip-rushucloud/',
+        'api_endpoint': 'http://localhost:8082/eip-rushucloud/'
         //'api_endpoint': 'http://localhost:8080/activiti-rest/service/',
-        'api_version': '5.16.3',
-        'stomp_uri': 'ws://127.0.0.1:61614/stomp',
+        ,'api_version': '5.16.3'
+        ,'stomp_uri': 'ws://127.0.0.1:61614/stomp'
         //'stomp_uri':'ws://182.92.232.131:61614/stomp',
-        'stomp_protocol': 'v11.stomp',
-        'A_PD_I':1//Activiti_process_definition_index value for switch;
+        ,'stomp_protocol': 'v11.stomp'
+        ,'A_PD_I':1//Activiti_process_definition_index value for switch;
+        ,'LDAP_PARTITION':'dc=rushucloud,dc=com'//default LDAP partition string
+        ,'LDAP_FILTER':'(objectclass=person)'//default LDAP partition filter
     })
 ///App run
     .run(function ($ionicPlatform) {

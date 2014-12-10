@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.filter.AndFilter;
+import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,13 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import aj.org.objectweb.asm.Attribute;
 
+import com.rushucloud.eip.dto.JsonObject;
 import com.rushucloud.eip.dto.JsonString;
 import com.rushucloud.eip.settings.LDAPSetting;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.springframework.ldap.query.LdapQueryBuilder.query;
 //@see: http://www.javaworld.com/article/2076073/java-web-development/ldap-and-jndi--together-forever.html
+//@see: https://docs.oracle.com/javase/tutorial/jndi/ldap/operations.html
+//@see: http://docs.spring.io/spring-ldap/docs/current/reference/
+
 @RestController
 public class LDAPController {
 	//
@@ -37,28 +45,25 @@ public class LDAPController {
 	//
 	@RequestMapping(method = RequestMethod.GET, value = "ldap/search")
 	@ApiOperation(httpMethod = "GET", value = "LDAP search client for testing purpose.")
-	public List<String> search(
-			@RequestParam(value = "partition", required = true, defaultValue = "dc=inflinx,dc=com") String partition,
+	public JsonObject search(
+			@RequestParam(value = "partition", required = true, defaultValue = "ou=employees,dc=rushucloud,dc=com") String partition,
 			@RequestParam(value = "filter", required = true, defaultValue = "(objectclass=person)") String filter) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
-		List<String> nameList = ldapTemplate.search(partition, filter,
-				new AttributesMapper() {
-					public Object mapFromAttributes(Attributes attributes)
-							throws NamingException {
-						HashMap obj = (HashMap) attributes.get("cn");
-						LOG.info("attributes.get('cn'):", obj.toString());
-						// return (Object)attributes.get("cn");
-						return obj.toString();
-					}
-
+		// AndFilter andFilter = new AndFilter();
+		// andFilter.and(new EqualsFilter("objectclass", "Person"));
+		// andFilter.and(new EqualsFilter("ou", "employees"));
+		return new JsonObject(ldapTemplate.search(
+		// query().where("objectclass").is("person"),
+		// partition, andFilter.encode(),
+				partition, filter, new AttributesMapper<String>() {
 					@Override
-					public Object mapFromAttributes(
-							javax.naming.directory.Attributes arg0)
+					public String mapFromAttributes(
+							javax.naming.directory.Attributes attrs)
 							throws NamingException {
-						return null;
+						LOG.debug("javax.naming.directory.Attributes:"+attrs.toString());
+						return attrs.get("uid").get().toString();
 					}
-				});
-		return nameList;
+				}));
 	}
 
 	//
@@ -70,13 +75,14 @@ public class LDAPController {
 			@RequestParam(value = "uid", required = true, defaultValue = "parton9999") String uid,
 			@RequestParam(value = "sn", required = true, defaultValue = "Patron9999") String sn,
 			@RequestParam(value = "cn", required = true, defaultValue = "New Patron9999") String cn
-//			@RequestParam(value = "basicAttributes", required = false, defaultValue = "") BasicAttributes basicAttributes
-			) {
+	// @RequestParam(value = "basicAttributes", required = false, defaultValue =
+	// "") BasicAttributes basicAttributes
+	) {
 		// Set the Patron attributes
 		BasicAttributes attributes = new BasicAttributes();
 		attributes.put("sn", sn);
 		attributes.put("cn", cn);
-		// Add the multi-valued attribute
+		// Add the multiply-valued attribute
 		BasicAttribute objectClassAttribute = new BasicAttribute("objectclass");
 		objectClassAttribute.add("top");
 		objectClassAttribute.add("person");
@@ -84,10 +90,10 @@ public class LDAPController {
 		objectClassAttribute.add("inetorgperson");
 		attributes.put(objectClassAttribute);
 		LdapTemplate ldapTemplate = getLdapTemplate();
-		ldapTemplate.bind("uid="+uid+",ou="+ou+","+partition, null,
+		ldapTemplate.bind("uid=" + uid + ",ou=" + ou + "," + partition, null,
 				attributes);
 	}
-	
+
 	//
 	@RequestMapping(method = RequestMethod.POST, value = "ldap/update")
 	@ApiOperation(httpMethod = "POST", value = "LDAP search client for updating purpose.")
@@ -95,28 +101,34 @@ public class LDAPController {
 			@RequestParam(value = "partition", required = true, defaultValue = "dc=inflinx,dc=com") String partition,
 			@RequestParam(value = "ou", required = true, defaultValue = "partons") String ou,
 			@RequestParam(value = "uid", required = true, defaultValue = "parton9999") String uid
-//			@RequestParam(value = "basicAttributes", required = false, defaultValue = "") BasicAttributes basicAttributes
-			) {
+	// @RequestParam(value = "basicAttributes", required = false, defaultValue =
+	// "") BasicAttributes basicAttributes
+	) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
-		BasicAttribute attribute = new BasicAttribute("telephoneNumber", "801 100 1000"); 
-		ModificationItem item = new ModificationItem(DirContext.ADD_ATTRIBUTE, attribute);
-		ldapTemplate.modifyAttributes("uid="+uid+",ou="+ou+","+partition, new ModificationItem[] {item});
+		BasicAttribute attribute = new BasicAttribute("telephoneNumber",
+				"801 100 1000");
+		ModificationItem item = new ModificationItem(DirContext.ADD_ATTRIBUTE,
+				attribute);
+		ldapTemplate.modifyAttributes("uid=" + uid + ",ou=" + ou + ","
+				+ partition, new ModificationItem[] { item });
 	}
-	
+
 	//
 	@RequestMapping(method = RequestMethod.DELETE, value = "ldap/delete")
 	@ApiOperation(httpMethod = "DELETE", value = "LDAP search client for deleting purpose.")
 	public void delete(
 			@RequestParam(value = "partition", required = true, defaultValue = "dc=inflinx,dc=com") String partition,
 			@RequestParam(value = "ou", required = true, defaultValue = "partons") String ou,
-			@RequestParam(value = "uid", required = true, defaultValue = "parton9999") String uid
-			) {
+			@RequestParam(value = "uid", required = true, defaultValue = "parton9999") String uid) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
-		ldapTemplate.unbind("uid="+uid+",ou="+ou+","+partition);
+		ldapTemplate.unbind("uid=" + uid + ",ou=" + ou + "," + partition);
 	}
-	//@see http://hoserdude.com/2014/06/19/spring-boot-configurationproperties-and-profile-management-using-yaml/
+
+	// @see
+	// http://hoserdude.com/2014/06/19/spring-boot-configurationproperties-and-profile-management-using-yaml/
 	@Autowired
 	private LDAPSetting ldapConfig;
+
 	//
 	private LdapTemplate getLdapTemplate() {
 		LdapContextSource contextSource = new LdapContextSource();

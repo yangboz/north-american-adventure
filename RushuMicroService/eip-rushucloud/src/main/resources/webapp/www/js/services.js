@@ -363,6 +363,11 @@ angular.module('starter.services', [])
         var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {expenseId: "@expenseId"});
         return data;
     })
+///LDAPService
+.factory('LDAPService', function ($resource, CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint + 'ldap/search', {partition: "@partitionStr",filter:"@filterStr"});
+    return data;
+})
 ///HTTP Header communication.
     .factory('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
@@ -525,8 +530,12 @@ angular.module('starter.services', [])
                     name: "已消费",
                     data: "CostComsumed"
                 }
+            ],
+            //LDAP ou name list.
+            groupNames:[
+                "employees","management"
             ]
         };
         return service;
-    }]);
+    }])
 ;
