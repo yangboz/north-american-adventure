@@ -324,6 +324,13 @@ angular.module('starter.services', [])
         var data = $resource(CONFIG_ENV.api_endpoint + 'runtime/process-instances', {});
         return data;
     })
+///ProcessDefinitionIdentityLinkService
+//@see http://www.activiti.org/userguide/#N138FE
+    .factory('ProcessDefinitionIdentityLinkService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'repository/process-definitions/:processDefinitionId/identitylinks',
+            {processDefinitionId: "@processDefinitionId"});
+        return data;
+    })
 ///JobsService
     .factory('JobService', function ($resource, CONFIG_ENV) {
         var data = $resource(CONFIG_ENV.api_endpoint + 'management/jobs/:jobId', {jobId: "@jobId"});
@@ -360,7 +367,7 @@ angular.module('starter.services', [])
     })
 ///ExpenseService
     .factory('ExpenseService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {expenseId: "@expenseId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:owner/:expenseId', {owner:"@owner",expenseId: "@expenseId"});
         return data;
     })
 ///LDAPService

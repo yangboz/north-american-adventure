@@ -2,6 +2,7 @@ package com.rushucloud.eip.models;
 
 import java.util.Date;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "expenses")
+//@Embeddable
 public class Expense extends ModelBase {
 	//
 	public enum ExpenseStatus {

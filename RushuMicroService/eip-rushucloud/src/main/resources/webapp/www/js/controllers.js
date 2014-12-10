@@ -272,14 +272,30 @@ angular.module('starter.controllers', [])
         }
     })
     .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log) {
+        //
         $scope.expenses = [];
-        ExpenseService.get({}, function (response) {
-            $log.info("ExpenseService.get() success, response:", response);
-            $scope.expenses = response._embedded.expenses;
-        }, function (error) {
-            // failure handler
-            $log.error("ExpenseService.get() failed:", JSON.stringify(error));
-        });
+        $scope.loadExpenses = function(){
+            ExpenseService.get({owner:$rootScope.username},function (response) {
+                $log.info("ExpenseService.get() success, response:", response);
+                $scope.expenses = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("ExpenseService.get() failed:", JSON.stringify(error));
+            });
+        }
+        //DELETE
+        $scope.removeExpense = function (expenseId) {
+            return $log.debug("expenseId:",expenseId);
+            ExpenseService.delete({"expenseId": expenseId}, function (data) {
+                $log.debug("ExpenseService.delete:", data);
+                //Refresh expense list
+                ExpenseService.get({}, function (response) {
+                    $log.debug("ExpenseService.get() success!", response);
+                    $rootScope.expenses = response.data;
+                });
+            });
+            //
+        }
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
     .controller('StatsCtrl', function ($scope) {
@@ -539,11 +555,13 @@ angular.module('starter.controllers', [])
     .controller('TasksCtrl', function ($scope, $rootScope, $http, Base64, $location, $log,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
-                                       TaskService, ProcessInstancesService, ExpenseService, Enum) {
+                                       TaskService, ProcessInstancesService, ExpenseService, Enum,
+                                       ProcessDefinitionIdentityLinkService) {
         //Local variables
         $scope.processInstanceVariables = {};
         //Save the expense item at first.
         $scope.saveExpenseReport = function (startProcessInstance) {
+            //return $log.debug($rootScope.companyInfo.processDefinitionId);
             var anewExpense = new ExpenseService();
             anewExpense.name = $scope.processInstanceVariables.name;
             anewExpense.owner = $rootScope.username;
@@ -555,10 +573,21 @@ angular.module('starter.controllers', [])
             //Save
             anewExpense.$save(function (t, putResponseHeaders) {
                 $log.info("saveExpenseItem() success, response:", t);
-                //SubmitStartForm to start process if necessary.
-                if (startProcessInstance) {
-                    $scope.startProcessInstance();
-                }
+                //Add a candidate starter to a process definition
+                var anewProcessDefintionIdentityLinkService =
+                    new ProcessDefinitionIdentityLinkService();
+                anewProcessDefintionIdentityLinkService.user = $rootScope.username;
+                anewProcessDefintionIdentityLinkService.$save({processDefinitionId:$rootScope.companyInfo.processDefinitionId},
+                    function (t, putResponseHeaders) {
+                    $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
+                    //SubmitStartForm to start process if necessary.
+                    if (startProcessInstance) {
+                        $scope.startProcessInstance();
+                    }
+                },function (error) {
+                    // failure handler
+                    $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
+                });
             }, function (error) {
                 // failure handler
                 $log.error("saveExpenseItem() failed:", JSON.stringify(error));

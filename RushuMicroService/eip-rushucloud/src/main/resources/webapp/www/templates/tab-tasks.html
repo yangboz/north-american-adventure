@@ -15,12 +15,13 @@
   <ion-content>
       <ion-slide-box active-slide="selectedViewIndex">
           <ion-slide>
-              <ion-list ng-controller="ExpenseCtrl">
+              <ion-list ng-controller="ExpenseCtrl" ng-init="loadExpenses()">
                   <ion-item ng-repeat="expense in expenses" type="item-text-wrap" >
                       <div class="item item-button-right">
                           <i >{{expense.status}}</i>
-                          <a href="#/tab/expense/{{expense.id}}"><h2>{{expense.name}} {{expense.date}}</h2></a>
-                          <p>{{expense.amount}}</p>
+                          <a href=""><h2>{{expense.name}} {{expense.date}}</h2></a>
+                          <p>{{expense.amount}} {{expense.id}}</p>
+                          <button class="button button-icon icon ion-ios7-close-empty" ng-click="removeExpense(expense.id)"></button>
                       </div>
                   </ion-item>
               </ion-list>
@@ -32,7 +33,7 @@
                           <a href="#/tab/task/{{task.id}}"><h2>{{task.name}} {{task.createTimeDate}}</h2></a>
                           <p>{{task.description}} {{task.dueDate}}</p>
                           <div>
-                              <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="completeTask('{{task.id}}')"></button>
+                              <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="completeTask(task.id)"></button>
                               <button class="button button-icon icon ion-ios7-close-empty" ></button>
                           </div>
                           <!--
