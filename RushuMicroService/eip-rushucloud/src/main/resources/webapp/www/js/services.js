@@ -367,7 +367,7 @@ angular.module('starter.services', [])
     })
 ///ExpenseService
     .factory('ExpenseService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:owner/:expenseId', {owner:"@owner",expenseId: "@expenseId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/#/:owner/:expenseId', {owner:"@owner",expenseId: "@expenseId"});
         return data;
     })
 ///LDAPService

@@ -271,42 +271,44 @@ angular.module('starter.controllers', [])
 
         }
     })
-    .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log,$http) {
+    .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http, CONFIG_ENV) {
         //
         $scope.expenses = [];
         $scope.loadExpenses = function () {
-            //ExpenseService.get({owner:$rootScope.username},function (response) {
-            //    $log.info("ExpenseService.get() success, response:", response);
-            //    $scope.expenses = response.data;
-            //}, function (error) {
-            //    // failure handler
-            //    $log.error("ExpenseService.get() failed:", JSON.stringify(error));
-            //});
-            $http.get(CONFIG_ENV.api_endpoint + 'expenses/').
-                success(function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $log.info("ExpenseService.get() success, response:", data);
-                    $scope.expenses = data;
-                }).
-                error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    $log.error("ExpenseService.get() failed:", JSON.stringify(data));
-                });
+            ExpenseService.get({owner: $rootScope.username}, function (response) {
+                $log.info("ExpenseService.get() success, response:", response);
+                $scope.expenses = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("ExpenseService.get() failed:", JSON.stringify(error));
+            });
         }
         //DELETE
         $scope.removeExpense = function (expenseId) {
-            return $log.debug("expenseId:", expenseId);
-            ExpenseService.delete({"expenseId": expenseId}, function (data) {
-                $log.debug("ExpenseService.delete:", data);
-                //Refresh expense list
-                ExpenseService.get({}, function (response) {
-                    $log.debug("ExpenseService.get() success!", response);
-                    $rootScope.expenses = response.data;
-                });
-            });
+            //return $log.debug("expenseId:", expenseId);
+            //ExpenseService.delete({"owner": $rootScope.username, "expenseId": expenseId}, function (data) {
+            //    $log.debug("ExpenseService.delete:", data);
+            //    //Refresh expense list
+            //    ExpenseService.get({}, function (response) {
+            //        $log.debug("ExpenseService.get() success!", response);
+            //        $rootScope.expenses = response.data;
+            //    });
+            //});
             //
+            $http.delete(CONFIG_ENV.api_endpoint + 'expenses/' + expenseId, {})
+                .success(function (data, status) {
+                    $log.debug("ExpenseService.delete:", data);
+                    //Refresh expense list
+                    ExpenseService.get({owner: $rootScope.username}, function (response) {
+                        $log.debug("ExpenseService.get() success!", response);
+                        $rootScope.expenses = response.data;
+                    });
+                })
+                .error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    $log.error("ExpenseService.delete failure", data);
+                });
         }
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
