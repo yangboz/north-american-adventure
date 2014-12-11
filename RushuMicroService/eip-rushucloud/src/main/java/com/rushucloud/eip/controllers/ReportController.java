@@ -1,19 +1,29 @@
 package com.rushucloud.eip.controllers;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.rushucloud.eip.dto.JsonObject;
+import com.rushucloud.eip.models.Expense;
+import com.rushucloud.eip.models.ExpenseDao;
+import com.rushucloud.eip.models.Item;
 import com.rushucloud.eip.services.ReportService;
+import com.wordnik.swagger.annotations.ApiOperation;
 
 import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 
@@ -22,7 +32,7 @@ import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
  * 
  * @author Krams at {@link http://krams915@blogspot.com}
  */
-@Controller
+@RestController
 @RequestMapping("/report")
 public class ReportController {
 
@@ -30,6 +40,9 @@ public class ReportController {
 	
 //	@Resource(name="downloadService")
 //	private DownloadService downloadService;
+	// Auto-wire an object of type ExpenseDao
+	@Autowired
+	private ExpenseDao _expenseDao;
 	
 	@Autowired
 	private ReportService reportService;
@@ -47,5 +60,23 @@ public class ReportController {
     	
     	// Delegate to downloadService. Make sure to pass an instance of HttpServletResponse 
     	reportService.downloadXLS(response);
+	}
+    //
+    @PersistenceContext
+    EntityManager entityManager;
+    //
+	@RequestMapping(method = RequestMethod.GET,params = {"owner"})
+	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of reports that is successfully get or not.")
+	public JsonObject list(@RequestParam(value = "owner") String owner) {
+//		return new JsonObject(this.expenseRepository.findAll());
+		if(owner!=null)
+		{
+			//
+			Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
+//			LOG.debug("itemsByOwner()result:"+result.toString());
+			return new JsonObject(result);
+		}else{
+			return new JsonObject(this._expenseDao.findAll());
+		}
 	}
 }

@@ -32,7 +32,9 @@
                     </label>
                 </div>
                 <div class="col-50" ng-controller="CamCtrl">
-                    <a class="button button-icon icon ion-ios7-camera" ng-click="takePicture()"></a>
+                    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+                    <img ng-show="imgURI === undefined" ng-src="http://placehold.it/30x30">
+                    <a class="button button-icon icon ion-ios7-camera" ng-click="takeCamPicture()"></a>
                 </div>
             </div>
             <label class="item item-input">

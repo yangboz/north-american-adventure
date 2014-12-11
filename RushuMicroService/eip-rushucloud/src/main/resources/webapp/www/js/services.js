@@ -370,6 +370,11 @@ angular.module('starter.services', [])
         var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {owner:"@owner",expenseId: "@expenseId"});
         return data;
     })
+///ReportService
+.factory('ReportService', function ($resource, CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint + 'report/:reportId', {owner:"@owner",reportId: "@reportId"});
+    return data;
+})
 ///LDAPService
 .factory('LDAPService', function ($resource, CONFIG_ENV) {
     var data = $resource(CONFIG_ENV.api_endpoint + 'ldap/search', {partition: "@partitionStr",filter:"@filterStr"});
