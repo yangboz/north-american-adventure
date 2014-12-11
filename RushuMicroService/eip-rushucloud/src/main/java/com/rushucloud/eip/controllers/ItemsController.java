@@ -34,7 +34,6 @@ public class ItemsController {
 	private ItemDao _itemDao;
 	//
 	private ItemRepository itemRepository;
-	private Object property;
 
 	@Autowired
 	public ItemsController(ItemRepository itemRepository) {

@@ -26,9 +26,14 @@ import com.rushucloud.eip.models.ExpenseDao;
 import com.rushucloud.eip.models.ExpenseRepository;
 import com.wordnik.swagger.annotations.ApiOperation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/expense")
 public class ExpenseController {
+	//
+	private static Logger LOG = LoggerFactory.getLogger(ExpenseController.class);
 	// ==============
 	// PRIVATE FIELDS
 	// ==============
@@ -53,7 +58,8 @@ public class ExpenseController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(httpMethod = "POST", value = "Response a string describing if the reimbursement expense is successfully created or not.")
 	public Expense create(@RequestBody @Valid Expense expense) {
-		return this.expenseRepository.save(expense);
+//		return this.expenseRepository.save(expense);
+		return this._expenseDao.save(expense);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -62,13 +68,15 @@ public class ExpenseController {
 		return new JsonObject(this.expenseRepository.findAll());
 	}
 
-	@RequestMapping(value="/{owner}",method = RequestMethod.GET)
+	@RequestMapping(value="/#/{owner}",method = RequestMethod.GET)
 //	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of expense that is successfully get or not.")
 //	public Iterable<Expense> expensesByOwner(@PathVariable("owner") String owner) {
-	public Iterable<Expense> expensesByOwner(@RequestParam(value = "owner", required = true, defaultValue = "employee1") String owner) {
+	public JsonObject expensesByOwner(@RequestParam(value = "owner", required = true, defaultValue = "employee1") String owner) {
 		//
-		return this._expenseDao.findExpensesByOwner(owner);
+		Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
+//		LOG.debug("expensesByOwner()result:"+result.toString());
+		return new JsonObject(result);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

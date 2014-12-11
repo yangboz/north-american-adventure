@@ -173,7 +173,7 @@ angular.module('starter.controllers', [])
             $ionicViewService.goToHistoryRoot($rootScope.TaskHistoryID);
         }
     })
-    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log, $http) {
+    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log) {
         //Slide-box view
         $scope.selectedViewIndex = 0;
         $scope.changeViewIndex = function (index) {
@@ -271,21 +271,33 @@ angular.module('starter.controllers', [])
 
         }
     })
-    .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log) {
+    .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log,$http) {
         //
         $scope.expenses = [];
-        $scope.loadExpenses = function(){
-            ExpenseService.get({owner:$rootScope.username},function (response) {
-                $log.info("ExpenseService.get() success, response:", response);
-                $scope.expenses = response.data;
-            }, function (error) {
-                // failure handler
-                $log.error("ExpenseService.get() failed:", JSON.stringify(error));
-            });
+        $scope.loadExpenses = function () {
+            //ExpenseService.get({owner:$rootScope.username},function (response) {
+            //    $log.info("ExpenseService.get() success, response:", response);
+            //    $scope.expenses = response.data;
+            //}, function (error) {
+            //    // failure handler
+            //    $log.error("ExpenseService.get() failed:", JSON.stringify(error));
+            //});
+            $http.get(CONFIG_ENV.api_endpoint + 'expenses/').
+                success(function (data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    $log.info("ExpenseService.get() success, response:", data);
+                    $scope.expenses = data;
+                }).
+                error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    $log.error("ExpenseService.get() failed:", JSON.stringify(data));
+                });
         }
         //DELETE
         $scope.removeExpense = function (expenseId) {
-            return $log.debug("expenseId:",expenseId);
+            return $log.debug("expenseId:", expenseId);
             ExpenseService.delete({"expenseId": expenseId}, function (data) {
                 $log.debug("ExpenseService.delete:", data);
                 //Refresh expense list
@@ -577,17 +589,17 @@ angular.module('starter.controllers', [])
                 var anewProcessDefintionIdentityLinkService =
                     new ProcessDefinitionIdentityLinkService();
                 anewProcessDefintionIdentityLinkService.user = $rootScope.username;
-                anewProcessDefintionIdentityLinkService.$save({processDefinitionId:$rootScope.companyInfo.processDefinitionId},
+                anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId},
                     function (t, putResponseHeaders) {
-                    $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
-                    //SubmitStartForm to start process if necessary.
-                    if (startProcessInstance) {
-                        $scope.startProcessInstance();
-                    }
-                },function (error) {
-                    // failure handler
-                    $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
-                });
+                        $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
+                        //SubmitStartForm to start process if necessary.
+                        if (startProcessInstance) {
+                            $scope.startProcessInstance();
+                        }
+                    }, function (error) {
+                        // failure handler
+                        $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
+                    });
             }, function (error) {
                 // failure handler
                 $log.error("saveExpenseItem() failed:", JSON.stringify(error));
