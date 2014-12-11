@@ -92,6 +92,14 @@ angular.module('starter.controllers', [])
 //        console.log("modal-manager-list.html init!!!");
             $scope.managerListModal = modal;
         });
+        ///VendorListModal
+        $ionicModal.fromTemplateUrl('templates/modal-vendor-list.html', {
+            scope: $scope,
+            backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-vendor-list.html init!!!");
+            $rootScope.vendorListModal = modal;
+        });
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
             //Login Modal,only hide();
@@ -117,6 +125,7 @@ angular.module('starter.controllers', [])
             $rootScope.itemListModal.remove();
             $rootScope.userListModal.remove();
             $rootScope.managerListModal.remove();
+            $rootScope.vendorListModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -147,6 +156,7 @@ angular.module('starter.controllers', [])
         $rootScope.managerIDs = [];
         $rootScope.employeeIDsSel = [];
         $rootScope.managerIDsSel = [];
+        $rootScope.vendors = [];
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -593,23 +603,30 @@ angular.module('starter.controllers', [])
             //Save
             anewExpense.$save(function (t, putResponseHeaders) {
                 $log.info("saveExpenseItem() success, response:", t);
-                //Add a candidate starter to a process definition
-                var anewProcessDefintionIdentityLinkService =
-                    new ProcessDefinitionIdentityLinkService();
-                anewProcessDefintionIdentityLinkService.user = $rootScope.username;
-                anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId+'//identitylinks'},
-                    function (t, putResponseHeaders) {
-                        $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
-                        //SubmitStartForm to start process if necessary.
-                        if (startProcessInstance) {
-                            $scope.startProcessInstance();
-                        }
-                        //View history back to Expense tab inside of task table.
-                        $ionicNavBarDelegate.back();
-                    }, function (error) {
-                        // failure handler
-                        $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
-                    });
+                //SubmitStartForm to start process if necessary.
+                if (startProcessInstance) {
+                    //Add a candidate starter to a process definition
+                    var anewProcessDefintionIdentityLinkService =
+                        new ProcessDefinitionIdentityLinkService();
+                    anewProcessDefintionIdentityLinkService.user = $rootScope.username;
+                    anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId+'//identitylinks'},
+                        function (t, putResponseHeaders) {
+                            $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
+                            //SubmitStartForm to start process if necessary.
+                            if (startProcessInstance) {
+                                $scope.startProcessInstance();
+                            }
+                            //View history back to Expense tab inside of task table.
+                            $ionicNavBarDelegate.back();
+                        }, function (error) {
+                            // failure handler
+                            $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
+                        });
+                    //$scope.startProcessInstance();
+                }
+                //View history back to Expense tab inside of task table.
+                $ionicNavBarDelegate.back();
+
             }, function (error) {
                 // failure handler
                 $log.error("saveExpenseItem() failed:", JSON.stringify(error));
@@ -657,6 +674,10 @@ angular.module('starter.controllers', [])
             $scope.expense = response;
             $log.debug("ExpenseDetailCtrl $scope.expense", $scope.expense);
         });
+    })
+    .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log) {
+        //
+        $rootScope.vendors = [];
     })
     .controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService, $ionicModal) {
         if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
@@ -811,5 +832,88 @@ angular.module('starter.controllers', [])
             $scope.processInstance = response;
             $log.debug("InstanceDetailCtrl $scope.processInstance", $scope.processInstance);
         });
+    })
+    .controller('CamCtrl', function($scope, $location, $log) {
+
+        // init variables
+        $scope.data = {};
+        $scope.obj;
+        var pictureSource;   // picture source
+        var destinationType; // sets the format of returned value
+        var url;
+
+        // on DeviceReady check if already logged in (in our case CODE saved)
+        ionic.Platform.ready(function() {
+            //console.log("ready get camera types");
+            if (!navigator.camera)
+            {
+                // error handling
+                return;
+            }
+            //pictureSource=navigator.camera.PictureSourceType.PHOTOLIBRARY;
+            pictureSource=navigator.camera.PictureSourceType.CAMERA;
+            destinationType=navigator.camera.DestinationType.FILE_URI;
+        });
+
+        // get upload URL for FORM
+        $scope.data.uploadurl = "http://localhost/upl";
+
+        // take picture
+        $scope.takePicture = function() {
+            console.log("got camera button click");
+            var options =   {
+                quality: 50,
+                destinationType: destinationType,
+                sourceType: pictureSource,
+                encodingType: 0
+            };
+            if (!navigator.camera)
+            {
+                // error handling
+                return;
+            }
+            navigator.camera.getPicture(
+                function (imageURI) {
+                    //console.log("got camera success ", imageURI);
+                    $scope.mypicture = imageURI;
+                },
+                function (err) {
+                    //console.log("got camera error ", err);
+                    // error handling camera plugin
+                },
+                options);
+        };
+
+        // do POST on upload url form by http / html form
+        $scope.update = function(obj) {
+            if (!$scope.data.uploadurl)
+            {
+                // error handling no upload url
+                return;
+            }
+            if (!$scope.mypicture)
+            {
+                // error handling no picture given
+                return;
+            }
+            var options = new FileUploadOptions();
+            options.fileKey="ffile";
+            options.fileName=$scope.mypicture.substr($scope.mypicture.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+            var params = {};
+            params.other = obj.text; // some other POST fields
+            options.params = params;
+
+            //console.log("new imp: prepare upload now");
+            var ft = new FileTransfer();
+            ft.upload($scope.mypicture, encodeURI($scope.data.uploadurl), uploadSuccess, uploadError, options);
+            function uploadSuccess(r) {
+                // handle success like a message to the user
+            }
+            function uploadError(error) {
+                //console.log("upload error source " + error.source);
+                //console.log("upload error target " + error.target);
+            }
+        };
     })
 ;

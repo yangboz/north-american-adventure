@@ -25,15 +25,29 @@
                         ng-change="setTypeSelected(prefType)">
                 </select>
             </label>
-            <label class="item item-input">
-                <input type="text" placeholder="照片" ng-model="newItem.invoices">
-            </label>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        <input type="text" placeholder="照片" ng-model="newItem.invoices">
+                    </label>
+                </div>
+                <div class="col-50" ng-controller="CamCtrl">
+                    <a class="button button-icon icon ion-ios7-camera" ng-click="takePicture()"></a>
+                </div>
+            </div>
             <label class="item item-input">
                 <input type="date" placeholder="日期" ng-model="newItem.date">
             </label>
-            <label class="item item-input">
-                <input type="text" placeholder="供应商" ng-model="newItem.vendors">
-            </label>
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        <input type="text" placeholder="供应商" ng-model="newItem.vendors">
+                    </label>
+                </div>
+                <div class="col-50">
+                    <a class="button button-icon icon ion-plus-round" ng-click="vendorListModal.show()"></a>
+                </div>
+            </div>
         </div>
     </ion-content>
 
