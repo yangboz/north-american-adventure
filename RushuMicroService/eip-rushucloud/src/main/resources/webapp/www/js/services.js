@@ -325,9 +325,9 @@ angular.module('starter.services', [])
         return data;
     })
 ///ProcessDefinitionIdentityLinkService
-//@see http://www.activiti.org/userguide/#N138FE
+    //@see http://www.activiti.org/userguide/#N138FE,append str /identitylinks
     .factory('ProcessDefinitionIdentityLinkService', function ($resource, CONFIG_ENV) {
-            var data = $resource(CONFIG_ENV.api_endpoint + 'repository/process-definitions/:processDefinitionId/identitylinks',
+            var data = $resource(CONFIG_ENV.api_endpoint + 'repository/process-definitions/:processDefinitionId',
             {processDefinitionId: "@processDefinitionId"});
         return data;
     })
@@ -362,12 +362,12 @@ angular.module('starter.services', [])
     })
 ///ItemService
     .factory('ItemService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {itemId: "@itemId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {owner:"@owner",itemId: "@itemId"});
         return data;
     })
 ///ExpenseService
     .factory('ExpenseService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/#/:owner/:expenseId', {owner:"@owner",expenseId: "@expenseId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {owner:"@owner",expenseId: "@expenseId"});
         return data;
     })
 ///LDAPService

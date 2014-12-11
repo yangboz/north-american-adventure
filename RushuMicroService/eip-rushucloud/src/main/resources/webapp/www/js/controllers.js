@@ -376,6 +376,8 @@ angular.module('starter.controllers', [])
                 $rootScope.employeeIDsSel.push(userId);
             }
             $log.debug("toggleEmployeeListSelection:", $rootScope.employeeIDsSel);
+            //IdentityLink
+
         }
         $scope.toggleManagerListSelection = function (userId) {
             var idx = $rootScope.managerIDsSel.indexOf(userId);
@@ -418,7 +420,7 @@ angular.module('starter.controllers', [])
                     $rootScope.tasks = response.data;
                 });
                 //default get items for usage.
-                ItemService.get({}, function (response) {
+                ItemService.get({owner:$rootScope.username}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
                 });
@@ -498,7 +500,7 @@ angular.module('starter.controllers', [])
         });
     })
     .controller('ItemsCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
-                                       ItemService, Enum) {
+                                       ItemService, Enum, $ionicNavBarDelegate) {
         //ng-model
         $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
         $scope.preferencesItemType = Enum.itemType;
@@ -522,9 +524,11 @@ angular.module('starter.controllers', [])
             anewItem.$save(function (t, putResponseHeaders) {
                 $log.info("createItem() success, response:", t);
                 //Refresh item list
-                ItemService.get({}, function (response) {
+                ItemService.get({owner:$rootScope.username}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
+                    //View history back to Expense tab inside of task table.
+                    $ionicNavBarDelegate.back();
                 });
                 //Reset value
                 $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
@@ -532,10 +536,10 @@ angular.module('starter.controllers', [])
         }
         //DELETE
         $scope.removeItem = function (itemId) {
-            ItemService.delete({"itemId": itemId}, function (data) {
+            ItemService.delete({itemId: itemId}, function (data) {
                 $log.debug("ItemService.delete:", data);
                 //Refresh item list
-                ItemService.get({}, function (response) {
+                ItemService.get({owner:$rootScope.username}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
                 });
@@ -585,6 +589,7 @@ angular.module('starter.controllers', [])
             anewExpense.managerId = $rootScope.managerIDsSel[0];
             anewExpense.participantIds = $rootScope.employeeIDsSel.toString();
             anewExpense.status = startProcessInstance ? Enum.expenseStatus.Submitted : Enum.expenseStatus.Saved;
+            anewExpense.amount = $rootScope.itemIDsSelAmount;
             //Save
             anewExpense.$save(function (t, putResponseHeaders) {
                 $log.info("saveExpenseItem() success, response:", t);
@@ -592,7 +597,7 @@ angular.module('starter.controllers', [])
                 var anewProcessDefintionIdentityLinkService =
                     new ProcessDefinitionIdentityLinkService();
                 anewProcessDefintionIdentityLinkService.user = $rootScope.username;
-                anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId},
+                anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId+'//identitylinks'},
                     function (t, putResponseHeaders) {
                         $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
                         //SubmitStartForm to start process if necessary.
@@ -644,7 +649,15 @@ angular.module('starter.controllers', [])
             $log.debug("TaskDetailCtrl $scope.task", $scope.task);
         });
     })
-
+    .controller('ExpenseDetailCtrl', function ($scope, $rootScope, $stateParams, ExpenseService, $log) {
+        $log.info("$stateParams.expenseId:", $stateParams.expenseId);
+        //
+        ExpenseService.get({expenseId: $stateParams.expenseId}, function (response) {
+            $log.debug("ExpenseService.getTaskInfo success!", response);
+            $scope.expense = response;
+            $log.debug("ExpenseDetailCtrl $scope.expense", $scope.expense);
+        });
+    })
     .controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService, $ionicModal) {
         if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
             $location.path('/login');

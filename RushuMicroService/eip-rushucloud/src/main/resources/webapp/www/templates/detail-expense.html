@@ -1,0 +1,19 @@
+<!--
+  This template loads for the 'tab.task-detail' state (app.js)
+  'task' is a $scope variable created in the TasksCtrl controller (controllers.js)
+  The TasksCtrl pulls data from the Task service (service.js)
+  The Task service returns an array of task data
+-->
+<!--
+<icon-nav-bar>
+    <ion-nav-buttons side="left">
+        <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="$root.goBack()">Back</a>
+    </ion-nav-buttons>
+</icon-nav-bar>
+-->
+<ion-view title="{{expense.name}}" ng-controller="TasksCtrl">
+  <ion-content has-header="true" padding="true">
+        {{expense.amount}}
+      <button class="button button-full" ng-click="saveExpenseReport(true)" ng-disabled="expense.status!='Submitted'">提交</button>
+  </ion-content>
+</ion-view>

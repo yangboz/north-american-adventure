@@ -19,7 +19,7 @@
                   <ion-item ng-repeat="expense in $root.expenses" type="item-text-wrap" >
                       <div class="item item-button-right">
                           <i >{{expense.status}}</i>
-                          <a href=""><h2>{{expense.name}} {{expense.date}}</h2></a>
+                          <a href="#/tab/expense/{{expense.id}}"><h2>{{expense.name}} {{expense.date}}</h2></a>
                           <p>{{expense.amount}} {{expense.id}}</p>
                           <button class="button button-icon icon ion-ios7-close-empty" ng-click="removeExpense(expense.id)"></button>
                       </div>

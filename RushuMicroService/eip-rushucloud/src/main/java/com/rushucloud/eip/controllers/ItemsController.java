@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rushucloud.eip.dto.JsonObject;
+import com.rushucloud.eip.models.Expense;
 import com.rushucloud.eip.models.Item;
 import com.rushucloud.eip.models.ItemDao;
 import com.rushucloud.eip.models.ItemRepository;
@@ -50,10 +52,25 @@ public class ItemsController {
 		return this.itemRepository.save(item);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+//	@RequestMapping(method = RequestMethod.GET)
+//	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of item that is successfully get or not.")
+//	public JsonObject list() {
+//		return new JsonObject(this.itemRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC,"date"))));
+//	}
+	
+	@RequestMapping(method = RequestMethod.GET,params = {"owner"})
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of item that is successfully get or not.")
-	public JsonObject list() {
-		return new JsonObject(this.itemRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC,"date"))));
+	public JsonObject list(@RequestParam(value = "owner") String owner) {
+//		return new JsonObject(this.expenseRepository.findAll());
+		if(owner!=null)
+		{
+			//
+			Iterable<Item> result = this._itemDao.findItemsByOwner(owner);
+//			LOG.debug("itemsByOwner()result:"+result.toString());
+			return new JsonObject(result);
+		}else{
+			return new JsonObject(this._itemDao.findAll());
+		}
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

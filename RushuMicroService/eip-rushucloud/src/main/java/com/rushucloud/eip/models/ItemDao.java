@@ -3,6 +3,7 @@ package com.rushucloud.eip.models;
 import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 @Transactional
 public interface ItemDao extends CrudRepository<Item, Long> {
@@ -23,5 +24,6 @@ public interface ItemDao extends CrudRepository<Item, Long> {
 	 *            the item owner'name.
 	 * @return the item having the passed owner'name or null if no item is found.
 	 */
-//	public Item findByOwener(String name);
+	//@see: http://ufasoli.blogspot.ca/2014/02/spring-boot-and-spring-data-jpa_6.html
+	public Iterable<Item> findItemsByOwner(@Param("owner") String owner);
 }

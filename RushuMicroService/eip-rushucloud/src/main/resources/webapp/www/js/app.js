@@ -13,6 +13,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 //.config(function(WebSocketProvider){
 //    WebSocketProvider.prefix('').uri('ws://127.0.0.1:9080');
 // })
+    .config(['$resourceProvider', function ($resourceProvider) {
+        // Don't strip trailing slashes from calculated URLs
+        $resourceProvider.defaults.stripTrailingSlashes = false;
+    }])
 ////$log configure
     .config(['$logProvider', function ($logProvider) {
         $logProvider.debugEnabled(true);
@@ -25,14 +29,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 //var API_URL = "/activiti-rest/";
         'api_endpoint': 'http://localhost:8082/eip-rushucloud/'
         //'api_endpoint': 'http://localhost:8080/activiti-rest/service/',
-        ,'api_version': '5.16.3'
-        ,'stomp_uri': 'ws://127.0.0.1:61614/stomp'
+        , 'api_version': '5.16.3'
+        , 'stomp_uri': 'ws://127.0.0.1:61614/stomp'
         //'stomp_uri':'ws://182.92.232.131:61614/stomp',
-        ,'stomp_protocol': 'v11.stomp'
-        ,'A_PD_I':1//Activiti_process_definition_index value for switch;
-        ,'LDAP_PARTITION':'dc=rushucloud,dc=com'//default LDAP partition string
-        ,'LDAP_FILTER':'(objectclass=person)'//default LDAP partition filter
-        ,'WIN_LOCAL_STORAGE_NAME':'auth_rsc'//name for window local storage.
+        , 'stomp_protocol': 'v11.stomp'
+        , 'A_PD_I': 1//Activiti_process_definition_index value for switch;
+        , 'LDAP_PARTITION': 'dc=rushucloud,dc=com'//default LDAP partition string
+        , 'LDAP_FILTER': '(objectclass=person)'//default LDAP partition filter
+        , 'WIN_LOCAL_STORAGE_NAME': 'auth_rsc'//name for window local storage.
     })
 ///App run
     .run(function ($ionicPlatform) {
@@ -117,6 +121,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     'tab-tasks': {
                         templateUrl: 'templates/add-task.html',
                         controller: 'TasksCtrl'
+                    }
+                }
+            })
+            .state('tab.expense-detail', {
+                url: '/expense/:expenseId',
+                views: {
+                    'tab-tasks': {
+                        templateUrl: 'templates/detail-expense.html',
+                        controller: 'ExpenseDetailCtrl'
                     }
                 }
             })

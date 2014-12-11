@@ -53,11 +53,19 @@ public class ExpensesController {
 		return this._expenseDao.save(expense);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET,params = {"owner"})
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of expense that is successfully get or not.")
-	public JsonObject list() {
+	public JsonObject list(@RequestParam(value = "owner") String owner) {
 //		return new JsonObject(this.expenseRepository.findAll());
-		return new JsonObject(this._expenseDao.findAll());
+		if(owner!=null)
+		{
+			//
+			Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
+//			LOG.debug("expensesByOwner()result:"+result.toString());
+			return new JsonObject(result);
+		}else{
+			return new JsonObject(this._expenseDao.findAll());
+		}
 	}
 
 	@RequestMapping(value="/#/{owner}",method = RequestMethod.GET)
