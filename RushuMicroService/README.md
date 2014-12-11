@@ -34,6 +34,10 @@ http://fanqiang.chinaunix.net/app/ldap/2005-03-23/2979.shtml
 
 http://hermanbanken.nl/2011/01/22/openldap-server-mac-osx-clients/
 
+Dynamic/JasperReport:
+
+http://krams915.blogspot.in/2011/02/spring-3-dynamicjasper-hibernate_4736.html
+
 MVN:
 
 http://docs.spring.io/autorepo/docs/spring-boot/1.2.0.BUILD-SNAPSHOT/maven-plugin/examples/run-debug.html

@@ -161,6 +161,17 @@
 			<artifactId>im4java</artifactId>
 			<version>1.4.0</version>
 		</dependency>
+		<!-- Dynamic/JasperReports -->
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -197,6 +208,11 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+		<!-- http://dynamicjasper.com/2011/12/23/is-there-a-maven-repository/ -->
+		<repository>
+			<id>fdvsolution.public</id>
+			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
 		</repository>
 	</repositories>
 	<build>
