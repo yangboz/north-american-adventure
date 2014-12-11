@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "invoices")
 //@Embeddable
-public class Invoice extends ModelBase {
+public class Invoice extends OwnerModelBase {
 
 	// ==============
 	// PRIVATE FIELDS
@@ -79,7 +79,7 @@ public class Invoice extends ModelBase {
 		this.id = id;
 	}
 
-	public Invoice(String name, Map<String,String> picture) {
+	public Invoice(String name, String owner,Map<String,String> picture) {
 		this.name = name;
 		this.picture = picture;
 	}

@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "items")
-public class Item extends ModelBase {
+public class Item extends OwnerModelBase {
 	// ApproveAhead,CostComsumed
 	public enum ItemType {
 		ApproveAhead, CostComsumed
@@ -63,18 +63,6 @@ public class Item extends ModelBase {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	// The item owner name or id.
-	@NotNull
-	private String owner;
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 
 	// The item type

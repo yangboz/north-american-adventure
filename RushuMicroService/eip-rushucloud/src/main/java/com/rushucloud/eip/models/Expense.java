@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "expenses")
 //@Embeddable
-public class Expense extends ModelBase {
+public class Expense extends OwnerModelBase {
 	//
 	public enum ExpenseStatus {
 		Approved, Saved, Submitted, Rejected, Completed
@@ -72,18 +72,6 @@ public class Expense extends ModelBase {
 
 	public void setStatus(ExpenseStatus status) {
 		this.status = status;
-	}
-
-	// The expense owner name or id.
-	@NotNull
-	private String owner;
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 
 	// report manager id.

@@ -36,19 +36,23 @@ import org.slf4j.LoggerFactory;
 @RestController
 public class FileUploadController {
 	//
-	private static Logger LOG = LoggerFactory.getLogger(FileUploadController.class);
+	private static Logger LOG = LoggerFactory
+			.getLogger(FileUploadController.class);
 	// Autowire an object of type InvoiceDao
 	@Autowired
 	private InvoiceDao _invoiceDao;
+
 	//
-	@RequestMapping(value="/upload", method=RequestMethod.GET)
-    public @ResponseBody String provideUploadInfo() {
-        return "You can upload a file by posting to this same URL.";
-    }
+	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	public @ResponseBody String provideUploadInfo() {
+		return "You can upload a file by posting to this same URL.";
+	}
+
 	//
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public @ResponseBody Invoice handleFileUpload(
 			@RequestParam("name") String name,
+			@RequestParam("owner") String owner,
 			@RequestParam("file") MultipartFile file) {
 		Invoice invoiceResp = null;
 		if (!file.isEmpty()) {
@@ -63,17 +67,17 @@ public class FileUploadController {
 						new FileOutputStream(new File(fullFileName)));
 				stream.write(bytes);
 				stream.close();
-				LOG.info("Upload file success.",fullFileName);
+				LOG.info("Upload file success.", fullFileName);
 				// ImageMagick convert options; @see:
 				// http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/
-				Map<String, String> _imageMagickOutput = new HashMap<String,String>();
-				_imageMagickOutput.put("ori",fullFileName);
-				_imageMagickOutput.put("sml",thumbnailImage(150,
-						150, fullFileName));
+				Map<String, String> _imageMagickOutput = new HashMap<String, String>();
+				_imageMagickOutput.put("ori", fullFileName);
+				_imageMagickOutput.put("sml",
+						thumbnailImage(150, 150, fullFileName));
 				// Save to database.
 				try {
 					invoiceResp = new Invoice(file.getOriginalFilename(),
-							_imageMagickOutput);
+							owner, _imageMagickOutput);
 					_invoiceDao.save(invoiceResp);
 					LOG.info("_invoiceDao save success.");
 				} catch (Exception ex) {
@@ -81,28 +85,29 @@ public class FileUploadController {
 				}
 				return invoiceResp;
 			} catch (Exception e) {
-				LOG.error("You failed to upload " + name + " => " + e.toString());
+				LOG.error("You failed to upload " + name + " => "
+						+ e.toString());
 			}
 		} else {
 			LOG.error("You failed to upload " + name
 					+ " because the file was empty.");
-			
+
 		}
 		return invoiceResp;
 	}
+
 	//
-	private String thumbnailImage(int width, int height,
-			String source) throws IOException, InterruptedException,
-			IM4JavaException {
+	private String thumbnailImage(int width, int height, String source)
+			throws IOException, InterruptedException, IM4JavaException {
 		//
-		String small = FileUploadConstants.FILE_PATH_PREFIX + FilenameUtils.getBaseName(source) + "_"
-				+ String.valueOf(width) + "x" + String.valueOf(height)
-				+ "."
+		String small = FileUploadConstants.FILE_PATH_PREFIX
+				+ FilenameUtils.getBaseName(source) + "_"
+				+ String.valueOf(width) + "x" + String.valueOf(height) + "."
 				+ FilenameUtils.getExtension(source);
 		// @see:
 		// http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/
 		ConvertCmd cmd = new ConvertCmd();
-//		cmd.setSearchPath("");
+		// cmd.setSearchPath("");
 		File thumbnailFile = new File(small);
 		if (!thumbnailFile.exists()) {
 			IMOperation op = new IMOperation();
@@ -110,7 +115,7 @@ public class FileUploadController {
 			op.thumbnail(width);
 			op.addImage(small);
 			cmd.run(op);
-			LOG.info("ImageMagick success result:",small);
+			LOG.info("ImageMagick success result:", small);
 		}
 		return small;
 	}
