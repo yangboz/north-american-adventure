@@ -16,7 +16,7 @@
       <ion-slide-box active-slide="selectedViewIndex">
           <ion-slide>
               <ion-list ng-controller="ExpenseCtrl" ng-init="loadExpenses()">
-                  <ion-item ng-repeat="expense in expenses" type="item-text-wrap" >
+                  <ion-item ng-repeat="expense in $root.expenses" type="item-text-wrap" >
                       <div class="item item-button-right">
                           <i >{{expense.status}}</i>
                           <a href=""><h2>{{expense.name}} {{expense.date}}</h2></a>

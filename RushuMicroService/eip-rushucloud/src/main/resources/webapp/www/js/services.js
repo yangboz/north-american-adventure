@@ -327,7 +327,7 @@ angular.module('starter.services', [])
 ///ProcessDefinitionIdentityLinkService
 //@see http://www.activiti.org/userguide/#N138FE
     .factory('ProcessDefinitionIdentityLinkService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'repository/process-definitions/:processDefinitionId/identitylinks',
+            var data = $resource(CONFIG_ENV.api_endpoint + 'repository/process-definitions/:processDefinitionId/identitylinks',
             {processDefinitionId: "@processDefinitionId"});
         return data;
     })

@@ -32,6 +32,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         ,'A_PD_I':1//Activiti_process_definition_index value for switch;
         ,'LDAP_PARTITION':'dc=rushucloud,dc=com'//default LDAP partition string
         ,'LDAP_FILTER':'(objectclass=person)'//default LDAP partition filter
+        ,'WIN_LOCAL_STORAGE_NAME':'auth_rsc'//name for window local storage.
     })
 ///App run
     .run(function ($ionicPlatform) {

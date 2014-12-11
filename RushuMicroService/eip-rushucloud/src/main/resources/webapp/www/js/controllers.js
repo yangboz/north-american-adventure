@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
-                                      CONFIG_ENV, $log, $cordovaToast, LDAPService) {
+                                      CONFIG_ENV, $log, $cordovaToast, CONFIG_ENV) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -61,7 +61,7 @@ angular.module('starter.controllers', [])
                 password: "passwordpassword"
             };
             //Login Modal
-            if (window.localStorage['auth_rsc']) {
+            if (window.localStorage[CONFIG_ENV.WIN_LOCAL_STORAGE_NAME]) {
                 $scope.loginModal.hide();
             } else {
 //     $urlRouterProvider.otherwise('/login');
@@ -95,7 +95,7 @@ angular.module('starter.controllers', [])
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
             //Login Modal,only hide();
-            if (window.localStorage['auth_rsc']) {
+            if (window.localStorage[CONFIG_ENV.WIN_LOCAL_STORAGE_NAME]) {
                 $scope.loginModal.hide();
             }
             //ShowLoading
@@ -139,6 +139,7 @@ angular.module('starter.controllers', [])
         //Badge numbers for task notification.
         $rootScope.numberOfTasks = 0;
         $rootScope.items = [];
+        $rootScope.expenses = [];
         $rootScope.itemIDsSel = [];//selected item ids.
         $rootScope.itemIDsSelAmount = 0;//total number of selected item's amount.
         $rootScope.expenses = [];
@@ -173,7 +174,7 @@ angular.module('starter.controllers', [])
             $ionicViewService.goToHistoryRoot($rootScope.TaskHistoryID);
         }
     })
-    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log) {
+    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log,CONFIG_ENV) {
         //Slide-box view
         $scope.selectedViewIndex = 0;
         $scope.changeViewIndex = function (index) {
@@ -181,7 +182,7 @@ angular.module('starter.controllers', [])
             $scope.selectedViewIndex = index;
         };
         //
-        if (window.localStorage['auth_rsc']) {
+        if (window.localStorage[CONFIG_ENV.WIN_LOCAL_STORAGE_NAME]) {
             //
             TaskService.get({}, function (response) {
 //            TaskService.get({assignee: $rootScope.username}, function (response) {
@@ -273,11 +274,10 @@ angular.module('starter.controllers', [])
     })
     .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http, CONFIG_ENV) {
         //
-        $scope.expenses = [];
         $scope.loadExpenses = function () {
             ExpenseService.get({owner: $rootScope.username}, function (response) {
                 $log.info("ExpenseService.get() success, response:", response);
-                $scope.expenses = response.data;
+                $rootScope.expenses = response.data;
             }, function (error) {
                 // failure handler
                 $log.error("ExpenseService.get() failed:", JSON.stringify(error));
@@ -567,6 +567,7 @@ angular.module('starter.controllers', [])
         }
     })
     .controller('TasksCtrl', function ($scope, $rootScope, $http, Base64, $location, $log,
+                                       $ionicNavBarDelegate,
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
                                        TaskService, ProcessInstancesService, ExpenseService, Enum,
@@ -598,6 +599,8 @@ angular.module('starter.controllers', [])
                         if (startProcessInstance) {
                             $scope.startProcessInstance();
                         }
+                        //View history back to Expense tab inside of task table.
+                        $ionicNavBarDelegate.back();
                     }, function (error) {
                         // failure handler
                         $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
