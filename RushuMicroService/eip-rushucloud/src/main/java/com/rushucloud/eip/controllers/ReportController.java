@@ -1,8 +1,11 @@
 package com.rushucloud.eip.controllers;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
@@ -62,8 +65,8 @@ public class ReportController {
     	reportService.downloadXLS(response);
 	}
     //
-    @PersistenceContext
-    EntityManager entityManager;
+//    @PersistenceContext
+//    EntityManager entityManager;
     //
 	@RequestMapping(method = RequestMethod.GET,params = {"owner"})
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of reports that is successfully get or not.")
@@ -71,10 +74,14 @@ public class ReportController {
 //		return new JsonObject(this.expenseRepository.findAll());
 		if(owner!=null)
 		{
+//			Query query = entityManager.createQuery("SELECT status,COUNT(status) FROM expenses WHERE owner='"+owner+"' GROUP BY status");
+//			List<Object[]> results =  query.getResultList();
+//			return new JsonObject(results);
+			return new JsonObject(reportService.getExpensesGroupByStatus(owner));
 			//
-			Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
-//			LOG.debug("itemsByOwner()result:"+result.toString());
-			return new JsonObject(result);
+//			Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
+////			LOG.debug("itemsByOwner()result:"+result.toString());
+//			return new JsonObject(result);
 		}else{
 			return new JsonObject(this._expenseDao.findAll());
 		}

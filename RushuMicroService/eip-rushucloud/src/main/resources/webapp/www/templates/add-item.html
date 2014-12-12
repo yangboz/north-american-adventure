@@ -25,6 +25,7 @@
                         ng-change="setTypeSelected(prefType)">
                 </select>
             </label>
+
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
@@ -33,13 +34,14 @@
                 </div>
                 <div class="col-50" ng-controller="CamCtrl">
                     <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
-                    <img ng-show="imgURI === undefined" ng-src="http://placehold.it/30x30">
+                    <!--<img ng-show="imgURI === undefined" ng-src="http://placehold.it/50x50">-->
                     <a class="button button-icon icon ion-ios7-camera" ng-click="takeCamPicture()"></a>
                 </div>
             </div>
             <label class="item item-input">
                 <input type="date" placeholder="日期" ng-model="newItem.date">
             </label>
+
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
@@ -50,6 +52,9 @@
                     <a class="button button-icon icon ion-plus-round" ng-click="vendorListModal.show()"></a>
                 </div>
             </div>
+            <label class="item item-input">
+                <textarea type="text" placeholder="说明" ng-model="newItem.notes"/>
+            </label>
         </div>
     </ion-content>
 

@@ -322,20 +322,23 @@ angular.module('starter.controllers', [])
         }
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
-    .controller('StatsCtrl', function ($scope) {
+    .controller('ReportsCtrl', function ($scope,$rootScope,Enum,$log,ReportService) {
         /* Chart options */
         //@example:http://plnkr.co/edit/jOoJik?p=preview
         /* Chart options */
-        $scope.personTagsChartOptions = {
+        //$scope.reportChartOptions = Enum.reportChartOptions;
+        $scope.reportChartOptions = {
             chart: {
                 type: 'pieChart',
                 height: 350,
                 donut: true,
                 x: function (d) {
-                    return d.key;
+                    console.log(d);
+                    return d[0];
                 },
                 y: function (d) {
-                    return d.y;
+                    console.log(d);
+                    return d[1];
                 },
                 showLabels: true,
                 pie: {
@@ -358,21 +361,31 @@ angular.module('starter.controllers', [])
             }
         };
 
-        /* Chart data */
-        $scope.personTagsChartData = [
-            {
-                key: "已报销",
-                y: 5
-            },
-            {
-                key: "报销中",
-                y: 2
-            },
-            {
-                key: "未报销",
-                y: 9
-            }
-        ];
+        $scope.reportChartData = [];
+        /* Chart data load*/
+        $scope.loadReportsData = function(){
+            ReportService.get({owner:$rootScope.username}, function (response) {
+                $log.info("ReportService.get() success, response:", response);
+                $rootScope.reportChartData = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("ReportService.get() failed:", JSON.stringify(error));
+            });
+        }
+        //$scope.personTagsChartData = [
+        //    {
+        //        key: "已报销",
+        //        y: 5
+        //    },
+        //    {
+        //        key: "报销中",
+        //        y: 2
+        //    },
+        //    {
+        //        key: "未报销",
+        //        y: 9
+        //    }
+        //];
     })
 
     .controller('UsersCtrl', function ($scope, $http, UserService, $rootScope, $location, $log) {

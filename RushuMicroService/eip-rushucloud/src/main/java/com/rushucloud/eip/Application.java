@@ -1,24 +1,12 @@
 package com.rushucloud.eip;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.MultipartConfigElement;
-
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.hibernate.SessionFactory;
-import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,15 +14,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 
-import com.rushucloud.eip.activemq.ActivemqReceiver;
-import com.rushucloud.eip.activemq.ActivemqSender;
-import com.rushucloud.eip.consts.JMSConstants;
-
 @Configuration
-@ComponentScan()
+@ComponentScan("com.rushucloud.eip")
 // @EnableWebSecurity
 @EnableAutoConfiguration
 // @EnableAutoConfiguration(exclude={WebSocketAutoConfiguration.class,JpaProcessEngineAutoConfiguration.class})
@@ -46,7 +29,6 @@ import com.rushucloud.eip.consts.JMSConstants;
 public class Application {
 
 	private static Logger LOG = LoggerFactory.getLogger(Application.class);
-	private HibernateEntityManagerFactory hemf;
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(Application.class, args);
@@ -95,21 +77,7 @@ public class Application {
 //		ActivemqReceiver receiver = ActivemqReceiver.getInstance("SAMPLEQUEUE");
 //		receiver.receiveMessage();
 	}
-	//Support file upload function
-	//@see https://spring.io/guides/gs/uploading-files/
-	@Bean
-    MultipartConfigElement multipartConfigElement() {
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize("128MB");
-        factory.setMaxRequestSize("128MB");
-        return factory.createMultipartConfig();
-    }
-	//@see: http://stackoverflow.com/questions/26667910/no-currentsessioncontext-configured
-	@Bean
-    public SessionFactory sessionFactory(HibernateEntityManagerFactory hemf) {
-		return hemf.getSessionFactory();
-    }
-	//
+	//@see: http://stackoverflow.com/questions/26425067/resolvedspring-boot-access-to-entitymanager
 	@Bean
 	public PersistenceAnnotationBeanPostProcessor persistenceBeanPostProcessor() {
 	    return new PersistenceAnnotationBeanPostProcessor();

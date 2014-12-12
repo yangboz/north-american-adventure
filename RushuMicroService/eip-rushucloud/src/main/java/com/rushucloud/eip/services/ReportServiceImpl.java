@@ -16,11 +16,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,21 +42,25 @@ import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 //@Transactional
 @Service
 @Transactional
+@Repository
 public class ReportServiceImpl implements ReportService {
 
 	private static Logger logger = Logger.getLogger(ReportServiceImpl.class);
-	//@see: http://stackoverflow.com/questions/25063995/spring-boot-handle-to-hibernate-sessionfactory
+	// @see: //@see:
+	// http://stackoverflow.com/questions/26425067/resolvedspring-boot-access-to-entitymanager
 	// @Resource(name="sessionFactory")
-	@Autowired
-	private SessionFactory sessionFactory;
+	@PersistenceContext
+	EntityManager entityManager;
 
-//	@Autowired
-//	public ReportServiceImpl(EntityManagerFactory factory) {
-//		if (factory.unwrap(SessionFactory.class) == null) {
-//			throw new NullPointerException("factory is not a hibernate factory");
-//		}
-//		this.sessionFactory = factory.unwrap(SessionFactory.class);
-//	}
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getExpensesGroupByStatus(String owner) {
+		String queryStr = "SELECT status,COUNT(status) FROM "
+				+ Expense.class.getName() + " WHERE owner='" + owner
+				+ "' GROUP BY status";
+		List<Object[]> results = this.entityManager.createQuery(queryStr)
+				.getResultList();
+		return results;
+	}
 
 	/**
 	 * Processes the download for Excel format. It does the following steps:
@@ -78,7 +85,7 @@ public class ReportServiceImpl implements ReportService {
 		DynamicReport dr = Layouter.buildParentReportLayout();
 
 		// 2. Add the datasource to a HashMap parameter
-		HashMap params = new HashMap();
+		HashMap<String, Object> params = new HashMap<String, Object>();
 		// Here we're adding a custom datasource named "dynamicReportDs"
 		// It's the name we put in the Layouter
 		params.put("dynamicReportDs", getDatasource());
@@ -139,9 +146,10 @@ public class ReportServiceImpl implements ReportService {
 		logger.debug("Retrieving datasource");
 
 		// Retrieve session
-		Session session = sessionFactory.getCurrentSession();
+		// Session session = sessionFactory.getCurrentSession();
 		// Create query for retrieving products
-		Query query = session.createQuery("FROM expenses");
+		// Query query = session.createQuery("FROM expenses");
+		Query query = (Query) this.entityManager.createQuery("FROM expenses");
 		// Execute query
 		List<Expense> result = query.list();
 

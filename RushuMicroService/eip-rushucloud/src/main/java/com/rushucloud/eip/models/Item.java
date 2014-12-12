@@ -147,6 +147,29 @@ public class Item extends OwnerModelBase {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
+	// The expense involves,id strings
+	// @CollectionOfElements,@see:
+	// https://jazzy.id.au/2008/03/24/jpa_2_0_new_features_part_1.html
+	private String participantIds;// sort of participant IDs:"1,2,3,4"
+
+	public String getParticipantIds() {
+		return participantIds;
+	}
+
+	public void setParticipantIds(String participantIds) {
+		this.participantIds = participantIds;
+	}
+	
+	private String notes;
+	
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 
 	// ==============
 	// PUBLIC METHODS
@@ -163,7 +186,7 @@ public class Item extends OwnerModelBase {
 //			Set<Category> category) {
 	public Item(double amount, String name, ItemType type, Date date,
 			String invoices, String vendors, String owner,
-			String category) {	
+			String category, String participantIds,String notes) {	
 		this.amount = amount;
 		this.name = name;
 		this.type = type;
@@ -172,5 +195,7 @@ public class Item extends OwnerModelBase {
 		this.vendors = vendors;
 		this.owner = owner;
 		this.category = category;
+		this.participantIds = participantIds;
+		this.notes = notes;
 	}
 }

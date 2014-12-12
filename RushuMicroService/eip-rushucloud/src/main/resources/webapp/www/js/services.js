@@ -327,7 +327,7 @@ angular.module('starter.services', [])
 ///ProcessDefinitionIdentityLinkService
     //@see http://www.activiti.org/userguide/#N138FE,append str /identitylinks
     .factory('ProcessDefinitionIdentityLinkService', function ($resource, CONFIG_ENV) {
-            var data = $resource(CONFIG_ENV.api_endpoint + 'repository/process-definitions/:processDefinitionId',
+        var data = $resource(CONFIG_ENV.api_endpoint + 'repository/process-definitions/:processDefinitionId',
             {processDefinitionId: "@processDefinitionId"});
         return data;
     })
@@ -362,24 +362,30 @@ angular.module('starter.services', [])
     })
 ///ItemService
     .factory('ItemService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {owner:"@owner",itemId: "@itemId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {owner: "@owner", itemId: "@itemId"});
         return data;
     })
 ///ExpenseService
     .factory('ExpenseService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {owner:"@owner",expenseId: "@expenseId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {
+            owner: "@owner",
+            expenseId: "@expenseId"
+        });
         return data;
     })
 ///ReportService
-.factory('ReportService', function ($resource, CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint + 'report/:reportId', {owner:"@owner",reportId: "@reportId"});
-    return data;
-})
+    .factory('ReportService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'report', {owner: "@owner"});
+        return data;
+    })
 ///LDAPService
-.factory('LDAPService', function ($resource, CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint + 'ldap/search', {partition: "@partitionStr",filter:"@filterStr"});
-    return data;
-})
+    .factory('LDAPService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'ldap/search', {
+            partition: "@partitionStr",
+            filter: "@filterStr"
+        });
+        return data;
+    })
 ///HTTP Header communication.
     .factory('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
@@ -542,12 +548,43 @@ angular.module('starter.services', [])
                     name: "已消费",
                     data: "CostComsumed"
                 }
-            ],
-            //LDAP ou name list.
-            groupNames:[
-                "employees","management"
             ]
-        };
-        return service;
-    }])
+            //LDAP ou name list.
+            , groupNames: [
+                "employees", "management"
+            ]
+            , reportChartOption: {
+                chart: {
+                    type: 'pieChart',
+                    height: 350,
+                    donut: true,
+                    x: function (d) {
+                        return d.key;
+                    },
+                    y: function (d) {
+                        return d.y;
+                    },
+                    showLabels: true,
+                    pie: {
+                        startAngle: function (d) {
+                            return d.startAngle / 2 - Math.PI / 2
+                        },
+                        endAngle: function (d) {
+                            return d.endAngle / 2 - Math.PI / 2
+                        }
+                    },
+                    transitionDuration: 500,
+                    legend: {
+                        margin: {
+                            top: 5,
+                            right: 70,
+                            bottom: 5,
+                            left: 0
+                        }
+                    }
+                }
+            }
+    };
+return service;
+}])
 ;

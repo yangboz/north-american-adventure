@@ -133,12 +133,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     }
                 }
             })
-            .state('tab.stats', {
-                url: '/stats',
+            .state('tab.reports', {
+                url: '/reports',
                 views: {
-                    'tab-stats': {
-                        templateUrl: 'templates/tab-stats.html',
-                        controller: 'StatsCtrl'
+                    'tab-reports': {
+                        templateUrl: 'templates/tab-reports.html',
+                        controller: 'ReportsCtrl'
                     }
                 }
             })
