@@ -191,101 +191,12 @@ angular.module('starter.controllers', [])
             $log.info("TabCtrlTasks selected view index:", index);
             $scope.selectedViewIndex = index;
         };
-        //
-        if (window.localStorage[CONFIG_ENV.WIN_LOCAL_STORAGE_NAME]) {
-            //
-            TaskService.get({}, function (response) {
-//            TaskService.get({assignee: $rootScope.username}, function (response) {
-                $log.debug("TaskService.get() success!", response);
-                $rootScope.tasks = response.data;
-            });
-        }
-        //
-        $scope.orderValue = 'asc';//desc
-        //ORDER
-        $scope.orderTasks = function () {
-            $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
-            //
-            TaskService.get({assignee: $rootScope.username, order: $scope.orderValue}, function (response) {
-                $log.debug("TaskService.get(order) success!", response);
-                $rootScope.tasks = response.data;
-            });
-        };
-        /**
-         * Used to determine whether to show the claim button or not
-         */
-        //$scope.isUnclaimedTask = function () {
-        //    return $scope.candidateGroup && $scope.candidateGroup.id != noGroupId;
-        //};
-
-        /**
-         * Claim a task
-         */
-        $scope.claimTask = function (taskId) {
-//        $http.put('service/task/' + taskId + "/claim").
-//        success(function (data, status, headers, config) {
-//            // After a successful claim, simply refresh the task list with the current search params
-//            $log.debug('Claim task success: ' + status);
-//        }).
-//        error(function (data, status, headers, config) {
-//            $log.info('Couldn\'t claim task : ' + status);
-//        });
-
-            var action = new TaskService();
-            action.action = "claim";
-            action.$save({"taskId": taskId}, function (resp) {
-                //after finishing remove the task from the tasks list
-                $log.debug("TaskService.claim() success!", resp);
-                //refresh reports list view.
-                TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.reports = response.data;
-                });
-            });
-        };
-        //CompleteTask
-        $scope.completeTask = function (taskId) {
-            var action = new TaskService();
-            action.action = "complete";
-            action.$save({"taskId": taskId}, function (resp) {
-                //after finishing remove the task from the tasks list
-                $log.debug("TaskService.complete() success!", resp);
-                //refresh reports list view.
-                TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.reports = response.data;
-                });
-            });
-
-        };
-        /**
-         * Resolve a task
-         */
-        $scope.resolveTask = function (taskId) {
-            var action = new TaskService();
-            action.action = "resolve";
-            action.$save({"taskId": taskId}, function (resp) {
-                //after finishing remove the task from the tasks list
-                $log.debug("TaskService.resolve() success!", resp);
-                //refresh reports list view.
-                TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.tasks = response.data;
-                });
-            });
-        };
-        //Add an involved user to a process instance
-        //@see: http://activiti.org/userguide/index.html#N1400A
-        //POST runtime/process-instances/{processInstanceId}/identitylinks
-        $scope.addInvolvedUsers = function (args) {
-            //
-
-        }
     })
     .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http, CONFIG_ENV) {
         //
         $scope.loadExpenses = function () {
             ExpenseService.get({owner: $rootScope.username}, function (response) {
+            //ExpenseService.get({owner: $rootScope.username}, function (response) {
                 $log.info("ExpenseService.get() success, response:", response);
                 $rootScope.expenses = response.data;
             }, function (error) {
@@ -320,6 +231,15 @@ angular.module('starter.controllers', [])
                     $log.error("ExpenseService.delete failure", data);
                 });
         }
+    })
+    //
+    .controller('ExpenseDetailCtrl', function ($scope, $rootScope, $stateParams, ExpenseService, $log) {
+        //$log.info("$stateParams.expenseId:", $stateParams.expenseId);
+        //
+        ExpenseService.get({expenseId: $stateParams.expenseId}, function (response) {
+            $scope.expense = response;
+            $log.debug("ExpenseDetailCtrl $scope.expense", $scope.expense);
+        });
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
     .controller('ReportsCtrl', function ($scope, $rootScope, Enum, $log, ReportService) {
@@ -599,40 +519,39 @@ angular.module('starter.controllers', [])
                 $log.info("saveExpenseItem() success, response:", t);
                 //SubmitStartForm to start process if necessary.
                 if (startProcessInstance) {
-                    //Add a candidate starter to a process definition
-                    var anewProcessDefintionIdentityLinkService =
-                        new ProcessDefinitionIdentityLinkService();
-                    anewProcessDefintionIdentityLinkService.user = $rootScope.username;
-                    anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId + '//identitylinks'},
-                        function (t, putResponseHeaders) {
-                            $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
-                            //SubmitStartForm to start process if necessary.
-                            if (startProcessInstance) {
-                                $scope.startProcessInstance();
-                            }
-                            //View history back to Expense tab inside of task table.
-                            $ionicNavBarDelegate.back();
-                        }, function (error) {
-                            // failure handler
-                            $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
-                        });
-                    //$scope.startProcessInstance();
+                    $scope.startProcessInstance();
                 }
                 //View history back to Expense tab inside of task table.
                 $ionicNavBarDelegate.back();
-
             }, function (error) {
                 // failure handler
                 $log.error("saveExpenseItem() failed:", JSON.stringify(error));
             });
         }
+        //Add a candidate starter to a process definition
+        $scope.identityLinks = function () {
+            //return $log.info($rootScope.companyInfo.processDefinitionId);
+            //Add a candidate starter to a process definition
+            var anewProcessDefintionIdentityLinkService = new ProcessDefinitionIdentityLinkService();
+            anewProcessDefintionIdentityLinkService.user = $rootScope.username;
+            anewProcessDefintionIdentityLinkService.$save(
+                {processDefinitionId: $rootScope.companyInfo.processDefinitionId + '/identitylinks'},
+                function (t, putResponseHeaders) {
+                    $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
+                }, function (error) {
+                    // failure handler
+                    $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
+                });
+        }
         //@see: http://www.activiti.org/userguide/#N12EE4
         $scope.startProcessInstance = function () {
-            //$log.debug("startProcessInstance() called!");
+            $log.debug("startProcessInstance() called!");
             //Then submitStartForm to start process
             var anewProcessInstance = new ProcessInstancesService();
             anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
             anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;
+            anewProcessInstance.amountOfMoney = $rootScope.itemIDsSelAmount;
+            anewProcessInstance.employeeName = $rootScope.username;
             //Assemble variables
             anewProcessInstance.variables = [
                 {'name': 'taskName', 'value': $scope.processInstanceVariables.name}
@@ -641,6 +560,7 @@ angular.module('starter.controllers', [])
                 , {'name': 'participantIds', 'value': $rootScope.employeeIDsSel.toString()}
                 , {'name': 'amount', 'value': $rootScope.itemIDsSelAmount}
             ];
+            $log.debug("anewProcessInstance.variables:",anewProcessInstance.variables);
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {
                 $log.info("startProcessInstance() success, response:", t);
@@ -648,6 +568,108 @@ angular.module('starter.controllers', [])
                 // failure handler
                 $log.error("startProcessInstance.$save() failed:", JSON.stringify(error));
             });
+        }
+        //
+        $scope.loadTasks = function () {
+            TaskService.get({}, function (response) {
+            //TaskService.get({assignee:$rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!", response);
+                $rootScope.tasks = response.data;
+            });
+        }
+        //
+        $scope.orderValue = 'asc';//desc
+        //ORDER
+        $scope.orderTasks = function () {
+            $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
+            //
+            TaskService.get({assignee: $rootScope.username, order: $scope.orderValue}, function (response) {
+                $log.debug("TaskService.get(order) success!", response);
+                $rootScope.tasks = response.data;
+            });
+        };
+        /**
+         * Used to determine whether to show the claim button or not
+         */
+        //$scope.isUnclaimedTask = function () {
+        //    return $scope.candidateGroup && $scope.candidateGroup.id != noGroupId;
+        //};
+        //Claim task to report manager
+        $scope.claimTask = function (taskId) {
+//        $http.put('service/task/' + taskId + "/claim").
+//        success(function (data, status, headers, config) {
+//            // After a successful claim, simply refresh the task list with the current search params
+//            $log.debug('Claim task success: ' + status);
+//        }).
+//        error(function (data, status, headers, config) {
+//            $log.info('Couldn\'t claim task : ' + status);
+//        });
+
+            var action = new TaskService();
+            action.action = Enum.taskActions.Claim;
+            action.$save({"taskId": taskId}, function (resp) {
+                //after finishing remove the task from the tasks list
+                $log.debug("TaskService.claim() success!", resp);
+                //refresh reports list view.
+                TaskService.get({assignee: $rootScope.username}, function (response) {
+                    $log.debug("TaskService.get() success!", response);
+                    $rootScope.reports = response.data;
+                });
+            });
+        };
+        //CompleteTask
+        $scope.completeTask = function (taskId) {
+            var action = new TaskService();
+            action.action = Enum.taskActions.Complete;
+            action.variables = [
+                {'name': 'reimbursementApproved', 'value': true}
+                , {'name': 'employeeName', 'value': $rootScope.username}
+            ];
+            action.$save({"taskId": taskId}, function (resp) {
+                //after finishing remove the task from the tasks list
+                $log.debug("TaskService.complete() success!", resp);
+                //refresh reports list view.
+                TaskService.get({assignee: $rootScope.username}, function (response) {
+                    $log.debug("TaskService.get() success!", response);
+                    $rootScope.reports = response.data;
+                });
+            });
+
+        };
+        //ResolveTask
+        $scope.resolveTask = function (taskId) {
+            var action = new TaskService();
+            action.action = Enum.taskActions.Resolve;
+            action.$save({"taskId": taskId}, function (resp) {
+                //after finishing remove the task from the tasks list
+                $log.debug("TaskService.resolve() success!", resp);
+                //refresh reports list view.
+                TaskService.get({assignee: $rootScope.username}, function (response) {
+                    $log.debug("TaskService.get() success!", response);
+                    $rootScope.tasks = response.data;
+                });
+            });
+        };
+        //DeleteTask
+        $scope.deleteTask = function (taskId) {
+            var action = new TaskService();
+            action.$delete({"taskId": taskId}, function (resp) {
+                //after finishing remove the task from the tasks list
+                $log.debug("TaskService.delete() success!", resp);
+                //refresh reports list view.
+                TaskService.get({}, function (response) {
+                //TaskService.get({assignee: $rootScope.username}, function (response) {
+                    $log.debug("TaskService.get() success!", response);
+                    $rootScope.tasks = response.data;
+                });
+            });
+        };
+        //Add an involved user to a process instance
+        //@see: http://activiti.org/userguide/index.html#N1400A
+        //POST runtime/process-instances/{processInstanceId}/identitylinks
+        $scope.addInvolvedUsers = function (args) {
+            //
+
         }
     })
     .controller('TaskDetailCtrl', function ($scope, $rootScope, $stateParams, TaskService, $log) {
@@ -658,15 +680,6 @@ angular.module('starter.controllers', [])
             $log.debug("TaskService.getTaskInfo success!", response);
             $scope.task = response;
             $log.debug("TaskDetailCtrl $scope.task", $scope.task);
-        });
-    })
-    .controller('ExpenseDetailCtrl', function ($scope, $rootScope, $stateParams, ExpenseService, $log) {
-        $log.info("$stateParams.expenseId:", $stateParams.expenseId);
-        //
-        ExpenseService.get({expenseId: $stateParams.expenseId}, function (response) {
-            $log.debug("ExpenseService.getTaskInfo success!", response);
-            $scope.expense = response;
-            $log.debug("ExpenseDetailCtrl $scope.expense", $scope.expense);
         });
     })
     .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log) {

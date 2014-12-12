@@ -29,7 +29,7 @@
       </extensionElements>
     </exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="requestApprovedDecision" targetRef="sendApprovalMail">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved == 'true'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved}]]></conditionExpression>
     </sequenceFlow>
     <manualTask id="sendApprovalMail" name="Send confirmation e-mail">
       <extensionElements>
@@ -43,7 +43,7 @@
       </extensionElements>
     </endEvent>
     <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="adjustReimbursementRequestTask">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved == 'false'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!reimbursementApproved}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="$${employeeName}">
       <documentation>Your manager has disapproved your reimbursement request for ${amountOfMoney} days.
@@ -72,7 +72,11 @@
     <sequenceFlow id="flow8" sourceRef="resendRequestDecision" targetRef="theEnd2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'false'}]]></conditionExpression>
     </sequenceFlow>
-    <endEvent id="theEnd2"></endEvent>
+    <endEvent id="theEnd2">
+      <extensionElements>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+      </extensionElements>
+    </endEvent>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_reimbursementRequest">
     <bpmndi:BPMNPlane bpmnElement="reimbursementRequest" id="BPMNPlane_reimbursementRequest">

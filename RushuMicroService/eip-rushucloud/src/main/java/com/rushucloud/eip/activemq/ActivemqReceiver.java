@@ -9,7 +9,6 @@ import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +22,10 @@ public class ActivemqReceiver {
 	private Session session = null;
 	private Destination destination = null;
 	private MessageConsumer consumer = null;
-	private String queueName = null;
 
 	private static Logger LOG = LoggerFactory.getLogger(ActivemqReceiver.class);
 
-	 public ActivemqReceiver(String queueName) {
-	 this.queueName = queueName;
+	 public ActivemqReceiver() {
 	 }
 
 //	private static ActivemqReceiver instance = null;
@@ -52,7 +49,7 @@ public class ActivemqReceiver {
 			connection = factory.createConnection();
 			connection.start();
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			destination = session.createQueue(this.queueName);
+			destination = session.createQueue(ActivemqSender.queueName);
 			consumer = session.createConsumer(destination);
 			Message message = consumer.receive();
 			if (message instanceof TextMessage) {

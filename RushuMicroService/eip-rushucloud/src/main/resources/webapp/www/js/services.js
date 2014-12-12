@@ -529,15 +529,16 @@ angular.module('starter.services', [])
     //@see http://stackoverflow.com/questions/16627860/angular-js-and-ng-swith-when-emulating-enum
     .factory('Enum', [function () {
         var service = {
+            //
             expenseStatus: {
                 Approved: "Approved",
                 Saved: "Saved",
                 Submitted: "Submitted",
                 Rejected: "Rejected",
                 Completed: "Completed"
-            },
-
-            itemType: [
+            }
+            //
+            ,itemType: [
                 //ApproveAhead:
                 {
                     name: "预审批",
@@ -553,6 +554,13 @@ angular.module('starter.services', [])
             , groupNames: [
                 "employees", "management"
             ]
+            //Task action list.@see: http://www.activiti.org/userguide/#N14A5B
+            , taskActions:{
+                Complete: "complete",
+                Claim: "claim",
+                Delegate: "delegate",
+                Resolve: "resolve"
+            }
     };
 return service;
 }])

@@ -16,6 +16,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 
+import com.rushucloud.eip.activemq.ActivemqSender;
+
 @Configuration
 @ComponentScan("com.rushucloud.eip")
 // @EnableWebSecurity
@@ -70,7 +72,9 @@ public class Application {
 		String businessKey = repositoryService.createProcessDefinitionQuery().list().get(0).getKey();
 		String processDefinitionId = repositoryService.createProcessDefinitionQuery().list().get(0).getId();
 		String activemqQueueName = businessKey+"/"+processDefinitionId;
-		LOG.info("ActiveMQ initializing with queue name:"+activemqQueueName);
+		//Save the queueName.
+		ActivemqSender.queueName = activemqQueueName;
+		LOG.info("ActiveMQ initializing with queue name:"+ActivemqSender.queueName);
 //		ActivemqSender sender = new ActivemqSender(activemqQueueName);
 //		sender.sendMessage("echo");//For testing
 //		ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");

@@ -23,12 +23,10 @@ public class ActivemqSender {
 	private Destination destination = null;
 	private MessageProducer producer = null;
 	private static Logger LOG = LoggerFactory.getLogger(ActivemqSender.class);
-	//Queue name storage
+	// Queue name storage
 	static public String queueName = null;
-	
-
-	public ActivemqSender(String queueName) {
-		ActivemqSender.queueName = queueName;
+	//
+	public ActivemqSender() {
 		//
 		try {
 			factory = new ActiveMQConnectionFactory(
