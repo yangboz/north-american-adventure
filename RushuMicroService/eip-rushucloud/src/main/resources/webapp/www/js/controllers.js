@@ -184,7 +184,7 @@ angular.module('starter.controllers', [])
             $ionicViewService.goToHistoryRoot($rootScope.TaskHistoryID);
         }
     })
-    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log,CONFIG_ENV) {
+    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log, CONFIG_ENV) {
         //Slide-box view
         $scope.selectedViewIndex = 0;
         $scope.changeViewIndex = function (index) {
@@ -322,22 +322,19 @@ angular.module('starter.controllers', [])
         }
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
-    .controller('ReportsCtrl', function ($scope,$rootScope,Enum,$log,ReportService) {
+    .controller('ReportsCtrl', function ($scope, $rootScope, Enum, $log, ReportService) {
         /* Chart options */
         //@example:http://plnkr.co/edit/jOoJik?p=preview
         /* Chart options */
-        //$scope.reportChartOptions = Enum.reportChartOptions;
         $scope.reportChartOptions = {
             chart: {
                 type: 'pieChart',
                 height: 350,
                 donut: true,
                 x: function (d) {
-                    console.log(d);
                     return d[0];
                 },
                 y: function (d) {
-                    console.log(d);
                     return d[1];
                 },
                 showLabels: true,
@@ -361,10 +358,9 @@ angular.module('starter.controllers', [])
             }
         };
 
-        $scope.reportChartData = [];
         /* Chart data load*/
-        $scope.loadReportsData = function(){
-            ReportService.get({owner:$rootScope.username}, function (response) {
+        $scope.loadReportsData = function () {
+            ReportService.get({owner: $rootScope.username}, function (response) {
                 $log.info("ReportService.get() success, response:", response);
                 $rootScope.reportChartData = response.data;
             }, function (error) {
@@ -372,22 +368,7 @@ angular.module('starter.controllers', [])
                 $log.error("ReportService.get() failed:", JSON.stringify(error));
             });
         }
-        //$scope.personTagsChartData = [
-        //    {
-        //        key: "已报销",
-        //        y: 5
-        //    },
-        //    {
-        //        key: "报销中",
-        //        y: 2
-        //    },
-        //    {
-        //        key: "未报销",
-        //        y: 9
-        //    }
-        //];
     })
-
     .controller('UsersCtrl', function ($scope, $http, UserService, $rootScope, $location, $log) {
         //UserListModal related
         //@see: http://stackoverflow.com/questions/14514461/how-can-angularjs-bind-to-list-of-checkbox-values
@@ -443,7 +424,7 @@ angular.module('starter.controllers', [])
                     $rootScope.tasks = response.data;
                 });
                 //default get items for usage.
-                ItemService.get({owner:$rootScope.username}, function (response) {
+                ItemService.get({owner: $rootScope.username}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
                 });
@@ -547,7 +528,7 @@ angular.module('starter.controllers', [])
             anewItem.$save(function (t, putResponseHeaders) {
                 $log.info("createItem() success, response:", t);
                 //Refresh item list
-                ItemService.get({owner:$rootScope.username}, function (response) {
+                ItemService.get({owner: $rootScope.username}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
                     //View history back to Expense tab inside of task table.
@@ -562,7 +543,7 @@ angular.module('starter.controllers', [])
             ItemService.delete({itemId: itemId}, function (data) {
                 $log.debug("ItemService.delete:", data);
                 //Refresh item list
-                ItemService.get({owner:$rootScope.username}, function (response) {
+                ItemService.get({owner: $rootScope.username}, function (response) {
                     $log.debug("ItemService.get() success!", response);
                     $rootScope.items = response.data;
                 });
@@ -622,7 +603,7 @@ angular.module('starter.controllers', [])
                     var anewProcessDefintionIdentityLinkService =
                         new ProcessDefinitionIdentityLinkService();
                     anewProcessDefintionIdentityLinkService.user = $rootScope.username;
-                    anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId+'//identitylinks'},
+                    anewProcessDefintionIdentityLinkService.$save({processDefinitionId: $rootScope.companyInfo.processDefinitionId + '//identitylinks'},
                         function (t, putResponseHeaders) {
                             $log.info("saveProcessDefintionIdentityLinkService() success, response:", t);
                             //SubmitStartForm to start process if necessary.
@@ -846,7 +827,7 @@ angular.module('starter.controllers', [])
             $log.debug("InstanceDetailCtrl $scope.processInstance", $scope.processInstance);
         });
     })
-    .controller('CamCtrl', function($scope, $location, $log) {
+    .controller('CamCtrl', function ($scope, $location, $log) {
 
         // init variables
         $scope.data = {};
@@ -856,32 +837,30 @@ angular.module('starter.controllers', [])
         var url;
 
         // on DeviceReady check if already logged in (in our case CODE saved)
-        ionic.Platform.ready(function() {
+        ionic.Platform.ready(function () {
             //console.log("ready get camera types");
-            if (!navigator.camera)
-            {
+            if (!navigator.camera) {
                 // error handling
                 return;
             }
             //pictureSource=navigator.camera.PictureSourceType.PHOTOLIBRARY;
-            pictureSource=navigator.camera.PictureSourceType.CAMERA;
-            destinationType=navigator.camera.DestinationType.FILE_URI;
+            pictureSource = navigator.camera.PictureSourceType.CAMERA;
+            destinationType = navigator.camera.DestinationType.FILE_URI;
         });
 
         // get upload URL for FORM
         $scope.data.uploadurl = "http://localhost/upl";
 
         // take picture
-        $scope.takePicture = function() {
+        $scope.takePicture = function () {
             console.log("got camera button click");
-            var options =   {
+            var options = {
                 quality: 50,
                 destinationType: destinationType,
                 sourceType: pictureSource,
                 encodingType: 0
             };
-            if (!navigator.camera)
-            {
+            if (!navigator.camera) {
                 // error handling
                 return;
             }
@@ -898,21 +877,19 @@ angular.module('starter.controllers', [])
         };
 
         // do POST on upload url form by http / html form
-        $scope.update = function(obj) {
-            if (!$scope.data.uploadurl)
-            {
+        $scope.update = function (obj) {
+            if (!$scope.data.uploadurl) {
                 // error handling no upload url
                 return;
             }
-            if (!$scope.mypicture)
-            {
+            if (!$scope.mypicture) {
                 // error handling no picture given
                 return;
             }
             var options = new FileUploadOptions();
-            options.fileKey="ffile";
-            options.fileName=$scope.mypicture.substr($scope.mypicture.lastIndexOf('/')+1);
-            options.mimeType="image/jpeg";
+            options.fileKey = "ffile";
+            options.fileName = $scope.mypicture.substr($scope.mypicture.lastIndexOf('/') + 1);
+            options.mimeType = "image/jpeg";
             var params = {};
             params.other = obj.text; // some other POST fields
             options.params = params;
@@ -923,18 +900,19 @@ angular.module('starter.controllers', [])
             function uploadSuccess(r) {
                 // handle success like a message to the user
             }
+
             function uploadError(error) {
                 //console.log("upload error source " + error.source);
                 //console.log("upload error target " + error.target);
             }
         };
         //TODO:@see: http://blog.nraboy.com/2014/09/use-android-ios-camera-ionic-framework/
-        $scope.takeCamPicture = function() {
+        $scope.takeCamPicture = function () {
             var options = {
-                quality : 75,
-                destinationType : Camera.DestinationType.DATA_URL,
-                sourceType : Camera.PictureSourceType.CAMERA,
-                allowEdit : true,
+                quality: 75,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
                 encodingType: Camera.EncodingType.JPEG,
                 targetWidth: 300,
                 targetHeight: 300,
@@ -942,9 +920,9 @@ angular.module('starter.controllers', [])
                 saveToPhotoAlbum: false
             };
 
-            $cordovaCamera.getPicture(options).then(function(imageData) {
+            $cordovaCamera.getPicture(options).then(function (imageData) {
                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
-            }, function(err) {
+            }, function (err) {
                 // An error occured. Show a message to the user
             });
         }
