@@ -188,7 +188,7 @@ angular.module('starter.controllers', [])
         //Slide-box view
         $scope.selectedViewIndex = 0;
         $scope.changeViewIndex = function (index) {
-            $log.info("TabCtrlTasks selected view index:", index);
+            //$log.info("TabCtrlTasks selected view index:", index);
             $scope.selectedViewIndex = index;
         };
     })
@@ -373,16 +373,19 @@ angular.module('starter.controllers', [])
                 CompanyService.get({}, function (response) {
                     $log.debug("CompanyService.get(default) success!", response.data[0]);
                     $rootScope.companyInfo = response.data[0];//Default value index is 0.
-                });
-                //getProcessDefinitionsService
-                ProcessDefinitionsService.get({}, function (response) {
-                    $log.debug("ProcessDefinitionsService.get(default) success!", response.data[CONFIG_ENV.A_PD_I]);
-                    $rootScope.companyInfo.processDefinitionId = response.data[CONFIG_ENV.A_PD_I].id;
-                    $rootScope.companyInfo.processDefinitionKey = response.data[CONFIG_ENV.A_PD_I].key;
                     //Then
-                    $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey + "/" + $rootScope.companyInfo.processDefinitionId;
-                    //Connect to STOMP server with ActiveMQ QueueName.
-                    $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
+                    //getProcessDefinitionsService
+                    ProcessDefinitionsService.get({}, function (response) {
+                        var lastIndex = response.data.length-1;
+                        $log.debug("ProcessDefinitionsService.get(default) success!", response.data[lastIndex]);
+                        $rootScope.companyInfo.processDefinitionId = response.data[lastIndex].id;
+                        $rootScope.companyInfo.processDefinitionKey = response.data[lastIndex].key;
+                        //Then
+                        $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey + "/" + $rootScope.companyInfo.processDefinitionId;
+                        $log.info("activemqQueueName:",$rootScope.activemqQueueName);
+                        //Connect to STOMP server with ActiveMQ QueueName.
+                        $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
+                    });
                 });
                 //formData test
 //            FormDataService.get({"taskId": 2513}, function (data) {
@@ -520,9 +523,11 @@ angular.module('starter.controllers', [])
                 //SubmitStartForm to start process if necessary.
                 if (startProcessInstance) {
                     $scope.startProcessInstance();
+                }else
+                {
+                    //View history back to Expense tab inside of task table.
+                    $ionicNavBarDelegate.back();
                 }
-                //View history back to Expense tab inside of task table.
-                $ionicNavBarDelegate.back();
             }, function (error) {
                 // failure handler
                 $log.error("saveExpenseItem() failed:", JSON.stringify(error));
@@ -545,25 +550,34 @@ angular.module('starter.controllers', [])
         }
         //@see: http://www.activiti.org/userguide/#N12EE4
         $scope.startProcessInstance = function () {
-            $log.debug("startProcessInstance() called!");
+            //$log.debug("startProcessInstance() called!");
+            if(angular.isUndefined($rootScope.companyInfo.processDefinitionKey) || angular.isUndefined($rootScope.companyInfo.businessKey))
+            {
+                return $log.error("Undefined processDefinitionKey/businessKey",$rootScope.companyInfo.processDefinitionKey,$rootScope.companyInfo.businessKey);
+            }
             //Then submitStartForm to start process
             var anewProcessInstance = new ProcessInstancesService();
             anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
             anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;
-            anewProcessInstance.amountOfMoney = $rootScope.itemIDsSelAmount;
-            anewProcessInstance.employeeName = $rootScope.username;
             //Assemble variables
             anewProcessInstance.variables = [
-                {'name': 'taskName', 'value': $scope.processInstanceVariables.name}
+                {'name': 'employeeName', 'value': $rootScope.username}
+                ,{'name': 'taskName', 'value': $scope.processInstanceVariables.name}
                 , {'name': 'dueDate', 'value': $scope.processInstanceVariables.date}
-                , {'name': 'reportManagerId', 'value': $rootScope.managerIDsSel[0]}
+                //, {'name': 'reportManagerId', 'value': $rootScope.managerIDsSel[0]}
                 , {'name': 'participantIds', 'value': $rootScope.employeeIDsSel.toString()}
-                , {'name': 'amount', 'value': $rootScope.itemIDsSelAmount}
+                , {'name': 'amountOfMoney', 'value': $rootScope.itemIDsSelAmount}
+                , {'name': 'reimbursementMotivation', 'value': $scope.processInstanceVariables.name}
+                , {'name': 'assignee', 'value': $rootScope.managerIDsSel[0] }
+                , {'name': 'candidateUsers', 'value': $rootScope.employeeIDsSel.toString() }
+                , {'name': 'candidateGroups', 'value': Enum.groupNames[0] }
             ];
             $log.debug("anewProcessInstance.variables:",anewProcessInstance.variables);
             //Save
             anewProcessInstance.$save(function (t, putResponseHeaders) {
                 $log.info("startProcessInstance() success, response:", t);
+                //View history back to Expense tab inside of task table.
+                $ionicNavBarDelegate.back();
             }, function (error) {
                 // failure handler
                 $log.error("startProcessInstance.$save() failed:", JSON.stringify(error));
@@ -571,8 +585,8 @@ angular.module('starter.controllers', [])
         }
         //
         $scope.loadTasks = function () {
-            TaskService.get({}, function (response) {
-            //TaskService.get({assignee:$rootScope.username}, function (response) {
+            //TaskService.get({}, function (response) {
+            TaskService.get({assignee:$rootScope.username}, function (response) {
                 $log.debug("TaskService.get() success!", response);
                 $rootScope.tasks = response.data;
             });
@@ -631,7 +645,7 @@ angular.module('starter.controllers', [])
                 //refresh reports list view.
                 TaskService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
-                    $rootScope.reports = response.data;
+                    $rootScope.tasks = response.data;
                 });
             });
 

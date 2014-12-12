@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://activiti.org/bpmn20" id="definitions">
   <process id="reimbursementRequest" name="Reimbursement request" isExecutable="true">
-    <startEvent id="request" activiti:initiator="employeeName">
+    <startEvent id="request" activiti:initiator="${employeeName}">
       <extensionElements>
         <activiti:formProperty id="amountOfMoney" name="Amout of money" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
@@ -10,7 +10,7 @@
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="request" targetRef="handleRequest"></sequenceFlow>
-    <userTask id="handleRequest" name="Handle reimbursement request" activiti:assignee="${assignee}" activiti:candidateUsers="${ldapService.findCandidateUserForEmployee()}" activiti:candidateGroups="${ldapService.findCandidateGroupForEmployee()}">
+    <userTask id="handleRequest" name="Handle reimbursement request" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
       <documentation>${employeeName} would like to take ${amountOfMoney} money of reimbursement (Motivation: ${reimbursementMotivation}).</documentation>
       <extensionElements>
         <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement?" type="enum" required="true">
@@ -45,7 +45,7 @@
     <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="adjustReimbursementRequestTask">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!reimbursementApproved}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="$${employeeName}">
+    <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="${employeeName}">
       <documentation>Your manager has disapproved your reimbursement request for ${amountOfMoney} days.
         Reason: ${managerMotivation}</documentation>
       <extensionElements>
