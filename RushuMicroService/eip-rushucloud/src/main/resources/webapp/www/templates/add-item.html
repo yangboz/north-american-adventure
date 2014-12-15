@@ -29,14 +29,20 @@
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
-                        <input type="text" placeholder="照片" ng-model="newItem.invoices">
+                        <img ng-show="imageFile.dataUrl!=null" ng-src="{{imageFile.dataUrl}}"">
+                        <img ng-show="imgURI === undefined" ng-src="http://placehold.it/50x50"">
                     </label>
                 </div>
-                <div class="col-50" ng-controller="CamCtrl">
-                    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
-                    <!--<img ng-show="imgURI === undefined" ng-src="http://placehold.it/50x50">-->
-                    <a class="button button-icon icon ion-ios7-camera" ng-click="takeCamPicture()"></a>
+                <div class="col-50" ng-controller="InvoiceCtrl">
+                    <a class="button button-icon icon ion-ios7-camera" ng-click="takePicture()"></a>
+                    <input style="display: none;"
+                           id="id_file_invoice" type="file" placeholder="照片" ng-model="newItem.invoices"
+                           accept="image/x-png, image/gif, image/jpeg"
+                           onchange="angular.element(this).scope().onFileChangeHandler()"
+                           nv-file-select="" uploader="uploader"
+                            />
                 </div>
+
             </div>
             <label class="item item-input">
                 <input type="date" placeholder="日期" ng-model="newItem.date">
@@ -52,9 +58,11 @@
                     <a class="button button-icon icon ion-plus-round" ng-click="vendorListModal.show()"></a>
                 </div>
             </div>
-            <label class="item item-input">
-                <textarea type="text" placeholder="说明" ng-model="newItem.notes"/>
-            </label>
+            <div class="row item item-input-inset">
+                <label class="item item-input">
+                    <textarea placeholder="说明" ng-model="newItem.notes"/>
+                </label>
+            </div>
         </div>
     </ion-content>
 

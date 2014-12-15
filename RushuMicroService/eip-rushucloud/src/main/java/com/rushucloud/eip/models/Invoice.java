@@ -81,6 +81,7 @@ public class Invoice extends OwnerModelBase {
 
 	public Invoice(String name, String owner,Map<String,String> picture) {
 		this.name = name;
+		this.owner = owner;
 		this.picture = picture;
 	}
 }

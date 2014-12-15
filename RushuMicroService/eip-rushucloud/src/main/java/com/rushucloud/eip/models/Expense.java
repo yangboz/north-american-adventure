@@ -110,6 +110,16 @@ public class Expense extends OwnerModelBase {
 	public void setItemIds(String itemIds) {
 		this.itemIds = itemIds;
 	}
+	
+	//Activiti process instance id
+	private long pid;
+	public long getPid() {
+		return pid;
+	}
+
+	public void setPid(long pid) {
+		this.pid = pid;
+	}
 
 	// ==============
 	// PUBLIC METHODS
@@ -123,7 +133,7 @@ public class Expense extends OwnerModelBase {
 
 	public Expense(double amount, String name, ExpenseStatus status, Date date,
 			String owner, String managerId, String participantIds,
-			String itemIds) {
+			String itemIds,long pid) {
 		this.amount = amount;
 		this.name = name;
 		this.status = status;
@@ -132,5 +142,6 @@ public class Expense extends OwnerModelBase {
 		this.managerId = managerId;
 		this.participantIds = participantIds;
 		this.itemIds = itemIds;
+		this.pid = pid;
 	}
 }

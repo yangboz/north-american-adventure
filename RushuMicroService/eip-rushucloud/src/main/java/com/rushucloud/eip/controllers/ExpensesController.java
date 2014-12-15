@@ -68,17 +68,6 @@ public class ExpensesController {
 		}
 	}
 
-	@RequestMapping(value="/#/{owner}",method = RequestMethod.GET)
-//	@RequestMapping(method = RequestMethod.GET)
-	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of expense that is successfully get or not.")
-//	public Iterable<Expense> expensesByOwner(@PathVariable("owner") String owner) {
-	public JsonObject expensesByOwner(@RequestParam(value = "owner", required = true, defaultValue = "employee1") String owner) {
-		//
-		Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
-//		LOG.debug("expensesByOwner()result:"+result.toString());
-		return new JsonObject(result);
-	}
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ApiOperation(httpMethod = "GET", value = "Response a string describing if the expense id is successfully get or not.")
 	public Expense get(@PathVariable("id") long id) {
@@ -92,6 +81,16 @@ public class ExpensesController {
 			@RequestBody @Valid Expense expense) {
 //		return this.expenseRepository.save(expense);
 		return this._expenseDao.save(expense);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+	@ApiOperation(httpMethod = "PATCH", value = "Response a string describing if the reimbursement expense is successfully patched or not.")
+	public Expense patch(@PathVariable("id") long id,
+			@RequestBody @Valid long pid) {
+//		return this.expenseRepository.save(expense);
+		Expense patchExpense =  this._expenseDao.findById(id);
+		patchExpense.setPid(pid);
+		return this._expenseDao.save(patchExpense);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

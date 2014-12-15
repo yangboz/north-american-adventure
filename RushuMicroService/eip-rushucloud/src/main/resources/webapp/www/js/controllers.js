@@ -196,7 +196,7 @@ angular.module('starter.controllers', [])
         //
         $scope.loadExpenses = function () {
             ExpenseService.get({owner: $rootScope.username}, function (response) {
-            //ExpenseService.get({owner: $rootScope.username}, function (response) {
+                //ExpenseService.get({owner: $rootScope.username}, function (response) {
                 $log.info("ExpenseService.get() success, response:", response);
                 $rootScope.expenses = response.data;
             }, function (error) {
@@ -376,13 +376,13 @@ angular.module('starter.controllers', [])
                     //Then
                     //getProcessDefinitionsService
                     ProcessDefinitionsService.get({}, function (response) {
-                        var lastIndex = response.data.length-1;
+                        var lastIndex = response.data.length - 1;
                         $log.debug("ProcessDefinitionsService.get(default) success!", response.data[lastIndex]);
                         $rootScope.companyInfo.processDefinitionId = response.data[lastIndex].id;
                         $rootScope.companyInfo.processDefinitionKey = response.data[lastIndex].key;
                         //Then
                         $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey + "/" + $rootScope.companyInfo.processDefinitionId;
-                        $log.info("activemqQueueName:",$rootScope.activemqQueueName);
+                        $log.info("activemqQueueName:", $rootScope.activemqQueueName);
                         //Connect to STOMP server with ActiveMQ QueueName.
                         $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
                     });
@@ -522,9 +522,8 @@ angular.module('starter.controllers', [])
                 $log.info("saveExpenseItem() success, response:", t);
                 //SubmitStartForm to start process if necessary.
                 if (startProcessInstance) {
-                    $scope.startProcessInstance();
-                }else
-                {
+                    $scope.startProcessInstance(t.id);
+                } else {
                     //View history back to Expense tab inside of task table.
                     $ionicNavBarDelegate.back();
                 }
@@ -549,11 +548,10 @@ angular.module('starter.controllers', [])
                 });
         }
         //@see: http://www.activiti.org/userguide/#N12EE4
-        $scope.startProcessInstance = function () {
+        $scope.startProcessInstance = function (expenseId) {
             //$log.debug("startProcessInstance() called!");
-            if(angular.isUndefined($rootScope.companyInfo.processDefinitionKey) || angular.isUndefined($rootScope.companyInfo.businessKey))
-            {
-                return $log.error("Undefined processDefinitionKey/businessKey",$rootScope.companyInfo.processDefinitionKey,$rootScope.companyInfo.businessKey);
+            if (angular.isUndefined($rootScope.companyInfo.processDefinitionKey) || angular.isUndefined($rootScope.companyInfo.businessKey)) {
+                return $log.error("Undefined processDefinitionKey/businessKey", $rootScope.companyInfo.processDefinitionKey, $rootScope.companyInfo.businessKey);
             }
             //Then submitStartForm to start process
             var anewProcessInstance = new ProcessInstancesService();
@@ -562,20 +560,33 @@ angular.module('starter.controllers', [])
             //Assemble variables
             anewProcessInstance.variables = [
                 {'name': 'employeeName', 'value': $rootScope.username}
-                ,{'name': 'taskName', 'value': $scope.processInstanceVariables.name}
+                , {'name': 'taskName', 'value': $scope.processInstanceVariables.name}
                 , {'name': 'dueDate', 'value': $scope.processInstanceVariables.date}
                 //, {'name': 'reportManagerId', 'value': $rootScope.managerIDsSel[0]}
                 , {'name': 'participantIds', 'value': $rootScope.employeeIDsSel.toString()}
                 , {'name': 'amountOfMoney', 'value': $rootScope.itemIDsSelAmount}
                 , {'name': 'reimbursementMotivation', 'value': $scope.processInstanceVariables.name}
-                , {'name': 'assignee', 'value': $rootScope.managerIDsSel[0] }
-                , {'name': 'candidateUsers', 'value': $rootScope.employeeIDsSel.toString() }
-                , {'name': 'candidateGroups', 'value': Enum.groupNames[0] }
+                , {'name': 'assignee', 'value': $rootScope.managerIDsSel[0]}
+                , {'name': 'candidateUsers', 'value': $rootScope.employeeIDsSel.toString()}
+                , {'name': 'candidateGroups', 'value': Enum.groupNames[0]}
             ];
-            $log.debug("anewProcessInstance.variables:",anewProcessInstance.variables);
+            $log.debug("anewProcessInstance.variables:", anewProcessInstance.variables);
             //Save
-            anewProcessInstance.$save(function (t, putResponseHeaders) {
-                $log.info("startProcessInstance() success, response:", t);
+            anewProcessInstance.$save(function (resp, putResponseHeaders) {
+                $log.info("startProcessInstance() success, response:", resp);
+                //Update expense Activiti Process Instance id.
+                var updateExpense = new ExpenseService(expenseId);
+                updateExpense.pid = resp.id;
+                updateExpense.owner = $rootScope.username;
+                //Save
+                updateExpense.$patch(function (t, putResponseHeaders) {
+                    $log.info("updateExpenseItem() success, response:", t);
+                    //View history back to Expense tab inside of task table.
+                    $ionicNavBarDelegate.back();
+                }, function (error) {
+                    // failure handler
+                    $log.error("updateExpenseItem() failed:", JSON.stringify(error));
+                });
                 //View history back to Expense tab inside of task table.
                 $ionicNavBarDelegate.back();
             }, function (error) {
@@ -586,7 +597,7 @@ angular.module('starter.controllers', [])
         //
         $scope.loadTasks = function () {
             //TaskService.get({}, function (response) {
-            TaskService.get({assignee:$rootScope.username}, function (response) {
+            TaskService.get({assignee: $rootScope.username}, function (response) {
                 $log.debug("TaskService.get() success!", response);
                 $rootScope.tasks = response.data;
             });
@@ -605,10 +616,10 @@ angular.module('starter.controllers', [])
         /**
          * Used to determine whether to show the claim button or not
          */
-        //$scope.isUnclaimedTask = function () {
-        //    return $scope.candidateGroup && $scope.candidateGroup.id != noGroupId;
-        //};
-        //Claim task to report manager
+            //$scope.isUnclaimedTask = function () {
+            //    return $scope.candidateGroup && $scope.candidateGroup.id != noGroupId;
+            //};
+            //Claim task to report manager
         $scope.claimTask = function (taskId) {
 //        $http.put('service/task/' + taskId + "/claim").
 //        success(function (data, status, headers, config) {
@@ -672,7 +683,7 @@ angular.module('starter.controllers', [])
                 $log.debug("TaskService.delete() success!", resp);
                 //refresh reports list view.
                 TaskService.get({}, function (response) {
-                //TaskService.get({assignee: $rootScope.username}, function (response) {
+                    //TaskService.get({assignee: $rootScope.username}, function (response) {
                     $log.debug("TaskService.get() success!", response);
                     $rootScope.tasks = response.data;
                 });
@@ -854,33 +865,39 @@ angular.module('starter.controllers', [])
             $log.debug("InstanceDetailCtrl $scope.processInstance", $scope.processInstance);
         });
     })
-    .controller('CamCtrl', function ($scope, $location, $log) {
-
+    .controller('InvoiceCtrl', function ($scope, $rootScope, $location, $log, $http, CONFIG_ENV, FileUploader, Enum) {
+        $scope.fromComputer = true;
         // init variables
         $scope.data = {};
         $scope.obj;
         var pictureSource;   // picture source
         var destinationType; // sets the format of returned value
         var url;
+        // get upload URL for FORM
+        $scope.data.uploadurl = CONFIG_ENV.api_endpoint + 'upload';
 
         // on DeviceReady check if already logged in (in our case CODE saved)
         ionic.Platform.ready(function () {
             //console.log("ready get camera types");
-            if (!navigator.camera) {
-                // error handling
-                return;
+            if (navigator.camera) {
+                // website handling
+                $scope.fromComputer = false;
+                //pictureSource=navigator.camera.PictureSourceType.PHOTOLIBRARY;
+                pictureSource = navigator.camera.PictureSourceType.CAMERA;
+                destinationType = navigator.camera.DestinationType.FILE_URI;
             }
-            //pictureSource=navigator.camera.PictureSourceType.PHOTOLIBRARY;
-            pictureSource = navigator.camera.PictureSourceType.CAMERA;
-            destinationType = navigator.camera.DestinationType.FILE_URI;
         });
-
-        // get upload URL for FORM
-        $scope.data.uploadurl = "http://localhost/upl";
-
         // take picture
         $scope.takePicture = function () {
-            console.log("got camera button click");
+            if ($scope.fromComputer) {
+                $scope.takePictureFromComputer();
+            } else {
+                $scope.takePictureFromDevice();
+            }
+        }
+        // take picture from mobile device
+        $scope.takePictureFromDevice = function () {
+            //console.log("got camera button click");
             var options = {
                 quality: 50,
                 destinationType: destinationType,
@@ -953,5 +970,73 @@ angular.module('starter.controllers', [])
                 // An error occured. Show a message to the user
             });
         }
+        //@see: http://codepen.io/ajoslin/pen/qwpCB?editors=101
+        $scope.fileName = 'nothing';
+        $scope.imageFile;
+        //@see: http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields
+        $scope.onFileChangeHandler = function () {
+            $scope.imageFile = event.target.files[0];
+            $log.debug("openFileDialog->file:", $scope.imageFile);
+            $scope.fileName = $scope.imageFile.name;
+            $scope.$apply();
+        }
+        //
+        $scope.takePictureFromComputer = function () {
+            //console.log('fire! $scope.takePictureFromComputer()');
+            ionic.trigger('click', {target: document.getElementById('id_file_invoice')});
+        };
+        //
+        var uploader = $scope.uploader = new FileUploader({
+            url: $scope.data.uploadurl+"?owner="+$rootScope.username+"&name="+Enum.getUUID()
+        });
+
+        // FILTERS
+
+        uploader.filters.push({
+            name: 'customFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                return this.queue.length < 10;
+            }
+        });
+
+        // CALLBACKS
+
+        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        uploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+            //$log.debug(uploader,uploader.queue);
+            uploader.queue[0].upload();
+        };
+        uploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function(item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        uploader.onProgressItem = function(fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function(progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+        };
+        uploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteAll = function() {
+            console.info('onCompleteAll');
+        };
+
+        console.info('uploader', uploader);
     })
 ;

@@ -74,6 +74,8 @@ public class FileUploadController {
 				_imageMagickOutput.put("ori", fullFileName);
 				_imageMagickOutput.put("sml",
 						thumbnailImage(150, 150, fullFileName));
+				_imageMagickOutput.put("ico",
+						thumbnailImage(32, 32, fullFileName));
 				// Save to database.
 				try {
 					invoiceResp = new Invoice(file.getOriginalFilename(),

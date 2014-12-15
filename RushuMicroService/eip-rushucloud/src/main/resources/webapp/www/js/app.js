@@ -6,7 +6,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngResource', 'ngCordova', 'angularMoment'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngResource', 'ngCordova', 'angularMoment', 'angularFileUpload'])
 //console.log("app:",app);
 //angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','nvd3','angular-websocket'])
 ///Config
@@ -16,6 +16,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     .config(['$resourceProvider', function ($resourceProvider) {
         // Don't strip trailing slashes from calculated URLs
         $resourceProvider.defaults.stripTrailingSlashes = false;
+    }])
+    //Support RESTful PATCH
+    //@see: http://stackoverflow.com/questions/20305615/configure-angularjs-module-to-send-patch-request
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.patch = {
+            'Content-Type': 'application/json;charset=utf-8'
+        }
     }])
 ////$log configure
     .config(['$logProvider', function ($logProvider) {
@@ -33,13 +40,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         , 'stomp_uri': 'ws://127.0.0.1:61614/stomp'
         //'stomp_uri':'ws://182.92.232.131:61614/stomp',
         , 'stomp_protocol': 'v11.stomp'
-        , 'A_PD_I': 1//Activiti_process_definition_index value for switch;
         , 'LDAP_PARTITION': 'dc=rushucloud,dc=com'//default LDAP partition string
         , 'LDAP_FILTER': '(objectclass=person)'//default LDAP partition filter
         , 'WIN_LOCAL_STORAGE_NAME': 'auth_rsc'//name for window local storage.
     })
 ///App run
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform, $log) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -50,6 +56,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
             }
+            $log.debug("ionic.Platform info(platform,device,version,):",
+                ionic.Platform.platform()
+                , ionic.Platform.device()
+                , ionic.Platform.version()
+                , ionic.Platform.isWebView()
+            );
         });
     })
 

@@ -370,6 +370,8 @@ angular.module('starter.services', [])
         var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {
             owner: "@owner",
             expenseId: "@expenseId"
+        }, {
+            patch: {method: 'PATCH', params: {expenseId: "@expenseId"}}
         });
         return data;
     })
@@ -471,61 +473,6 @@ angular.module('starter.services', [])
             }
         };
     })
-//WebSocket
-    .factory('WebsocketService', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
-
-        var _ws;
-        var _username = '';
-        var messages = [];
-        var users = [];
-
-        function onMessage(e) {
-            var data = JSON.parse(decodeURIComponent(e.data));
-            $rootScope.$apply(function () {
-
-                if (data.type === 'users') {
-                    users = data.message;
-                    $rootScope.$broadcast('websocket', 'users', users);
-                    return;
-                }
-
-                messages.splice(0, 0, {user: data.user, message: data.message, date: data.date});
-                $rootScope.$broadcast('websocket', 'message', messages);
-            });
-        }
-
-        return {
-
-            login: function (url, username) {
-
-                _username = username;
-
-                _ws = new WebSocket(url);
-                _ws.onmessage = onMessage;
-                _ws.onopen = function () {
-                    _ws.send(encodeURIComponent(JSON.stringify({type: 'change', message: _username})));
-                };
-
-            },
-
-            logoff: function () {
-                _ws.close();
-                _ws = null;
-                _username = '';
-                users = [];
-                $rootScope.$broadcast('websocket', 'users', users);
-            },
-
-            send: function (message) {
-                _ws.send(encodeURIComponent(JSON.stringify({type: 'message', message: message})));
-                //
-                _ws.onmessage = function (message) {
-                    console.log("_ws.onmessage:", message);
-                }
-            }
-        };
-
-    }])
     //@see http://stackoverflow.com/questions/16627860/angular-js-and-ng-swith-when-emulating-enum
     .factory('Enum', [function () {
         var service = {
@@ -538,7 +485,7 @@ angular.module('starter.services', [])
                 Completed: "Completed"
             }
             //
-            ,itemType: [
+            , itemType: [
                 //ApproveAhead:
                 {
                     name: "预审批",
@@ -555,13 +502,27 @@ angular.module('starter.services', [])
                 "employees", "management"
             ]
             //Task action list.@see: http://www.activiti.org/userguide/#N14A5B
-            , taskActions:{
+            , taskActions: {
                 Complete: "complete",
                 Claim: "claim",
                 Delegate: "delegate",
                 Resolve: "resolve"
             }
-    };
-return service;
-}])
+            , getUUID: function () {
+                // http://www.ietf.org/rfc/rfc4122.txt
+                var s = [];
+                var hexDigits = "0123456789abcdef";
+                for (var i = 0; i < 36; i++) {
+                    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+                }
+                s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+                s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+                s[8] = s[13] = s[18] = s[23] = "-";
+
+                var uuid = s.join("");
+                return uuid;
+            }
+        };
+        return service;
+    }])
 ;
