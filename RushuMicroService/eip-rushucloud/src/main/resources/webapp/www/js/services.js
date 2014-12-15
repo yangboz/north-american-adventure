@@ -388,6 +388,11 @@ angular.module('starter.services', [])
         });
         return data;
     })
+///InvoiceService
+    .factory('InvoiceService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'upload', {owner: "@owner"});
+        return data;
+    })
 ///HTTP Header communication.
     .factory('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
@@ -521,6 +526,12 @@ angular.module('starter.services', [])
 
                 var uuid = s.join("");
                 return uuid;
+            }
+            , getTimestamp: function () {
+                var now = new Date;
+                var utc_timestamp = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
+                    now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
+                return utc_timestamp;
             }
         };
         return service;

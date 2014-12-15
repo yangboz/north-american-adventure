@@ -1,4 +1,4 @@
-<ion-view title="报销" name="tab-dash" ng-controller="ItemsCtrl">
+<ion-view title="报销" name="tab-dash" ng-controller="ItemsCtrl" >
     <ion-nav-buttons side="left">
         <button class="button" ng-click="orderItems();" ng-disabled="true">
             排序
@@ -10,7 +10,7 @@
             </button>
         </ion-nav-buttons>
     </ion-nav-buttons>
-  <ion-content >
+  <ion-content ng-init="loadItems();">
       <ion-list>
 
           <ion-item ng-repeat="item in $root.items" type="item-text-wrap"

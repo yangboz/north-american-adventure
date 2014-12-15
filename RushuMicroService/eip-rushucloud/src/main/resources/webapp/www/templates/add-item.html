@@ -26,17 +26,20 @@
                 </select>
             </label>
 
-            <div class="row item item-input-inset">
+            <div class="row item item-input-inset" ng-controller="InvoiceCtrl">
                 <div class="col-50">
                     <label class="item item-input">
-                        <img ng-show="imageFile.dataUrl!=null" ng-src="{{imageFile.dataUrl}}"">
-                        <img ng-show="imgURI === undefined" ng-src="http://placehold.it/50x50"">
+                        <!--
+                        <img ng-show="imageFile.dataUrl!=null" ng-src="{{imageFile.dataUrl}}">
+                        -->
+                        <img ng-show="imgURI !=null" ng-src="{{imgURI}}" style="width: 32px;height: 32px;">
+                        <img ng-show="imgURI === undefined" ng-src="http://placehold.it/32x32">
                     </label>
                 </div>
-                <div class="col-50" ng-controller="InvoiceCtrl">
+                <div class="col-50" >
                     <a class="button button-icon icon ion-ios7-camera" ng-click="takePicture()"></a>
                     <input style="display: none;"
-                           id="id_file_invoice" type="file" placeholder="照片" ng-model="newItem.invoices"
+                           id="id_file_invoice" type="file" placeholder="照片"
                            accept="image/x-png, image/gif, image/jpeg"
                            onchange="angular.element(this).scope().onFileChangeHandler()"
                            nv-file-select="" uploader="uploader"

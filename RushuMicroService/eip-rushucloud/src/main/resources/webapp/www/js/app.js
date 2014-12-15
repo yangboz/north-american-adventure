@@ -43,6 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         , 'LDAP_PARTITION': 'dc=rushucloud,dc=com'//default LDAP partition string
         , 'LDAP_FILTER': '(objectclass=person)'//default LDAP partition filter
         , 'WIN_LOCAL_STORAGE_NAME': 'auth_rsc'//name for window local storage.
+        , 'UPLOAD_FOLDER': 'uploads/'//for image file upload
     })
 ///App run
     .run(function ($ionicPlatform, $log) {

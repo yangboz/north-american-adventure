@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
                         },
                         {priority: 9}
                     );
-                    //client.send("SAMPLEQUEUE", {priority: 9}, "Pub/Sub over STOMP from Ionic!");//For testing...
+                    //client.send(queueName, {priority: 9}, "Pub/Sub over STOMP from"+username);//For testing...
                 }
             );
         }
@@ -435,6 +435,7 @@ angular.module('starter.controllers', [])
         $scope.setTypeSelected = function (type) {
             $scope.prefType = type;
         }
+        //Query
         //CREATE,
         $scope.createItem = function () {
             $log.debug("createItem(),$scope.newItem:", $scope.newItem);
@@ -502,7 +503,7 @@ angular.module('starter.controllers', [])
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
                                        TaskService, ProcessInstancesService, ExpenseService, Enum,
-                                       ProcessDefinitionIdentityLinkService) {
+                                       ProcessDefinitionIdentityLinkService, $ionicActionSheet) {
         //Local variables
         $scope.processInstanceVariables = {};
         //Save the expense item at first.
@@ -642,6 +643,27 @@ angular.module('starter.controllers', [])
                 });
             });
         };
+        $scope.approveTask = function(taskId) {
+            $ionicActionSheet.show({
+                buttons: [
+                    { text: '<b>批准</b>' }
+                ],
+                destructiveText: '拒绝',
+                titleText: '报销审批',
+                cancelText: '取消',
+                cancel: function() {
+                    // add cancel code..
+                },
+                buttonClicked: function(index) {
+                    //$log.debug("$ionicActionSheet clicked button index:",index);
+                    //$scope.completeTask(taskId);
+                    return true;
+                },
+                destructiveButtonClicked: function() {
+                    //$scope.resolveTask(taskId);
+                }
+            });
+        }
         //CompleteTask
         $scope.completeTask = function (taskId) {
             var action = new TaskService();
@@ -865,8 +887,9 @@ angular.module('starter.controllers', [])
             $log.debug("InstanceDetailCtrl $scope.processInstance", $scope.processInstance);
         });
     })
-    .controller('InvoiceCtrl', function ($scope, $rootScope, $location, $log, $http, CONFIG_ENV, FileUploader, Enum) {
+    .controller('InvoiceCtrl', function ($scope, $rootScope, $location, $log, $http, CONFIG_ENV, FileUploader, Enum, InvoiceService) {
         $scope.fromComputer = true;
+        $scope.imageURI=null;//For update the display image view.
         // init variables
         $scope.data = {};
         $scope.obj;
@@ -874,7 +897,8 @@ angular.module('starter.controllers', [])
         var destinationType; // sets the format of returned value
         var url;
         // get upload URL for FORM
-        $scope.data.uploadurl = CONFIG_ENV.api_endpoint + 'upload';
+        $scope.data.uploadurl = CONFIG_ENV.api_endpoint + "upload";
+        $scope.data.uploadFolderURI = CONFIG_ENV.api_endpoint + CONFIG_ENV.UPLOAD_FOLDER;
 
         // on DeviceReady check if already logged in (in our case CODE saved)
         ionic.Platform.ready(function () {
@@ -920,36 +944,6 @@ angular.module('starter.controllers', [])
                 options);
         };
 
-        // do POST on upload url form by http / html form
-        $scope.update = function (obj) {
-            if (!$scope.data.uploadurl) {
-                // error handling no upload url
-                return;
-            }
-            if (!$scope.mypicture) {
-                // error handling no picture given
-                return;
-            }
-            var options = new FileUploadOptions();
-            options.fileKey = "ffile";
-            options.fileName = $scope.mypicture.substr($scope.mypicture.lastIndexOf('/') + 1);
-            options.mimeType = "image/jpeg";
-            var params = {};
-            params.other = obj.text; // some other POST fields
-            options.params = params;
-
-            //console.log("new imp: prepare upload now");
-            var ft = new FileTransfer();
-            ft.upload($scope.mypicture, encodeURI($scope.data.uploadurl), uploadSuccess, uploadError, options);
-            function uploadSuccess(r) {
-                // handle success like a message to the user
-            }
-
-            function uploadError(error) {
-                //console.log("upload error source " + error.source);
-                //console.log("upload error target " + error.target);
-            }
-        };
         //TODO:@see: http://blog.nraboy.com/2014/09/use-android-ios-camera-ionic-framework/
         $scope.takeCamPicture = function () {
             var options = {
@@ -978,7 +972,7 @@ angular.module('starter.controllers', [])
             $scope.imageFile = event.target.files[0];
             $log.debug("openFileDialog->file:", $scope.imageFile);
             $scope.fileName = $scope.imageFile.name;
-            $scope.$apply();
+            //$scope.$apply();
         }
         //
         $scope.takePictureFromComputer = function () {
@@ -987,11 +981,10 @@ angular.module('starter.controllers', [])
         };
         //
         var uploader = $scope.uploader = new FileUploader({
-            url: $scope.data.uploadurl+"?owner="+$rootScope.username+"&name="+Enum.getUUID()
+            url: $scope.data.uploadurl+"?owner="+$rootScope.username+"&name="+Enum.getTimestamp()
         });
 
         // FILTERS
-
         uploader.filters.push({
             name: 'customFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -1005,38 +998,43 @@ angular.module('starter.controllers', [])
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
         uploader.onAfterAddingFile = function(fileItem) {
-            console.info('onAfterAddingFile', fileItem);
+            //console.info('onAfterAddingFile', fileItem);
             //$log.debug(uploader,uploader.queue);
             uploader.queue[0].upload();
         };
         uploader.onAfterAddingAll = function(addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
+            //console.info('onAfterAddingAll', addedFileItems);
         };
         uploader.onBeforeUploadItem = function(item) {
-            console.info('onBeforeUploadItem', item);
+            //console.info('onBeforeUploadItem', item);
         };
         uploader.onProgressItem = function(fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
+            //console.info('onProgressItem', fileItem, progress);
         };
         uploader.onProgressAll = function(progress) {
-            console.info('onProgressAll', progress);
+            //console.info('onProgressAll', progress);
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
+            //console.info('onSuccessItem', fileItem, response, status, headers);
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
+            //console.info('onErrorItem', fileItem, response, status, headers);
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
+            //console.info('onCancelItem', fileItem, response, status, headers);
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
+            //console.info('onCompleteItem', fileItem, response, status, headers);
+            $log.debug("Uploader->onCompleteItem.response:",response.picture.ico);
+            //Update Invoice Image view
+            $scope.imgURI = $scope.data.uploadFolderURI+response.picture.ico;
+            $log.debug("$scope.imgURI:",$scope.imgURI,"id:",response.id);
+            $scope.newItem.invoiceId = response.id;
         };
         uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
+            //console.info('onCompleteAll');
         };
 
-        console.info('uploader', uploader);
+        //console.info('uploader', uploader);
     })
 ;
