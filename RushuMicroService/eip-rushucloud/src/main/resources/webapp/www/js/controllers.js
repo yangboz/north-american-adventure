@@ -587,8 +587,9 @@ angular.module('starter.controllers', [])
                 var updateExpense = new ExpenseService(expenseId);
                 updateExpense.pid = resp.id;
                 updateExpense.owner = $rootScope.username;
+                updateExpense.status = Enum.expenseStatus.Submitted;
                 //Save
-                updateExpense.$patch(function (t, putResponseHeaders) {
+                updateExpense.$patch({expenseId:expenseId},function (t, putResponseHeaders) {
                     $log.info("updateExpenseItem() success, response:", t);
                     //View history back to Expense tab inside of task table.
                     $ionicNavBarDelegate.back();

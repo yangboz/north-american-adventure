@@ -374,7 +374,9 @@ angular.module('starter.services', [])
     .factory('ExpenseService', function ($resource, CONFIG_ENV) {
         var data = $resource(CONFIG_ENV.api_endpoint + 'expenses/:expenseId', {
             owner: "@owner",
-            expenseId: "@expenseId"
+            expenseId: "@expenseId",
+            pid: "@pid",//Process definition id.
+            status: "@status"
         }, {
             patch: {method: 'PATCH', params: {expenseId: "@expenseId"}}
         });

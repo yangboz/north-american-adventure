@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rushucloud.eip.dto.JsonObject;
 import com.rushucloud.eip.models.Expense;
+import com.rushucloud.eip.models.Expense.ExpenseStatus;
 import com.rushucloud.eip.models.ExpenseDao;
 import com.rushucloud.eip.models.ExpenseRepository;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -83,13 +84,16 @@ public class ExpensesController {
 		return this._expenseDao.save(expense);
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH,params = {"owner","pid","status"})
 	@ApiOperation(httpMethod = "PATCH", value = "Response a string describing if the reimbursement expense is successfully patched or not.")
-	public Expense patch(@PathVariable("id") long id,
-			@RequestBody @Valid long pid) {
+	public Expense patch(@PathVariable("id") long id
+			,@RequestParam(value = "pid") long pid
+			,@RequestParam(value = "owner") String owner
+			,@RequestParam(value = "status") String status) {
 //		return this.expenseRepository.save(expense);
 		Expense patchExpense =  this._expenseDao.findById(id);
 		patchExpense.setPid(pid);
+		patchExpense.setStatus(ExpenseStatus.Submitted);
 		return this._expenseDao.save(patchExpense);
 	}
 
