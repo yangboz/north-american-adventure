@@ -55,7 +55,7 @@ public class ActivemqReceiver {
 			if (message instanceof TextMessage) {
 				TextMessage text = (TextMessage) message;
 				// System.out.println("Message is : " + text.getText());
-				LOG.info("Received activemq message is : " + text.getText());
+				LOG.info("Received activemq message is : " + text.getText()+",queueName:"+ActivemqSender.queueName);
 			}
 		} catch (JMSException e) {
 			e.printStackTrace();

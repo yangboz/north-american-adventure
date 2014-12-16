@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
-                                      CONFIG_ENV, $log, $cordovaToast, CONFIG_ENV) {
+                                      CONFIG_ENV, $log, $cordovaToast) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -193,17 +193,6 @@ angular.module('starter.controllers', [])
         };
     })
     .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http, CONFIG_ENV) {
-        //
-        $scope.loadExpenses = function () {
-            ExpenseService.get({owner: $rootScope.username}, function (response) {
-                //ExpenseService.get({owner: $rootScope.username}, function (response) {
-                $log.info("ExpenseService.get() success, response:", response);
-                $rootScope.expenses = response.data;
-            }, function (error) {
-                // failure handler
-                $log.error("ExpenseService.get() failed:", JSON.stringify(error));
-            });
-        }
         //DELETE
         $scope.removeExpense = function (expenseId) {
             //return $log.debug("expenseId:", expenseId);
@@ -317,7 +306,7 @@ angular.module('starter.controllers', [])
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        TaskService, ProcessService, JobService, ExecutionService,
                                        HistoryService, FormDataService, ItemService, CompanyService,
-                                       ProcessDefinitionsService, CONFIG_ENV, Enum, LDAPService) {
+                                       ProcessDefinitionsService, CONFIG_ENV, Enum, LDAPService, ExpenseService) {
         $rootScope.loggedUser = {};
         $rootScope.loggedin = false;
 
@@ -370,6 +359,9 @@ angular.module('starter.controllers', [])
                 });
                 //getCompanyInfo(businessKey,processDefinitionKey)
                 $rootScope.companyInfo = {};
+                $rootScope.companyInfo.processDefinitionId = null;
+                $rootScope.companyInfo.processDefinitionKey = null;
+                //
                 CompanyService.get({}, function (response) {
                     $log.debug("CompanyService.get(default) success!", response.data[0]);
                     $rootScope.companyInfo = response.data[0];//Default value index is 0.
@@ -377,15 +369,30 @@ angular.module('starter.controllers', [])
                     //getProcessDefinitionsService
                     ProcessDefinitionsService.get({}, function (response) {
                         var lastIndex = response.data.length - 1;
-                        $log.debug("ProcessDefinitionsService.get(default) success!", response.data[lastIndex]);
-                        $rootScope.companyInfo.processDefinitionId = response.data[lastIndex].id;
-                        $rootScope.companyInfo.processDefinitionKey = response.data[lastIndex].key;
+                        var dataArr = response.data;
+                        $log.debug("ProcessDefinitionsService.get(dataArr) success!", dataArr);
+                        var dataOne = dataArr[lastIndex];
+                        $log.debug("ProcessDefinitionsService.get(dataOne) success!", dataOne);
+                        $log.debug("$rootScope.companyInfo:",$rootScope.companyInfo);
+                        $rootScope.companyInfo.processDefinitionId = dataOne.id;
+                        $rootScope.companyInfo.processDefinitionKey = dataOne.key;
                         //Then
-                        $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey + "/" + $rootScope.companyInfo.processDefinitionId;
+                        $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey
+                        + "/" + $rootScope.companyInfo.processDefinitionId
+                        + "/" + $rootScope.username;
                         $log.info("activemqQueueName:", $rootScope.activemqQueueName);
                         //Connect to STOMP server with ActiveMQ QueueName.
                         $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
                     });
+                });
+                //LoadExpenses
+                ExpenseService.get({owner: $rootScope.username}, function (response) {
+                    //ExpenseService.get({owner: $rootScope.username}, function (response) {
+                    $log.info("ExpenseService.get() success, response:", response);
+                    $rootScope.expenses = response.data;
+                }, function (error) {
+                    // failure handler
+                    $log.error("ExpenseService.get() failed:", JSON.stringify(error));
                 });
                 //formData test
 //            FormDataService.get({"taskId": 2513}, function (data) {
@@ -1092,43 +1099,4 @@ angular.module('starter.controllers', [])
 
         //console.info('uploader', uploader);
     })
-    .controller('GeoCtrl', function($cordovaGeolocation,$log) {
-
-    $cordovaGeolocation
-        .getCurrentPosition()
-        .then(function (position) {
-            var lat  = position.coords.latitude
-            var long = position.coords.longitude
-            $log.debug("$cordovaGeolocation(lat,long):",lat,long);
-        }, function(err) {
-            // error
-        });
-
-    // begin a watch
-    var options = {
-        frequency : 1000,
-        timeout : 3000,
-        enableHighAccuracy: true
-    };
-
-    var watch = $cordovaGeolocation.watchPosition(options);
-    watch.then(
-        function()  { // success callback
-            /* Not  used */
-        },
-        function(err) { // error callback
-            // error
-        },
-        function(position) { // notify callback
-            var lat  = position.coords.latitude;
-            var long = position.coords.longitude;
-            $log.debug("watched $cordovaGeolocation(lat,long):",lat,long);
-        }
-    );
-
-    // clear watch
-    watch.clear();
-    // or clear with watchID
-    $cordovaGeolocation.clearWatch(watch.watchID);
-});
 ;

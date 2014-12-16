@@ -509,7 +509,7 @@ angular.module('starter.services', [])
             ]
             //LDAP ou name list.
             , groupNames: [
-                "employees", "management"
+                "employees", "management","accountancy"
             ]
             //Task action list.@see: http://www.activiti.org/userguide/#N14A5B
             , taskActions: {

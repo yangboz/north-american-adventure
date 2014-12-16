@@ -1,5 +1,11 @@
 package com.rushucloud.eip;
 
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
@@ -17,6 +23,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
+import com.rushucloud.eip.models.Company;
 
 @Configuration
 @ComponentScan("com.rushucloud.eip")
@@ -29,9 +36,9 @@ import com.rushucloud.eip.activemq.ActivemqSender;
 @Import(RepositoryRestMvcConfiguration.class)
 //
 public class Application {
-
+//
 	private static Logger LOG = LoggerFactory.getLogger(Application.class);
-
+//
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(Application.class, args);
 //		new SpringApplicationBuilder(Application.class).profiles("test").run(args);
@@ -80,6 +87,17 @@ public class Application {
 //		ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");
 //		ActivemqReceiver receiver = ActivemqReceiver.getInstance("SAMPLEQUEUE");
 //		receiver.receiveMessage();
+		//Generate basic data base.
+////		EntityManager entityManager = Persistence.createEntityManagerFactory("activiti_test").createEntityManager();
+//		entityManager.getTransaction().begin();
+//		Company company = new Company();
+//		company.setBusinessKey(businessKey);
+//		company.setDate(new Date());
+//		company.setDomain("example.com");
+//		company.setEmail("sample@example.com");
+//		company.setName("EXAMPLE.COM");
+//		entityManager.persist(company);
+//		entityManager.getTransaction().commit();
 	}
 	//@see: http://stackoverflow.com/questions/26425067/resolvedspring-boot-access-to-entitymanager
 	@Bean

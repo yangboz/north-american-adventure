@@ -37,8 +37,8 @@
       <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.230769" vertical-offset="4028" max-vertical-offset="8235">
-              <caret line="288" column="13" selection-start-line="288" selection-start-column="13" selection-end-line="288" selection-end-column="13" />
+            <state vertical-scroll-proportion="-11.230769" vertical-offset="4043" max-vertical-offset="8235">
+              <caret line="289" column="10" selection-start-line="289" selection-start-column="10" selection-end-line="289" selection-end-column="10" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -49,8 +49,8 @@
       <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5084746" vertical-offset="10155" max-vertical-offset="17100">
-              <caret line="693" column="21" selection-start-line="693" selection-start-column="21" selection-end-line="693" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.03177966" vertical-offset="2400" max-vertical-offset="16620">
+              <caret line="161" column="9" selection-start-line="161" selection-start-column="9" selection-end-line="380" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -71,8 +71,8 @@
       <file leaf-file-name="tab-tasks.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/tab-tasks.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.625" vertical-offset="366" max-vertical-offset="945">
-              <caret line="43" column="119" selection-start-line="43" selection-start-column="119" selection-end-line="43" selection-end-column="119" />
+            <state vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="945">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -161,8 +161,8 @@
         <option value="$PROJECT_DIR$/www/lib/utils/sha.js" />
         <option value="$PROJECT_DIR$/www/test_dianping.html" />
         <option value="$PROJECT_DIR$/www/templates/add-item.html" />
-        <option value="$PROJECT_DIR$/www/templates/tab-tasks.html" />
         <option value="$PROJECT_DIR$/www/js/services.js" />
+        <option value="$PROJECT_DIR$/www/templates/tab-tasks.html" />
         <option value="$PROJECT_DIR$/www/js/controllers.js" />
       </list>
     </option>
@@ -994,28 +994,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/tab-tasks.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.625" vertical-offset="366" max-vertical-offset="945">
-          <caret line="43" column="119" selection-start-line="43" selection-start-column="119" selection-end-line="43" selection-end-column="119" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.230769" vertical-offset="4028" max-vertical-offset="8235">
-          <caret line="288" column="13" selection-start-line="288" selection-start-column="13" selection-end-line="288" selection-end-column="13" />
+        <state vertical-scroll-proportion="-11.230769" vertical-offset="4043" max-vertical-offset="8235">
+          <caret line="289" column="10" selection-start-line="289" selection-start-column="10" selection-end-line="289" selection-end-column="10" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/tab-tasks.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="945">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5084746" vertical-offset="10155" max-vertical-offset="17100">
-          <caret line="693" column="21" selection-start-line="693" selection-start-column="21" selection-end-line="693" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.03177966" vertical-offset="2400" max-vertical-offset="16620">
+          <caret line="161" column="9" selection-start-line="161" selection-start-column="9" selection-end-line="380" selection-end-column="74" />
           <folding />
         </state>
       </provider>

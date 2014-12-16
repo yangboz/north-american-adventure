@@ -22,6 +22,9 @@ public class ActivitiTaskListener implements TaskListener {
 			// Connect to ActiveMQ to send message.
 			 ActivemqSender sender = new ActivemqSender();
 //			ActivemqSender sender = ActivemqSender.getInstance("SAMPLEQUEUE");
+			 // Unique the queue name
+			 ActivemqSender.queueName += "/"+delegateTask.getAssignee();
+			 // Then send corresponding message. 
 			sender.sendMessage(delegateTask.toString());
 		} catch (Error err) {
 			LOG.error(err.toString());

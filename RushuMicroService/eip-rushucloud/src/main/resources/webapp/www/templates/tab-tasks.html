@@ -15,7 +15,7 @@
   <ion-content>
       <ion-slide-box active-slide="selectedViewIndex">
           <ion-slide>
-              <ion-list ng-controller="ExpenseCtrl" ng-init="loadExpenses()">
+              <ion-list ng-controller="ExpenseCtrl">
                   <ion-item ng-repeat="expense in $root.expenses" type="item-text-wrap" >
                       <div class="item item-divider">
                           {{expense.date | date:'yyyy-MM-dd'}}

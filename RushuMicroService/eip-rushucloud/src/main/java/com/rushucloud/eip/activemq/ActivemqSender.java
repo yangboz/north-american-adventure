@@ -33,7 +33,7 @@ public class ActivemqSender {
 					JMSConstants.URL_BROKER_ACTIVEMQ);
 			connection = factory.createConnection();
 			connection.start();
-			LOG.info("Start activemq success.");
+			LOG.info("Start activemq success with queueName:"+ActivemqSender.queueName);
 		} catch (JMSException e) {
 			// e.printStackTrace();
 			LOG.error(e.getMessage());
@@ -64,7 +64,7 @@ public class ActivemqSender {
 			message.setText(value);
 			producer.send(message);
 			// System.out.println("Sent: " + message.getText());
-			LOG.info("Sent activemq message: " + message.getText());
+			LOG.info("Sent activemq message: " + message.getText()+",queueName:"+ActivemqSender.queueName);
 		} catch (JMSException e) {
 			// e.printStackTrace();
 			LOG.error(e.getMessage());
