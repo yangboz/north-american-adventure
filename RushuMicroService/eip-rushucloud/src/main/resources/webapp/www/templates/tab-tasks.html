@@ -40,8 +40,8 @@
                           <a href="#/tab/task/{{task.id}}"><h2>{{task.name}} {{task.createTimeDate}}</h2></a>
                           <p>{{task.description}} {{task.dueDate}}</p>
                           <div>
-                              <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="approveTask(task.id)"></button>
-                              <button class="button button-icon icon ion-ios7-close-empty" ng-click="deleteTask(task.id)"></button>
+                              <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="approveTask(true,task.id)"></button>
+                              <button class="button button-icon icon ion-ios7-close-empty" ng-click="approveTask(false,task.id)"></button>
                           </div>
                           <!--
                           <button class="btn btn-success task-claim-button" type="button"

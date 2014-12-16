@@ -40,7 +40,7 @@
                     <a class="button button-icon icon ion-ios7-camera" ng-click="takePicture()"></a>
                     <input style="display: none;"
                            id="id_file_invoice" type="file" placeholder="照片"
-                           accept="image/x-png, image/gif, image/jpeg"
+                           accept="image/*"
                            onchange="angular.element(this).scope().onFileChangeHandler()"
                            nv-file-select="" uploader="uploader"
                             />

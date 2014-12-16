@@ -290,6 +290,11 @@ angular.module('starter.services', [])
         };
         return factory;
     })
+///FormService
+.factory('FormService', function ($resource, CONFIG_ENV) {
+    var data = $resource(CONFIG_ENV.api_endpoint + 'form/form-data', {});
+    return data;
+})
 ///HistoryService
     .factory('HistoryService', function ($resource, CONFIG_ENV) {
         var data = $resource(CONFIG_ENV.api_endpoint + 'history/historic-process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});

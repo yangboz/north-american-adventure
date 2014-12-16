@@ -429,7 +429,7 @@ angular.module('starter.controllers', [])
     .controller('ItemsCtrl', function ($scope, $http, Base64, $rootScope, $location, $log,
                                        ItemService, Enum, $ionicNavBarDelegate) {
         //ng-model
-        $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
+        $rootScope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
         $scope.preferencesItemType = Enum.itemType;
         $scope.prefType = Enum.itemType[0];//Default setting.
         $scope.setTypeSelected = function (type) {
@@ -440,11 +440,11 @@ angular.module('starter.controllers', [])
         $scope.createItem = function () {
             $log.debug("createItem(),$scope.newItem:", $scope.newItem);
             var anewItem = new ItemService($scope.newItem);
-            anewItem.amount = $scope.newItem.amount;
-            anewItem.name = $scope.newItem.name;
-            anewItem.vendors = $scope.newItem.vendors;
-            anewItem.invoices = $scope.newItem.invoices;
-            anewItem.date = $scope.newItem.date;
+            anewItem.amount = $rootScope.newItem.amount;
+            anewItem.name = $rootScope.newItem.name;
+            anewItem.invoices = $rootScope.newItem.invoices;
+            anewItem.vendors = $rootScope.newItem.vendors;
+            anewItem.date = $rootScope.newItem.date;
             anewItem.owner = $rootScope.username;
             anewItem.type = $scope.prefType.data;
             //
@@ -503,7 +503,8 @@ angular.module('starter.controllers', [])
                                        ProcessDefinitionService, TasksService, FormDataService,
                                        TasksModalService, GroupService,
                                        TaskService, ProcessInstancesService, ExpenseService, Enum,
-                                       ProcessDefinitionIdentityLinkService, $ionicActionSheet) {
+                                       ProcessDefinitionIdentityLinkService,
+                                       $ionicActionSheet, $ionicPopup) {
         //Local variables
         $scope.processInstanceVariables = {};
         //Save the expense item at first.
@@ -643,34 +644,88 @@ angular.module('starter.controllers', [])
                 });
             });
         };
-        $scope.approveTask = function(taskId) {
-            $ionicActionSheet.show({
-                buttons: [
-                    { text: '<b>批准</b>' }
-                ],
-                destructiveText: '拒绝',
-                titleText: '报销审批',
-                cancelText: '取消',
-                cancel: function() {
-                    // add cancel code..
-                },
-                buttonClicked: function(index) {
-                    //$log.debug("$ionicActionSheet clicked button index:",index);
-                    //$scope.completeTask(taskId);
-                    return true;
-                },
-                destructiveButtonClicked: function() {
-                    //$scope.resolveTask(taskId);
-                }
-            });
+        //
+        $scope.data = {};
+        $scope.data.motivation = null;
+        $scope.approveTask = function(decision,taskId) {
+            //$ionicActionSheet.show({
+            //    buttons: [
+            //        { text: '<b>批准</b>' }
+            //    ],
+            //    destructiveText: '拒绝',
+            //    titleText: '报销审批',
+            //    cancelText: '取消',
+            //    cancel: function() {
+            //        // add cancel code..
+            //    },
+            //    buttonClicked: function(index) {
+            //        //$log.debug("$ionicActionSheet clicked button index:",index);
+            //        //$scope.completeTask(taskId);
+            //        return true;
+            //    },
+            //    destructiveButtonClicked: function() {
+            //        //$scope.resolveTask(taskId);
+            //    }
+            //});
+
+            if(decision)//approve
+            {
+                $ionicPopup.show({
+                    template: '<textarea placeholder="motivation" ng-model="data.motivation">',
+                    title: 'Audit with motivation',
+                    subTitle: 'Please input some things',
+                    scope: $scope,
+                    buttons: [
+                        { text: 'Cancel' },
+                        {
+                            text: '<b>Approve</b>',
+                            type: 'button-positive',
+                            onTap: function(e) {
+                                if (!$scope.data.motivation) {
+                                    //don't allow the user to close unless he enters wifi password
+                                    e.preventDefault();
+                                } else {
+                                    //Next func call.
+                                    $scope.completeTask(decision,taskId,$scope.data.motivation);
+                                    return $scope.data.motivation;
+                                }
+                            }
+                        },
+                    ]
+                });
+            }else{//reject
+                $ionicPopup.show({
+                    template: '<textarea placeholder="motivation" ng-model="data.motivation">',
+                    title: 'Audit with motivation',
+                    subTitle: 'Please input some things:',
+                    scope: $scope,
+                    buttons: [
+                        { text: 'Cancel' },
+                        {
+                            text: '<b>Reject</b>',
+                            type: 'button-positive',
+                            onTap: function(e) {
+                                if (!$scope.data.motivation) {
+                                    //don't allow the user to close unless he enters wifi password
+                                    e.preventDefault();
+                                } else {
+                                    //Next func call.
+                                    $scope.completeTask(decision,taskId,$scope.data.motivation);
+                                    return $scope.data.motivation;
+                                }
+                            }
+                        },
+                    ]
+                });
+            }
         }
         //CompleteTask
-        $scope.completeTask = function (taskId) {
+        $scope.completeTask = function (decision,taskId,motivation) {
             var action = new TaskService();
             action.action = Enum.taskActions.Complete;
             action.variables = [
-                {'name': 'reimbursementApproved', 'value': true}
-                , {'name': 'employeeName', 'value': $rootScope.username}
+                {'name': 'reimbursementApproved', 'value': decision}
+                , {'name': 'managerMotivation', 'value': motivation}
             ];
             action.$save({"taskId": taskId}, function (resp) {
                 //after finishing remove the task from the tasks list
@@ -1029,7 +1084,7 @@ angular.module('starter.controllers', [])
             //Update Invoice Image view
             $scope.imgURI = $scope.data.uploadFolderURI+response.picture.ico;
             $log.debug("$scope.imgURI:",$scope.imgURI,"id:",response.id);
-            $scope.newItem.invoiceId = response.id;
+            $rootScope.newItem.invoices = response.id;
         };
         uploader.onCompleteAll = function() {
             //console.info('onCompleteAll');
@@ -1037,4 +1092,43 @@ angular.module('starter.controllers', [])
 
         //console.info('uploader', uploader);
     })
+    .controller('GeoCtrl', function($cordovaGeolocation,$log) {
+
+    $cordovaGeolocation
+        .getCurrentPosition()
+        .then(function (position) {
+            var lat  = position.coords.latitude
+            var long = position.coords.longitude
+            $log.debug("$cordovaGeolocation(lat,long):",lat,long);
+        }, function(err) {
+            // error
+        });
+
+    // begin a watch
+    var options = {
+        frequency : 1000,
+        timeout : 3000,
+        enableHighAccuracy: true
+    };
+
+    var watch = $cordovaGeolocation.watchPosition(options);
+    watch.then(
+        function()  { // success callback
+            /* Not  used */
+        },
+        function(err) { // error callback
+            // error
+        },
+        function(position) { // notify callback
+            var lat  = position.coords.latitude;
+            var long = position.coords.longitude;
+            $log.debug("watched $cordovaGeolocation(lat,long):",lat,long);
+        }
+    );
+
+    // clear watch
+    watch.clear();
+    // or clear with watchID
+    $cordovaGeolocation.clearWatch(watch.watchID);
+});
 ;
