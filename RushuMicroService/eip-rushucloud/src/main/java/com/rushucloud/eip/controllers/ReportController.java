@@ -1,19 +1,11 @@
 package com.rushucloud.eip.controllers;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 
 import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,14 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
+
 import com.rushucloud.eip.dto.JsonObject;
-import com.rushucloud.eip.models.Expense;
 import com.rushucloud.eip.models.ExpenseDao;
-import com.rushucloud.eip.models.Item;
 import com.rushucloud.eip.services.ReportService;
 import com.wordnik.swagger.annotations.ApiOperation;
-
-import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 
 /**
  * Handles download requests

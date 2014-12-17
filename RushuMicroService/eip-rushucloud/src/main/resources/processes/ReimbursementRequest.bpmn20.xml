@@ -46,7 +46,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!reimbursementApproved}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="${employeeName}">
-      <documentation>Your manager has disapproved your reimbursement request for ${amountOfMoney} days.
+      <documentation>Your manager has disapproved your reimbursement request for ${amountOfMoney} money.
         Reason: ${managerMotivation}</documentation>
       <extensionElements>
         <activiti:formProperty id="amountOfMoney" name="Number of days" type="long" required="true"></activiti:formProperty>

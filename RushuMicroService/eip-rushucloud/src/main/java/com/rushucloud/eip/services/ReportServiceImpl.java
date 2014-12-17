@@ -141,20 +141,15 @@ public class ReportServiceImpl implements ReportService {
 	 * <p>
 	 * The data is retrieved from a Hibernate HQL query.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List getDatasource() {
-		logger.debug("Retrieving datasource");
-
-		// Retrieve session
-		// Session session = sessionFactory.getCurrentSession();
 		// Create query for retrieving products
-		// Query query = session.createQuery("FROM expenses");
-		Query query = (Query) this.entityManager.createQuery("FROM expenses");
-		// Execute query
-		List<Expense> result = query.list();
-
-		// Return the datasource
-		return result;
+		String queryStr = "SELECT amount,name,date FROM " + Expense.class.getName();
+		List<Object[]> results = this.entityManager.createQuery(queryStr)
+				.getResultList();
+		// Return the data source
+		logger.debug("Retrieving datasource:"+results.toString());
+		return results;
 	}
 
 	/**

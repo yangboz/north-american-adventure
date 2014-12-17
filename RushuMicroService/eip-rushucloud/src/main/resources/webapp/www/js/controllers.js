@@ -158,6 +158,8 @@ angular.module('starter.controllers', [])
         $rootScope.employeeIDsSel = [];
         $rootScope.managerIDsSel = [];
         $rootScope.vendors = [];
+        $rootScope.categories = [];
+        $rootScope.tags = [];
         ///User related
         $rootScope.loggedin = true;
         $rootScope.loggedUser = null;
@@ -292,7 +294,7 @@ angular.module('starter.controllers', [])
             $ionicViewService.goToHistoryRoot($rootScope.TaskHistoryID);
         }
     })
-    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, ExpenseService, $log, CONFIG_ENV) {
+    .controller('TabCtrlTasks', function ($scope, $rootScope) {
         //Slide-box view
         $scope.selectedViewIndex = 0;
         $scope.changeViewIndex = function (index) {
@@ -306,7 +308,7 @@ angular.module('starter.controllers', [])
             }
         };
     })
-    .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http, CONFIG_ENV) {
+    .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http) {
         //DELETE
         $scope.removeExpense = function (expenseId) {
             //
@@ -407,7 +409,7 @@ angular.module('starter.controllers', [])
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        ProcessService, JobService, ExecutionService,
-                                       HistoryService, FormDataService, CONFIG_ENV, Enum, LDAPService, $queue) {
+                                       HistoryService, FormDataService, CONFIG_ENV, Enum, $queue) {
 
         $scope.userLogin = function () {
 //        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
@@ -591,6 +593,8 @@ angular.module('starter.controllers', [])
                 } else {
                     //View history back to Expense tab inside of task table.
                     $ionicNavBarDelegate.back();
+                    //Refresh expenses
+                    $rootScope.loadExpenses();
                 }
             }, function (error) {
                 // failure handler
@@ -649,6 +653,8 @@ angular.module('starter.controllers', [])
                     $log.info("updateExpenseItem() success, response:", t);
                     //View history back to Expense tab inside of task table.
                     $ionicNavBarDelegate.back();
+                    //Refresh expenses
+                    $rootScope.loadExpenses();
                 }, function (error) {
                     // failure handler
                     $log.error("updateExpenseItem() failed:", JSON.stringify(error));
@@ -658,14 +664,6 @@ angular.module('starter.controllers', [])
             }, function (error) {
                 // failure handler
                 $log.error("startProcessInstance.$save() failed:", JSON.stringify(error));
-            });
-        }
-        //
-        $scope.loadTasks = function () {
-            //TaskService.get({}, function (response) {
-            TaskService.get({assignee: $rootScope.username}, function (response) {
-                $log.debug("TaskService.get() success!", response);
-                $rootScope.tasks = response.data;
             });
         }
         //
@@ -795,10 +793,7 @@ angular.module('starter.controllers', [])
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.complete() success!", resp);
                 //refresh reports list view.
-                TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.tasks = response.data;
-                });
+                $rootScope.loadTasks();
             });
 
         };
@@ -810,10 +805,7 @@ angular.module('starter.controllers', [])
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.resolve() success!", resp);
                 //refresh reports list view.
-                TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.tasks = response.data;
-                });
+                $rootScope.loadTasks();
             });
         };
         //DeleteTask
@@ -823,11 +815,7 @@ angular.module('starter.controllers', [])
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.delete() success!", resp);
                 //refresh reports list view.
-                TaskService.get({}, function (response) {
-                    //TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.tasks = response.data;
-                });
+                $rootScope.loadTasks();
             });
         };
         //Add an involved user to a process instance
@@ -851,6 +839,10 @@ angular.module('starter.controllers', [])
     .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log) {
         //
         $rootScope.vendors = [];
+    })
+    .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {
+        //
+        $rootScope.tags = [];
     })
     .controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService, $ionicModal) {
         if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
