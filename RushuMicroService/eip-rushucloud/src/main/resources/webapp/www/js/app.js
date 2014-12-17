@@ -6,7 +6,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngResource', 'ngCordova', 'angularMoment', 'angularFileUpload'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngResource', 'ngCordova'
+    , 'angularMoment', 'angularFileUpload', 'ngQueue'])
 //console.log("app:",app);
 //angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','nvd3','angular-websocket'])
 ///Config
@@ -23,6 +24,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
         }
+        $httpProvider.responseInterceptors.push('myHttpInterceptor');
+        var spinnerFunction = function spinnerFunction(data, headersGetter) {
+            $("#spinner").show();
+            return data;
+        };
+        $httpProvider.defaults.transformRequest.push(spinnerFunction);
     }])
 ////$log configure
     .config(['$logProvider', function ($logProvider) {

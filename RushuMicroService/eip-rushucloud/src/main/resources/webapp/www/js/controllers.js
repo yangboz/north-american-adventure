@@ -1,7 +1,8 @@
 angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
-                                      CONFIG_ENV, $log, $cordovaToast) {
+                                      CONFIG_ENV, $log, $cordovaToast, $queue,
+                                      ExpenseService, ItemService, TaskService) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -24,8 +25,6 @@ angular.module('starter.controllers', [])
                 }
             );
         }
-//app.controller('MainController', function($scope, $http, $rootScope, $location,$ionicModal,$WebSocket){
-//    console.log("MainController init!!!");
 ///GoBack
         $rootScope.goBack = function () {
             $ionicNavBarDelegate.back();
@@ -33,7 +32,8 @@ angular.module('starter.controllers', [])
 ///Loading
         $rootScope.showLoading = function () {
             $ionicLoading.show({
-                template: 'Loading...'
+                //template: 'Loading...'
+                template: "<img id='spinner' src='img/spinner.gif'>"
             });
         };
         $rootScope.hideLoading = function () {
@@ -149,6 +149,7 @@ angular.module('starter.controllers', [])
         $rootScope.numberOfTasks = 0;
         $rootScope.items = [];
         $rootScope.expenses = [];
+        $rootScope.tasks = [];
         $rootScope.itemIDsSel = [];//selected item ids.
         $rootScope.itemIDsSelAmount = 0;//total number of selected item's amount.
         $rootScope.expenses = [];
@@ -157,6 +158,44 @@ angular.module('starter.controllers', [])
         $rootScope.employeeIDsSel = [];
         $rootScope.managerIDsSel = [];
         $rootScope.vendors = [];
+        ///
+        $rootScope.loggedin = true;
+        $rootScope.loggedUser = null;
+        $rootScope.username = null;
+        $rootScope.password = null;
+        //Common functions
+        ///
+        $rootScope.loadExpenses = function(){
+            ExpenseService.get({owner: $rootScope.username}, function (response) {
+                //ExpenseService.get({owner: $rootScope.username}, function (response) {
+                $log.info("ExpenseService.get() success, response:", response);
+                $rootScope.expenses = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("ExpenseService.get() failed:", JSON.stringify(error));
+            });
+        }
+        ///
+        $rootScope.loadTasks = function(){
+            //TaskService.get({}, function (response) {
+            TaskService.get({assignee: $rootScope.username}, function (response) {
+                $log.debug("TaskService.get() success!", response);
+                $rootScope.tasks = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("TaskService.get() failed:", JSON.stringify(error));
+            });
+        }
+        ///
+        $rootScope.loadItems = function(){
+            ItemService.get({owner: $rootScope.username}, function (response) {
+                $log.debug("ItemService.get() success!", response);
+                $rootScope.items = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("ItemService.get() failed:", JSON.stringify(error));
+            });
+        }
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -184,12 +223,20 @@ angular.module('starter.controllers', [])
             $ionicViewService.goToHistoryRoot($rootScope.TaskHistoryID);
         }
     })
-    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, $log, CONFIG_ENV) {
+    .controller('TabCtrlTasks', function ($scope, $rootScope, $ionicViewService, TaskService, ExpenseService, $log, CONFIG_ENV) {
         //Slide-box view
         $scope.selectedViewIndex = 0;
         $scope.changeViewIndex = function (index) {
             //$log.info("TabCtrlTasks selected view index:", index);
             $scope.selectedViewIndex = index;
+            if(index==0)
+            {
+
+            }
+            if(index==1)
+            {
+
+            }
         };
     })
     .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http, CONFIG_ENV) {
@@ -304,18 +351,16 @@ angular.module('starter.controllers', [])
     })
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
-                                       TaskService, ProcessService, JobService, ExecutionService,
-                                       HistoryService, FormDataService, ItemService, CompanyService,
-                                       ProcessDefinitionsService, CONFIG_ENV, Enum, LDAPService, ExpenseService) {
-        $rootScope.loggedUser = {};
-        $rootScope.loggedin = false;
+                                       ProcessService, JobService, ExecutionService,
+                                       HistoryService, FormDataService, CompanyService,
+                                       ProcessDefinitionsService, CONFIG_ENV, Enum, LDAPService, $queue) {
 
         $scope.userLogin = function () {
 //        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
 
             UserService.get({user: $scope.loginModal.user.username}, function (response) {
-
+                //
                 $log.debug("UserService.get(login) success!", response);
                 $rootScope.loggedin = true;
                 $rootScope.loggedUser = response;
@@ -326,17 +371,7 @@ angular.module('starter.controllers', [])
                 $scope.loginModal.hide();
                 //Default getTasks;
                 $log.debug("$rootScope.username:", $rootScope.username, ",$rootScope.password:", $rootScope.password);
-                //getTaskService test
-                TaskService.get({}, function (response) {
-//            TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.tasks = response.data;
-                });
-                //default get items for usage.
-                ItemService.get({owner: $rootScope.username}, function (response) {
-                    $log.debug("ItemService.get() success!", response);
-                    $rootScope.items = response.data;
-                });
+                /*
                 //getProcesses test
                 //ProcessService.get({user: $rootScope.username}, function (response) {
                 //    $log.debug("ProcessService.get() success!", response);
@@ -357,6 +392,27 @@ angular.module('starter.controllers', [])
                     $log.debug("HistoryService.get() success!", response);
                     $rootScope.historices = response.data;
                 });
+                */
+                //
+                 var ajaxCallback = function(itemFunc) {
+                 //console.log("itemFunc:"+itemFunc);
+                    itemFunc.apply();
+                 },
+                 options = {
+                     delay: 2000, //delay 2 seconds between processing items
+                     paused: true, //start out paused
+                     complete: function() {
+                         console.log('$queue, all complete!');
+                     }
+                 };
+                 // create an instance of a queue
+                 // note that the first argument - a callback to be used on each item - is required
+                 var myQueue = $queue.queue(ajaxCallback, options);
+                 myQueue.add($rootScope.loadItems); //add one item
+                 myQueue.add($rootScope.loadExpenses); //add one item
+                 myQueue.add($rootScope.loadTasks); //add one item
+                 //myQueue.addEach([$rootScope.loadExpenses, $rootScope.loadTasks]); //add multiple items
+                 myQueue.start(); //must call start() if queue starts paused
                 //getCompanyInfo(businessKey,processDefinitionKey)
                 $rootScope.companyInfo = {};
                 $rootScope.companyInfo.processDefinitionId = null;
@@ -384,15 +440,6 @@ angular.module('starter.controllers', [])
                         //Connect to STOMP server with ActiveMQ QueueName.
                         $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
                     });
-                });
-                //LoadExpenses
-                ExpenseService.get({owner: $rootScope.username}, function (response) {
-                    //ExpenseService.get({owner: $rootScope.username}, function (response) {
-                    $log.info("ExpenseService.get() success, response:", response);
-                    $rootScope.expenses = response.data;
-                }, function (error) {
-                    // failure handler
-                    $log.error("ExpenseService.get() failed:", JSON.stringify(error));
                 });
                 //formData test
 //            FormDataService.get({"taskId": 2513}, function (data) {

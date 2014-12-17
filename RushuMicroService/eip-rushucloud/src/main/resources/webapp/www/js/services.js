@@ -543,4 +543,17 @@ angular.module('starter.services', [])
         };
         return service;
     }])
+    .factory('myHttpInterceptor', function ($q, $window, $rootScope) {
+        return function (promise) {
+            return promise.then(function (response) {
+                //$rootScope.hideLoading();
+                $('#spinner').hide();
+                return response;
+            }, function (response) {
+                //$rootScope.hideLoading();
+                $('#spinner').hide();
+                return $q.reject(response);
+            });
+        };
+    });
 ;
