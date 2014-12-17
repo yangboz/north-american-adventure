@@ -1,8 +1,9 @@
 angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
-                                      CONFIG_ENV, $log, $cordovaToast, $queue,
-                                      ExpenseService, ItemService, TaskService) {
+                                      CONFIG_ENV, $log, $cordovaToast, $queue, Enum,
+                                      ExpenseService, ItemService, TaskService, CompanyService,
+                                      ProcessDefinitionsService, LDAPService) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -145,8 +146,7 @@ angular.module('starter.controllers', [])
 //            console.log("The toast was not shown due to " + error);
 //        });
         }
-        //Badge numbers for task notification.
-        $rootScope.numberOfTasks = 0;
+        //Data list.
         $rootScope.items = [];
         $rootScope.expenses = [];
         $rootScope.tasks = [];
@@ -158,14 +158,22 @@ angular.module('starter.controllers', [])
         $rootScope.employeeIDsSel = [];
         $rootScope.managerIDsSel = [];
         $rootScope.vendors = [];
-        ///
+        ///User related
         $rootScope.loggedin = true;
         $rootScope.loggedUser = null;
         $rootScope.username = null;
         $rootScope.password = null;
+        ///Company related
+        $rootScope.companyInfo = {};
+        $rootScope.companyInfo.processDefinitionId = null;
+        $rootScope.companyInfo.processDefinitionKey = null;
+        ///
+        $rootScope.activemqQueueName = null;
+        //Badge numbers for task notification.
+        $rootScope.numberOfTasks = 0;
         //Common functions
         ///
-        $rootScope.loadExpenses = function(){
+        $rootScope.loadExpenses = function () {
             ExpenseService.get({owner: $rootScope.username}, function (response) {
                 //ExpenseService.get({owner: $rootScope.username}, function (response) {
                 $log.info("ExpenseService.get() success, response:", response);
@@ -176,7 +184,7 @@ angular.module('starter.controllers', [])
             });
         }
         ///
-        $rootScope.loadTasks = function(){
+        $rootScope.loadTasks = function () {
             //TaskService.get({}, function (response) {
             TaskService.get({assignee: $rootScope.username}, function (response) {
                 $log.debug("TaskService.get() success!", response);
@@ -187,13 +195,74 @@ angular.module('starter.controllers', [])
             });
         }
         ///
-        $rootScope.loadItems = function(){
+        $rootScope.loadItems = function () {
             ItemService.get({owner: $rootScope.username}, function (response) {
                 $log.debug("ItemService.get() success!", response);
                 $rootScope.items = response.data;
             }, function (error) {
                 // failure handler
                 $log.error("ItemService.get() failed:", JSON.stringify(error));
+            });
+        }
+        ///
+        $rootScope.loadCompanyInfo = function () {
+            //
+            CompanyService.get({}, function (response) {
+                $log.debug("CompanyService.get(default) success!", response.data[0]);
+                $rootScope.companyInfo = response.data[0];//Default value index is 0.
+                //Then getProcessDefinitionsService
+                $rootScope.loadProcessDefinitionsInfo();
+            }, function (error) {
+                // failure handler
+                $log.error("CompanyService.get() failed:", JSON.stringify(error));
+            });
+        }
+        ///
+        $rootScope.loadProcessDefinitionsInfo = function () {
+            ProcessDefinitionsService.get({}, function (response) {
+                var lastIndex = response.data.length - 1;
+                var dataArr = response.data;
+                $log.debug("ProcessDefinitionsService.get(dataArr) success!", dataArr);
+                var dataOne = dataArr[lastIndex];
+                $log.debug("ProcessDefinitionsService.get(dataOne) success!", dataOne);
+                $log.debug("$rootScope.companyInfo:", $rootScope.companyInfo);
+                $rootScope.companyInfo.processDefinitionId = dataOne.id;
+                $rootScope.companyInfo.processDefinitionKey = dataOne.key;
+                //Then
+                $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey
+                + "/" + $rootScope.companyInfo.processDefinitionId
+                + "/" + $rootScope.username;
+                $log.info("activemqQueueName:", $rootScope.activemqQueueName);
+                //Connect to STOMP server with ActiveMQ QueueName.
+                $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
+            }, function (error) {
+                // failure handler
+                $log.error("ProcessDefinitionsService.get() failed:", JSON.stringify(error));
+            });
+        }
+        ///LDAP related
+        $rootScope.loadLDAPUsers = function () {
+            var ouEncode_0 = "ou=" + Enum.groupNames[0] + ",";//employee
+            LDAPService.get({
+                partition: ouEncode_0 + CONFIG_ENV.LDAP_PARTITION,
+                filter: CONFIG_ENV.LDAP_FILTER
+            }, function (response) {
+                $log.info("LDAPService.get(0) success, response:", response);
+                $rootScope.employeeIDs = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("LDAPService.get(0) failed:", JSON.stringify(error));
+            });
+            var ouEncode_1 = "ou=" + Enum.groupNames[1] + ",";//manager
+            LDAPService.get({
+                partition: ouEncode_1 + CONFIG_ENV.LDAP_PARTITION,
+                filter: CONFIG_ENV.LDAP_FILTER
+            }, function (response) {
+                $log.info("LDAPService.get(1) success, response:", response);
+                $rootScope.managerIDs = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("LDAPService.get(1) failed:", JSON.stringify(error));
             });
         }
     })
@@ -229,37 +298,23 @@ angular.module('starter.controllers', [])
         $scope.changeViewIndex = function (index) {
             //$log.info("TabCtrlTasks selected view index:", index);
             $scope.selectedViewIndex = index;
-            if(index==0)
-            {
-
+            if (index == 0) {
+                $rootScope.loadExpenses();
             }
-            if(index==1)
-            {
-
+            if (index == 1) {
+                $rootScope.loadTasks();
             }
         };
     })
     .controller('ExpenseCtrl', function ($scope, $rootScope, CONFIG_ENV, ExpenseService, $log, $http, CONFIG_ENV) {
         //DELETE
         $scope.removeExpense = function (expenseId) {
-            //return $log.debug("expenseId:", expenseId);
-            //ExpenseService.delete({"owner": $rootScope.username, "expenseId": expenseId}, function (data) {
-            //    $log.debug("ExpenseService.delete:", data);
-            //    //Refresh expense list
-            //    ExpenseService.get({}, function (response) {
-            //        $log.debug("ExpenseService.get() success!", response);
-            //        $rootScope.expenses = response.data;
-            //    });
-            //});
             //
             $http.delete(CONFIG_ENV.api_endpoint + 'expenses/' + expenseId, {})
                 .success(function (data, status) {
                     $log.debug("ExpenseService.delete:", data);
                     //Refresh expense list
-                    ExpenseService.get({owner: $rootScope.username}, function (response) {
-                        $log.debug("ExpenseService.get() success!", response);
-                        $rootScope.expenses = response.data;
-                    });
+                    $rootScope.loadExpenses();
                 })
                 .error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -352,8 +407,7 @@ angular.module('starter.controllers', [])
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        ProcessService, JobService, ExecutionService,
-                                       HistoryService, FormDataService, CompanyService,
-                                       ProcessDefinitionsService, CONFIG_ENV, Enum, LDAPService, $queue) {
+                                       HistoryService, FormDataService, CONFIG_ENV, Enum, LDAPService, $queue) {
 
         $scope.userLogin = function () {
 //        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
@@ -372,102 +426,57 @@ angular.module('starter.controllers', [])
                 //Default getTasks;
                 $log.debug("$rootScope.username:", $rootScope.username, ",$rootScope.password:", $rootScope.password);
                 /*
-                //getProcesses test
-                //ProcessService.get({user: $rootScope.username}, function (response) {
-                //    $log.debug("ProcessService.get() success!", response);
-                //    $rootScope.processes = response.data;
-                //});
-                //getJobs test
-                JobService.get({user: $rootScope.username}, function (response) {
-                    $log.debug("JobService.get() success!", response);
-                    $rootScope.jobs = response.data;
-                });
-                //getExecutions test
-                ExecutionService.get({user: $rootScope.username}, function (response) {
-                    $log.debug("ExecutionService.get() success!", response);
-                    $rootScope.executions = response.data;
-                });
-                //getHistory(historic-process-instances) test
-                HistoryService.get({user: $rootScope.username}, function (response) {
-                    $log.debug("HistoryService.get() success!", response);
-                    $rootScope.historices = response.data;
-                });
-                */
+                 //getProcesses test
+                 //ProcessService.get({user: $rootScope.username}, function (response) {
+                 //    $log.debug("ProcessService.get() success!", response);
+                 //    $rootScope.processes = response.data;
+                 //});
+                 //getJobs test
+                 JobService.get({user: $rootScope.username}, function (response) {
+                 $log.debug("JobService.get() success!", response);
+                 $rootScope.jobs = response.data;
+                 });
+                 //getExecutions test
+                 ExecutionService.get({user: $rootScope.username}, function (response) {
+                 $log.debug("ExecutionService.get() success!", response);
+                 $rootScope.executions = response.data;
+                 });
+                 //getHistory(historic-process-instances) test
+                 HistoryService.get({user: $rootScope.username}, function (response) {
+                 $log.debug("HistoryService.get() success!", response);
+                 $rootScope.historices = response.data;
+                 });
+                 */
                 //
-                 var ajaxCallback = function(itemFunc) {
-                 //console.log("itemFunc:"+itemFunc);
-                    itemFunc.apply();
-                 },
-                 options = {
-                     delay: 2000, //delay 2 seconds between processing items
-                     paused: true, //start out paused
-                     complete: function() {
-                         console.log('$queue, all complete!');
-                     }
-                 };
-                 // create an instance of a queue
-                 // note that the first argument - a callback to be used on each item - is required
-                 var myQueue = $queue.queue(ajaxCallback, options);
-                 myQueue.add($rootScope.loadItems); //add one item
-                 myQueue.add($rootScope.loadExpenses); //add one item
-                 myQueue.add($rootScope.loadTasks); //add one item
-                 //myQueue.addEach([$rootScope.loadExpenses, $rootScope.loadTasks]); //add multiple items
-                 myQueue.start(); //must call start() if queue starts paused
+                var ajaxCallback = function (itemFunc) {
+                        //console.log("itemFunc:"+itemFunc);
+                        itemFunc.apply();
+                    },
+                    options = {
+                        delay: 2000, //delay 2 seconds between processing items
+                        paused: true, //start out paused
+                        complete: function () {
+                            console.log('$queue, all complete!');
+                        }
+                    };
+                // create an instance of a queue
+                //@see: https://github.com/jseppi/angular-queue
+                // note that the first argument - a callback to be used on each item - is required
+                var myQueue = $queue.queue(ajaxCallback, options);
+                myQueue.add($rootScope.loadItems); //add one item at DashTab
+                myQueue.add($rootScope.loadExpenses); //add one item at TaskTab
+                myQueue.add($rootScope.loadTasks); //add one item at TaskTab
                 //getCompanyInfo(businessKey,processDefinitionKey)
-                $rootScope.companyInfo = {};
-                $rootScope.companyInfo.processDefinitionId = null;
-                $rootScope.companyInfo.processDefinitionKey = null;
-                //
-                CompanyService.get({}, function (response) {
-                    $log.debug("CompanyService.get(default) success!", response.data[0]);
-                    $rootScope.companyInfo = response.data[0];//Default value index is 0.
-                    //Then
-                    //getProcessDefinitionsService
-                    ProcessDefinitionsService.get({}, function (response) {
-                        var lastIndex = response.data.length - 1;
-                        var dataArr = response.data;
-                        $log.debug("ProcessDefinitionsService.get(dataArr) success!", dataArr);
-                        var dataOne = dataArr[lastIndex];
-                        $log.debug("ProcessDefinitionsService.get(dataOne) success!", dataOne);
-                        $log.debug("$rootScope.companyInfo:",$rootScope.companyInfo);
-                        $rootScope.companyInfo.processDefinitionId = dataOne.id;
-                        $rootScope.companyInfo.processDefinitionKey = dataOne.key;
-                        //Then
-                        $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey
-                        + "/" + $rootScope.companyInfo.processDefinitionId
-                        + "/" + $rootScope.username;
-                        $log.info("activemqQueueName:", $rootScope.activemqQueueName);
-                        //Connect to STOMP server with ActiveMQ QueueName.
-                        $rootScope.connectStomp($rootScope.username, $rootScope.password, $rootScope.activemqQueueName);
-                    });
-                });
+                myQueue.add($rootScope.loadCompanyInfo);
+                ///Search LDAP users by ou(organization unit)
+                myQueue.add($rootScope.loadLDAPUsers);
+                //myQueue.addEach([$rootScope.loadExpenses, $rootScope.loadTasks]); //add multiple items
+                myQueue.start(); //must call start() if queue starts paused
                 //formData test
 //            FormDataService.get({"taskId": 2513}, function (data) {
 //                $log.debug("FormDataService.get() success!",data);
 //            });
-                ///Search LDAP users by ou(organization unit)
-                var ouEncode_0 = "ou=" + Enum.groupNames[0] + ",";//employee
-                LDAPService.get({
-                    partition: ouEncode_0 + CONFIG_ENV.LDAP_PARTITION,
-                    filter: CONFIG_ENV.LDAP_FILTER
-                }, function (response) {
-                    $log.info("LDAPService.get(0) success, response:", response);
-                    $rootScope.employeeIDs = response.data;
-                }, function (error) {
-                    // failure handler
-                    $log.error("LDAPService.get(0) failed:", JSON.stringify(error));
-                });
-                var ouEncode_1 = "ou=" + Enum.groupNames[1] + ",";//manager
-                LDAPService.get({
-                    partition: ouEncode_1 + CONFIG_ENV.LDAP_PARTITION,
-                    filter: CONFIG_ENV.LDAP_FILTER
-                }, function (response) {
-                    $log.info("LDAPService.get(1) success, response:", response);
-                    $rootScope.managerIDs = response.data;
-                }, function (error) {
-                    // failure handler
-                    $log.error("LDAPService.get(1) failed:", JSON.stringify(error));
-                });
+
             });
         };
     })
@@ -636,7 +645,7 @@ angular.module('starter.controllers', [])
                 updateExpense.owner = $rootScope.username;
                 updateExpense.status = Enum.expenseStatus.Submitted;
                 //Save
-                updateExpense.$patch({expenseId:expenseId},function (t, putResponseHeaders) {
+                updateExpense.$patch({expenseId: expenseId}, function (t, putResponseHeaders) {
                     $log.info("updateExpenseItem() success, response:", t);
                     //View history back to Expense tab inside of task table.
                     $ionicNavBarDelegate.back();
@@ -702,7 +711,7 @@ angular.module('starter.controllers', [])
         //
         $scope.data = {};
         $scope.data.motivation = null;
-        $scope.approveTask = function(decision,taskId) {
+        $scope.approveTask = function (decision, taskId) {
             //$ionicActionSheet.show({
             //    buttons: [
             //        { text: '<b>批准</b>' }
@@ -723,7 +732,7 @@ angular.module('starter.controllers', [])
             //    }
             //});
 
-            if(decision)//approve
+            if (decision)//approve
             {
                 $ionicPopup.show({
                     template: '<textarea placeholder="motivation" ng-model="data.motivation">',
@@ -731,41 +740,41 @@ angular.module('starter.controllers', [])
                     subTitle: 'Please input some things',
                     scope: $scope,
                     buttons: [
-                        { text: 'Cancel' },
+                        {text: 'Cancel'},
                         {
                             text: '<b>Approve</b>',
                             type: 'button-positive',
-                            onTap: function(e) {
+                            onTap: function (e) {
                                 if (!$scope.data.motivation) {
                                     //don't allow the user to close unless he enters wifi password
                                     e.preventDefault();
                                 } else {
                                     //Next func call.
-                                    $scope.completeTask(decision,taskId,$scope.data.motivation);
+                                    $scope.completeTask(decision, taskId, $scope.data.motivation);
                                     return $scope.data.motivation;
                                 }
                             }
                         },
                     ]
                 });
-            }else{//reject
+            } else {//reject
                 $ionicPopup.show({
                     template: '<textarea placeholder="motivation" ng-model="data.motivation">',
                     title: 'Audit with motivation',
                     subTitle: 'Please input some things:',
                     scope: $scope,
                     buttons: [
-                        { text: 'Cancel' },
+                        {text: 'Cancel'},
                         {
                             text: '<b>Reject</b>',
                             type: 'button-positive',
-                            onTap: function(e) {
+                            onTap: function (e) {
                                 if (!$scope.data.motivation) {
                                     //don't allow the user to close unless he enters wifi password
                                     e.preventDefault();
                                 } else {
                                     //Next func call.
-                                    $scope.completeTask(decision,taskId,$scope.data.motivation);
+                                    $scope.completeTask(decision, taskId, $scope.data.motivation);
                                     return $scope.data.motivation;
                                 }
                             }
@@ -775,7 +784,7 @@ angular.module('starter.controllers', [])
             }
         }
         //CompleteTask
-        $scope.completeTask = function (decision,taskId,motivation) {
+        $scope.completeTask = function (decision, taskId, motivation) {
             var action = new TaskService();
             action.action = Enum.taskActions.Complete;
             action.variables = [
@@ -999,7 +1008,7 @@ angular.module('starter.controllers', [])
     })
     .controller('InvoiceCtrl', function ($scope, $rootScope, $location, $log, $http, CONFIG_ENV, FileUploader, Enum, InvoiceService) {
         $scope.fromComputer = true;
-        $scope.imageURI=null;//For update the display image view.
+        $scope.imageURI = null;//For update the display image view.
         // init variables
         $scope.data = {};
         $scope.obj;
@@ -1091,57 +1100,57 @@ angular.module('starter.controllers', [])
         };
         //
         var uploader = $scope.uploader = new FileUploader({
-            url: $scope.data.uploadurl+"?owner="+$rootScope.username+"&name="+Enum.getTimestamp()
+            url: $scope.data.uploadurl + "?owner=" + $rootScope.username + "&name=" + Enum.getTimestamp()
         });
 
         // FILTERS
         uploader.filters.push({
             name: 'customFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
+            fn: function (item /*{File|FileLikeObject}*/, options) {
                 return this.queue.length < 10;
             }
         });
 
         // CALLBACKS
 
-        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
-        uploader.onAfterAddingFile = function(fileItem) {
+        uploader.onAfterAddingFile = function (fileItem) {
             //console.info('onAfterAddingFile', fileItem);
             //$log.debug(uploader,uploader.queue);
             uploader.queue[0].upload();
         };
-        uploader.onAfterAddingAll = function(addedFileItems) {
+        uploader.onAfterAddingAll = function (addedFileItems) {
             //console.info('onAfterAddingAll', addedFileItems);
         };
-        uploader.onBeforeUploadItem = function(item) {
+        uploader.onBeforeUploadItem = function (item) {
             //console.info('onBeforeUploadItem', item);
         };
-        uploader.onProgressItem = function(fileItem, progress) {
+        uploader.onProgressItem = function (fileItem, progress) {
             //console.info('onProgressItem', fileItem, progress);
         };
-        uploader.onProgressAll = function(progress) {
+        uploader.onProgressAll = function (progress) {
             //console.info('onProgressAll', progress);
         };
-        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
             //console.info('onSuccessItem', fileItem, response, status, headers);
         };
-        uploader.onErrorItem = function(fileItem, response, status, headers) {
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
             //console.info('onErrorItem', fileItem, response, status, headers);
         };
-        uploader.onCancelItem = function(fileItem, response, status, headers) {
+        uploader.onCancelItem = function (fileItem, response, status, headers) {
             //console.info('onCancelItem', fileItem, response, status, headers);
         };
-        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
             //console.info('onCompleteItem', fileItem, response, status, headers);
-            $log.debug("Uploader->onCompleteItem.response:",response.picture.ico);
+            $log.debug("Uploader->onCompleteItem.response:", response.picture.ico);
             //Update Invoice Image view
-            $scope.imgURI = $scope.data.uploadFolderURI+response.picture.ico;
-            $log.debug("$scope.imgURI:",$scope.imgURI,"id:",response.id);
+            $scope.imgURI = $scope.data.uploadFolderURI + response.picture.ico;
+            $log.debug("$scope.imgURI:", $scope.imgURI, "id:", response.id);
             $rootScope.newItem.invoices = response.id;
         };
-        uploader.onCompleteAll = function() {
+        uploader.onCompleteAll = function () {
             //console.info('onCompleteAll');
         };
 
