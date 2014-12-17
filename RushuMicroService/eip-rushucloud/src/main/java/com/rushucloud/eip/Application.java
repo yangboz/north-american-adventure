@@ -78,10 +78,10 @@ public class Application {
 //		ActivemqSender sender = ActivemqSender.getInstance("SAMPLEQUEUE");
 		String businessKey = repositoryService.createProcessDefinitionQuery().list().get(0).getKey();
 		String processDefinitionId = repositoryService.createProcessDefinitionQuery().list().get(0).getId();
-		String activemqQueueName = businessKey+"/"+processDefinitionId;
+		String activemqChannelName = businessKey+"/"+processDefinitionId;
 		//Save the queueName.
-		ActivemqSender.queueName = activemqQueueName;
-		LOG.info("ActiveMQ initializing with queue name:"+ActivemqSender.queueName);
+		ActivemqSender.channelName = activemqChannelName;
+		LOG.info("ActiveMQ initializing with channel name:"+ActivemqSender.channelName);
 //		ActivemqSender sender = new ActivemqSender(activemqQueueName);
 //		sender.sendMessage("echo");//For testing
 //		ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");

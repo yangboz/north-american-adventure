@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
                 function () {
                     client.subscribe(queueName,
                         function (message) {
-                            //$log.debug(message);
+                            $log.debug(JSON.parse(message.body));
                             //console.log(message.body);
                             if (window.plugins && window.plugins.toast) {
                                 window.plugins.toast.showShortCenter(message.body);

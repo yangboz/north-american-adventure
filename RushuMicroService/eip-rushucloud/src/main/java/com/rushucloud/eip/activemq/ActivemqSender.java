@@ -23,7 +23,10 @@ public class ActivemqSender {
 	private Destination destination = null;
 	private MessageProducer producer = null;
 	private static Logger LOG = LoggerFactory.getLogger(ActivemqSender.class);
-	// Queue name storage
+	// Static variables storage here:
+	// Common channel/topic name
+	static public String channelName = null;
+	// Unique queue name
 	static public String queueName = null;
 	//
 	public ActivemqSender() {
