@@ -291,10 +291,10 @@ angular.module('starter.services', [])
         return factory;
     })
 ///FormService
-.factory('FormService', function ($resource, CONFIG_ENV) {
-    var data = $resource(CONFIG_ENV.api_endpoint + 'form/form-data', {});
-    return data;
-})
+    .factory('FormService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'form/form-data', {});
+        return data;
+    })
 ///HistoryService
     .factory('HistoryService', function ($resource, CONFIG_ENV) {
         var data = $resource(CONFIG_ENV.api_endpoint + 'history/historic-process-instances/:processInstanceId', {processInstanceId: "@processInstanceId"});
@@ -362,7 +362,9 @@ angular.module('starter.services', [])
     })
 ///CompanyService
     .factory('CompanyService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'company/:companyId', {companyId: "@companyId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'company/:companyId', {
+            companyId: "@companyId"
+        });
         return data;
     })
 ///ItemService
@@ -511,7 +513,7 @@ angular.module('starter.services', [])
             ]
             //LDAP ou name list.
             , groupNames: [
-                "employees", "management","accountancy"
+                "employees", "management", "accountancy"
             ]
             //Task action list.@see: http://www.activiti.org/userguide/#N14A5B
             , taskActions: {
@@ -536,7 +538,7 @@ angular.module('starter.services', [])
             }
             , getTimestamp: function () {
                 var now = new Date;
-                var utc_timestamp = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
+                var utc_timestamp = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),
                     now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
                 return utc_timestamp;
             }

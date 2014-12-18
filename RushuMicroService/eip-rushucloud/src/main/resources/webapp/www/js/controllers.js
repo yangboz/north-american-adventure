@@ -165,11 +165,13 @@ angular.module('starter.controllers', [])
         $rootScope.loggedUser = null;
         $rootScope.username = null;
         $rootScope.password = null;
+        $rootScope.company = null;
         ///Company related
+        $rootScope.comanies = [];
         $rootScope.companyInfo = {};
         $rootScope.companyInfo.processDefinitionId = null;
         $rootScope.companyInfo.processDefinitionKey = null;
-        ///
+        ///ActiveMQ
         $rootScope.activemqQueueName = null;
         //Badge numbers for task notification.
         $rootScope.numberOfTasks = 0;
@@ -207,13 +209,24 @@ angular.module('starter.controllers', [])
             });
         }
         ///
-        $rootScope.loadCompanyInfo = function () {
+        $rootScope.loadCompanies = function () {
             //
             CompanyService.get({}, function (response) {
-                $log.debug("CompanyService.get(default) success!", response.data[0]);
-                $rootScope.companyInfo = response.data[0];//Default value index is 0.
-                //Then getProcessDefinitionsService
-                $rootScope.loadProcessDefinitionsInfo();
+                $log.debug("CompanyService.get(default) success!", response.data);
+                $rootScope.companies = response.data;
+                $rootScope.company = $rootScope.companies[0];//default value;
+            }, function (error) {
+                // failure handler
+                $log.error("CompanyService.get() failed:", JSON.stringify(error));
+            });
+        }
+        ///
+        $rootScope.loadCompanyInfo = function () {
+            //
+            $log.debug("$rootScope.company:",$rootScope.company,"$rootScope.company.id:",$rootScope.company.id);
+            CompanyService.get({"companyId":$rootScope.company.id}, function (response) {
+                $log.debug("CompanyService.get(default) success!", response.data);
+                $rootScope.companyInfo = response.data;//
             }, function (error) {
                 // failure handler
                 $log.error("CompanyService.get() failed:", JSON.stringify(error));
@@ -222,15 +235,11 @@ angular.module('starter.controllers', [])
         ///
         $rootScope.loadProcessDefinitionsInfo = function () {
             ProcessDefinitionsService.get({}, function (response) {
-                var lastIndex = response.data.length - 1;
-                var dataArr = response.data;
-                $log.debug("ProcessDefinitionsService.get(dataArr) success!", dataArr);
-                var dataOne = dataArr[lastIndex];
-                $log.debug("ProcessDefinitionsService.get(dataOne) success!", dataOne);
-                $log.debug("$rootScope.companyInfo:", $rootScope.companyInfo);
-                $rootScope.companyInfo.processDefinitionId = dataOne.id;
-                $rootScope.companyInfo.processDefinitionKey = dataOne.key;
-                //Then
+                var lastIndex = response.data.length-1;
+                $log.debug("ProcessDefinitionsService.get() success!", response.data);
+                $rootScope.companyInfo.processDefinitionId = response.data[lastIndex].id;
+                $rootScope.companyInfo.processDefinitionKey = response.data[lastIndex].key;
+                //Then assemble activemq unique queue name.
                 $rootScope.activemqQueueName = $rootScope.companyInfo.processDefinitionKey
                 + "/" + $rootScope.companyInfo.processDefinitionId
                 + "/" + $rootScope.username;
@@ -425,8 +434,8 @@ angular.module('starter.controllers', [])
                 $location.path('/dashboard');
                 //Remove login modal
                 $scope.loginModal.hide();
+                //$log.debug("$rootScope.username:", $rootScope.username, ",$rootScope.password:", $rootScope.password);
                 //Default getTasks;
-                $log.debug("$rootScope.username:", $rootScope.username, ",$rootScope.password:", $rootScope.password);
                 /*
                  //getProcesses test
                  //ProcessService.get({user: $rootScope.username}, function (response) {
@@ -458,7 +467,7 @@ angular.module('starter.controllers', [])
                         delay: 2000, //delay 2 seconds between processing items
                         paused: true, //start out paused
                         complete: function () {
-                            console.log('$queue, all complete!');
+                            console.log('$queue(after user login), all complete!');
                         }
                     };
                 // create an instance of a queue
@@ -470,6 +479,8 @@ angular.module('starter.controllers', [])
                 myQueue.add($rootScope.loadTasks); //add one item at TaskTab
                 //getCompanyInfo(businessKey,processDefinitionKey)
                 myQueue.add($rootScope.loadCompanyInfo);
+                //Then getProcessDefinitionsService
+                myQueue.add($rootScope.loadProcessDefinitionsInfo);
                 ///Search LDAP users by ou(organization unit)
                 myQueue.add($rootScope.loadLDAPUsers);
                 //myQueue.addEach([$rootScope.loadExpenses, $rootScope.loadTasks]); //add multiple items
@@ -481,6 +492,12 @@ angular.module('starter.controllers', [])
 
             });
         };
+        //
+        $scope.selectedCompany = function(company){
+            //Update
+            $log.debug("selectedCompany:",company);
+            $rootScope.company = company;
+        }
     })
     .controller('ItemDetailCtrl', function ($scope, $rootScope, $stateParams, ItemService, $log) {
         $log.info("$stateParams.itemId:", $stateParams.itemId);

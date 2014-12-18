@@ -191,6 +191,10 @@
 
 	<repositories>
 		<repository>
+			<id>localrepository</id>
+			<url>file:///Users/yangboz/maven-repository</url>
+		</repository>
+		<repository>
 			<id>oss-jfrog-artifactory</id>
 			<name>oss-jfrog-artifactory-releases</name>
 			<url>http://oss.jfrog.org/artifactory/oss-release-local</url>
@@ -216,10 +220,12 @@
 			</snapshots>
 		</repository>
 		<!-- http://dynamicjasper.com/2011/12/23/is-there-a-maven-repository/ -->
+		<!--
 		<repository>
 			<id>fdvsolution.public</id>
 			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
 		</repository>
+		-->
 	</repositories>
 	<build>
 		<plugins>

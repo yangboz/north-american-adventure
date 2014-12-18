@@ -124,7 +124,7 @@ public class ReportServiceImpl implements ReportService {
 		Exporter.exportToXLS(jp, baos);
 
 		// 6. Set the response properties
-		String fileName = "SalesReport.xls";
+		String fileName = "ReimbursementReport.xls";
 		response.setHeader("Content-Disposition", "inline; filename="
 				+ fileName);
 		// Make sure to set the correct content type
@@ -144,7 +144,7 @@ public class ReportServiceImpl implements ReportService {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List getDatasource() {
 		// Create query for retrieving products
-		String queryStr = "SELECT amount,name,date FROM " + Expense.class.getName();
+		String queryStr = "SELECT id,amount,name,date FROM " + Expense.class.getName();
 		List<Object[]> results = this.entityManager.createQuery(queryStr)
 				.getResultList();
 		// Return the data source

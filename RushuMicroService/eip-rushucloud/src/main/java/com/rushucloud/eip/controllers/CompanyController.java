@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rushucloud.eip.dto.JsonObject;
 import com.rushucloud.eip.models.Company;
 import com.rushucloud.eip.models.CompanyDao;
 import com.rushucloud.eip.models.CompanyRepository;
+import com.rushucloud.eip.models.Item;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 @RestController
@@ -60,13 +62,14 @@ public class CompanyController {
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of company that is successfully get or not.")
 	public JsonObject list() {
-		return new JsonObject(this.companyRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC,"date"))));
+//		return new JsonObject(this.companyRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC,"date"))));
+		return new JsonObject(this._companyDao.findAll());
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ApiOperation(httpMethod = "GET", value = "Response a string describing if the company id is successfully get or not.")
-	public Company get(@PathVariable("id") long id) {
-		return this.companyRepository.findOne(id);
+	public JsonObject get(@PathVariable("id") long id) {
+		return new JsonObject(this.companyRepository.findOne(id));
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
