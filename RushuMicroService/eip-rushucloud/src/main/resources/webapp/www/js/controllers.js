@@ -251,11 +251,25 @@ angular.module('starter.controllers', [])
                 $log.error("ProcessDefinitionsService.get() failed:", JSON.stringify(error));
             });
         }
+        //
+        $rootScope.getLdapPartition = function(ou) {
+            var ouEncode = "ou=" + ou;//ou=employees,dc=example,dc=com
+            var dc = $rootScope.company.domain.split('.');
+            var partition  = ouEncode;
+            for(var i=0;i<dc.length;i++)
+            {
+                partition = partition.concat(",dc=");
+                partition = partition.concat(dc[i]);
+            }
+            $log.debug("getLdapPartition:",partition);
+            return partition;
+        }
         ///LDAP related
         $rootScope.loadLDAPUsers = function () {
-            var ouEncode_0 = "ou=" + Enum.groupNames[0] + ",";//employee
+            //var ouEncode_0 = "ou=" + Enum.groupNames[0] + ",";//employee
+            var partition_0 = $rootScope.getLdapPartition(Enum.groupNames[0]);
             LDAPService.get({
-                partition: ouEncode_0 + CONFIG_ENV.LDAP_PARTITION,
+                partition: partition_0,//e.g:dc=rushucloud,dc=com
                 filter: CONFIG_ENV.LDAP_FILTER
             }, function (response) {
                 $log.info("LDAPService.get(0) success, response:", response);
@@ -264,9 +278,10 @@ angular.module('starter.controllers', [])
                 // failure handler
                 $log.error("LDAPService.get(0) failed:", JSON.stringify(error));
             });
-            var ouEncode_1 = "ou=" + Enum.groupNames[1] + ",";//manager
+            //var ouEncode_1 = "ou=" + Enum.groupNames[1] + ",";//manager
+            var partition_1 = $rootScope.getLdapPartition(Enum.groupNames[1]);
             LDAPService.get({
-                partition: ouEncode_1 + CONFIG_ENV.LDAP_PARTITION,
+                partition: partition_1,
                 filter: CONFIG_ENV.LDAP_FILTER
             }, function (response) {
                 $log.info("LDAPService.get(1) success, response:", response);
@@ -419,7 +434,13 @@ angular.module('starter.controllers', [])
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        ProcessService, JobService, ExecutionService,
                                        HistoryService, FormDataService, CONFIG_ENV, Enum, $queue) {
-
+        //
+        $scope.selectedCompany = function(company){
+            //Update
+            $log.debug("selectedCompany:",company);
+            $rootScope.company = company;
+        }
+        //
         $scope.userLogin = function () {
 //        $log.debug("$scope.loginModal.user.username:",$scope.loginModal.user.username,",$scope.loginModal.user.password:",$scope.loginModal.user.password);
             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode($scope.loginModal.user.username + ":" + $scope.loginModal.user.password);
@@ -492,12 +513,6 @@ angular.module('starter.controllers', [])
 
             });
         };
-        //
-        $scope.selectedCompany = function(company){
-            //Update
-            $log.debug("selectedCompany:",company);
-            $rootScope.company = company;
-        }
     })
     .controller('ItemDetailCtrl', function ($scope, $rootScope, $stateParams, ItemService, $log) {
         $log.info("$stateParams.itemId:", $stateParams.itemId);
