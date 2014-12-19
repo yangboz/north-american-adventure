@@ -9,8 +9,8 @@
         <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </startEvent>
-    <sequenceFlow id="flow1" sourceRef="request" targetRef="handleRequest"></sequenceFlow>
-    <userTask id="handleRequest" name="Handle reimbursement request" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
+    <sequenceFlow id="flow1" sourceRef="request" targetRef="handleReimbursementRequestTask"></sequenceFlow>
+    <userTask id="handleReimbursementRequestTask" name="Handle reimbursement request" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
       <documentation>${employeeName} would like to take ${amountOfMoney} money of reimbursement (Motivation: ${reimbursementMotivation}).</documentation>
       <extensionElements>
         <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement?" type="enum" required="true">
@@ -21,7 +21,7 @@
         <activiti:taskListener event="all" class="com.rushucloud.eip.activiti.ActivitiTaskListener"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow2" sourceRef="handleRequest" targetRef="requestApprovedDecision"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="handleReimbursementRequestTask" targetRef="requestApprovedDecision"></sequenceFlow>
     <exclusiveGateway id="requestApprovedDecision" name="Request approved?">
       <extensionElements>
         <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
@@ -66,7 +66,7 @@
         <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </exclusiveGateway>
-    <sequenceFlow id="flow7" sourceRef="resendRequestDecision" targetRef="handleRequest">
+    <sequenceFlow id="flow7" sourceRef="resendRequestDecision" targetRef="handleReimbursementRequestTask">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="resendRequestDecision" targetRef="theEnd2">
@@ -83,7 +83,7 @@
       <bpmndi:BPMNShape bpmnElement="request" id="BPMNShape_request">
         <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="178.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="handleRequest" id="BPMNShape_handleRequest">
+      <bpmndi:BPMNShape bpmnElement="handleReimbursementRequestTask" id="BPMNShape_handleReimbursementRequestTask">
         <omgdc:Bounds height="88.0" width="105.0" x="80.0" y="163.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="requestApprovedDecision" id="BPMNShape_requestApprovedDecision">

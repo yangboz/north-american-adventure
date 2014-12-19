@@ -741,7 +741,7 @@ angular.module('starter.controllers', [])
         //
         $scope.data = {};
         $scope.data.motivation = null;
-        $scope.approveTask = function (decision, taskId) {
+        $scope.handleTask = function (decision, taskId) {
             //$ionicActionSheet.show({
             //    buttons: [
             //        { text: '<b>批准</b>' }
@@ -853,9 +853,41 @@ angular.module('starter.controllers', [])
         //Add an involved user to a process instance
         //@see: http://activiti.org/userguide/index.html#N1400A
         //POST runtime/process-instances/{processInstanceId}/identitylinks
-        $scope.addInvolvedUsers = function (args) {
-            //
+        //$scope.addInvolvedUsers = function (args) {
+        //}
+        //View ng-if
+        $scope.isHandleView = function(task){
+            return (task.taskDefinitionKey == Enum.taskDefinitionKeys.Handle);
+        }
+        $scope.isAdjustView = function(task){
+            return (task.taskDefinitionKey == Enum.taskDefinitionKeys.Adjust);
+        }
+        ///
+        $scope.adjustTask = function () {
 
+            $ionicPopup.show({
+                template: '<textarea placeholder="justification" ng-model="data.justification">',
+                title: 'Adjust with motivation',
+                subTitle: 'Please input some things',
+                scope: $scope,
+                buttons: [
+                    {text: 'Cancel'},
+                    {
+                        text: '<b>Resend</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            if (!$scope.data.justification) {
+                                //don't allow the user to close unless he enters wifi password
+                                e.preventDefault();
+                            } else {
+                                //Next func call.
+                                //TODO:start process instance again with justification.
+                                return $scope.data.justification;
+                            }
+                        }
+                    },
+                ]
+            });
         }
     })
     .controller('TaskDetailCtrl', function ($scope, $rootScope, $stateParams, TaskService, $log) {

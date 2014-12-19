@@ -542,6 +542,10 @@ angular.module('starter.services', [])
                     now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
                 return utc_timestamp;
             }
+            , taskDefinitionKeys: {
+                Handle: "handleReimbursementRequestTask"
+                ,Adjust: "adjustReimbursementRequestTask"
+            }
         };
         return service;
     }])
