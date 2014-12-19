@@ -144,7 +144,7 @@ public class ReportServiceImpl implements ReportService {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List getDatasource() {
 		// Create query for retrieving products
-		String queryStr = "SELECT id,amount,name,date FROM " + Expense.class.getName();
+		String queryStr = "SELECT id,amount,name,date FROM " + Expense.class.getName() + " WHERE de";
 		List<Object[]> results = this.entityManager.createQuery(queryStr)
 				.getResultList();
 		// Return the data source

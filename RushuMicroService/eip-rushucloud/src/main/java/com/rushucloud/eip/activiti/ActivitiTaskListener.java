@@ -24,7 +24,7 @@ public class ActivitiTaskListener implements TaskListener {
 			jsonObj.put("category", delegateTask.getCategory());
 			jsonObj.put("candidates", delegateTask.getCandidates().toString());
 			//LOG info.
-			LOG.info("Activiti task:" + jsonObj.toString());
+			LOG.debug("Activiti task:" + jsonObj.toString());
 			// Connect to ActiveMQ to send message.
 			ActivemqSender sender = new ActivemqSender();
 			// Unique the queue name

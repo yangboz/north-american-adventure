@@ -24,12 +24,14 @@ public class ActivitiExecutionListener implements ExecutionListener {
 			jsonObj.put("event", execution.getEventName());
 			jsonObj.put("execution", execution.toString());
 			jsonObj.put("variables", execution.getVariables().toString());
-			LOG.info("Activiti execution:" + jsonObj.toString());
+			LOG.debug("Activiti execution:" + jsonObj.toString());
 			// Connect to ActiveMQ to send message.
 			// ActivemqSender sender = new ActivemqSender("SAMPLEQUEUE");
 			// ActivemqSender sender =
 			// ActivemqSender.getInstance("SAMPLEQUEUE");
 			// sender.sendMessage(execution.getEventName());
+			//TODO:Watch "reimbursementApproved=false", to toggle update the expense status to Reject.
+			
 		} catch (Error err) {
 			LOG.error(err.toString());
 		}

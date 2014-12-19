@@ -12,9 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 @Entity
 @Table(name = "expenses")
 //@Embeddable
+//Override the default Hibernation delete and set the deleted flag rather than deleting the record from the db.
+@SQLDelete(sql="UPDATE expenses SET deleted = '1' WHERE id = ?")
+//Filter added to retrieve only records that have not been soft deleted.
+@Where(clause="deleted <> '1'")
 public class Expense extends OwnerModelBase {
 	//
 	public enum ExpenseStatus {
@@ -119,6 +126,16 @@ public class Expense extends OwnerModelBase {
 
 	public void setPid(long pid) {
 		this.pid = pid;
+	}
+	//Soft-delete
+	//@see: http://featurenotbug.com/2009/07/soft-deletes-using-hibernate-annotations/
+	private char deleted='0';
+	public char getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(char deleted) {
+		this.deleted = deleted;
 	}
 
 	// ==============
