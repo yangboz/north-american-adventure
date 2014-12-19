@@ -49,9 +49,7 @@
       <documentation>Your manager has disapproved your reimbursement request for ${amountOfMoney} money.
         Reason: ${managerMotivation}</documentation>
       <extensionElements>
-        <activiti:formProperty id="amountOfMoney" name="Number of days" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string"></activiti:formProperty>
+        <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resendRequest" name="Resend reimbursement request to manager?" type="enum" required="true">
           <activiti:value id="true" name="Yes"></activiti:value>
           <activiti:value id="false" name="No"></activiti:value>

@@ -650,10 +650,6 @@ angular.module('starter.controllers', [])
         }
         //@see: http://www.activiti.org/userguide/#N12EE4
         $scope.startProcessInstance = function (expenseId) {
-            //$log.debug("startProcessInstance() called!");
-            if (angular.isUndefined($rootScope.companyInfo.processDefinitionKey) || angular.isUndefined($rootScope.companyInfo.businessKey)) {
-                return $log.error("Undefined processDefinitionKey/businessKey", $rootScope.companyInfo.processDefinitionKey, $rootScope.companyInfo.businessKey);
-            }
             //Then submitStartForm to start process
             var anewProcessInstance = new ProcessInstancesService();
             anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
@@ -663,7 +659,6 @@ angular.module('starter.controllers', [])
                 {'name': 'employeeName', 'value': $rootScope.username}
                 , {'name': 'taskName', 'value': $scope.processInstanceVariables.name}
                 , {'name': 'dueDate', 'value': $scope.processInstanceVariables.date}
-                //, {'name': 'reportManagerId', 'value': $rootScope.managerIDsSel[0]}
                 , {'name': 'participantIds', 'value': $rootScope.employeeIDsSel.toString()}
                 , {'name': 'amountOfMoney', 'value': $rootScope.itemIDsSelAmount}
                 , {'name': 'reimbursementMotivation', 'value': $scope.processInstanceVariables.name}
@@ -732,15 +727,14 @@ angular.module('starter.controllers', [])
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.claim() success!", resp);
                 //refresh reports list view.
-                TaskService.get({assignee: $rootScope.username}, function (response) {
-                    $log.debug("TaskService.get() success!", response);
-                    $rootScope.reports = response.data;
-                });
+                $rootScope.loadTasks();
             });
         };
         //
         $scope.data = {};
         $scope.data.motivation = null;
+        $scope.data.justification = null;
+        //
         $scope.handleTask = function (decision, taskId) {
             //$ionicActionSheet.show({
             //    buttons: [
@@ -829,6 +823,24 @@ angular.module('starter.controllers', [])
             });
 
         };
+        $scope.re_completeTask = function (decision, taskId, motivation) {
+            var action = new TaskService();
+            action.action = Enum.taskActions.Complete;
+            action.variables = [
+                {'name': 'resendRequest', 'value': decision}
+                , {'name': 'reimbursementMotivation', 'value': motivation}
+            ];
+            action.$save({"taskId": taskId}, function (resp) {
+                //after finishing remove the task from the tasks list
+                $log.debug("TaskService.re_complete() success!", resp);
+                //refresh reports list view.
+                $rootScope.loadTasks();
+            }, function (error) {
+                // failure handler
+                $log.error("TaskService.re_complete() failed:", JSON.stringify(error));
+            });
+
+        };
         //ResolveTask
         $scope.resolveTask = function (taskId) {
             var action = new TaskService();
@@ -863,10 +875,10 @@ angular.module('starter.controllers', [])
             return (task.taskDefinitionKey == Enum.taskDefinitionKeys.Adjust);
         }
         ///
-        $scope.adjustTask = function () {
+        $scope.adjustTask = function (taskId) {
 
             $ionicPopup.show({
-                template: '<textarea placeholder="justification" ng-model="data.justification">',
+                template: '<textarea placeholder="motivation" ng-model="data.motivation">',
                 title: 'Adjust with motivation',
                 subTitle: 'Please input some things',
                 scope: $scope,
@@ -876,13 +888,14 @@ angular.module('starter.controllers', [])
                         text: '<b>Resend</b>',
                         type: 'button-positive',
                         onTap: function (e) {
-                            if (!$scope.data.justification) {
+                            if (!$scope.data.motivation) {
                                 //don't allow the user to close unless he enters wifi password
                                 e.preventDefault();
                             } else {
                                 //Next func call.
-                                //TODO:start process instance again with justification.
-                                return $scope.data.justification;
+                                //start process instance again with justification.
+                                $scope.re_completeTask(true,taskId,$scope.data.motivation);
+                                return $scope.data.motivation;
                             }
                         }
                     },
