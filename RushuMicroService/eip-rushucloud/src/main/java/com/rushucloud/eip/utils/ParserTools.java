@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 
+import org.activiti.engine.impl.util.json.JSONArray;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.commons.httpclient.cookie.CookieOrigin;
 import org.apache.commons.httpclient.cookie.MalformedCookieException;
 import org.apache.http.HttpEntity;
@@ -71,6 +73,8 @@ public class ParserTools {
 			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
 			body = EntityUtils.toString(entity);
+			// parsing JSON
+	           JSONObject result = new JSONObject(body); //Convert String to JSON Object
 		} finally {
 			httpclient.getConnectionManager().shutdown();
 		}

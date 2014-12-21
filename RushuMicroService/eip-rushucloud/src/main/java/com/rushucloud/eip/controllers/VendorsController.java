@@ -3,15 +3,17 @@ package com.rushucloud.eip.controllers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.mail.Address;
 import javax.validation.Valid;
 
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.URIException;
@@ -20,6 +22,12 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.util.URIUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.node.ArrayNode;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +40,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator.Feature;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rushucloud.eip.consts.ThirdPartyConstants;
 import com.rushucloud.eip.dto.JsonObject;
 import com.rushucloud.eip.dto.JsonString;
@@ -42,6 +57,7 @@ import com.rushucloud.eip.models.Item.ItemType;
 import com.rushucloud.eip.models.Vendor;
 import com.rushucloud.eip.models.VendorDao;
 import com.rushucloud.eip.models.VendorRepository;
+import com.rushucloud.eip.thirdParty.BaiduLoc;
 import com.rushucloud.eip.utils.ParserTools;
 import com.wordnik.swagger.annotations.ApiOperation;
 
@@ -75,20 +91,33 @@ public class VendorsController {
 			@RequestParam(value = "latitude", defaultValue = "31.21524") String latitude,
 			@RequestParam(value = "longitude", defaultValue = "121.420033") String longitude,
 			@RequestParam(value = "category", defaultValue = "美食") String category)
-			throws ClientProtocolException, IOException {
+			throws ClientProtocolException, IOException, ParseException {
 		// return new JsonObject(this.vendorRepository.findAll());
 		// @see: http://www.tuicool.com/articles/3aIFrm
-		String url2 = "http://api.map.baidu.com/geocoder/v2/?ak="
+		String url_geocoder = "http://api.map.baidu.com/geocoder/v2/?ak="
 				+ ThirdPartyConstants.BAIDU_AK + "&location=" + latitude + ","
 				+ longitude + "&output=json&pois=0";
-		LOG.debug(ParserTools.doGet(url2));
+		String url2ParsedStr = ParserTools.doGet(url_geocoder);
+		// String encodedJsonStr = URLEncoder.encode(url2ParsedStr, "utf-8");
+		// {"status":0,"result":{"location":{"lng":121.4200330434,"lat":31.215239865509},"formatted_address":"上海市长宁区天山路1890弄-1-～41号","business":"天山路,遵义路,虹桥","addressComponent":{"city":"上海市","direction":"附近","distance":"24","district":"长宁区","province":"上海市","street":"天山路","street_number":"1890弄-1-～41号"},"poiRegions":[],"cityCode":289}}
 		//
+		JSONObject jObject = new JSONObject(url2ParsedStr);
+		JSONObject resultObject = jObject.getJSONObject("result");
+		JSONObject addressComponentObject = resultObject
+				.getJSONObject("addressComponent");
+		String cityStr = addressComponentObject.getString("city");
+		cityStr = cityStr.substring(0, cityStr.length()-1);
+		String districtStr = addressComponentObject.getString("district");
+		//
+		LOG.info("Geocoder by BAIDU,city :" + url_geocoder
+				+ ",then decoding JSON:" + resultObject.toString()+",city:"+cityStr);
+		//Call DZDP API.
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("city", "上海");
+		paramMap.put("city", cityStr);//Notice:"上海市" to "上海"
 		paramMap.put("latitude", latitude);
 		paramMap.put("longitude", longitude);
 		paramMap.put("category", category);
-		paramMap.put("region", "长宁区");
+		paramMap.put("region", districtStr);
 		paramMap.put("limit", "20");
 		paramMap.put("radius", "2000");
 		paramMap.put("offset_type", "0");
