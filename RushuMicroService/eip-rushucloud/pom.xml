@@ -178,6 +178,25 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<!-- ThirdParty(DZDP,BAIDU..) related -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.baidu</groupId>
+			<artifactId>locSDK</artifactId>
+			<version>5.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libs/BAIDU_locSDK_5.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<properties>
@@ -220,12 +239,8 @@
 			</snapshots>
 		</repository>
 		<!-- http://dynamicjasper.com/2011/12/23/is-there-a-maven-repository/ -->
-		<!--
-		<repository>
-			<id>fdvsolution.public</id>
-			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
-		</repository>
-		-->
+		<!-- <repository> <id>fdvsolution.public</id> <url>http://archiva.fdvs.com.ar/repository/public1/</url> 
+			</repository> -->
 	</repositories>
 	<build>
 		<plugins>
