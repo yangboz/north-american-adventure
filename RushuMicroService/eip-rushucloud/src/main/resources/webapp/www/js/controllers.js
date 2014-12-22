@@ -175,6 +175,7 @@ angular.module('starter.controllers', [])
         $rootScope.items = [];
         $rootScope.expenses = [];
         $rootScope.tasks = [];
+        $rootScope.itemsSel = [];//selected items.
         $rootScope.itemIDsSel = [];//selected item ids.
         $rootScope.itemIDsSelAmount = 0;//total number of selected item's amount.
         $rootScope.expenses = [];
@@ -630,16 +631,18 @@ angular.module('starter.controllers', [])
         }
         //ItemListModal related
         //@see: http://stackoverflow.com/questions/14514461/how-can-angularjs-bind-to-list-of-checkbox-values
-        $scope.toggleItemListSelection = function (itemId, index) {
-            var idx = $rootScope.itemIDsSel.indexOf(itemId);
+        $scope.toggleItemListSelection = function (item, index) {
+            var idx = $rootScope.itemIDsSel.indexOf(item.id);
             if (idx > -1) {
                 $rootScope.itemIDsSel.splice(idx, 1);
                 $rootScope.itemIDsSelAmount -= $rootScope.items[index].amount;
+                $rootScope.itemsSel.splice(idx, 1);
             } else {
-                $rootScope.itemIDsSel.push(itemId);
+                $rootScope.itemIDsSel.push(item.id);
                 $rootScope.itemIDsSelAmount += $rootScope.items[index].amount;
+                $rootScope.itemsSel.push(item);
             }
-            $log.debug("toggleItemListSelection:", $rootScope.itemIDsSel, $rootScope.itemIDsSelAmount);
+            $log.debug("toggleItemListSelection:", $rootScope.itemIDsSel, $rootScope.itemIDsSelAmount,$rootScope.itemsSel);
         }
     })
     .controller('TasksCtrl', function ($scope, $rootScope, $http, Base64, $location, $log,
