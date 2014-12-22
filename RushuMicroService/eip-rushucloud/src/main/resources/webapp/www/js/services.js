@@ -402,6 +402,15 @@ angular.module('starter.services', [])
         var data = $resource(CONFIG_ENV.api_endpoint + 'upload', {owner: "@owner"});
         return data;
     })
+///VendorService
+    .factory('VendorService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'vendors/:vendorId', {
+            latitude: "@latitude"
+            , longitude: "@longitude"
+            , category: "@category"
+        });
+        return data;
+    })
 ///HTTP Header communication.
     .factory('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
@@ -544,22 +553,58 @@ angular.module('starter.services', [])
             }
             , taskDefinitionKeys: {
                 Handle: "handleReimbursementRequestTask"
-                ,Adjust: "adjustReimbursementRequestTask"
+                , Adjust: "adjustReimbursementRequestTask"
             }
         };
         return service;
     }])
+    ///Utilities
     .factory('myHttpInterceptor', function ($q, $window, $rootScope) {
         return function (promise) {
             return promise.then(function (response) {
                 //$rootScope.hideLoading();
-                $('#spinner').hide();
+                //$q('#spinner').hide();
                 return response;
             }, function (response) {
                 //$rootScope.hideLoading();
-                $('#spinner').hide();
+                //$q('#spinner').hide();
                 return $q.reject(response);
             });
         };
-    });
+    })
+    ///For local storage.
+    .factory('$localStorage', ['$window', function ($window) {
+        return {
+            set: function (key, value) {
+                $window.localStorage[key] = value;
+            },
+            get: function (key, defaultValue) {
+                return $window.localStorage[key] || defaultValue;
+            },
+            setObject: function (key, value) {
+                $window.localStorage[key] = JSON.stringify(value);
+            },
+            getObject: function (key) {
+                return JSON.parse($window.localStorage[key] || '{}');
+            }
+        }
+    }])
+    ///
+    .factory('$geoLocation', function ($localStorage) {
+        return {
+            setGeolocation: function (latitude, longitude) {
+                var _position = {
+                    latitude: latitude,
+                    longitude: longitude
+                }
+                $localStorage.setObject('geoLocation', _position);
+            },
+            getGeolocation: function () {
+                return glocation = {
+                    lat: $localStorage.getObject('geoLocation').latitude,
+                    lng: $localStorage.getObject('geoLocation').longitude
+                }
+            }
+        }
+    })
 ;

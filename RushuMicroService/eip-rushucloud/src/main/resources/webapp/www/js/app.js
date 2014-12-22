@@ -20,13 +20,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }])
     //Support RESTful PATCH
     //@see: http://stackoverflow.com/questions/20305615/configure-angularjs-module-to-send-patch-request
-    .config(['$httpProvider', function ($httpProvider) {
+    .config(['$httpProvider', function ($httpProvider,$q) {
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
         }
         $httpProvider.responseInterceptors.push('myHttpInterceptor');
         var spinnerFunction = function spinnerFunction(data, headersGetter) {
-            $("#spinner").show();
+            //$q("#spinner").show();
             return data;
         };
         $httpProvider.defaults.transformRequest.push(spinnerFunction);
@@ -53,7 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         , 'UPLOAD_FOLDER': 'uploads/'//for image file upload
     })
 ///App run
-    .run(function ($ionicPlatform, $log) {
+    .run(function ($ionicPlatform, $log,$cordovaGeolocation, $geoLocation) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -70,6 +70,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 , ionic.Platform.version()
                 , ionic.Platform.isWebView()
             );
+            //@see: http://rajeevkannav.blogspot.sg/2014/11/ionic-geolocation-using-ngcordova.html
+            $cordovaGeolocation
+                .getCurrentPosition()
+                .then(function (position) {
+                    $geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude)
+                }, function (err) {
+                    $log.error("$cordovaGeolocation",err);
+                    $geoLocation.setGeolocation(37.38, -122.09);
+                });
+
+            // begin a watch
+            var options = {
+                frequency: 1000,
+                timeout: 3000,
+                enableHighAccuracy: true
+            };
+
+            var watch = $cordovaGeolocation.watchPosition(options);
+            watch.promise.then(function () { /* Not  used */
+                },
+                function (err) {
+                    $log.error("$cordovaGeolocation",err);
+                    $geoLocation.setGeolocation(37.38, -122.09);
+                }, function (position) {
+                    $geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude)
+                });
+
         });
     })
 

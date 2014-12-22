@@ -3,7 +3,7 @@ angular.module('starter.controllers', [])
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
                                       CONFIG_ENV, $log, $cordovaToast, $queue, Enum,
                                       ExpenseService, ItemService, TaskService, CompanyService,
-                                      ProcessDefinitionsService, LDAPService) {
+                                      ProcessDefinitionsService, LDAPService, $geoLocation, VendorService) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -49,7 +49,6 @@ angular.module('starter.controllers', [])
 //    $WebSocket.onmessage(function(event) {
 //        console.log('message: ', event.data);
 //    });
-///Model
         ///LoginModal
         $ionicModal.fromTemplateUrl('templates/modal-login.html', {
             scope: $scope,
@@ -154,9 +153,11 @@ angular.module('starter.controllers', [])
         $rootScope.itemIDsSelAmount = 0;//total number of selected item's amount.
         $rootScope.expenses = [];
         $rootScope.employeeIDs = [];
-        $rootScope.managerIDs = [];
         $rootScope.employeeIDsSel = [];
+        $rootScope.managerIDs = [];
         $rootScope.managerIDsSel = [];
+        $rootScope.vendorIDs = [];
+        $rootScope.vendorIDsSel = [];
         $rootScope.vendors = [];
         $rootScope.categories = [];
         $rootScope.tags = [];
@@ -175,6 +176,10 @@ angular.module('starter.controllers', [])
         $rootScope.activemqQueueName = null;
         //Badge numbers for task notification.
         $rootScope.numberOfTasks = 0;
+        ///GeoLocation,@see: http://rajeevkannav.blogspot.sg/2014/11/ionic-geolocation-using-ngcordova.html
+        $log.info("GeoLocation:",$geoLocation.getGeolocation());
+        $rootScope.latitude = $geoLocation.getGeolocation().lat;
+        $rootScope.longitude = $geoLocation.getGeolocation().lng;
         //Common functions
         ///
         $rootScope.loadExpenses = function () {
@@ -289,6 +294,20 @@ angular.module('starter.controllers', [])
             }, function (error) {
                 // failure handler
                 $log.error("LDAPService.get(1) failed:", JSON.stringify(error));
+            });
+        }
+        ///
+        $rootScope.loadVendors = function(){
+            //
+            $rootScope.category = "美食";
+            //
+            VendorService.get({latitude: $rootScope.latitude,longitude:$rootScope.longitude,category:$rootScope.category}, function (response) {
+                var jsonObj = JSON.parse(response.data);
+                $log.info("VendorService.get() success, response(json):", jsonObj);
+                $rootScope.vendors = jsonObj.businesses;
+            }, function (error) {
+                // failure handler
+                $log.error("VendorService.get() failed:", JSON.stringify(error));
             });
         }
     })
@@ -504,6 +523,8 @@ angular.module('starter.controllers', [])
                 myQueue.add($rootScope.loadProcessDefinitionsInfo);
                 ///Search LDAP users by ou(organization unit)
                 myQueue.add($rootScope.loadLDAPUsers);
+                ///pre load vendors for testing.
+                myQueue.add($rootScope.loadVendors);
                 //myQueue.addEach([$rootScope.loadExpenses, $rootScope.loadTasks]); //add multiple items
                 myQueue.start(); //must call start() if queue starts paused
                 //formData test
@@ -913,9 +934,16 @@ angular.module('starter.controllers', [])
             $log.debug("TaskDetailCtrl $scope.task", $scope.task);
         });
     })
-    .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log) {
-        //
-        $rootScope.vendors = [];
+    .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log, VendorService) {
+        $scope.toggleVendorListSelection = function (vendorId) {
+            var idx = $rootScope.vendorIDsSel.indexOf(vendorId);
+            if (idx > -1) {
+                $rootScope.vendorIDsSel.splice(idx, 1);
+            } else {
+                $rootScope.vendorIDsSel.push(vendorId);
+            }
+            $log.debug("toggleVendorListSelection:", $rootScope.vendorIDsSel);
+        }
     })
     .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {
         //

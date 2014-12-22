@@ -170,8 +170,10 @@ public class VendorsController {
 		} finally {
 			method.releaseConnection();
 		}
+		//
+//		LOG.info("DZDP API response:"+response);
 		return response.toString();
-
+//		return new JSONObject(response.toString());
 	}
 
 	private String getQueryString(String appKey, String secret,
