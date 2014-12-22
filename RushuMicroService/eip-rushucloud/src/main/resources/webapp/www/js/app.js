@@ -20,16 +20,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }])
     //Support RESTful PATCH
     //@see: http://stackoverflow.com/questions/20305615/configure-angularjs-module-to-send-patch-request
-    .config(['$httpProvider', function ($httpProvider,$q) {
+    .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
         }
-        $httpProvider.responseInterceptors.push('myHttpInterceptor');
-        var spinnerFunction = function spinnerFunction(data, headersGetter) {
-            //$q("#spinner").show();
-            return data;
-        };
-        $httpProvider.defaults.transformRequest.push(spinnerFunction);
+        //@see: http://forum.ionicframework.com/t/ionicloading-in-http-interceptor/4599/7
+        $httpProvider.interceptors.push('TrendicityInterceptor');
     }])
 ////$log configure
     .config(['$logProvider', function ($logProvider) {
@@ -51,6 +47,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         , 'LDAP_FILTER': '(objectclass=person)'//default LDAP partition filter
         , 'WIN_LOCAL_STORAGE_NAME': 'auth_rsc'//name for window local storage.
         , 'UPLOAD_FOLDER': 'uploads/'//for image file upload
+    })
+    .constant('$ionicLoadingConfig', {
+        //template: '<h3><icon ios="ion-ios7-reloading" android="ion-loading-c" default="ion-refreshing"></icon></h3>Loading...'
+        template: "<img id='spinner' src='img/spinner.gif'>"
     })
 ///App run
     .run(function ($ionicPlatform, $log,$cordovaGeolocation, $geoLocation) {

@@ -559,19 +559,6 @@ angular.module('starter.services', [])
         return service;
     }])
     ///Utilities
-    .factory('myHttpInterceptor', function ($q, $window, $rootScope) {
-        return function (promise) {
-            return promise.then(function (response) {
-                //$rootScope.hideLoading();
-                //$q('#spinner').hide();
-                return response;
-            }, function (response) {
-                //$rootScope.hideLoading();
-                //$q('#spinner').hide();
-                return $q.reject(response);
-            });
-        };
-    })
     ///For local storage.
     .factory('$localStorage', ['$window', function ($window) {
         return {
@@ -607,4 +594,43 @@ angular.module('starter.services', [])
             }
         }
     })
+    ///@see: http://forum.ionicframework.com/t/ionicloading-in-http-interceptor/4599/7
+    .factory('TrendicityInterceptor',
+    function ($injector, $q, $log) {
+
+        var hideLoadingModalIfNecessary = function () {
+            var $http = $http || $injector.get('$http');
+            if ($http.pendingRequests.length === 0) {
+                $injector.get('$ionicLoading').hide();
+            }
+        };
+
+        return {
+            request: function (config) {
+                $injector.get('$ionicLoading').show();
+
+                // Handle adding the access_token or auth request.
+
+                return config;
+            },
+            requestError: function (rejection) {
+                hideLoadingModalIfNecessary();
+                return $q.reject(rejection);
+            },
+            response: function (response) {
+                hideLoadingModalIfNecessary();
+                return response;
+            },
+            responseError: function (rejection) {
+                hideLoadingModalIfNecessary();
+                //http status code check
+                $log.error("detected what appears to be an Instagram auth error...", rejection);
+                if (rejection.status == 400) {
+                    rejection.status = 401; // Set the status to 401 so that angular-http-auth inteceptor will handle it
+                }
+                return $q.reject(rejection);
+            }
+        };
+    }
+);
 ;

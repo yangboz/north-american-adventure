@@ -156,8 +156,7 @@ angular.module('starter.controllers', [])
         $rootScope.employeeIDsSel = [];
         $rootScope.managerIDs = [];
         $rootScope.managerIDsSel = [];
-        $rootScope.vendorIDs = [];
-        $rootScope.vendorIDsSel = [];
+        $rootScope.vendorIdSel = -1;
         $rootScope.vendors = [];
         $rootScope.categories = [];
         $rootScope.tags = [];
@@ -936,13 +935,8 @@ angular.module('starter.controllers', [])
     })
     .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log, VendorService) {
         $scope.toggleVendorListSelection = function (vendorId) {
-            var idx = $rootScope.vendorIDsSel.indexOf(vendorId);
-            if (idx > -1) {
-                $rootScope.vendorIDsSel.splice(idx, 1);
-            } else {
-                $rootScope.vendorIDsSel.push(vendorId);
-            }
-            $log.debug("toggleVendorListSelection:", $rootScope.vendorIDsSel);
+            $rootScope.vendorIdSel = vendorId;
+            $log.debug("toggleVendorListSelection:", $rootScope.vendorIdSel);
         }
     })
     .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {
