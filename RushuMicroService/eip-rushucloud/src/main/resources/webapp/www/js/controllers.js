@@ -1,9 +1,10 @@
 angular.module('starter.controllers', [])
 //
     .controller('MainCtrl', function ($scope, $http, $rootScope, $location, $ionicModal, $ionicLoading, $ionicNavBarDelegate,
-                                      CONFIG_ENV, $log, $cordovaToast, $queue, Enum,
+                                      CONFIG_ENV, $log, $cordovaToast, $queue, Enum, $state,
                                       ExpenseService, ItemService, TaskService, CompanyService,
-                                      ProcessDefinitionsService, LDAPService, $geoLocation, VendorService) {
+                                      ProcessDefinitionsService, LDAPService, $geoLocation, VendorService,
+                                      $ionicActionSheet) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
@@ -17,7 +18,32 @@ angular.module('starter.controllers', [])
                                 window.plugins.toast.showShortCenter(message.body);
                             }
                             else {
-                                $ionicLoading.show({template: message.body, noBackdrop: true, duration: 10000});
+                                //$ionicLoading.show({template: message.body, noBackdrop: true, duration: 10000});
+                                $ionicActionSheet.show({
+                                    buttons: [
+                                        { text: '<b>查看</b>' }
+                                    ],
+                                    destructiveText: '',
+                                    titleText: '消息通知:'+message.body,
+                                    cancelText: '忽略',
+                                    cancel: function() {
+                                        // add cancel code..
+                                        $rootScope.numberOfTasks +=1;
+                                    },
+                                    buttonClicked: function(index) {
+                                        //$log.debug("$ionicActionSheet clicked button index:",index);
+                                        //Go to task tab view
+                                        $state.transitionTo("tab.tasks");
+                                        //Switch slide box to task
+                                        $rootScope.selectedViewIndex = 1;
+                                        //Then update the badge icon.
+                                        $rootScope.numberOfTasks = 0;
+                                        return true;
+                                    },
+                                    destructiveButtonClicked: function() {
+                                        //
+                                    }
+                                });
                             }
                         },
                         {priority: 9}
@@ -179,6 +205,8 @@ angular.module('starter.controllers', [])
         $log.info("GeoLocation:",$geoLocation.getGeolocation());
         $rootScope.latitude = $geoLocation.getGeolocation().lat;
         $rootScope.longitude = $geoLocation.getGeolocation().lng;
+        ///View index at tab_tasks
+        $rootScope.selectedViewIndex = 0;
         //Common functions
         ///
         $rootScope.loadExpenses = function () {
@@ -338,10 +366,9 @@ angular.module('starter.controllers', [])
     })
     .controller('TabCtrlTasks', function ($scope, $rootScope) {
         //Slide-box view
-        $scope.selectedViewIndex = 0;
         $scope.changeViewIndex = function (index) {
             //$log.info("TabCtrlTasks selected view index:", index);
-            $scope.selectedViewIndex = index;
+            $rootScope.selectedViewIndex = index;
             if (index == 0) {
                 $rootScope.loadExpenses();
             }
@@ -756,26 +783,7 @@ angular.module('starter.controllers', [])
         $scope.data.justification = null;
         //
         $scope.handleTask = function (decision, taskId) {
-            //$ionicActionSheet.show({
-            //    buttons: [
-            //        { text: '<b>批准</b>' }
-            //    ],
-            //    destructiveText: '拒绝',
-            //    titleText: '报销审批',
-            //    cancelText: '取消',
-            //    cancel: function() {
-            //        // add cancel code..
-            //    },
-            //    buttonClicked: function(index) {
-            //        //$log.debug("$ionicActionSheet clicked button index:",index);
-            //        //$scope.completeTask(taskId);
-            //        return true;
-            //    },
-            //    destructiveButtonClicked: function() {
-            //        //$scope.resolveTask(taskId);
-            //    }
-            //});
-
+            //
             if (decision)//approve
             {
                 $ionicPopup.show({

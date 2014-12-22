@@ -13,7 +13,7 @@
         </button>
     </ion-nav-buttons>
   <ion-content>
-      <ion-slide-box active-slide="selectedViewIndex">
+      <ion-slide-box active-slide="$root.selectedViewIndex">
           <ion-slide>
               <ion-list ng-controller="ExpenseCtrl">
                   <ion-item ng-repeat="expense in $root.expenses" type="item-text-wrap" >
