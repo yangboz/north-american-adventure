@@ -17,6 +17,7 @@ import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 
 import com.rushucloud.eip.dto.JsonObject;
 import com.rushucloud.eip.models.ExpenseDao;
+import com.rushucloud.eip.reports.FastReport;
 import com.rushucloud.eip.services.ReportService;
 import com.wordnik.swagger.annotations.ApiOperation;
 
@@ -75,5 +76,24 @@ public class ReportController {
 		}else{
 			return new JsonObject(this._expenseDao.findAll());
 		}
+	}
+	/**
+	 * @see: http://jasperreports.sourceforge.net/sample.reference/fonts/index.html
+	 * Downloads the report as an PDF format. 
+	 * <p>
+	 * Make sure this method doesn't return any model. Otherwise, you'll get 
+	 * an "IllegalStateException: getOutputStream() has already been called for this response"
+	 */
+    @RequestMapping(value = "/pdf", method = RequestMethod.GET, params = { "title", "subtitle","title", "subtitle" })
+    public JsonObject getPDF(@RequestParam(value = "title") String title,@RequestParam(value = "subtitle") String subtitle,
+    		@RequestParam(value = "printBackgroundOnOddRows", defaultValue = "false") Boolean printBackgroundOnOddRows,@RequestParam(value = "useFullPageWidth", defaultValue = "false") Boolean useFullPageWidth){
+    	String pdfUrl = "";
+    	FastReport fastReport = new FastReport();
+    	try {
+    		pdfUrl = fastReport.testReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return new JsonObject(pdfUrl);
 	}
 }
