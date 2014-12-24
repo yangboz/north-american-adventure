@@ -189,6 +189,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     }
                 }
             })
+            .state('tab.reports-export', {
+                url: '/reports-export',
+                views: {
+                    'tab-reports': {
+                        templateUrl: 'templates/export-reports.html',
+                        controller: 'ReportsCtrl'
+                    }
+                }
+            })
             .state('tab.my', {
                 url: '/my',
                 views: {
