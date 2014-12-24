@@ -170,6 +170,18 @@ public class Item extends OwnerModelBase {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+	/*
+	 * Indicate whether or not used.
+	 */
+	private Boolean used=false;
+
+	public Boolean getUsed() {
+		return used;
+	}
+
+	public void setUsed(Boolean used) {
+		this.used = used;
+	}
 
 	// ==============
 	// PUBLIC METHODS

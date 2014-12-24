@@ -233,7 +233,7 @@ angular.module('starter.controllers', [])
         }
         ///
         $rootScope.loadItems = function () {
-            ItemService.get({owner: $rootScope.username}, function (response) {
+            ItemService.get({owner: $rootScope.username,used:true}, function (response) {
                 $log.debug("ItemService.get() success!", response);
                 $rootScope.items = response.data;
             }, function (error) {

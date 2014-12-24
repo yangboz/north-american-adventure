@@ -369,7 +369,7 @@ angular.module('starter.services', [])
     })
 ///ItemService
     .factory('ItemService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {owner: "@owner", itemId: "@itemId"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {owner: "@owner", itemId: "@itemId",used:"@used"});
         return data;
     })
 ///ExpenseService

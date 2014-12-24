@@ -1,7 +1,12 @@
 package com.rushucloud.eip.controllers;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+import org.hibernate.criterion.CriteriaQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +46,9 @@ public class ItemsController {
 	public ItemsController(ItemRepository itemRepository) {
 		this.itemRepository = itemRepository;
 	}
-
+	
+	@PersistenceContext
+	EntityManager entityManager;
 	// ==============
 	// PUBLIC METHODS
 	// ==============
@@ -52,23 +59,32 @@ public class ItemsController {
 		return this.itemRepository.save(item);
 	}
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of item that is successfully get or not.")
-//	public JsonObject list() {
-//		return new JsonObject(this.itemRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC,"date"))));
-//	}
-	
-	@RequestMapping(method = RequestMethod.GET,params = {"owner"})
+	// @RequestMapping(method = RequestMethod.GET)
+	// @ApiOperation(httpMethod = "GET", value =
+	// "Response a list describing all of item that is successfully get or not.")
+	// public JsonObject list() {
+	// return new JsonObject(this.itemRepository.findAll(new Sort(new
+	// Sort.Order(Sort.Direction.ASC,"date"))));
+	// }
+
+	@RequestMapping(method = RequestMethod.GET, params = { "owner", "used" })
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of item that is successfully get or not.")
-	public JsonObject list(@RequestParam(value = "owner") String owner) {
-//		return new JsonObject(this.expenseRepository.findAll());
-		if(owner!=null)
-		{
+	public JsonObject list(@RequestParam(value = "owner") String owner,
+			@RequestParam(value = "used", defaultValue = "false") String used) {
+		// return new JsonObject(this.expenseRepository.findAll());
+		if (owner != null) {
 			//
-			Iterable<Item> result = this._itemDao.findItemsByOwner(owner);
-//			LOG.debug("itemsByOwner()result:"+result.toString());
-			return new JsonObject(result);
-		}else{
+//			 Iterable<Item> result = this._itemDao.findItemsByOwner(owner);
+			//@see: http://docs.oracle.com/cd/E16439_01/doc.1013/e13981/usclient005.htm
+			String queryStr = "SELECT OBJECT(item) FROM "
+					+ Item.class.getName() + " item WHERE item.owner='" + owner
+					+ "' AND item.used='"+used+"'";
+			@SuppressWarnings("unchecked")
+			List<Object[]> results = this.entityManager.createQuery(queryStr)
+					.getResultList();
+			// LOG.debug("itemsByOwner()result:"+result.toString());
+			return new JsonObject(results);
+		} else {
 			return new JsonObject(this._itemDao.findAll());
 		}
 	}
