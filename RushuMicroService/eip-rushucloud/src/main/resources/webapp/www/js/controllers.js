@@ -21,16 +21,16 @@ angular.module('starter.controllers', [])
                                 //$ionicLoading.show({template: message.body, noBackdrop: true, duration: 10000});
                                 $ionicActionSheet.show({
                                     buttons: [
-                                        { text: '<b>查看</b>' }
+                                        {text: '<b>查看</b>'}
                                     ],
                                     destructiveText: '',
-                                    titleText: '消息通知:'+message.body,
+                                    titleText: '消息通知:' + message.body,
                                     cancelText: '忽略',
-                                    cancel: function() {
+                                    cancel: function () {
                                         // add cancel code..
-                                        $rootScope.numberOfTasks +=1;
+                                        $rootScope.numberOfTasks += 1;
                                     },
-                                    buttonClicked: function(index) {
+                                    buttonClicked: function (index) {
                                         //$log.debug("$ionicActionSheet clicked button index:",index);
                                         //Go to task tab view
                                         $state.transitionTo("tab.tasks");
@@ -40,7 +40,7 @@ angular.module('starter.controllers', [])
                                         $rootScope.numberOfTasks = 0;
                                         return true;
                                     },
-                                    destructiveButtonClicked: function() {
+                                    destructiveButtonClicked: function () {
                                         //
                                     }
                                 });
@@ -203,7 +203,7 @@ angular.module('starter.controllers', [])
         //Badge numbers for task notification.
         $rootScope.numberOfTasks = 0;
         ///GeoLocation,@see: http://rajeevkannav.blogspot.sg/2014/11/ionic-geolocation-using-ngcordova.html
-        $log.info("GeoLocation:",$geoLocation.getGeolocation());
+        $log.info("GeoLocation:", $geoLocation.getGeolocation());
         $rootScope.latitude = $geoLocation.getGeolocation().lat;
         $rootScope.longitude = $geoLocation.getGeolocation().lng;
         ///View index at tab_tasks
@@ -233,7 +233,7 @@ angular.module('starter.controllers', [])
         }
         ///
         $rootScope.loadItems = function () {
-            ItemService.get({owner: $rootScope.username,used:true}, function (response) {
+            ItemService.get({owner: $rootScope.username, used: true}, function (response) {
                 $log.debug("ItemService.get() success!", response);
                 $rootScope.items = response.data;
             }, function (error) {
@@ -256,8 +256,8 @@ angular.module('starter.controllers', [])
         ///
         $rootScope.loadCompanyInfo = function () {
             //
-            $log.debug("$rootScope.company:",$rootScope.company,"$rootScope.company.id:",$rootScope.company.id);
-            CompanyService.get({"companyId":$rootScope.company.id}, function (response) {
+            $log.debug("$rootScope.company:", $rootScope.company, "$rootScope.company.id:", $rootScope.company.id);
+            CompanyService.get({"companyId": $rootScope.company.id}, function (response) {
                 $log.debug("CompanyService.get(default) success!", response.data);
                 $rootScope.companyInfo = response.data;//
             }, function (error) {
@@ -268,7 +268,7 @@ angular.module('starter.controllers', [])
         ///
         $rootScope.loadProcessDefinitionsInfo = function () {
             ProcessDefinitionsService.get({}, function (response) {
-                var lastIndex = response.data.length-1;
+                var lastIndex = response.data.length - 1;
                 $log.debug("ProcessDefinitionsService.get() success!", response.data);
                 $rootScope.companyInfo.processDefinitionId = response.data[lastIndex].id;
                 $rootScope.companyInfo.processDefinitionKey = response.data[lastIndex].key;
@@ -285,16 +285,15 @@ angular.module('starter.controllers', [])
             });
         }
         //
-        $rootScope.getLdapPartition = function(ou) {
+        $rootScope.getLdapPartition = function (ou) {
             var ouEncode = "ou=" + ou;//ou=employees,dc=example,dc=com
             var dc = $rootScope.company.domain.split('.');
-            var partition  = ouEncode;
-            for(var i=0;i<dc.length;i++)
-            {
+            var partition = ouEncode;
+            for (var i = 0; i < dc.length; i++) {
                 partition = partition.concat(",dc=");
                 partition = partition.concat(dc[i]);
             }
-            $log.debug("getLdapPartition:",partition);
+            $log.debug("getLdapPartition:", partition);
             return partition;
         }
         ///LDAP related
@@ -325,11 +324,15 @@ angular.module('starter.controllers', [])
             });
         }
         ///
-        $rootScope.loadVendors = function(){
+        $rootScope.loadVendors = function () {
             //
             $rootScope.category = "美食";
             //
-            VendorService.get({latitude: $rootScope.latitude,longitude:$rootScope.longitude,category:$rootScope.category}, function (response) {
+            VendorService.get({
+                latitude: $rootScope.latitude,
+                longitude: $rootScope.longitude,
+                category: $rootScope.category
+            }, function (response) {
                 var jsonObj = JSON.parse(response.data);
                 $log.info("VendorService.get() success, response(json):", jsonObj);
                 $rootScope.vendors = jsonObj.businesses;
@@ -405,7 +408,7 @@ angular.module('starter.controllers', [])
         });
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
-    .controller('ReportsCtrl', function ($scope, $rootScope, Enum, $log, ReportService) {
+    .controller('ReportsCtrl', function ($scope, $rootScope, Enum, $log, ReportService, ReportPDFService) {
         /* Chart options */
         //@example:http://plnkr.co/edit/jOoJik?p=preview
         /* Chart options */
@@ -451,6 +454,24 @@ angular.module('starter.controllers', [])
                 $log.error("ReportService.get() failed:", JSON.stringify(error));
             });
         }
+        //Local variables
+        $scope.pdfReportVariables = {title:"",subtitle:"",background:false,fullpage:false};
+        $scope.pdfUrl = "";
+        $scope.getPDFReport = function () {
+            //
+            ReportPDFService.get({
+                title: $scope.pdfReportVariables.title,
+                subtitle: $scope.pdfReportVariables.subtitle,
+                background: $scope.pdfReportVariables.background,
+                fullpage: $scope.pdfReportVariables.fullpage
+            }, function (response) {
+                $log.info("ReportPDFService.get() success, response(json):", response);
+                $scope.pdfUrl = response.data;
+            }, function (error) {
+                // failure handler
+                $log.error("ReportPDFService.get() failed:", JSON.stringify(error));
+            });
+        }
     })
     .controller('UsersCtrl', function ($scope, $http, UserService, $rootScope, $location, $log) {
         //UserListModal related
@@ -481,9 +502,9 @@ angular.module('starter.controllers', [])
                                        ProcessService, JobService, ExecutionService,
                                        HistoryService, FormDataService, CONFIG_ENV, Enum, $queue) {
         //
-        $scope.selectedCompany = function(company){
+        $scope.selectedCompany = function (company) {
             //Update
-            $log.debug("selectedCompany:",company);
+            $log.debug("selectedCompany:", company);
             $rootScope.company = company;
         }
         //
@@ -642,13 +663,12 @@ angular.module('starter.controllers', [])
                 $rootScope.itemIDsSelAmount += $rootScope.items[index].amount;
                 $rootScope.itemsSel.push(item);
             }
-            $log.debug("toggleItemListSelection:", $rootScope.itemIDsSel, $rootScope.itemIDsSelAmount,$rootScope.itemsSel);
+            $log.debug("toggleItemListSelection:", $rootScope.itemIDsSel, $rootScope.itemIDsSelAmount, $rootScope.itemsSel);
         }
     })
     .controller('TasksCtrl', function ($scope, $rootScope, $http, Base64, $location, $log,
                                        $ionicNavBarDelegate,
-                                       ProcessDefinitionService, TasksService, FormDataService,
-                                       TasksModalService, GroupService,
+                                       ProcessDefinitionService, FormDataService,
                                        TaskService, ProcessInstancesService, ExpenseService, Enum,
                                        ProcessDefinitionIdentityLinkService,
                                        $ionicActionSheet, $ionicPopup) {
@@ -899,10 +919,10 @@ angular.module('starter.controllers', [])
         //$scope.addInvolvedUsers = function (args) {
         //}
         //View ng-if
-        $scope.isHandleView = function(task){
+        $scope.isHandleView = function (task) {
             return (task.taskDefinitionKey == Enum.taskDefinitionKeys.Handle);
         }
-        $scope.isAdjustView = function(task){
+        $scope.isAdjustView = function (task) {
             return (task.taskDefinitionKey == Enum.taskDefinitionKeys.Adjust);
         }
         ///
@@ -925,7 +945,7 @@ angular.module('starter.controllers', [])
                             } else {
                                 //Next func call.
                                 //start process instance again with justification.
-                                $scope.re_completeTask(true,taskId,$scope.data.motivation);
+                                $scope.re_completeTask(true, taskId, $scope.data.motivation);
                                 return $scope.data.motivation;
                             }
                         }

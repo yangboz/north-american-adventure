@@ -28,11 +28,6 @@ angular.module('starter.services', [])
     })
 ///TaskService
     .factory('TaskService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'runtime/tasks/:taskId', {taskId: "@taskId"});
-        return data;
-    })
-///TasksService
-    .factory('TasksService', function ($resource, CONFIG_ENV) {
         var data = $resource(CONFIG_ENV.api_endpoint + 'runtime/tasks/:taskId', {taskId: "@taskId"}, {
             update: {method: 'PUT', params: {taskId: "@taskId"}}
         });
@@ -369,7 +364,11 @@ angular.module('starter.services', [])
     })
 ///ItemService
     .factory('ItemService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {owner: "@owner", itemId: "@itemId",used:"@used"});
+        var data = $resource(CONFIG_ENV.api_endpoint + 'items/:itemId', {
+            owner: "@owner",
+            itemId: "@itemId",
+            used: "@used"
+        });
         return data;
     })
 ///ExpenseService
@@ -387,6 +386,16 @@ angular.module('starter.services', [])
 ///ReportService
     .factory('ReportService', function ($resource, CONFIG_ENV) {
         var data = $resource(CONFIG_ENV.api_endpoint + 'report', {owner: "@owner"});
+        return data;
+    })
+///ReportPDFService
+    .factory('ReportPDFService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'report/pdf', {
+            title: "@title",
+            subtitle: "@subtitle",
+            background: "@background",
+            fullpage: "@fullpage"
+        });
         return data;
     })
 ///LDAPService

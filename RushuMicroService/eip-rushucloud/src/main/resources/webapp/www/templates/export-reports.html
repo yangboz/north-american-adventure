@@ -1,33 +1,33 @@
-<ion-view title="EXPORT">
+<ion-view title="EXPORT" ng-controller="ReportsCtrl">
     <ion-content has-header="true" padding="true">
         <div class="list list-inset">
             <label class="item item-input">
-                <input type="text" placeholder="标题" ng-model="exportPDF.title">
+                <input type="text" placeholder="标题" ng-model="pdfReportVariables.title">
             </label>
             <label class="item item-input">
-                <input type="text" placeholder="副标题" ng-model="exportPDF.subtitle">
+                <input type="text" placeholder="副标题" ng-model="pdfReportVariables.subtitle">
             </label>
             <ul class="list">
                 <li class="item item-toggle">
-                    setPrintBackgroundOnOddRows
+                    Background
                     <label class="toggle toggle-positive">
-                        <input type="checkbox" checked>
+                        <input type="checkbox" ng-model="pdfReportVariables.background">
                         <div class="track">
                             <div class="handle"></div>
                         </div>
                     </label>
                 </li>
                 <li class="item item-toggle">
-                    setUseFullPageWidth
+                    FullPage
                     <label class="toggle toggle-positive">
-                        <input type="checkbox">
+                        <input type="checkbox" ng-model="pdfReportVariables.fullpage">
                         <div class="track">
                             <div class="handle"></div>
                         </div>
                     </label>
                 </li>
             </ul>
-            <button class="button button-full">Submit</button>
+            <button class="button button-full" ng-click="getPDFReport();">Submit</button>
         </div>
     </ion-content>
 </ion-view>

@@ -31,69 +31,83 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public class ReportController {
 
 	private static Logger logger = Logger.getLogger(ReportController.class);
-	
-//	@Resource(name="downloadService")
-//	private DownloadService downloadService;
+
+	// @Resource(name="downloadService")
+	// private DownloadService downloadService;
 	// Auto-wire an object of type ExpenseDao
 	@Autowired
 	private ExpenseDao _expenseDao;
-	
+
 	@Autowired
 	private ReportService reportService;
 
 	/**
-	 * Downloads the report as an Excel format. 
+	 * Downloads the report as an Excel format.
 	 * <p>
-	 * Make sure this method doesn't return any model. Otherwise, you'll get 
-	 * an "IllegalStateException: getOutputStream() has already been called for this response"
+	 * Make sure this method doesn't return any model. Otherwise, you'll get an
+	 * "IllegalStateException: getOutputStream() has already been called for this response"
 	 */
-    @RequestMapping(value = "/xls", method = RequestMethod.GET)
-    //TODO: @see: http://krams915.blogspot.in/2011/02/spring-3-dynamicjasper-hibernate_4736.html, make it right.
-    public @ResponseBody void getXLS(HttpServletResponse response, Model model) throws ColumnBuilderException, ClassNotFoundException, JRException {
-    	logger.debug("Received request to download report as an XLS");
-    	
-    	// Delegate to downloadService. Make sure to pass an instance of HttpServletResponse 
-    	reportService.downloadXLS(response);
+	@RequestMapping(value = "/xls", method = RequestMethod.GET)
+	// TODO: @see:
+	// http://krams915.blogspot.in/2011/02/spring-3-dynamicjasper-hibernate_4736.html,
+	// make it right.
+	public @ResponseBody void getXLS(HttpServletResponse response, Model model)
+			throws ColumnBuilderException, ClassNotFoundException, JRException {
+		logger.debug("Received request to download report as an XLS");
+
+		// Delegate to downloadService. Make sure to pass an instance of
+		// HttpServletResponse
+		reportService.downloadXLS(response);
 	}
-    //
-//    @PersistenceContext
-//    EntityManager entityManager;
-    //
-	@RequestMapping(method = RequestMethod.GET,params = {"owner"})
+
+	//
+	// @PersistenceContext
+	// EntityManager entityManager;
+	//
+	@RequestMapping(method = RequestMethod.GET, params = { "owner" })
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of reports that is successfully get or not.")
 	public JsonObject list(@RequestParam(value = "owner") String owner) {
-//		return new JsonObject(this.expenseRepository.findAll());
-		if(owner!=null)
-		{
-//			Query query = entityManager.createQuery("SELECT status,COUNT(status) FROM expenses WHERE owner='"+owner+"' GROUP BY status");
-//			List<Object[]> results =  query.getResultList();
-//			return new JsonObject(results);
+		// return new JsonObject(this.expenseRepository.findAll());
+		if (owner != null) {
+			// Query query =
+			// entityManager.createQuery("SELECT status,COUNT(status) FROM expenses WHERE owner='"+owner+"' GROUP BY status");
+			// List<Object[]> results = query.getResultList();
+			// return new JsonObject(results);
 			return new JsonObject(reportService.getExpensesGroupByStatus(owner));
 			//
-//			Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
-////			LOG.debug("itemsByOwner()result:"+result.toString());
-//			return new JsonObject(result);
-		}else{
+			// Iterable<Expense> result =
+			// this._expenseDao.findExpensesByOwner(owner);
+			// // LOG.debug("itemsByOwner()result:"+result.toString());
+			// return new JsonObject(result);
+		} else {
 			return new JsonObject(this._expenseDao.findAll());
 		}
 	}
+
 	/**
-	 * @see: http://jasperreports.sourceforge.net/sample.reference/fonts/index.html
-	 * Downloads the report as an PDF format. 
-	 * <p>
-	 * Make sure this method doesn't return any model. Otherwise, you'll get 
-	 * an "IllegalStateException: getOutputStream() has already been called for this response"
+	 * @see: 
+	 *       http://jasperreports.sourceforge.net/sample.reference/fonts/index.html
+	 *       Downloads the report as an PDF format.
+	 *       <p>
+	 *       Make sure this method doesn't return any model. Otherwise, you'll
+	 *       get an
+	 *       "IllegalStateException: getOutputStream() has already been called for this response"
 	 */
-    @RequestMapping(value = "/pdf", method = RequestMethod.GET, params = { "title", "subtitle","title", "subtitle" })
-    public JsonObject getPDF(@RequestParam(value = "title") String title,@RequestParam(value = "subtitle") String subtitle,
-    		@RequestParam(value = "printBackgroundOnOddRows", defaultValue = "false") Boolean printBackgroundOnOddRows,@RequestParam(value = "useFullPageWidth", defaultValue = "false") Boolean useFullPageWidth){
-    	String pdfUrl = "";
-    	FastReport fastReport = new FastReport();
-    	try {
-    		pdfUrl = fastReport.testReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth);
+	@RequestMapping(value = "/pdf", method = RequestMethod.GET, params = {
+			"title", "subtitle", "background", "fullpage" })
+	public JsonObject getPDF(
+			@RequestParam(value = "title") String title,
+			@RequestParam(value = "subtitle") String subtitle,
+			@RequestParam(value = "background", defaultValue = "false") Boolean printBackgroundOnOddRows,
+			@RequestParam(value = "fullpage", defaultValue = "false") Boolean useFullPageWidth) {
+		String pdfUrl = "";
+		FastReport fastReport = new FastReport();
+		try {
+			pdfUrl = fastReport.testReport(title, subtitle,
+					printBackgroundOnOddRows, useFullPageWidth);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return new JsonObject(pdfUrl);
+		return new JsonObject(pdfUrl);
 	}
 }
