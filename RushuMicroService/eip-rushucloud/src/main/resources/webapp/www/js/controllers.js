@@ -865,12 +865,20 @@ angular.module('starter.controllers', [])
             action.variables = [
                 {'name': 'reimbursementApproved', 'value': decision}
                 , {'name': 'managerMotivation', 'value': motivation}
+                //,{'name':'recipientName','value':$rootScope.participantIds}
+                ,{'name':'recipientName','value':"yangbo.zhou@rushucloud.com"}
+                //,{'name':'employeeName','value':$rootScope.username}
+                ,{'name':'employeeName','value':"smartkit@msn.com"}
+                ,{'name':'now','value':new Date()}
             ];
             action.$save({"taskId": taskId}, function (resp) {
                 //after finishing remove the task from the tasks list
                 $log.debug("TaskService.complete() success!", resp);
                 //refresh reports list view.
                 $rootScope.loadTasks();
+            }, function (error) {
+                // failure handler
+                $log.error("TaskService.complete() failed:", JSON.stringify(error));
             });
 
         };

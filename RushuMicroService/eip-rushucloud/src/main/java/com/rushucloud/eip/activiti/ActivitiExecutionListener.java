@@ -23,8 +23,10 @@ public class ActivitiExecutionListener implements ExecutionListener {
 					.toString());
 			jsonObj.put("event", execution.getEventName());
 			jsonObj.put("execution", execution.toString());
+			jsonObj.put("activityId", execution.getCurrentActivityId());
+			jsonObj.put("activityName", execution.getCurrentActivityName());
 			jsonObj.put("variables", execution.getVariables().toString());
-			LOG.debug("Activiti execution:" + jsonObj.toString());
+			LOG.info("Activiti execution:" + jsonObj.toString());
 			// Connect to ActiveMQ to send message.
 			// ActivemqSender sender = new ActivemqSender("SAMPLEQUEUE");
 			// ActivemqSender sender =

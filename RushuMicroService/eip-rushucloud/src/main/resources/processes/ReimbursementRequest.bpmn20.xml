@@ -28,20 +28,6 @@
         <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </exclusiveGateway>
-    <sequenceFlow id="flow3" sourceRef="requestApprovedDecision" targetRef="sendApprovalMail">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved}]]></conditionExpression>
-    </sequenceFlow>
-    <manualTask id="sendApprovalMail" name="Send confirmation e-mail">
-      <extensionElements>
-        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
-      </extensionElements>
-    </manualTask>
-    <sequenceFlow id="flow4" sourceRef="sendApprovalMail" targetRef="theEnd1"></sequenceFlow>
-    <endEvent id="theEnd1">
-      <extensionElements>
-        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
-      </extensionElements>
-    </endEvent>
     <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="adjustReimbursementRequestTask">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!reimbursementApproved}]]></conditionExpression>
     </sequenceFlow>
@@ -75,6 +61,42 @@
         <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </endEvent>
+    <serviceTask id="mailtask1" name="Mail Task" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${employeeName}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Congratulations on your Reimbursement!]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[rushucloud@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>Hello,${employeeName}:&lt;br/&gt;&lt;br/&gt;
+
+              As of ${now}, your reimbursement has been &lt;b&gt;processed and shipped&lt;/b&gt;.&lt;br/&gt;&lt;br/&gt;
+
+
+Kind regards,&lt;br/&gt;
+
+Rushucloud.com</activiti:expression>
+        </activiti:field>
+        <activiti:field name="cc">
+          <activiti:expression>${recipientName}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[utf-8]]></activiti:string>
+        </activiti:field>
+        <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+        <activiti:executionListener event="end" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow9" sourceRef="mailtask1" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="requestApprovedDecision" targetRef="mailtask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reimbursementApproved}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_reimbursementRequest">
     <bpmndi:BPMNPlane bpmnElement="reimbursementRequest" id="BPMNPlane_reimbursementRequest">
@@ -87,12 +109,6 @@
       <bpmndi:BPMNShape bpmnElement="requestApprovedDecision" id="BPMNShape_requestApprovedDecision">
         <omgdc:Bounds height="40.0" width="40.0" x="230.0" y="114.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sendApprovalMail" id="BPMNShape_sendApprovalMail">
-        <omgdc:Bounds height="60.0" width="100.0" x="320.0" y="0.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="theEnd1" id="BPMNShape_theEnd1">
-        <omgdc:Bounds height="35.0" width="35.0" x="475.0" y="15.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="adjustReimbursementRequestTask" id="BPMNShape_adjustReimbursementRequestTask">
         <omgdc:Bounds height="80.0" width="105.0" x="320.0" y="140.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -101,6 +117,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="theEnd2" id="BPMNShape_theEnd2">
         <omgdc:Bounds height="35.0" width="35.0" x="560.0" y="238.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="485.0" y="20.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="35.0" y="195.0"></omgdi:waypoint>
@@ -111,18 +133,6 @@
         <omgdi:waypoint x="192.0" y="180.0"></omgdi:waypoint>
         <omgdi:waypoint x="192.0" y="134.0"></omgdi:waypoint>
         <omgdi:waypoint x="230.0" y="134.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="270.0" y="134.0"></omgdi:waypoint>
-        <omgdi:waypoint x="282.0" y="134.0"></omgdi:waypoint>
-        <omgdi:waypoint x="282.0" y="30.0"></omgdi:waypoint>
-        <omgdi:waypoint x="320.0" y="30.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="420.0" y="30.0"></omgdi:waypoint>
-        <omgdi:waypoint x="432.0" y="30.0"></omgdi:waypoint>
-        <omgdi:waypoint x="432.0" y="30.0"></omgdi:waypoint>
-        <omgdi:waypoint x="475.0" y="32.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="270.0" y="134.0"></omgdi:waypoint>
@@ -145,6 +155,15 @@
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="510.0" y="253.0"></omgdi:waypoint>
         <omgdi:waypoint x="560.0" y="255.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="425.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="485.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="250.0" y="114.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="37.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
