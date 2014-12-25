@@ -42,12 +42,16 @@ import net.sf.jasperreports.engine.export.FontKey;
 import net.sf.jasperreports.engine.export.JExcelApiExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.PdfFont;
+import net.sf.jasperreports.engine.util.JRProperties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.lowagie.text.pdf.BaseFont;
 
 public class ReportExporter {
 	/**
@@ -66,13 +70,19 @@ public class ReportExporter {
 		logger.debug("Exporing report to: " + path);
 		JRPdfExporter exporter = new JRPdfExporter();
 		exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
-		Map fontMap = new HashMap();
 		//TODO:UTF-8 character issue.
-		String realPath = "usr/share/fonts/truetype/msttcorefonts/";
-		fontMap.put(new FontKey("Arial", false, false),
-	    new PdfFont(realPath + "simhei.ttf", "Identity-H", true)); //(String pdfFontName, String pdfEncoding, Boolean isPdfEmbedded)
-		exporter.setParameter(JRExporterParameter.FONT_MAP, fontMap);
+//		JRProperties.setProperty("net.sf.jasperreports.export.pdf.font.arial", 
+//                this.getClass().getResource("arial.ttf").toString());
 
+		HashMap fontMap = new HashMap();
+		/* FontKey(String fontName, boolean bold, boolean italic) */
+		FontKey key = new FontKey("STSong-Light", false, false); 
+		/* PdfFont(String pdfFontName, String pdfEncoding, boolean isPdfEmbedded) */
+		PdfFont font = new PdfFont("STSong-Light", BaseFont.IDENTITY_H, true); 
+		fontMap.put(key, font);
+		exporter.setParameter(JRPdfExporterParameter.FONT_MAP, fontMap);
+
+		//
 		File outputFile = new File(path);
 		File parentFile = outputFile.getParentFile();
 		if (parentFile != null)

@@ -91,5 +91,6 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/repository/**").addResourceLocations("classpath:/repository/");
         //Jasper report
         registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/fonts/");
+        registry.addResourceHandler("/reports/**").addResourceLocations("classpath:/reports/");
     }
 }

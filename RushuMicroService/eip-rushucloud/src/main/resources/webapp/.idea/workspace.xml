@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f17800a-7511-4cfc-97f8-c55fc93092ab" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers.js" afterPath="$PROJECT_DIR$/www/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/export-reports.html" afterPath="$PROJECT_DIR$/www/templates/export-reports.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services.js" afterPath="$PROJECT_DIR$/www/js/services.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/com/rushucloud/eip/reports/BaseDjReport.java" afterPath="$PROJECT_DIR$/../../java/com/rushucloud/eip/reports/BaseDjReport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/com/rushucloud/eip/controllers/ReportController.java" afterPath="$PROJECT_DIR$/../../java/com/rushucloud/eip/controllers/ReportController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/com/rushucloud/eip/reports/ReportExporter.java" afterPath="$PROJECT_DIR$/../../java/com/rushucloud/eip/reports/ReportExporter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/com/rushucloud/eip/config/StaticResourceConfiguration.java" afterPath="$PROJECT_DIR$/../../java/com/rushucloud/eip/config/StaticResourceConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../jasperreports_extension.properties" afterPath="$PROJECT_DIR$/../jasperreports_extension.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../../pom.xml" afterPath="$PROJECT_DIR$/../../../../pom.xml" />
     </list>
     <ignored path="RushuWebIonic.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,8 +74,8 @@
       <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8333333" vertical-offset="15630" max-vertical-offset="19305">
-              <caret line="1080" column="0" selection-start-line="1080" selection-start-column="0" selection-end-line="1080" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3508772" vertical-offset="15630" max-vertical-offset="19305">
+              <caret line="1058" column="33" selection-start-line="1058" selection-start-column="17" selection-end-line="1058" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -1039,8 +1042,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8333333" vertical-offset="15630" max-vertical-offset="19305">
-          <caret line="1080" column="0" selection-start-line="1080" selection-start-column="0" selection-end-line="1080" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3508772" vertical-offset="15630" max-vertical-offset="19305">
+          <caret line="1058" column="33" selection-start-line="1058" selection-start-column="17" selection-end-line="1058" selection-end-column="33" />
           <folding />
         </state>
       </provider>

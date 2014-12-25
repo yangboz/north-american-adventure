@@ -64,7 +64,7 @@ public abstract class BaseDjReport {
 			throws Exception;
 
 	public String testReport(String title, String subtitle,
-			Boolean printBackgroundOnOddRows, Boolean useFullPageWidth)
+			Boolean printBackgroundOnOddRows, Boolean useFullPageWidth,JRBeanCollectionDataSource ds)
 			throws Exception {
 		dr = buildReport(title, subtitle, printBackgroundOnOddRows,
 				useFullPageWidth);
@@ -72,7 +72,7 @@ public abstract class BaseDjReport {
 		/**
 		 * Get a JRDataSource implementation
 		 */
-		JRDataSource ds = getDataSource();
+//		JRDataSource ds = getDataSource();
 
 		/**
 		 * Creates the JasperReport object, we pass as a Parameter the
@@ -109,6 +109,7 @@ public abstract class BaseDjReport {
 				+ this.getClass().getName() + ".pdf";
 		ReportExporter.exportReport(jp, exportUrl);
 		exportToJRXML();
+		exportToHTML();
 		return exportUrl;
 	}
 

@@ -34,6 +34,7 @@ import java.util.Map;
 
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -50,15 +51,11 @@ public class FastReport extends BaseDjReport {
 		 * report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
-		drb.addColumn("State", "state", String.class.getName(), 30)
-				.addColumn("Branch", "branch", String.class.getName(), 30)
-				.addColumn("Product Line", "productLine",
-						String.class.getName(), 50)
-				.addColumn("Item", "item", String.class.getName(), 50)
-				.addColumn("Item Code", "id", Long.class.getName(), 30, true)
-				.addColumn("Quantity", "quantity", Long.class.getName(), 60,
-						true)
-				.addColumn("Amount", "amount", Float.class.getName(), 70, true)
+		drb.addColumn("Id", "id", Long.class.getName(), 30)
+				.addColumn("Amount", "amount", Double.class.getName(), 30)
+				.addColumn("Name", "name", String.class.getName(), 50)
+				.addColumn("Owner", "owner", String.class.getName(), 50)
+				.addColumn("Status", "status", Enum.class.getName(), 50)
 				.addGroups(2)
 				// .setTitle("November \"2006\" sales report")
 				// .setSubtitle("This report was generated at " + new Date())
@@ -68,7 +65,7 @@ public class FastReport extends BaseDjReport {
 				.setPrintBackgroundOnOddRows(printBackgroundOnOddRows)
 				.setUseFullPageWidth(useFullPageWidth);
 
-		drb.addGlobalFooterVariable(drb.getColumn(4), DJCalculation.COUNT,
+		drb.addGlobalFooterVariable(drb.getColumn(1), DJCalculation.SUM,
 				null, new DJValueFormatter() {
 
 					public String getClassName() {
@@ -78,7 +75,7 @@ public class FastReport extends BaseDjReport {
 					public Object evaluate(Object value, Map fields,
 							Map variables, Map parameters) {
 						return (value == null ? "0" : value.toString())
-								+ " Clients";
+								+ " Total";
 					}
 				});
 
