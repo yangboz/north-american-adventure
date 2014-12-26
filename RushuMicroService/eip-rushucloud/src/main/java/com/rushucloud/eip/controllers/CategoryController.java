@@ -1,5 +1,11 @@
 package com.rushucloud.eip.controllers;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rushucloud.eip.dto.JsonObject;
@@ -35,15 +42,35 @@ public class CategoryController {
 	public CategoryController(CategoryRepository categoryRepository) {
 		this.categoryRepository = categoryRepository;
 	}
-
+	
+	@PersistenceContext
+	EntityManager em;
 	// ==============
 	// PUBLIC METHODS
 	// ==============
+	private void queryParentByChild() {
+		
+	}
+	private void queryChildrenByParent() {
+		
+	}
 
+//	@RequestMapping(method = RequestMethod.POST,params={"root","parentId"})
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(httpMethod = "POST", value = "Response a string describing if the reimbursement category is successfully created or not.")
-	public Category create(@RequestBody @Valid Category category) {
-		return this.categoryRepository.save(category);
+	public JsonObject create(@RequestBody @Valid Category category,
+			@RequestParam(value = "root", defaultValue = "false") Boolean root,
+			@RequestParam(value = "parentId", defaultValue = "1") long parentId) {
+		if(root)//Root category
+		{
+		}else{//Children category
+	        //
+	        Category parent = em.find(Category.class, parentId);
+	        category.setParent(parent);
+		}
+		//@JsonBackReference http://keenformatics.blogspot.sg/2013/08/how-to-solve-json-infinite-recursion.html
+//		this.categoryRepository.save(category);
+		return new JsonObject(_categoryDao.save(category));
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

@@ -9,10 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "categories")
@@ -65,8 +68,9 @@ public class Category extends ModelBase {
 	// It it will be written as the type of categoryId
 	// By default this relationship will be eagerly fetched
 	// , which you may or may not want
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
-			CascadeType.MERGE })
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,CascadeType.MERGE })
+//	@ManyToOne
+    @JoinColumn(name="parent_id")
 	private Category parent;
 
 	public Category getParent() {
@@ -80,7 +84,10 @@ public class Category extends ModelBase {
 	// This field is not a table column
 	// It is a collection of those Category rows that have this row as a parent.
 	// This is the other side of the relationship defined by the parent field.
-	@OneToMany(mappedBy = "parent")
+//	@OneToMany(mappedBy = "parent")
+	@OneToMany(cascade=CascadeType.PERSIST,fetch=FetchType.LAZY)
+    @JoinColumn(name="parent_id")
+	@JsonBackReference
 	private Set<Category> children;
 
 	public Set<Category> getChildren() {
@@ -101,7 +108,12 @@ public class Category extends ModelBase {
 	public Category(long id) {
 		this.id = id;
 	}
-
+	//Root category
+	public Category(String icon, String name) {
+		this.icon = icon;
+		this.name = name;
+	}
+	//Child category
 	public Category(String icon, String name, Category parent,
 			Set<Category> children) {
 		this.icon = icon;

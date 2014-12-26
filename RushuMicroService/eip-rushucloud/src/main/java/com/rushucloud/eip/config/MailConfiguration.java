@@ -2,6 +2,8 @@ package com.rushucloud.eip.config;
 
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +14,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 @PropertySource("classpath:mail.properties")
 public class MailConfiguration {
-
+	
     @Value("${mail.protocol}")
     private String protocol;
     @Value("${mail.host}")
@@ -29,7 +31,9 @@ public class MailConfiguration {
     private String username;
     @Value("${mail.password}")
     private String password;
-
+    
+    private static Logger LOG = LoggerFactory.getLogger(MailConfiguration.class);
+    
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -42,6 +46,9 @@ public class MailConfiguration {
         mailSender.setProtocol(protocol);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
+        //
+        LOG.info("mailProperties:"+mailProperties.toString()+",mailSender:"+host+port+protocol+username+password);
+        //
         return mailSender;
     }
 }
