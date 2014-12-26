@@ -4,6 +4,7 @@ angular.module('starter.controllers', [])
                                       CONFIG_ENV, $log, $cordovaToast, $queue, Enum, $state,
                                       ExpenseService, ItemService, TaskService, CompanyService,
                                       ProcessDefinitionsService, LDAPService, $geoLocation, VendorService,
+                                      CategoryService,
                                       $ionicActionSheet) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
@@ -500,7 +501,7 @@ angular.module('starter.controllers', [])
 
     .controller('LoginCtrl', function ($scope, $http, UserService, Base64, $rootScope, $location, $log,
                                        ProcessService, JobService, ExecutionService,
-                                       HistoryService, FormDataService, CONFIG_ENV, Enum, $queue) {
+                                       HistoryService, CONFIG_ENV, Enum, $queue) {
         //
         $scope.selectedCompany = function (company) {
             //Update
@@ -575,11 +576,6 @@ angular.module('starter.controllers', [])
                 myQueue.add($rootScope.loadVendors);
                 //myQueue.addEach([$rootScope.loadExpenses, $rootScope.loadTasks]); //add multiple items
                 myQueue.start(); //must call start() if queue starts paused
-                //formData test
-//            FormDataService.get({"taskId": 2513}, function (data) {
-//                $log.debug("FormDataService.get() success!",data);
-//            });
-
             });
         };
     })
@@ -668,7 +664,7 @@ angular.module('starter.controllers', [])
     })
     .controller('TasksCtrl', function ($scope, $rootScope, $http, Base64, $location, $log,
                                        $ionicNavBarDelegate,
-                                       ProcessDefinitionService, FormDataService,
+                                       ProcessDefinitionService,
                                        TaskService, ProcessInstancesService, ExpenseService, Enum,
                                        ProcessDefinitionIdentityLinkService,
                                        $ionicActionSheet, $ionicPopup) {
@@ -978,6 +974,21 @@ angular.module('starter.controllers', [])
             $log.debug("toggleVendorListSelection:", $rootScope.vendorIdSel);
         }
     })
+    .controller('CategoryCtrl', function ($scope, $rootScope, $stateParams, $log, CategoryService) {
+        //default
+        $scope.categoryList = [];
+        //
+        $scope.loadCategories = function () {
+            //
+            CategoryService.get({}, function (response) {
+                $log.info("CategoryService.get() success, response(json):", response);
+                $scope.categoryList = [response.data[0]];
+            }, function (error) {
+                // failure handler
+                $log.error("CategoryService.get() failed:", JSON.stringify(error));
+            });
+        }
+    })
     .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {
         //
         $rootScope.tags = [];
@@ -1021,121 +1032,7 @@ angular.module('starter.controllers', [])
             });
         };
     })
-
-    .controller('TabCtrlProcesses', function ($scope, $rootScope, $location, ProcessDefinitionService,
-                                              ProcessInstanceService, FormDataService, $ionicModal, moment,
-                                              TasksModalService) {
-        if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
-            $location.path('/login');
-            return;
-        }
-
-        $scope.loadDefinitions = function () {
-            $scope.processes = ProcessDefinitionService.get({latest: "true"});
-        }
-
-        $scope.loadDefinitions();
-
-        $scope.startTheProcess = function (processDefinition) {
-
-            TasksModalService.loadProcessForm(processDefinition);
-
-            var formService = new FormDataService({processDefinitionId: processDefinition.id});
-            formService.$startTask(function (data) {
-                console.log(data);
-            });
-        };
-
-        $scope.activateTheProcessDefinition = function (processDefinition) {
-            var action = new ProcessDefinitionService();
-            action.action = "activate";
-            action.includeProcessInstances = "true";
-            action.$update({"processDefinitionId": processDefinition.id}, function () {
-                $scope.loadDefinitions();
-            });
-        }
-
-        $scope.query = "";
-    })
-    .controller('ProcessDetailCtrl', function ($scope, $rootScope, $stateParams, ProcessInstanceService, $log) {
-        ProcessInstanceService.get({processInstanceId: $stateParams.processInstanceId}, function (response) {
-            $log.debug("ProcessInstanceService.getProcessInstanceInfo success!", response);
-            $scope.processInstance = response;
-            $log.debug("ProcessDetailCtrl $scope.processInstance", $scope.processInstance);
-        });
-    })
-    .controller('TabCtrlInstances', function ($scope, $rootScope, $location, $ionicModal, moment,
-                                              ProcessInstancesService, ProcessInstanceService, ProcessDefinitionService) {
-        if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
-            $location.path('/login');
-            return;
-        }
-
-        $scope.loadDefinitions = function () {
-            ProcessInstancesService.get({size: 1000, latest: "true", sort: "id"}, function (instances) {
-                $scope.instances = instances;
-                ProcessDefinitionService.get({latest: "true"}, function (data) {
-                    for (var i = 0; i < data.data.length; i++) {
-                        var definition = data.data[i];
-                        for (var j = 0; j < instances.data.length; j++) {
-                            if (instances.data[j].processDefinitionId == definition.id) {
-                                instances.data[j].name = definition.name;
-                            }
-                        }
-                    }
-                });
-            });
-        }
-
-        $scope.loadDefinitions();
-
-
-        var InstancesDetailsCtrl = function ($scope, $modalInstance, instance) {
-            $scope.instance = instance;
-            $scope.ok = function () {
-                $modalInstance.close(group);
-            };
-            $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
-
-            $scope.delete = function (instance) {
-
-
-                $modalInstance.dismiss('cancel');
-            };
-
-            $scope.diagram = "/service/process-instance/" + instance.id + "/diagram";
-
-
-            $scope.instance.details = ProcessInstanceService.get({processInstance: instance.id});
-        }
-
-        $scope.showDetails = function (instance) {
-            var modalInstance = $ionicModal.open({
-                templateUrl: 'views/modals/instanceDetails.html',
-                controller: InstancesDetailsCtrl,
-                resolve: {
-                    instance: function () {
-                        return instance;
-                    }
-                }
-            });
-            modalInstance.result.then(function (newGroup) {
-
-            }, function () {
-            });
-        };
-
-        $scope.query = "";
-    })
-    .controller('InstanceDetailCtrl', function ($scope, $rootScope, $stateParams, ProcessInstanceService, $log) {
-        ProcessInstanceService.get({processInstanceId: $stateParams.processInstanceId}, function (response) {
-            $log.debug("ProcessInstanceService.getProcessInstanceInfo success!", response);
-            $scope.processInstance = response;
-            $log.debug("InstanceDetailCtrl $scope.processInstance", $scope.processInstance);
-        });
-    })
+//
     .controller('InvoiceCtrl', function ($scope, $rootScope, $location, $log, $http, CONFIG_ENV, FileUploader, Enum, InvoiceService) {
         $scope.fromComputer = true;
         $scope.imageURI = null;//For update the display image view.

@@ -71,6 +71,7 @@ public class Category extends ModelBase {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,CascadeType.MERGE })
 //	@ManyToOne
     @JoinColumn(name="parent_id")
+	@JsonBackReference
 	private Category parent;
 
 	public Category getParent() {
@@ -87,7 +88,6 @@ public class Category extends ModelBase {
 //	@OneToMany(mappedBy = "parent")
 	@OneToMany(cascade=CascadeType.PERSIST,fetch=FetchType.LAZY)
     @JoinColumn(name="parent_id")
-	@JsonBackReference
 	private Set<Category> children;
 
 	public Set<Category> getChildren() {
