@@ -297,6 +297,7 @@ angular.module('starter.services', [])
             , taskDefinitionKeys: {
                 Handle: "handleReimbursementRequestTask"
                 , Adjust: "adjustReimbursementRequestTask"
+                , Accountancy: "handleReimbursementAccountancyTask"
             }
         };
         return service;

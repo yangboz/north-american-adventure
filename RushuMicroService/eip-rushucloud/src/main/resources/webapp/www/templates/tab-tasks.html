@@ -46,6 +46,9 @@
                           <div ng-if="isAdjustView(task)">
                               <button class="button button-icon icon ion-chevron-up" ng-click="adjustTask(task.id)"></button>
                           </div>
+                          <div ng-if="isAccountancyView(task)">
+                              <button class="button button-icon icon ion-social-usd" ng-click="accountancyTask(task.id)"></button>
+                          </div>
                           <!--
                           <button class="btn btn-success task-claim-button" type="button"
                                   ng-click="claimTask('{{report.id}}')" ng-show="true" >Claim</button>

@@ -773,11 +773,8 @@ angular.module('starter.controllers', [])
         //ORDER
         $scope.orderTasks = function () {
             $scope.orderValue = ($scope.orderValue == 'asc') ? 'desc' : 'asc';
-            //
-            TaskService.get({assignee: $rootScope.username, order: $scope.orderValue}, function (response) {
-                $log.debug("TaskService.get(order) success!", response);
-                $rootScope.tasks = response.data;
-            });
+            //Refresh task list
+            $rootScope.loadTasks();
         };
         /**
          * Used to determine whether to show the claim button or not
@@ -871,10 +868,8 @@ angular.module('starter.controllers', [])
                 {'name': 'reimbursementApproved', 'value': decision}
                 , {'name': 'managerMotivation', 'value': motivation}
                 //,{'name':'recipientName','value':$rootScope.participantIds}
-                ,{'name':'recipientName','value':"yangbo.zhou@rushucloud.com"}
+                ,{'name':'assignee','value':"accountancy1"}
                 //,{'name':'employeeName','value':$rootScope.username}
-                ,{'name':'employeeName','value':"smartkit@msn.com"}
-                ,{'name':'now','value':new Date()}
             ];
             action.$save({"taskId": taskId}, function (resp) {
                 //after finishing remove the task from the tasks list
@@ -938,6 +933,9 @@ angular.module('starter.controllers', [])
         $scope.isAdjustView = function (task) {
             return (task.taskDefinitionKey == Enum.taskDefinitionKeys.Adjust);
         }
+        $scope.isAccountancyView = function (task) {
+            return (task.taskDefinitionKey == Enum.taskDefinitionKeys.Accountancy);
+        }
         ///
         $scope.adjustTask = function (taskId) {
 
@@ -959,6 +957,32 @@ angular.module('starter.controllers', [])
                                 //Next func call.
                                 //start process instance again with justification.
                                 $scope.re_completeTask(true, taskId, $scope.data.motivation);
+                                return $scope.data.motivation;
+                            }
+                        }
+                    },
+                ]
+            });
+        }
+        ///
+        $scope.accountancyTask = function (taskId) {
+
+            $ionicPopup.show({
+                template: '<textarea placeholder="motivation" ng-model="data.motivation">',
+                title: 'Accountancy with motivation',
+                subTitle: 'Please input some things',
+                scope: $scope,
+                buttons: [
+                    {text: 'Cancel'},
+                    {
+                        text: '<b>Audit</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            if (!$scope.data.motivation) {
+                                //don't allow the user to close unless he enters wifi password
+                                e.preventDefault();
+                            } else {
+                                //Next func call for accountancy
                                 return $scope.data.motivation;
                             }
                         }
