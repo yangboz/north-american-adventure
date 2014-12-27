@@ -127,6 +127,14 @@ angular.module('starter.controllers', [])
 //        console.log("modal-vendor-list.html init!!!");
             $rootScope.vendorListModal = modal;
         });
+        ///ItemFilterListModal
+        $ionicModal.fromTemplateUrl('templates/modal-item-filter-list.html', {
+            scope: $scope,
+            backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-item-filter-list.html init!!!");
+            $rootScope.itemFilterListModal = modal;
+        });
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
             //Login Modal,only hide();
@@ -153,6 +161,7 @@ angular.module('starter.controllers', [])
             $rootScope.userListModal.remove();
             $rootScope.managerListModal.remove();
             $rootScope.vendorListModal.remove();
+            $rootScope.itemFilterListModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -991,7 +1000,7 @@ angular.module('starter.controllers', [])
     })
     .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {
         //
-        $rootScope.tags = [];
+        $rootScope.tagList = [];
     })
     .controller('GroupsCtrl', function ($scope, $rootScope, $location, GroupService, $ionicModal) {
         if (typeof  $rootScope.loggedin == 'undefined' || $rootScope.loggedin == false) {
