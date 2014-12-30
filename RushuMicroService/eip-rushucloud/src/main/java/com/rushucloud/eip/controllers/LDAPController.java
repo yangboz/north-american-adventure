@@ -81,7 +81,7 @@ public class LDAPController {
 	// structure.
 	@RequestMapping(method = RequestMethod.POST, value = "ldap/dc")
 	@ApiOperation(httpMethod = "POST", value = "LDAP orgnization(as domain component) adding function.")
-	public Boolean addPartition(
+	public Boolean addOrgnizationUnit(
 			@RequestParam(value = "partitionId(o/ou)", required = true, defaultValue = "xxx.com") String partitionId,
 			@RequestParam(value = "partitionDn(domain)", required = true, defaultValue = "www") String partitionDn)
 			throws Exception {
@@ -148,7 +148,7 @@ public class LDAPController {
 
 	//
 	@RequestMapping(method = RequestMethod.PUT, value = "ldap/add")
-	@ApiOperation(httpMethod = "PUT", value = "LDAP search client for adding purpose.")
+	@ApiOperation(httpMethod = "PUT", value = "LDAP client for adding attribute/entry purpose.")
 	public void add(
 			@RequestParam(value = "partition", required = true, defaultValue = "dc=inflinx,dc=com") String partition,
 			@RequestParam(value = "ou", required = true, defaultValue = "patrons") String ou,
@@ -175,21 +175,40 @@ public class LDAPController {
 	}
 
 	//
-	@RequestMapping(method = RequestMethod.POST, value = "ldap/import", params = { "domain" })
+	@RequestMapping(method = RequestMethod.POST, value = "ldap/import")
 	@ApiOperation(httpMethod = "POST", value = "LDAP gather user and groups for importing purpose.")
 	public void gather(
 			@RequestBody @Valid List<WeixinUser> users,
-			@RequestParam(value = "partition", required = true, defaultValue = "dc=inflinx,dc=com") String partition) {
+			@RequestParam(value = "partitionId(o/ou)", required = true, defaultValue = "xxx.com") String partitionId,
+			@RequestParam(value = "partitionDn(domain)", required = true, defaultValue = "www") String partitionDn) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
 		for (WeixinUser user : users) {
-			BasicAttribute attribute = new BasicAttribute("mobile",
-					user.getMobile());
+//			BasicAttribute attribute = new BasicAttribute("mobile",
+//					user.getMobile());
+//			//
+//			ModificationItem item = new ModificationItem(
+//					DirContext.ADD_ATTRIBUTE, attribute);
+//			ldapTemplate.modifyAttributes("uid=" + user.getWeixinId() + ",ou="
+//					+ user.getDepartment() + "," + partition,
+//					new ModificationItem[] { item });
+			
+			// Set the Person attributes
+			BasicAttributes attributes = new BasicAttributes();
+			attributes.put("sn", user.getName());
+			attributes.put("cn", user.getWeixinId());
+			attributes.put("mobile", user.getMobile());
+//			attributes.put("mail", user.getEmail());
+			// Add the multiply-valued attribute
+			BasicAttribute objectClassAttribute = new BasicAttribute("objectclass");
+			objectClassAttribute.add("top");
+			objectClassAttribute.add("person");
+			objectClassAttribute.add("organizationalperson");
+			objectClassAttribute.add("inetorgperson");
+//			objectClassAttribute.add("mail");
+			attributes.put(objectClassAttribute);
 			//
-			ModificationItem item = new ModificationItem(
-					DirContext.ADD_ATTRIBUTE, attribute);
-			ldapTemplate.modifyAttributes("uid=" + user.getWeixinId() + ",ou="
-					+ user.getDepartment() + "," + partition,
-					new ModificationItem[] { item });
+			ldapTemplate.bind("uid=" + user.getWeixinId() + ",ou=" + partitionId + ",dc=" + partitionDn, null,
+					attributes);
 		}
 	}
 
