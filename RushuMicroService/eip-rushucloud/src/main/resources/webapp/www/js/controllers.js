@@ -409,13 +409,23 @@ angular.module('starter.controllers', [])
         }
     })
     //
-    .controller('ExpenseDetailCtrl', function ($scope, $rootScope, $stateParams, ExpenseService, $log) {
+    .controller('ExpenseDetailCtrl', function ($scope, $rootScope, $stateParams, ExpenseService, $log, CONFIG_ENV) {
         //$log.info("$stateParams.expenseId:", $stateParams.expenseId);
+        $scope.expense = {};
+        //@see:https://github.com/paveisistemas/ionic-image-lazy-load
+        $scope.processInstanceDiagramUrl = "";//For display the workflow diagram.
         //
-        ExpenseService.get({expenseId: $stateParams.expenseId}, function (response) {
-            $scope.expense = response;
-            $log.debug("ExpenseDetailCtrl $scope.expense", $scope.expense);
-        });
+        $scope.loadExpenseDetail = function(){
+            ExpenseService.get({expenseId: $stateParams.expenseId}, function (response) {
+                $log.debug("ExpenseDetailCtrl.get() response:", response);
+                $scope.expense = response;
+                //
+                $scope.processInstanceDiagramUrl = CONFIG_ENV.api_endpoint+"runtime/process-instances/"+$scope.expense.pid+"/diagram";
+            }, function (error) {
+                // failure handler
+                $log.error("ExpenseDetailCtrl.get() failed:", JSON.stringify(error));
+            });
+        }
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
     .controller('ReportsCtrl', function ($scope, $rootScope, Enum, $log, ReportService, ReportPDFService) {

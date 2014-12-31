@@ -7,7 +7,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngResource', 'ngCordova'
-    , 'angularMoment', 'angularFileUpload', 'ngQueue', 'angularTreeview'])
+    , 'angularMoment', 'angularFileUpload', 'ngQueue', 'angularTreeview', 'ionicLazyLoad'])
 //console.log("app:",app);
 //angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','nvd3','angular-websocket'])
 ///Config
