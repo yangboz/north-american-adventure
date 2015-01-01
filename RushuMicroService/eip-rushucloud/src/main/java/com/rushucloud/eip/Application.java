@@ -36,7 +36,7 @@ import com.rushucloud.eip.models.Company;
 // @EnableWebSecurity
 @EnableAutoConfiguration
 // @EnableAutoConfiguration(exclude={WebSocketAutoConfiguration.class,JpaProcessEngineAutoConfiguration.class})
-@ImportResource("classpath:activiti-standalone-context.xml")
+@ImportResource("classpath:activiti-standalone-context-${spring.profiles.active}.xml")
 //@see: http://spring.io/guides/gs/accessing-data-rest/
 @EnableJpaRepositories
 @Import(RepositoryRestMvcConfiguration.class)
