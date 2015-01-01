@@ -837,7 +837,7 @@ angular.module('starter.controllers', [])
                                     e.preventDefault();
                                 } else {
                                     //Next func call.
-                                    $scope.completeTask(decision, taskId, $scope.data.motivation);
+                                    $scope.completeTask("accountancy1",decision, taskId, $scope.data.motivation);
                                     return $scope.data.motivation;
                                 }
                             }
@@ -861,7 +861,7 @@ angular.module('starter.controllers', [])
                                     e.preventDefault();
                                 } else {
                                     //Next func call.
-                                    $scope.completeTask(decision, taskId, $scope.data.motivation);
+                                    $scope.completeTask($rootScope.username,decision, taskId, $scope.data.motivation);
                                     return $scope.data.motivation;
                                 }
                             }
@@ -871,14 +871,14 @@ angular.module('starter.controllers', [])
             }
         }
         //CompleteTask
-        $scope.completeTask = function (decision, taskId, motivation) {
+        $scope.completeTask = function (assignee,decision, taskId, motivation) {
             var action = new TaskService();
             action.action = Enum.taskActions.Complete;
             action.variables = [
                 {'name': 'reimbursementApproved', 'value': decision}
                 , {'name': 'managerMotivation', 'value': motivation}
                 //,{'name':'recipientName','value':$rootScope.participantIds}
-                ,{'name':'assignee','value':"accountancy1"}
+                ,{'name':'assignee','value':assignee}
                 //,{'name':'employeeName','value':$rootScope.username}
             ];
             action.$save({"taskId": taskId}, function (resp) {

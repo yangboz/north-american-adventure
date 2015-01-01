@@ -16,7 +16,7 @@
         {{expense.amount}}
       <button class="button button-full" ng-click="startProcessInstance(expense.id)" ng-disabled="expense.status!='Saved'">提交</button>
 
-      <div class="row" style="width: 100%;height: auto;">
+      <div class="row" style="display:table-cell; vertical-align:middle; text-align:center">
 
           <img image-lazy-src="{{processInstanceDiagramUrl}}"  >
 
