@@ -23,7 +23,7 @@
 
 	<bean id="dbProperties"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:db.properties" />
+		<property name="location" value="classpath:db-${spring.profiles.active}.properties" />
 		<!-- Allow other PropertyPlaceholderConfigurer to run as well -->
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
@@ -85,11 +85,6 @@
 				</bean>
 			</list>
 		</property>
-		<!-- mail server configurations -->
-		<property name="mailServerHost" value="smtp.gmail.com" />
-		<property name="mailServerPort" value="465" />
-		<property name="mailServerUsername" value="rushucloud@gmail.com" />
-		<property name="mailServerPassword" value="Rushu0915" />
 	</bean>
 
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"

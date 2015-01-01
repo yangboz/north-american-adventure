@@ -45,6 +45,10 @@
     <script src="lib/angular/angular-moment.js"></script>
     <!-- NgQueue -->
     <script src="lib/angular/angular-queue.js"></script>
+    <!-- Toaster -->
+    <script src="lib/angular/angular-animate.min.js"></script>
+    <script src="lib/toaster/toaster.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/toaster/toaster.css">
     <!-- TreeView -->
     <script src="lib/angular-treeview/angular.treeview.js"></script>
     <link rel="stylesheet" type="text/css" href="lib/angular-treeview/css/angular.treeview.css">
@@ -65,6 +69,10 @@
       Additional attributes set its look, ion-nav-bar animation and icons
       Icons provided by Ionicons: http://ionicons.com/
     -->
+  <!-- NOTE: remove 'animation-class': 'toast-top-center' if you want it on the left top corner -->
+  <!-- @see: http://plnkr.co/edit/1poa9A?p=preview -->
+  <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-center'}"></toaster-container>
+
     <ion-nav-bar type="bar-positive"
                  animation="nav-title-slide-ios7"
                  back-button-type="button-icon button-clear"

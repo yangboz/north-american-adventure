@@ -18,6 +18,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
@@ -26,6 +28,10 @@ import com.rushucloud.eip.activemq.ActivemqSender;
 import com.rushucloud.eip.models.Company;
 
 @Configuration
+@PropertySources({
+    @PropertySource(value="application-${spring.profiles.active}.properties"),
+    @PropertySource(value="log4j-${spring.profiles.active}.properties")
+})
 @ComponentScan("com.rushucloud.eip")
 // @EnableWebSecurity
 @EnableAutoConfiguration

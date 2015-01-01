@@ -5,9 +5,10 @@ angular.module('starter.controllers', [])
                                       ExpenseService, ItemService, TaskService, CompanyService,
                                       ProcessDefinitionsService, LDAPService, $geoLocation, VendorService,
                                       CategoryService,
-                                      $ionicActionSheet) {
+                                      $ionicActionSheet, toaster) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
+            //
             var client = Stomp.client(CONFIG_ENV.stomp_uri, CONFIG_ENV.stomp_protocol);
             client.connect(username, password,
                 function () {
@@ -19,7 +20,9 @@ angular.module('starter.controllers', [])
                                 window.plugins.toast.showShortCenter(message.body);
                             }
                             else {
+                                toaster.pop('note', "消息通知", message.body);
                                 //$ionicLoading.show({template: message.body, noBackdrop: true, duration: 10000});
+                                /*
                                 $ionicActionSheet.show({
                                     buttons: [
                                         {text: '<b>查看</b>'}
@@ -45,6 +48,7 @@ angular.module('starter.controllers', [])
                                         //
                                     }
                                 });
+                                */
                             }
                         },
                         {priority: 9}
