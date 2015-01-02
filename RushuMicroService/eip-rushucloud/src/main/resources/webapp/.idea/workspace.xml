@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f17800a-7511-4cfc-97f8-c55fc93092ab" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/angular-animate.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/toaster/toaster.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/toaster/toaster.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../application.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../application.yaml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../db.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../../../fixture-data/activiti_test_insert.sql" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../java/com/rushucloud/eip/controllers/LDAPController.java" afterPath="$PROJECT_DIR$/../../java/com/rushucloud/eip/controllers/LDAPController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../activiti-standalone-context-dev.xml" afterPath="$PROJECT_DIR$/../activiti-standalone-context-dev.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../activiti-standalone-context-test.xml" afterPath="$PROJECT_DIR$/../activiti-standalone-context-test.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../application-dev.properties" afterPath="$PROJECT_DIR$/../application-dev.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers.js" afterPath="$PROJECT_DIR$/www/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db-test.properties" afterPath="$PROJECT_DIR$/../db-test.properties" />
     </list>
     <ignored path="RushuWebIonic.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,8 +36,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="3735">
-              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="3735">
+              <caret line="45" column="33" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -72,6 +70,18 @@
               <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1420082733000" expanded="true" signature="265:12741" placeholder="[...]" />
+                <marker date="1420082733000" expanded="true" signature="310:12740" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="550:5704" placeholder="[...]" />
+                <marker date="1420082733000" expanded="true" signature="670:5703" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="894:1996" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="4334:5702" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="5720:12738" placeholder="[...]" />
+                <marker date="1420082733000" expanded="true" signature="5790:12737" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="6833:7371" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="7670:9062" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="8016:9058" placeholder="{...}" />
+                <marker date="1420082733000" expanded="true" signature="10194:12736" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -80,8 +90,8 @@
       <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.037037" vertical-offset="458" max-vertical-offset="5760">
-              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+            <state vertical-scroll-proportion="-10.62963" vertical-offset="1693" max-vertical-offset="5760">
+              <caret line="133" column="31" selection-start-line="133" selection-start-column="22" selection-end-line="133" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -132,8 +142,8 @@
       <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17595308" vertical-offset="30" max-vertical-offset="18585">
-              <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.2888563" vertical-offset="4438" max-vertical-offset="18525">
+              <caret line="309" column="48" selection-start-line="309" selection-start-column="48" selection-end-line="309" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -186,10 +196,10 @@
         <option value="$PROJECT_DIR$/www/lib/utils/ionic-image-lazy-load.js" />
         <option value="$PROJECT_DIR$/www/js/services.js" />
         <option value="$PROJECT_DIR$/www/templates/detail-expense.html" />
-        <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/lib/angular/angular.js" />
         <option value="$PROJECT_DIR$/www/lib/angular/angular-animate.min.js" />
         <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/js/controllers.js" />
       </list>
     </option>
@@ -262,68 +272,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RushuWebIonic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RushuWebIonic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="toaster" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RushuWebIonic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angular" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1057,14 +1005,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.037037" vertical-offset="458" max-vertical-offset="5760">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/detail-expense.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.625" vertical-offset="0" max-vertical-offset="465">
@@ -1083,14 +1023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="3735">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/lib/angular/angular.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="322035">
@@ -1105,6 +1037,18 @@
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1420082733000" expanded="true" signature="265:12741" placeholder="[...]" />
+            <marker date="1420082733000" expanded="true" signature="310:12740" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="550:5704" placeholder="[...]" />
+            <marker date="1420082733000" expanded="true" signature="670:5703" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="894:1996" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="4334:5702" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="5720:12738" placeholder="[...]" />
+            <marker date="1420082733000" expanded="true" signature="5790:12737" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="6833:7371" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="7670:9062" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="8016:9058" placeholder="{...}" />
+            <marker date="1420082733000" expanded="true" signature="10194:12736" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1117,10 +1061,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.62963" vertical-offset="1693" max-vertical-offset="5760">
+          <caret line="133" column="31" selection-start-line="133" selection-start-column="22" selection-end-line="133" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="3735">
+          <caret line="45" column="33" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17595308" vertical-offset="30" max-vertical-offset="18585">
-          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.2888563" vertical-offset="4438" max-vertical-offset="18525">
+          <caret line="309" column="48" selection-start-line="309" selection-start-column="48" selection-end-line="309" selection-end-column="48" />
           <folding />
         </state>
       </provider>

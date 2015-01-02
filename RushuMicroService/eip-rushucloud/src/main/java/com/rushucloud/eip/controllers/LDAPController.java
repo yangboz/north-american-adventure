@@ -50,7 +50,7 @@ public class LDAPController {
 	@RequestMapping(method = RequestMethod.GET, value = "ldap/search")
 	@ApiOperation(httpMethod = "GET", value = "LDAP search client for testing purpose.")
 	public JsonObject search(
-			@RequestParam(value = "partition", required = true, defaultValue = "ou=employees,dc=rushucloud,dc=com") String partition,
+			@RequestParam(value = "partition", required = true, defaultValue = "ou=employees,ou=www1.rushucloud.com,dc=www") String partition,
 			@RequestParam(value = "filter", required = true, defaultValue = "(objectclass=person)") String filter) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
 		// AndFilter andFilter = new AndFilter();
@@ -150,7 +150,7 @@ public class LDAPController {
 	@RequestMapping(method = RequestMethod.PUT, value = "ldap/add")
 	@ApiOperation(httpMethod = "PUT", value = "LDAP client for adding attribute/entry purpose.")
 	public void add(
-			@RequestParam(value = "partition", required = true, defaultValue = "dc=inflinx,dc=com") String partition,
+			@RequestParam(value = "partition", required = true, defaultValue = "ou=www1.rushucloud.com,dc=www") String partition,
 			@RequestParam(value = "ou", required = true, defaultValue = "patrons") String ou,
 			@RequestParam(value = "uid", required = true, defaultValue = "patron9999") String uid,
 			@RequestParam(value = "sn", required = true, defaultValue = "Patron9999") String sn,

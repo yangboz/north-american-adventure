@@ -300,13 +300,9 @@ angular.module('starter.controllers', [])
         }
         //
         $rootScope.getLdapPartition = function (ou) {
-            var ouEncode = "ou=" + ou;//ou=employees,dc=example,dc=com
-            var dc = $rootScope.company.domain.split('.');
-            var partition = ouEncode;
-            for (var i = 0; i < dc.length; i++) {
-                partition = partition.concat(",dc=");
-                partition = partition.concat(dc[i]);
-            }
+            var ouEncode = "ou=" + ou +",";//ou=employees,dc=example,dc=com
+            var subOu = "ou="+$rootScope.company.domain+",";
+            var partition = ouEncode+subOu+CONFIG_ENV.LDAP_PARTITION_BASE_ON;
             $log.debug("getLdapPartition:", partition);
             return partition;
         }

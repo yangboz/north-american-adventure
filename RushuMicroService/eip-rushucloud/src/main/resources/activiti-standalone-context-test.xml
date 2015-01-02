@@ -65,7 +65,7 @@
 					<property name="password" value="Kit7740321" />
 
 					<!-- Query params -->
-					<property name="baseDn" value="dc=rushucloud,dc=com" />
+					<property name="baseDn" value="dc=123,dc=57,dc=78,dc=65" />
 					<property name="queryUserByUserId"
 						value="(&amp;(objectClass=inetOrgPerson)(uid={0}))" />
 					<property name="queryUserByFullNameLike"

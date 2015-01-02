@@ -43,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         , 'stomp_uri': 'ws://127.0.0.1:61614/stomp'
         //'stomp_uri':'ws://182.92.232.131:61614/stomp',
         , 'stomp_protocol': 'v11.stomp'
-        , 'LDAP_PARTITION': 'dc=rushucloud,dc=com'//default LDAP partition string
+        , 'LDAP_PARTITION_BASE_ON': 'dc=www'//default LDAP partition string,e.g: ou=employees,ou=rushucloud.com,dc=www
         , 'LDAP_FILTER': '(objectclass=person)'//default LDAP partition filter
         , 'WIN_LOCAL_STORAGE_NAME': 'auth_rsc'//name for window local storage.
         , 'UPLOAD_FOLDER': 'uploads/'//for image file upload
