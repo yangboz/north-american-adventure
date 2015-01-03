@@ -264,6 +264,11 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+				<version>2.3.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -271,6 +276,27 @@
 				<!-- <configuration> <jvmArguments> -Xdebug -Xrunjdwp:transport=jidt_socket,server=y,suspend=y,address=5005 
 					</jvmArguments> </configuration> -->
 			</plugin>
+			<plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-resources</id>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/target/</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>.docker</directory>
+                                <filtering>true</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 		</plugins>
 	</build>
 	<pluginRepositories>
