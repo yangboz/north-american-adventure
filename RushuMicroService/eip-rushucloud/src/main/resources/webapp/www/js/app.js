@@ -77,7 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     $geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude)
                 }, function (err) {
                     $log.error("$cordovaGeolocation",err);
-                    $geoLocation.setGeolocation(37.38, -122.09);
+                    $geoLocation.setGeolocation(39.977718050284, 116.37114806696);//Default location.
                 });
 
             // begin a watch

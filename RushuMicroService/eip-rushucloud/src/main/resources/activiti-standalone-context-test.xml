@@ -9,18 +9,18 @@
 
 	<!-- This Spring config file is NOT used in Alfresco, as the Activiti engine 
 		is wired in a different way there -->
-
+<!--
 	<bean id="demoDataGenerator" class="org.activiti.explorer.demo.DemoDataGenerator"
 		init-method="init">
 		<property name="processEngine" ref="processEngine" />
 
-		<!-- Set following properties to false if certain demo data is not wanted -->
-		<!-- <property name="createDemoUsersAndGroups" value="true" /> -->
-		<!-- <property name="createDemoProcessDefinitions" value="true" /> -->
-		<!-- <property name="createDemoModels" value="true" /> -->
-		<!-- <property name="generateReportData" value="true" /> -->
+		Set following properties to false if certain demo data is not wanted
+		<property name="createDemoUsersAndGroups" value="true" />
+		<property name="createDemoProcessDefinitions" value="true" />
+		<property name="createDemoModels" value="true" />
+		<property name="generateReportData" value="true" />
 	</bean>
-
+-->
 	<bean id="dbProperties"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:db-${spring.profiles.active}.properties" />
@@ -47,6 +47,7 @@
 		<property name="databaseSchemaUpdate" value="true" />
 		<property name="jobExecutorActivate" value="true" />
 		<property name="enableDatabaseEventLogging" value="true" />
+		<!--  
 		<property name="customFormTypes">
 			<list>
 				<bean class="org.activiti.explorer.form.UserFormType" />
@@ -54,6 +55,7 @@
 				<bean class="org.activiti.explorer.form.MonthFormType" />
 			</list>
 		</property>
+		-->
 		<property name="configurators">
 			<list>
 				<bean class="org.activiti.ldap.LDAPConfigurator">
@@ -104,9 +106,9 @@
 		factory-method="getManagementService" />
 	<bean id="identityService" factory-bean="processEngine"
 		factory-method="getIdentityService" />
-
+<!--  
 	<bean id="activitiLoginHandler" class="org.activiti.explorer.ui.login.DefaultLoginHandler">
 		<property name="identityService" ref="identityService" />
 	</bean>
-
+-->
 </beans>

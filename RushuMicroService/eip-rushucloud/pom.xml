@@ -9,8 +9,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.0.RC1</version>
-		<!--  http://docs.spring.io/spring-boot/docs/1.2.0.RC1/reference/htmlsingle/#using-boot-maven -->
+		<version>1.2.0.RC2</version>
+		<!-- http://docs.spring.io/spring-boot/docs/1.2.0.RC1/reference/htmlsingle/#using-boot-maven -->
 	</parent>
 
 	<dependencies>
@@ -133,11 +133,8 @@
 		<!-- Activiti/LDAP/Spring -->
 		<!-- <dependency> <groupId>org.activiti</groupId> <artifactId>activiti-engine</artifactId> 
 			<version>${activiti.version}</version> </dependency> -->
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-explorer</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.activiti</groupId> <artifactId>activiti-explorer</artifactId> 
+			<version>${activiti.version}</version> </dependency> -->
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-ldap</artifactId>
@@ -272,48 +269,52 @@
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 				<!-- <configuration> <jvmArguments> -Xdebug -Xrunjdwp:transport=jidt_socket,server=y,suspend=y,address=5005 
 					</jvmArguments> </configuration> -->
 			</plugin>
 			<plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>copy-resources</id>
-                    <phase>validate</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${basedir}/target/</outputDirectory>
-                        <resources>
-                            <resource>
-                                <directory>.docker</directory>
-                                <filtering>true</filtering>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>.docker</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 	<pluginRepositories>
 		<pluginRepository>
-        <id>spring-snapshots</id>
-        <url>http://repo.spring.io/snapshot</url>
-    </pluginRepository>
-    <pluginRepository>
-        <id>spring-milestones</id>
-        <url>http://repo.spring.io/milestone</url>
-    </pluginRepository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</pluginRepository>
 	</pluginRepositories>
 </project>
