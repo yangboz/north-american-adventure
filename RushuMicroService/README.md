@@ -56,3 +56,20 @@ Profile:
 
 sudo apt-get install slapd ldap-utils libldap-2.4-2 libdb4.6
 
+####CentOS:http://docs.adaptivecomputing.com/viewpoint/hpc/Content/topics/1-setup/installSetup/settingUpOpenLDAPOnCentos6.htm
+
+yum -y install openldap openldap-clients openldap-servers
+
+####Docker:
+
+At project/pom.xml,jar build: 
+
+mvn clean install -DskipTests=true -Dspring.profiles.active=dev
+
+At project/target/,docker build:
+
+docker build -t eip-rushucloud-dev .
+
+Deploy to Docker Container and run:
+
+docker run -p 8082:8082 eip-rushucloud-dev
