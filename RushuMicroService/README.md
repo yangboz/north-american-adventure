@@ -42,6 +42,16 @@ MVN:
 
 http://docs.spring.io/autorepo/docs/spring-boot/1.2.0.BUILD-SNAPSHOT/maven-plugin/examples/run-debug.html
 
+Install Activiti-5.17 SNAPSHOT at local steps:
+
+mvn clean install -DskipTests=true
+
+1.Activiti/modules/activiti-simple-workflow for Activiti/modules/activiti-rest
+
+2.Activiti/modules/activiti-common-rest,activiti-rest,activiti-spring for activiti-starter-basic
+
+2.Activiti/modules/activiti-spring-boot
+
 Notice:
 
 ###1.mysql-grant-all-privileges-on-database:

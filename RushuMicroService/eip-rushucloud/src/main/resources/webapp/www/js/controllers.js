@@ -139,6 +139,14 @@ angular.module('starter.controllers', [])
 //        console.log("modal-item-filter-list.html init!!!");
             $rootScope.itemFilterListModal = modal;
         });
+        ///CategoryListModal
+        $ionicModal.fromTemplateUrl('templates/modal-category-list.html', {
+            scope: $scope,
+            backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-vendor-list.html init!!!");
+            $rootScope.categoryListModal = modal;
+        });
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
             //Login Modal,only hide();
@@ -166,6 +174,7 @@ angular.module('starter.controllers', [])
             $rootScope.managerListModal.remove();
             $rootScope.vendorListModal.remove();
             $rootScope.itemFilterListModal.remove();
+            $rootScope.categoryListModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -200,6 +209,8 @@ angular.module('starter.controllers', [])
         $rootScope.vendorIdSel = -1;
         $rootScope.vendors = [];
         $rootScope.categories = [];
+        $rootScope.categoriesSel = [];//selected categories.
+        $rootScope.categoryIDsSel = [];//selected category ids.
         $rootScope.tags = [];
         ///User related
         $rootScope.loggedin = true;
@@ -1025,11 +1036,24 @@ angular.module('starter.controllers', [])
             //
             CategoryService.get({}, function (response) {
                 $log.info("CategoryService.get() success, response(json):", response);
-                $scope.categoryList = [response.data[0]];
+                $scope.categoryList = response.data[0].children;
+                $log.debug("$scope.categoryList:", $scope.categoryList);
             }, function (error) {
                 // failure handler
                 $log.error("CategoryService.get() failed:", JSON.stringify(error));
             });
+        }
+        //@see: http://stackoverflow.com/questions/14514461/how-can-angularjs-bind-to-list-of-checkbox-values
+        $scope.toggleCategoryListSelection = function (category, index) {
+            var idx = $rootScope.categoryIDsSel.indexOf(category.id);
+            if (idx > -1) {
+                $rootScope.categoryIDsSel.splice(idx, 1);
+                $rootScope.categoriesSel.splice(idx, 1);
+            } else {
+                $rootScope.categoryIDsSel.push(category.id);
+                $rootScope.categoriesSel.push(category);
+            }
+            $log.debug("toggleCategoryListSelection:", $rootScope.categoryIDsSel,$rootScope.categoriesSel);
         }
     })
     .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {

@@ -18,8 +18,7 @@ import javax.validation.Valid;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.core.partition.impl.btree.jdbm.JdbmPartition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.DirContextAdapter;
@@ -44,8 +43,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @RestController
 public class LDAPController {
 	//
-	private static Logger LOG = LoggerFactory.getLogger(LDAPController.class);
-
+	private static Logger LOG = Logger.getLogger(LDAPController.class);
 	//
 	@RequestMapping(method = RequestMethod.GET, value = "ldap/search")
 	@ApiOperation(httpMethod = "GET", value = "LDAP search client for testing purpose.")
@@ -64,8 +62,7 @@ public class LDAPController {
 					public String mapFromAttributes(
 							javax.naming.directory.Attributes attrs)
 							throws NamingException {
-						LOG.debug("javax.naming.directory.Attributes:"
-								+ attrs.toString());
+						LOG.debug("javax.naming.directory.Attributes:"+ attrs.toString());
 						return attrs.get("uid").get().toString();
 					}
 				}));

@@ -51,15 +51,8 @@
                 <input type="date" placeholder="日期" ng-model="newItem.date">
             </label>
 
-
-            </div>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    分类:
-                </div>
-                <input type="text" placeholder="{{currentNode.name}}" ng-model="newItem.category" disabled>
-                <!--
-                @see: http://ngmodules.org/modules/angular.treeview
+        <!--
+        @see: http://ngmodules.org/modules/angular.treeview
 [TREE attribute]
 angular-treeview: the treeview directive
 tree-id : each tree's unique id.
@@ -68,16 +61,33 @@ node-id : each node's id
 node-label : each node's label
 node-children: each node's children
 -->
-                <div class="row item item-input-inset"
-                     ng-controller="CategoryCtrl" ng-init="loadCategories()"
-                     data-angular-treeview="true"
-                     data-tree-id="categoryTree"
-                     data-tree-model="categoryList"
-                     data-node-id="id"
-                     data-node-label="name"
-                     data-node-children="children">
+        <!--
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            分类:
+                        </div>
+                        <input type="text" placeholder="{{currentNode.name}}" ng-model="newItem.category" disabled>
+                        <div class="row item item-input-inset"
+                             ng-controller="CategoryCtrl" ng-init="loadCategories()"
+                             data-angular-treeview="true"
+                             data-tree-id="categoryTree"
+                             data-tree-model="categoryList"
+                             data-node-id="id"
+                             data-node-label="name"
+                             data-node-children="children">
+                        </div>
+                    </label>
+        -->
+            <div class="row item item-input-inset">
+                <div class="col-50">
+                    <label class="item item-input">
+                        <input type="text" placeholder="类别" ng-model="newItem.categories">
+                    </label>
                 </div>
-            </label>
+                <div class="col-50">
+                    <a class="button button-icon icon ion-plus-round" ng-click="categoryListModal.show()"></a>
+                </div>
+            </div>
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">

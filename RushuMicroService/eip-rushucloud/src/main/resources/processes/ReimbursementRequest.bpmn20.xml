@@ -10,7 +10,7 @@
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="request" targetRef="handleReimbursementRequestTask"></sequenceFlow>
-    <userTask id="handleReimbursementRequestTask" name="Handle reimbursement request" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
+    <userTask id="handleReimbursementRequestTask" name="处理报销请求" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
       <documentation>${employeeName} would like to take ${amountOfMoney} money of reimbursement (Motivation: ${reimbursementMotivation}).</documentation>
       <extensionElements>
         <activiti:formProperty id="reimbursementApproved" name="Do you approve this reimbursement?" type="enum" required="true">
@@ -31,7 +31,7 @@
     <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="adjustReimbursementRequestTask">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!reimbursementApproved}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="adjustReimbursementRequestTask" name="Adjust reimbursement request" activiti:assignee="${employeeName}">
+    <userTask id="adjustReimbursementRequestTask" name="调整报销请求" activiti:assignee="${employeeName}">
       <documentation>Your manager has disapproved your reimbursement request for ${amountOfMoney} money.
         Reason: ${managerMotivation}</documentation>
       <extensionElements>
@@ -61,7 +61,7 @@
         <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
     </endEvent>
-    <userTask id="handleReimbursementAccountancyTask" name="Handle reimbursement accountancy request" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
+    <userTask id="handleReimbursementAccountancyTask" name="结算报销请求" activiti:assignee="${assignee}" activiti:candidateUsers="${candidateUsers}" activiti:candidateGroups="${candidateGroups}">
       <documentation>Your manager has approved ${employeeName} reimbursement request for ${amountOfMoney} money.
         Reason: ${managerMotivation}</documentation>
       <extensionElements>
