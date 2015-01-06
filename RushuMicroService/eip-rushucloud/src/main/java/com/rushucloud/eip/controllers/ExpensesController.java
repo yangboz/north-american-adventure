@@ -1,5 +1,7 @@
 package com.rushucloud.eip.controllers;
 
+import java.util.Enumeration;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rushucloud.eip.dto.JsonObject;
@@ -49,6 +52,7 @@ public class ExpensesController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(httpMethod = "POST", value = "Response a string describing if the reimbursement expense is successfully created or not.")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Expense create(@RequestBody @Valid Expense expense) {
 //		return this.expenseRepository.save(expense);
 		return this._expenseDao.save(expense);
@@ -86,17 +90,14 @@ public class ExpensesController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH,params = {"owner","pid","status"})
 	@ApiOperation(httpMethod = "PATCH", value = "Response a string describing if the reimbursement expense is successfully patched or not.")
-//	public Expense patch(@PathVariable("id") long id
-//			,@RequestParam(value = "pid") long pid
-//			,@RequestParam(value = "owner") String owner
-//			,@RequestParam(value = "status") String status) {
 	//@see: http://vaskoz.wordpress.com/2013/07/20/spring-requestmethod-patch/
 	public Expense patch(@PathVariable("id") long id
 			,@RequestBody Expense expense) {
 //		return this.expenseRepository.save(expense);
 		Expense patchExpense =  this._expenseDao.findById(id);
+		//TODO:enumrate the non-null properties and patch value.
 		patchExpense.setPid(expense.getPid());
-		patchExpense.setStatus(ExpenseStatus.Submitted);
+		patchExpense.setStatus(expense.getStatus());
 		return this._expenseDao.save(patchExpense);
 	}
 

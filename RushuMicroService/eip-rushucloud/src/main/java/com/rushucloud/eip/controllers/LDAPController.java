@@ -43,7 +43,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @RestController
 public class LDAPController {
 	//
-	private static Logger LOG = Logger.getLogger(LDAPController.class);
+//	private static Logger LOG = Logger.getLogger(LDAPController.class);
 	//
 	@RequestMapping(method = RequestMethod.GET, value = "ldap/search")
 	@ApiOperation(httpMethod = "GET", value = "LDAP search client for testing purpose.")
@@ -62,7 +62,7 @@ public class LDAPController {
 					public String mapFromAttributes(
 							javax.naming.directory.Attributes attrs)
 							throws NamingException {
-						LOG.debug("javax.naming.directory.Attributes:"+ attrs.toString());
+//						LOG.debug("javax.naming.directory.Attributes:"+ attrs.toString());
 						return attrs.get("uid").get().toString();
 					}
 				}));

@@ -72,6 +72,14 @@ sudo apt-get install slapd ldap-utils libldap-2.4-2 libdb4.6
 
 yum -y install openldap openldap-clients openldap-servers
 
+####Package JAR then run:
+
+mvn clean install -DskipTests=true -Dspring.profile.test=true
+
+http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
+
+java -jar eip-rushucloud-0.0.1.jar --spring.profiles.active=test
+
 ####Docker:
 
 At project/pom.xml,jar build: 
@@ -85,3 +93,9 @@ docker build -t eip-rushucloud-dev .
 Deploy to Docker Container and run:
 
 docker run -p 8082:8082 eip-rushucloud-dev
+
+####RabbitMQ:
+
+http://182.92.232.131:15672/
+
+reim:WNhZDU2Yzg0M2RiN
