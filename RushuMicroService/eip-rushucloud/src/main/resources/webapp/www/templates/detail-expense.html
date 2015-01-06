@@ -11,12 +11,12 @@
     </ion-nav-buttons>
 </icon-nav-bar>
 -->
-<ion-view title="{{expense.name}}" ng-init="loadExpenseDetail()">
+<ion-view title="{{expense.name}}" ng-init="loadExpenseDetail()" ng-controller="ExpenseDetailCtrl">
   <ion-content has-header="true" padding="true">
         {{expense.amount}}
       <button class="button button-full" ng-click="startProcessInstance(expense.id)" ng-disabled="expense.status!='Saved'">提交</button>
 
-      <div class="row" style="display:table-cell; vertical-align:middle; text-align:center">
+      <div class="row" style="display:table-cell; vertical-align:middle; text-align:center" ng-show="expense.status!='Saved'">
 
           <img image-lazy-src="{{processInstanceDiagramUrl}}"  >
 

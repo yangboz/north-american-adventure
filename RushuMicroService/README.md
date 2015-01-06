@@ -62,6 +62,8 @@ Profile:
 
 ###Test:
 
+mvn spring-boot:run -DskipTests=true -Dspring.profiles.active=dev
+
 ####OpenLDAP:http://www.server-world.info/en/note?os=Debian_7.0&p=ldap
 
 sudo apt-get install slapd ldap-utils libldap-2.4-2 libdb4.6

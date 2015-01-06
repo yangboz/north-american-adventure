@@ -746,6 +746,7 @@ angular.module('starter.controllers', [])
         }
         //@see: http://www.activiti.org/userguide/#N12EE4
         $scope.startProcessInstance = function (expenseId) {
+            $log.debug("$scope.startProcessInstance:"+expenseId);
             //Then submitStartForm to start process
             var anewProcessInstance = new ProcessInstancesService();
             anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
