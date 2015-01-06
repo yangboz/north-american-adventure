@@ -224,10 +224,10 @@
 	</properties>
 
 	<repositories>
-		<repository>
-			<id>localrepository</id>
-			<url>file:///Users/yangboz/maven-repository</url>
-		</repository>
+<!-- 		<repository> -->
+<!-- 			<id>localrepository</id> -->
+<!-- 			<url>file:///Users/yangboz/maven-repository</url> -->
+<!-- 		</repository> -->
 		<repository>
 			<id>oss-jfrog-artifactory</id>
 			<name>oss-jfrog-artifactory-releases</name>
