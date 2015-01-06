@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
                                       CONFIG_ENV, $log, $cordovaToast, $queue, Enum, $state,
                                       ExpenseService, ItemService, TaskService, CompanyService,
                                       ProcessDefinitionsService, LDAPService, $geoLocation, VendorService,
-                                      CategoryService,
+                                      CategoryService, ProcessInstancesService,
                                       $ionicActionSheet, toaster) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
@@ -362,6 +362,96 @@ angular.module('starter.controllers', [])
                 $log.error("VendorService.get() failed:", JSON.stringify(error));
             });
         }
+        //StartProcessInstance
+        $rootScope.processInstanceVariables = {};//Default value;
+        $rootScope.getProcessInstanceVariables = function (expenseObj){
+            //Assemble variables
+            var anewProcessInstanceVariables = [
+                {'name': 'employeeName', 'value': $rootScope.username}
+                , {'name': 'taskName', 'value': expenseObj.name}
+                , {'name': 'dueDate', 'value': expenseObj.date}
+                , {'name': 'participantIds', 'value': expenseObj.participantIds}
+                , {'name': 'amountOfMoney', 'value': expenseObj.amount}
+                , {'name': 'reimbursementMotivation', 'value': expenseObj.name}
+                , {'name': 'assignee', 'value': expenseObj.managerId}
+                , {'name': 'candidateUsers', 'value': expenseObj.participantIds}
+                , {'name': 'candidateGroups', 'value': Enum.groupNames[0]}
+            ]
+            $log.debug("anewProcessInstanceVariables:", anewProcessInstanceVariables);
+            return anewProcessInstanceVariables;
+        }
+        //@see: http://www.activiti.org/userguide/#N12EE4
+        $rootScope.curProcessInstanceId = -1;
+        //
+        $rootScope.startProcessInstance = function (expenseObj) {
+            $log.debug("$scope.startProcessInstance:" + expenseObj.id);
+            //Then submitStartForm to start process
+            var anewProcessInstance = new ProcessInstancesService();
+            anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
+            anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;
+            //Assemble variables
+            anewProcessInstance.variables = $rootScope.getProcessInstanceVariables(expenseObj);
+            //Save
+            anewProcessInstance.$save(function (resp, putResponseHeaders) {
+                $log.info("startProcessInstance() success, response:", resp);
+                $rootScope.curProcessInstanceId = resp.id;
+                //View history back to Expense tab inside of task table.
+                $ionicNavBarDelegate.back();
+                //Then update the expense status.
+                $rootScope.patchExpense(expenseObj);
+            }, function (error) {
+                // failure handler
+                $log.error("startProcessInstance.$save() failed:", JSON.stringify(error));
+            });
+        }
+        //Expense status/processInstanceId patch
+        $rootScope.patchExpense = function(expenseObj) {
+            //Update expense with Activiti Process Instance id.
+            var patchExpense = new ExpenseService(expenseObj.id);
+            patchExpense.pid = $rootScope.curProcessInstanceId;
+            patchExpense.owner = $rootScope.username;
+            patchExpense.status = Enum.expenseStatus.Submitted;
+            //Save
+            patchExpense.$patch({expenseId: expenseObj.id}, function (resp, putResponseHeaders) {
+                $log.info("patchExpenseItem() success, response:", resp);
+                //View history back to Expense tab inside of task table.
+                $ionicNavBarDelegate.back();
+                //Refresh expenses
+                $rootScope.loadExpenses();
+            }, function (error) {
+                // failure handler
+                $log.error("patchExpenseItem() failed:", JSON.stringify(error));
+            });
+        }
+        //Save the expense item at first.
+        $rootScope.saveExpenseReport = function (startProcessInstance) {
+            //return $log.debug($rootScope.companyInfo.processDefinitionId);
+            var anewExpense = new ExpenseService();
+            anewExpense.name = $rootScope.processInstanceVariables.name;
+            anewExpense.owner = $rootScope.username;
+            anewExpense.date = $rootScope.processInstanceVariables.date;
+            anewExpense.itemIds = $rootScope.itemIDsSel.toString();
+            anewExpense.managerId = $rootScope.managerIDsSel[0];
+            anewExpense.participantIds = $rootScope.employeeIDsSel.toString();
+            anewExpense.status = startProcessInstance ? Enum.expenseStatus.Submitted : Enum.expenseStatus.Saved;
+            anewExpense.amount = $rootScope.itemIDsSelAmount;
+            //Save
+            anewExpense.$save(function (resp, putResponseHeaders) {
+                $log.info("saveExpenseItem() success, response:", resp);
+                //SubmitStartForm to start process if necessary.
+                if (startProcessInstance) {
+                    $rootScope.startProcessInstance(resp);
+                } else {
+                    //View history back to Expense tab inside of task table.
+                    $ionicNavBarDelegate.back();
+                    //Refresh expenses
+                    $rootScope.loadExpenses();
+                }
+            }, function (error) {
+                // failure handler
+                $log.error("saveExpenseItem() failed:", JSON.stringify(error));
+            });
+        }
     })
 //TabsCtrl,@see:http://codepen.io/anon/pen/GpmLn
     .controller('TabsCtrl', function ($scope, $ionicTabsDelegate) {
@@ -698,37 +788,6 @@ angular.module('starter.controllers', [])
                                        TaskService, ProcessInstancesService, ExpenseService, Enum,
                                        ProcessDefinitionIdentityLinkService,
                                        $ionicActionSheet, $ionicPopup) {
-        //Local variables
-        $scope.processInstanceVariables = {};
-        //Save the expense item at first.
-        $scope.saveExpenseReport = function (startProcessInstance) {
-            //return $log.debug($rootScope.companyInfo.processDefinitionId);
-            var anewExpense = new ExpenseService();
-            anewExpense.name = $scope.processInstanceVariables.name;
-            anewExpense.owner = $rootScope.username;
-            anewExpense.date = $scope.processInstanceVariables.date;
-            anewExpense.itemIds = $rootScope.itemIDsSel.toString();
-            anewExpense.managerId = $rootScope.managerIDsSel[0];
-            anewExpense.participantIds = $rootScope.employeeIDsSel.toString();
-            anewExpense.status = startProcessInstance ? Enum.expenseStatus.Submitted : Enum.expenseStatus.Saved;
-            anewExpense.amount = $rootScope.itemIDsSelAmount;
-            //Save
-            anewExpense.$save(function (t, putResponseHeaders) {
-                $log.info("saveExpenseItem() success, response:", t);
-                //SubmitStartForm to start process if necessary.
-                if (startProcessInstance) {
-                    $scope.startProcessInstance(t.id);
-                } else {
-                    //View history back to Expense tab inside of task table.
-                    $ionicNavBarDelegate.back();
-                    //Refresh expenses
-                    $rootScope.loadExpenses();
-                }
-            }, function (error) {
-                // failure handler
-                $log.error("saveExpenseItem() failed:", JSON.stringify(error));
-            });
-        }
         //Add a candidate starter to a process definition
         $scope.identityLinks = function () {
             //return $log.info($rootScope.companyInfo.processDefinitionId);
@@ -743,52 +802,6 @@ angular.module('starter.controllers', [])
                     // failure handler
                     $log.error("saveProcessDefintionIdentityLinkService() failed:", JSON.stringify(error));
                 });
-        }
-        //@see: http://www.activiti.org/userguide/#N12EE4
-        $scope.startProcessInstance = function (expenseId) {
-            $log.debug("$scope.startProcessInstance:"+expenseId);
-            //Then submitStartForm to start process
-            var anewProcessInstance = new ProcessInstancesService();
-            anewProcessInstance.processDefinitionKey = $rootScope.companyInfo.processDefinitionKey;
-            anewProcessInstance.businessKey = $rootScope.companyInfo.businessKey;
-            //Assemble variables
-            anewProcessInstance.variables = [
-                {'name': 'employeeName', 'value': $rootScope.username}
-                , {'name': 'taskName', 'value': $scope.processInstanceVariables.name}
-                , {'name': 'dueDate', 'value': $scope.processInstanceVariables.date}
-                , {'name': 'participantIds', 'value': $rootScope.employeeIDsSel.toString()}
-                , {'name': 'amountOfMoney', 'value': $rootScope.itemIDsSelAmount}
-                , {'name': 'reimbursementMotivation', 'value': $scope.processInstanceVariables.name}
-                , {'name': 'assignee', 'value': $rootScope.managerIDsSel[0]}
-                , {'name': 'candidateUsers', 'value': $rootScope.employeeIDsSel.toString()}
-                , {'name': 'candidateGroups', 'value': Enum.groupNames[0]}
-            ];
-            $log.debug("anewProcessInstance.variables:", anewProcessInstance.variables);
-            //Save
-            anewProcessInstance.$save(function (resp, putResponseHeaders) {
-                $log.info("startProcessInstance() success, response:", resp);
-                //Update expense Activiti Process Instance id.
-                var updateExpense = new ExpenseService(expenseId);
-                updateExpense.pid = resp.id;
-                updateExpense.owner = $rootScope.username;
-                updateExpense.status = Enum.expenseStatus.Submitted;
-                //Save
-                updateExpense.$patch({expenseId: expenseId}, function (t, putResponseHeaders) {
-                    $log.info("updateExpenseItem() success, response:", t);
-                    //View history back to Expense tab inside of task table.
-                    $ionicNavBarDelegate.back();
-                    //Refresh expenses
-                    $rootScope.loadExpenses();
-                }, function (error) {
-                    // failure handler
-                    $log.error("updateExpenseItem() failed:", JSON.stringify(error));
-                });
-                //View history back to Expense tab inside of task table.
-                $ionicNavBarDelegate.back();
-            }, function (error) {
-                // failure handler
-                $log.error("startProcessInstance.$save() failed:", JSON.stringify(error));
-            });
         }
         //
         $scope.orderValue = 'asc';//desc

@@ -3,15 +3,15 @@
         <h1 class="title">添加报告</h1>
     </ion-header-bar>
     <ion-nav-buttons side="right">
-        <button class="button button-clear" ng-click="saveExpenseReport(false)">保存</button>
+        <button class="button button-clear" ng-click="$root.saveExpenseReport(false)">保存</button>
     </ion-nav-buttons>
     <ion-content class="padding" has-header="true">
         <div class="list list-inset">
             <label class="item item-input">
-                <input type="text" placeholder="新报告标题" ng-model="processInstanceVariables.name">
+                <input type="text" placeholder="新报告标题" ng-model="$root.processInstanceVariables.name">
             </label>
             <label class="item item-input">
-                <input type="date" placeholder="到期日" ng-model="processInstanceVariables.date">
+                <input type="date" placeholder="到期日" ng-model="$root.processInstanceVariables.date">
             </label>
             <div class="row item item-input-inset">
                 <div class="col-50">
@@ -61,7 +61,7 @@
                         </div>
                     </ion-item>
             </div>
-            <button class="button button-full" ng-click="saveExpenseReport(true)">提交</button>
+            <button class="button button-full" ng-click="$root.saveExpenseReport(true)">提交</button>
         </div>
     </ion-content>
 

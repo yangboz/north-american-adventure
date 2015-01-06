@@ -13,10 +13,10 @@
 	</parent>
 
 	<dependencies>
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework.boot</groupId> -->
-		<!-- <artifactId>spring-boot-starter-web</artifactId> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 		<!-- tag::actuator[] -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -224,10 +224,10 @@
 	</properties>
 
 	<repositories>
-<!-- 		<repository> -->
-<!-- 			<id>localrepository</id> -->
-<!-- 			<url>file:///Users/yangboz/maven-repository</url> -->
-<!-- 		</repository> -->
+		<!-- <repository> -->
+		<!-- <id>localrepository</id> -->
+		<!-- <url>file:///Users/yangboz/maven-repository</url> -->
+		<!-- </repository> -->
 		<repository>
 			<id>oss-jfrog-artifactory</id>
 			<name>oss-jfrog-artifactory-releases</name>
@@ -254,8 +254,10 @@
 			</snapshots>
 		</repository>
 		<!-- http://dynamicjasper.com/2011/12/23/is-there-a-maven-repository/ -->
-		<!-- <repository> <id>fdvsolution.public</id> <url>http://archiva.fdvs.com.ar/repository/public1/</url> 
-			</repository> -->
+		<repository>
+			<id>fdvsolution.public</id>
+			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
+		</repository>
 		<repository>
 			<id>Nexus</id>
 			<url>http://123.57.78.65:8081/nexus/content/groups/public/</url>

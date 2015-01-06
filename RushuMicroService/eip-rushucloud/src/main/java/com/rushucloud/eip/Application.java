@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
+import org.activiti.spring.boot.JpaProcessEngineAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -23,91 +24,110 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
 import com.rushucloud.eip.models.Company;
 
 @Configuration
+//
 @PropertySources({
-    @PropertySource(value="application-${spring.profiles.active}.properties"),
-    @PropertySource(value="log4j-${spring.profiles.active}.properties")
-})
+		@PropertySource(value = "application-${spring.profiles.active}.properties"),
+		@PropertySource(value = "log4j-${spring.profiles.active}.properties") })
+//
 @ComponentScan("com.rushucloud.eip")
 // @EnableWebSecurity
 @EnableAutoConfiguration
 // @EnableAutoConfiguration(exclude={WebSocketAutoConfiguration.class,JpaProcessEngineAutoConfiguration.class})
+//
 @ImportResource("classpath:activiti-standalone-context-${spring.profiles.active}.xml")
-//@see: http://spring.io/guides/gs/accessing-data-rest/
+// @see: http://spring.io/guides/gs/accessing-data-rest/
 @EnableJpaRepositories
+//
 @Import(RepositoryRestMvcConfiguration.class)
 //
 public class Application {
-//
+	//
 	private static Logger LOG = LoggerFactory.getLogger(Application.class);
-//
+
+	//
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(Application.class, args);
-//		new SpringApplicationBuilder(Application.class).profiles("test").run(args);
-		// Deploying the process here,avoid duplication to @see: http://forums.activiti.org/content/duplicate-deployment-processes
+		// new
+		// SpringApplicationBuilder(Application.class).profiles("test").run(args);
+		// Deploying the process here,avoid duplication to @see:
+		// http://forums.activiti.org/content/duplicate-deployment-processes
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 		RepositoryService repositoryService = processEngine
 				.getRepositoryService();
-		//TODO:Assembel the process deployment with configuration.
-		//@see:
+		// TODO:Assembel the process deployment with configuration.
+		// @see:
 		repositoryService
 				.createDeployment()
-				.addClasspathResource("processes/ReimbursementRequest.bpmn20.xml")
-				.addClasspathResource("processes/ReimbursementRequest.bpmn20.png")
-				.enableDuplicateFiltering()
-				.name("reimbursmentApproveSimple")
+				.addClasspathResource(
+						"processes/ReimbursementRequest.bpmn20.xml")
+				.addClasspathResource(
+						"processes/ReimbursementRequest.bpmn20.png")
+				.enableDuplicateFiltering().name("reimbursmentApproveSimple")
 				.deploy();
 		// Log information
-		 LOG.info("Process definitions: " +
-		 repositoryService.createProcessDefinitionQuery().list().toString());
+		LOG.info("Process definitions: "
+				+ repositoryService.createProcessDefinitionQuery().list()
+						.toString());
 		LOG.info("Number of process definitions: "
 				+ repositoryService.createProcessDefinitionQuery().count());
 		/*
-		//Starting a process instance
-		Map<String,Object> variables = new HashMap<String,Object>();
-		variables.put("employeeName", "employee1");
-		variables.put("amountOfMoney", (long)99.8);
-		variables.put("reimbursmentMotivation", "Need reimbursement for taxi.");
-		//
-		RuntimeService runtimeService = processEngine.getRuntimeService();
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("reimbursementRequest",variables);
-		//Verify that we started anew process instance
-		LOG.info("Process instance:"+processInstance.getId());
-		LOG.info("Process instances:"+runtimeService.createProcessInstanceQuery().list().toString());
-		LOG.info("Number of process instances:"+runtimeService.createProcessInstanceQuery().count());
-		*/
-		//ActiveMQ message receiver
-//		ActivemqSender sender = ActivemqSender.getInstance("SAMPLEQUEUE");
-		String businessKey = repositoryService.createProcessDefinitionQuery().list().get(0).getKey();
-		String processDefinitionId = repositoryService.createProcessDefinitionQuery().list().get(0).getId();
-		String activemqChannelName = businessKey+"/"+processDefinitionId;
-		//Save the queueName.
+		 * //Starting a process instance Map<String,Object> variables = new
+		 * HashMap<String,Object>(); variables.put("employeeName", "employee1");
+		 * variables.put("amountOfMoney", (long)99.8);
+		 * variables.put("reimbursmentMotivation",
+		 * "Need reimbursement for taxi."); // RuntimeService runtimeService =
+		 * processEngine.getRuntimeService(); ProcessInstance processInstance =
+		 * runtimeService
+		 * .startProcessInstanceByKey("reimbursementRequest",variables);
+		 * //Verify that we started anew process instance
+		 * LOG.info("Process instance:"+processInstance.getId());
+		 * LOG.info("Process instances:"
+		 * +runtimeService.createProcessInstanceQuery().list().toString());
+		 * LOG.info
+		 * ("Number of process instances:"+runtimeService.createProcessInstanceQuery
+		 * ().count());
+		 */
+		// ActiveMQ message receiver
+		// ActivemqSender sender = ActivemqSender.getInstance("SAMPLEQUEUE");
+		String businessKey = repositoryService.createProcessDefinitionQuery()
+				.list().get(0).getKey();
+		String processDefinitionId = repositoryService
+				.createProcessDefinitionQuery().list().get(0).getId();
+		String activemqChannelName = businessKey + "/" + processDefinitionId;
+		// Save the queueName.
 		ActivemqSender.channelName = activemqChannelName;
-		LOG.info("ActiveMQ initializing with channel name:"+ActivemqSender.channelName);
-//		ActivemqSender sender = new ActivemqSender(activemqQueueName);
-//		sender.sendMessage("echo");//For testing
-//		ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");
-//		ActivemqReceiver receiver = ActivemqReceiver.getInstance("SAMPLEQUEUE");
-//		receiver.receiveMessage();
-		//Generate basic data base.
-////		EntityManager entityManager = Persistence.createEntityManagerFactory("activiti_test").createEntityManager();
-//		entityManager.getTransaction().begin();
-//		Company company = new Company();
-//		company.setBusinessKey(businessKey);
-//		company.setDate(new Date());
-//		company.setDomain("example.com");
-//		company.setEmail("sample@example.com");
-//		company.setName("EXAMPLE.COM");
-//		entityManager.persist(company);
-//		entityManager.getTransaction().commit();
+		LOG.info("ActiveMQ initializing with channel name:"
+				+ ActivemqSender.channelName);
+		// ActivemqSender sender = new ActivemqSender(activemqQueueName);
+		// sender.sendMessage("echo");//For testing
+		// ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");
+		// ActivemqReceiver receiver =
+		// ActivemqReceiver.getInstance("SAMPLEQUEUE");
+		// receiver.receiveMessage();
+		// Generate basic data base.
+		// // EntityManager entityManager =
+		// Persistence.createEntityManagerFactory("activiti_test").createEntityManager();
+		// entityManager.getTransaction().begin();
+		// Company company = new Company();
+		// company.setBusinessKey(businessKey);
+		// company.setDate(new Date());
+		// company.setDomain("example.com");
+		// company.setEmail("sample@example.com");
+		// company.setName("EXAMPLE.COM");
+		// entityManager.persist(company);
+		// entityManager.getTransaction().commit();
 	}
-	//@see: http://stackoverflow.com/questions/26425067/resolvedspring-boot-access-to-entitymanager
+
+	// @see:
+	// http://stackoverflow.com/questions/26425067/resolvedspring-boot-access-to-entitymanager
 	@Bean
 	public PersistenceAnnotationBeanPostProcessor persistenceBeanPostProcessor() {
-	    return new PersistenceAnnotationBeanPostProcessor();
+		return new PersistenceAnnotationBeanPostProcessor();
 	}
 }

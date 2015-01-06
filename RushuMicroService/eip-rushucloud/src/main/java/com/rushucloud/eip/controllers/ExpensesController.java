@@ -86,13 +86,16 @@ public class ExpensesController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH,params = {"owner","pid","status"})
 	@ApiOperation(httpMethod = "PATCH", value = "Response a string describing if the reimbursement expense is successfully patched or not.")
+//	public Expense patch(@PathVariable("id") long id
+//			,@RequestParam(value = "pid") long pid
+//			,@RequestParam(value = "owner") String owner
+//			,@RequestParam(value = "status") String status) {
+	//@see: http://vaskoz.wordpress.com/2013/07/20/spring-requestmethod-patch/
 	public Expense patch(@PathVariable("id") long id
-			,@RequestParam(value = "pid") long pid
-			,@RequestParam(value = "owner") String owner
-			,@RequestParam(value = "status") String status) {
+			,@RequestBody Expense expense) {
 //		return this.expenseRepository.save(expense);
 		Expense patchExpense =  this._expenseDao.findById(id);
-		patchExpense.setPid(pid);
+		patchExpense.setPid(expense.getPid());
 		patchExpense.setStatus(ExpenseStatus.Submitted);
 		return this._expenseDao.save(patchExpense);
 	}
