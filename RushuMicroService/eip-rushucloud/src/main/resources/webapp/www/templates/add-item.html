@@ -81,7 +81,7 @@ node-children: each node's children
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
-                        <input type="text" placeholder="类别" ng-model="newItem.categories">
+                        <input type="text" placeholder="{{($root.categorySel.name!=null)?$root.categorySel.name:'类别'}}" ng-model="newItem.categories" value="{{$root.categorySel}}"/>
                     </label>
                 </div>
                 <div class="col-50">

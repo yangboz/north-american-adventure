@@ -208,9 +208,7 @@ angular.module('starter.controllers', [])
         $rootScope.managerIDsSel = [];
         $rootScope.vendorIdSel = -1;
         $rootScope.vendors = [];
-        $rootScope.categories = [];
-        $rootScope.categoriesSel = [];//selected categories.
-        $rootScope.categoryIDsSel = [];//selected category ids.
+        $rootScope.categorySel = [];//selected category.
         $rootScope.tags = [];
         ///User related
         $rootScope.loggedin = true;
@@ -1058,16 +1056,9 @@ angular.module('starter.controllers', [])
             });
         }
         //@see: http://stackoverflow.com/questions/14514461/how-can-angularjs-bind-to-list-of-checkbox-values
-        $scope.toggleCategoryListSelection = function (category, index) {
-            var idx = $rootScope.categoryIDsSel.indexOf(category.id);
-            if (idx > -1) {
-                $rootScope.categoryIDsSel.splice(idx, 1);
-                $rootScope.categoriesSel.splice(idx, 1);
-            } else {
-                $rootScope.categoryIDsSel.push(category.id);
-                $rootScope.categoriesSel.push(category);
-            }
-            $log.debug("toggleCategoryListSelection:", $rootScope.categoryIDsSel,$rootScope.categoriesSel);
+        $scope.toggleCategoryListSelection = function (category) {
+            $rootScope.categorySel = category;
+            $log.debug("toggleCategoryListSelection:", $rootScope.categorySel);
         }
     })
     .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {

@@ -99,3 +99,13 @@ docker run -p 8082:8082 eip-rushucloud-dev
 http://182.92.232.131:15672/
 
 reim:WNhZDU2Yzg0M2RiN
+
+http://ng.rushucloud.com:55672/ guest/guest
+
+####Enviroment(123.56.112.163):
+
+mysql:FiOWExZTM4ZGI0NmE 
+
+database:reim_ng
+
+grant all privileges on reim_ng.* to reim_ng@'localhost' identified by 'zZDVjMDkwNmU5MTA4OTJlO';
