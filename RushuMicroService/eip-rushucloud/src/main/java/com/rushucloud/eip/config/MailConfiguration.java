@@ -2,8 +2,8 @@ package com.rushucloud.eip.config;
 
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class MailConfiguration {
     @Value("${mail.password}")
     private String password;
     
-    private static Logger LOG = LoggerFactory.getLogger(MailConfiguration.class);
+    private static Logger LOG = LogManager.getLogger(MailConfiguration.class);
     
     @Bean
     public JavaMailSender javaMailSender() {

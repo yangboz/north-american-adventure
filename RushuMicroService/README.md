@@ -64,11 +64,17 @@ Profile:
 
 mvn spring-boot:run -DskipTests=true -Dspring.profiles.active=dev
 
-####OpenLDAP:http://www.server-world.info/en/note?os=Debian_7.0&p=ldap
+####OpenLDAP:
+
+http://www.server-world.info/en/note?os=Debian_7.0&p=ldap
 
 sudo apt-get install slapd ldap-utils libldap-2.4-2 libdb4.6
 
-####CentOS:http://docs.adaptivecomputing.com/viewpoint/hpc/Content/topics/1-setup/installSetup/settingUpOpenLDAPOnCentos6.htm
+http://www.unixmen.com/openldap-installation-configuration-ubuntu-12-1013-0413-10-debian-67/
+
+####CentOS:
+
+http://docs.adaptivecomputing.com/viewpoint/hpc/Content/topics/1-setup/installSetup/settingUpOpenLDAPOnCentos6.htm
 
 yum -y install openldap openldap-clients openldap-servers
 
@@ -94,6 +100,14 @@ Deploy to Docker Container and run:
 
 docker run -p 8082:8082 eip-rushucloud-dev
 
+####JDK8:
+
+#####Debain:
+
+PPA + Oracle-JDK-8-installer: 
+
+http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html
+
 ####RabbitMQ:
 
 http://182.92.232.131:15672/
@@ -109,3 +123,5 @@ mysql:FiOWExZTM4ZGI0NmE
 database:reim_ng
 
 grant all privileges on reim_ng.* to reim_ng@'localhost' identified by 'zZDVjMDkwNmU5MTA4OTJlO';
+
+LDAP: 123.56.112.163:389 cn=admin,dc=123,dc=56,dc=112,dc=163 Rushu0915

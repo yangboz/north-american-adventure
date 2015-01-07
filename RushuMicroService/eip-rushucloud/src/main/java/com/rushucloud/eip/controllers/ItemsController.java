@@ -6,9 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.CriteriaQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @RequestMapping("/items")
 // @see: http://java.dzone.com/articles/spring-rest-controller
 public class ItemsController {
-	private Logger LOG = LoggerFactory.getLogger(ItemsController.class);
+	private Logger LOG = LogManager.getLogger(ItemsController.class);
 	// ==============
 	// PRIVATE FIELDS
 	// ==============

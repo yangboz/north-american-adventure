@@ -4,6 +4,8 @@
  */
 package com.rushucloud.eip.config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -15,8 +17,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Configuration
 @Order(201)
@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//
-	private static Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
+	private static Logger LOG = LogManager.getLogger(SecurityConfiguration.class);
 	//
 	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

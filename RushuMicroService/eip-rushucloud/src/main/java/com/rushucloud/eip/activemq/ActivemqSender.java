@@ -10,8 +10,8 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rushucloud.eip.consts.JMSConstants;
 
@@ -22,7 +22,7 @@ public class ActivemqSender {
 	private Session session = null;
 	private Destination destination = null;
 	private MessageProducer producer = null;
-	private static Logger LOG = LoggerFactory.getLogger(ActivemqSender.class);
+	private static Logger LOG = LogManager.getLogger(ActivemqSender.class);
 	// Static variables storage here:
 	// Common channel/topic name
 	static public String channelName = null;

@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
@@ -31,9 +33,6 @@ import com.rushucloud.eip.models.Invoice;
 import com.rushucloud.eip.models.InvoiceDao;
 import com.wordnik.swagger.annotations.ApiOperation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @RestController
 @RequestMapping("/upload")
 public class FileUploadController {
@@ -42,7 +41,7 @@ public class FileUploadController {
 		ori,sml,ico
 	}
 	//
-	private static Logger LOG = LoggerFactory
+	private static Logger LOG = LogManager
 			.getLogger(FileUploadController.class);
 	// Autowire an object of type InvoiceDao
 	@Autowired

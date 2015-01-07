@@ -28,7 +28,7 @@
       if (url && url.length > 1) {
         url = url[1];
       } else {
-        url = "http://localhost:8082/eip-rushucloud/api-docs/";
+        url = window.document.location.protocol+"//"+window.location.hostname+":"+window.document.location.port+"/eip-rushucloud/api-docs/";
       }
       window.swaggerUi = new SwaggerUi({
         url: url,

@@ -2,13 +2,13 @@ package com.rushucloud.eip.activiti;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("serial")
 public class ActivitiExecutionListener implements ExecutionListener {
-	private static Logger LOG = LoggerFactory
+	private static Logger LOG = LogManager
 			.getLogger(ActivitiExecutionListener.class);
 
 	@SuppressWarnings({ "unchecked" })

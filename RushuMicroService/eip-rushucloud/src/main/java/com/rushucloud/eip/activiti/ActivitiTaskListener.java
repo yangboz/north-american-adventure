@@ -2,16 +2,16 @@ package com.rushucloud.eip.activiti;
 
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
 
 @SuppressWarnings("serial")
 public class ActivitiTaskListener implements TaskListener {
 	//
-	private static Logger LOG = LoggerFactory
+	private static Logger LOG = LogManager
 			.getLogger(ActivitiTaskListener.class);
 
 	@SuppressWarnings({ "unchecked"})

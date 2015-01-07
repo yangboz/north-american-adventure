@@ -22,14 +22,14 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.util.URIUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.node.ArrayNode;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +65,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @RequestMapping("/vendors")
 // @see: http://java.dzone.com/articles/spring-rest-controller
 public class VendorsController {
-	private Logger LOG = LoggerFactory.getLogger(VendorsController.class);
+	private Logger LOG = LogManager.getLogger(VendorsController.class);
 	// ==============
 	// PRIVATE FIELDS
 	// ==============
