@@ -37,7 +37,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 //var API_URL = "http://www.rushucloud.com:90/activiti-rest/";///usr/share/tomcat6/webapps/h5
 //var API_URL = "http://localhost:8080/activiti-rest/";
 //var API_URL = "/activiti-rest/";
-        'api_endpoint': 'http://localhost:8082/eip-rushucloud/'
+//        'api_endpoint': 'http://localhost:8082/eip-rushucloud/'
+        'api_endpoint': DynamicEnvironment.get('api_endpoint')
         //'api_endpoint': 'http://localhost:8080/activiti-rest/service/',
         , 'api_version': '5.16.3'
         , 'stomp_uri': 'ws://127.0.0.1:61614/stomp'
@@ -246,5 +247,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tab/dash');
-    });
+    })
+;
 

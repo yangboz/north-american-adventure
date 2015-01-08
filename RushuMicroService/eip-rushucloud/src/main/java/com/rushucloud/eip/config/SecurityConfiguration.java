@@ -4,6 +4,8 @@
  */
 package com.rushucloud.eip.config;
 
+import javax.ws.rs.HttpMethod;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
@@ -36,6 +39,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             auth.inMemoryAuthentication().withUser("chris").password("chris").roles("USER");
     }
     // ... other stuff for application security
+    //@see:  http://smlsun.com/blog/2014/01/19/Spring-Security-Basic-Authentication-with-Ajax-request/
+	@Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**");
+        web.ignoring()
+        .antMatchers(HttpMethod.GET, "/**");
+    }
 	/*
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
