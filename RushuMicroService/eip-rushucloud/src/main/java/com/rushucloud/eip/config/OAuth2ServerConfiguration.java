@@ -1,129 +1,112 @@
+/*
+ * Copyright 2014 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.rushucloud.eip.config;
 
-import javax.ws.rs.HttpMethod;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
-import com.google.common.collect.Lists;
-//@see: http://tutorials.jenkov.com/oauth2/client-types.html
-//@see: http://blog.jdriven.com/2014/10/stateless-spring-security-part-2-stateless-authentication/
 @Configuration
-@EnableAuthorizationServer
-public class OAuth2ServerConfiguration extends AuthorizationServerConfigurerAdapter {
+public class OAuth2ServerConfiguration {
 
-    //bean defined in separete config class (which is annotated with @EnableWebSecurity)
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("xxx")
-                .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(60 * 60 * 24)
-                .refreshTokenValiditySeconds(60 * 60 * 24 * 5)
-                .scopes("read")
-                .and()
-                .withClient("yyyy")
-                .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(60 * 60 * 24 * 2)
-                .refreshTokenValiditySeconds(60 * 60 * 24 * 10)
-                .scopes("read");
-    }
+	private static final String RESOURCE_ID = "restservice";
 
-    @Bean
-    public JwtTokenStore tokenStore() {
-        return new JwtTokenStore(tokenEnhancer());
-    }
+	@Configuration
+	@EnableResourceServer
+	protected static class ResourceServerConfiguration extends
+			ResourceServerConfigurerAdapter {
 
-    @Bean
-    public JwtAccessTokenConverter tokenEnhancer() {
-        final JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey("admin");
-        return jwtAccessTokenConverter;
-    }
+		@Override
+		public void configure(ResourceServerSecurityConfigurer resources) {
+			// @formatter:off
+			resources
+				.resourceId(RESOURCE_ID);
+			// @formatter:on
+		}
 
-    @Bean
-    public TokenEnhancerChain tokenEnhancerChain() {
-        final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Lists.newArrayList(new MyTokenEnhancer(), tokenEnhancer()));
-        return tokenEnhancerChain;
-    }
+		@Override
+		public void configure(HttpSecurity http) throws Exception {
+			// @formatter:off
+			http
+				.authorizeRequests()
+					.antMatchers("/**").authenticated();
+			// @formatter:on
+		}
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenServices(defaultTokenServices()).authenticationManager(authenticationManager);
-    }
+	}
 
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.allowFormAuthenticationForClients().realm("admin/admin");
-    }
+	@Configuration
+	@EnableAuthorizationServer
+	protected static class AuthorizationServerConfiguration extends
+			AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    private ClientDetailsService clientDetailsService;
+		private TokenStore tokenStore = new InMemoryTokenStore();
 
-    @Bean
-    public DefaultTokenServices defaultTokenServices() {
-        final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
-        defaultTokenServices.setClientDetailsService(clientDetailsService);
-        defaultTokenServices.setTokenEnhancer(tokenEnhancerChain());
-        defaultTokenServices.setSupportRefreshToken(true);
-        return defaultTokenServices;
-    }
+		@Autowired
+		@Qualifier("authenticationManagerBean")
+		private AuthenticationManager authenticationManager;
 
-    private static class MyTokenEnhancer implements TokenEnhancer {
-        @Override
-        public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-            final DefaultOAuth2AccessToken result = new DefaultOAuth2AccessToken(accessToken);
-            final User user = (User) authentication.getPrincipal();
-            result.getAdditionalInformation().put("userId", user.getUserId());
-            result.getAdditionalInformation().put("companyId", user.getCompanyId());
-            result.getAdditionalInformation().put("roles", user.getAuthorities());
-            return result;
+		@Override
+		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
+				throws Exception {
+			// @formatter:off
+			endpoints
+				.tokenStore(this.tokenStore)
+				.authenticationManager(this.authenticationManager);
+			// @formatter:on
+		}
+
+		@Override
+		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+			// @formatter:off
+			clients
+				.inMemory()
+					.withClient("clientapp")
+						.authorizedGrantTypes("password","refresh_token")
+						.authorities("USER")
+						.scopes("read", "write")
+						.resourceIds(RESOURCE_ID)
+						.secret("123456");
+			// @formatter:on
+		}
+
+        @Bean
+        @Primary
+        public DefaultTokenServices tokenServices() {
+            DefaultTokenServices tokenServices = new DefaultTokenServices();
+            tokenServices.setSupportRefreshToken(true);
+            tokenServices.setTokenStore(this.tokenStore);
+            return tokenServices;
         }
-    }
-}
 
-class User{
-	private String userId;
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	private String companyId;
-	public String getCompanyId() {
-		return companyId;
-	}
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
-	}
-	private String roles;
-	public String getAuthorities() {
-		return roles;
-	}
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
+    }
+
 }

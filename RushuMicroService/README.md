@@ -4,7 +4,7 @@ RushuEIP overview:
 
 ###2.Activiti for workflow solution;
 
-###3.ActiveMQ for message solution;
+###3.ActiveMQ/RabbitMQ for message solution;
 
 ###4.LDAP for enterprise authentication;
 
@@ -12,10 +12,10 @@ RushuEIP overview:
 
 ###6.Swagger UI for Restful API.
 
-###7.Others.
+###7.Others(OAuth2,Docker,JasperReport).
 
 
-References:
+####References:
 
 http://spring.io/guides
 
@@ -26,7 +26,7 @@ https://activemq.apache.org
 http://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol
 
 
-LDAP:
+####LDAP:
 
 http://www.ibm.com/developerworks/cn/linux/l-openldap/
 
@@ -34,11 +34,11 @@ http://fanqiang.chinaunix.net/app/ldap/2005-03-23/2979.shtml
 
 http://hermanbanken.nl/2011/01/22/openldap-server-mac-osx-clients/
 
-Dynamic/JasperReport:
+####Dynamic/JasperReport:
 
 http://krams915.blogspot.in/2011/02/spring-3-dynamicjasper-hibernate_4736.html
 
-MVN:
+####MVN:
 
 http://docs.spring.io/autorepo/docs/spring-boot/1.2.0.BUILD-SNAPSHOT/maven-plugin/examples/run-debug.html
 
@@ -125,3 +125,19 @@ database:reim_ng
 grant all privileges on reim_ng.* to reim_ng@'localhost' identified by 'zZDVjMDkwNmU5MTA4OTJlO';
 
 LDAP: 123.56.112.163:389 cn=admin,dc=123,dc=56,dc=112,dc=163 Rushu0915
+
+####OAuth2.0:
+
+#####Testing access_token:
+
+curl http://localhost:8082/eip-rushucloud/company
+
+#####Getting access_token:
+
+curl -X POST -vu clientapp:123456 http://localhost:8082/eip-rushucloud/oauth/token -H "Accept: application/json" -d "password=spring&username=roy&grant_type=password&scope=read%20write&client_secret=123456&client_id=clientapp"
+
+curl http://localhost:8082/eip-rushucloud/company -H "Authorization: Bearer 79384888-f966-48f4-8e57-87876748b3c9"
+
+#####Rereshing access_token:
+
+curl -X POST -vu clientapp:123456 http://localhost:8082/eip-rushucloud/oauth/token -H "Accept: application/json" -d "grant_type=refresh_token&refresh_token=6f3599c8-2ee3-4654-9697-4e7480b7a976&client_secret=123456&client_id=clientapp"

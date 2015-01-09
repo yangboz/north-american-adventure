@@ -15,3 +15,7 @@ INSERT INTO `categories` (`id`, `created`, `date`, `updated`, `icon`, `name`, `p
 (7, '2014-12-26 13:55:39', NULL, '2014-12-26 13:55:39', '02', '火车', 3),
 (8, '2014-12-26 13:55:39', NULL, '2014-12-26 13:55:39', '02', '话费', 1),
 (9, '2014-12-26 13:55:39', NULL, '2014-12-26 13:55:39', '02', '餐饮', 1);
+
+INSERT INTO user(id, name, login, password) values (1,'Roy','roy','spring');
+INSERT INTO user(id, name, login, password) values (2,'Craig','craig','spring');
+INSERT INTO user(id, name, login, password) values (3,'Greg','greg','spring');
