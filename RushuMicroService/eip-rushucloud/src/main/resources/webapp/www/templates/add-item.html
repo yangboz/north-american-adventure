@@ -33,7 +33,7 @@
                         <img ng-show="imageFile.dataUrl!=null" ng-src="{{imageFile.dataUrl}}">
                         -->
                         <img ng-show="imgURI !=null" ng-src="{{imgURI}}" style="width: 32px;height: 32px;">
-                        <img ng-show="imgURI === undefined" ng-src="http://placehold.it/32x32">
+                        <img ng-show="imgURI === undefined" ng-src="img/32x32.gif">
                     </label>
                 </div>
                 <div class="col-50" >
@@ -85,13 +85,13 @@ node-children: each node's children
                     </label>
                 </div>
                 <div class="col-50">
-                    <a class="button button-icon icon ion-plus-round" ng-click="categoryListModal.show()"></a>
+                    <a class="button button-icon icon ion-plus-round" ng-click="$root.loadCategories()"></a>
                 </div>
             </div>
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
-                        <input type="text" placeholder="供应商" ng-model="newItem.vendors">
+                        <input type="text" placeholder="{{($root.vendorSel.name!=null)?$root.vendorSel.name:'供应商'}}" ng-model="newItem.vendors">
                     </label>
                 </div>
                 <div class="col-50">

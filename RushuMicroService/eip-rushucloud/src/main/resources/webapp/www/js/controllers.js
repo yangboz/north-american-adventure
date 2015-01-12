@@ -208,6 +208,8 @@ angular.module('starter.controllers', [])
         $rootScope.managerIDsSel = [];
         $rootScope.vendorIdSel = -1;
         $rootScope.vendors = [];
+        $rootScope.vendorSel = [];//selected vendor.
+        $rootScope.categoryList = [];
         $rootScope.categorySel = [];//selected category.
         $rootScope.tags = [];
         ///User related
@@ -448,6 +450,20 @@ angular.module('starter.controllers', [])
             }, function (error) {
                 // failure handler
                 $log.error("saveExpenseItem() failed:", JSON.stringify(error));
+            });
+        }
+        //
+        $rootScope.loadCategories = function () {
+            //
+            CategoryService.get({}, function (response) {
+                $log.info("CategoryService.get() success, response(json):", response);
+                $rootScope.categoryList = response.data[0].children;
+                $log.debug("$rootScope.categoryList:", $rootScope.categoryList);
+                //
+                $rootScope.categoryListModal.show();
+            }, function (error) {
+                // failure handler
+                $log.error("CategoryService.get() failed:", JSON.stringify(error));
             });
         }
     })
@@ -718,7 +734,7 @@ angular.module('starter.controllers', [])
         //Query
         //CREATE,
         $scope.createItem = function () {
-            $log.debug("createItem(),$scope.newItem:", $scope.newItem);
+            //$log.debug("createItem(),$scope.newItem:", $scope.newItem);
             var anewItem = new ItemService($scope.newItem);
             anewItem.amount = $rootScope.newItem.amount;
             anewItem.name = $rootScope.newItem.name;
@@ -732,14 +748,11 @@ angular.module('starter.controllers', [])
             anewItem.$save(function (t, putResponseHeaders) {
                 $log.info("createItem() success, response:", t);
                 //Refresh item list
-                ItemService.get({owner: $rootScope.username}, function (response) {
-                    $log.debug("ItemService.get() success!", response);
-                    $rootScope.items = response.data;
-                    //View history back to Expense tab inside of task table.
-                    $ionicNavBarDelegate.back();
-                });
+                $rootScope.loadItems();
                 //Reset value
                 $scope.newItem = {"name": "", "vendors": "", "invoices": "", "date": "", "owner": ""};
+                //View history back to Expense tab inside of task table.
+                $ionicNavBarDelegate.back();
             });
         }
         //DELETE
@@ -747,10 +760,7 @@ angular.module('starter.controllers', [])
             ItemService.delete({itemId: itemId}, function (data) {
                 $log.debug("ItemService.delete:", data);
                 //Refresh item list
-                ItemService.get({owner: $rootScope.username}, function (response) {
-                    $log.debug("ItemService.get() success!", response);
-                    $rootScope.items = response.data;
-                });
+                $rootScope.loadItems();
             });
             //
         }
@@ -1035,9 +1045,10 @@ angular.module('starter.controllers', [])
         });
     })
     .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log, VendorService) {
-        $scope.toggleVendorListSelection = function (vendorId) {
-            $rootScope.vendorIdSel = vendorId;
-            $log.debug("toggleVendorListSelection:", $rootScope.vendorIdSel);
+        $scope.toggleVendorListSelection = function (vendor) {
+            $rootScope.vendorIdSel = vendor.business_id;
+            $rootScope.vendorSel = vendor;
+            $log.debug("toggleVendorListSelection:", $rootScope.vendorSel);
         }
     })
     .controller('CategoryCtrl', function ($scope, $rootScope, $stateParams, $log, CategoryService) {
