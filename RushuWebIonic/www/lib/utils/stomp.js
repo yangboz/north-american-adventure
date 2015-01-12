@@ -208,7 +208,7 @@
           return function() {
             var delta;
             delta = now() - _this.serverActivity;
-            if (delta > ttl * 2) {
+            if (delta > ttl * 200) {
               if (typeof _this.debug === "function") {
                 _this.debug("did not receive server activity for the last " + delta + "ms");
               }

@@ -30,10 +30,10 @@ public class SwaggerConfig {
 	      ApiInfo apiInfo = new ApiInfo(
 	              "Rushucloud.com API",
 	              "API for Rushucloud.com with a macho swagger",
-	              "",
+	              "http://www.rushucloud.com/terms",
 	              "mailto:contact@rushucloud.com?Subject=Hello,",
 	              "Rushucloud API Licence Type",
-	              ""
+	              "http://www.rushucloud.com/licenses"
 	        );
 	      return apiInfo;
 	    }

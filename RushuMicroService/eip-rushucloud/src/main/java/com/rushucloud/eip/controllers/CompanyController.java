@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.rushucloud.eip.models.Company;
 import com.rushucloud.eip.models.CompanyDao;
 import com.rushucloud.eip.models.CompanyRepository;
 import com.rushucloud.eip.models.Item;
+import com.rushucloud.eip.models.User;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 @RestController
@@ -61,7 +63,7 @@ public class CompanyController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(httpMethod = "GET", value = "Response a list describing all of company that is successfully get or not.")
-	public JsonObject list() {
+	public JsonObject list(@AuthenticationPrincipal User user) {
 //		return new JsonObject(this.companyRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC,"date"))));
 		return new JsonObject(this._companyDao.findAll());
 	}

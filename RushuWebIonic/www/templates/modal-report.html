@@ -1,18 +1,18 @@
-<ion-modal-view ng-controller="TabCtrlReports">
+<ion-modal-view ng-controller="TabCtrlTasks">
     <ion-header-bar class="bar bar-header">
-        <h1 class="title">Report</h1>
-        <button class="button button-icon icon ion-close" ng-click="reportModal.hide()"></button>
+        <h1 class="title">Task</h1>
+        <button class="button button-icon icon ion-close" ng-click="taskModal.hide()"></button>
     </ion-header-bar>
     <ion-content class="padding">
         <div class="list list-inset">
             <label class="item item-input">
-                <input type="text" placeholder="名称" ng-model="newReport.name">
+                <input type="text" placeholder="名称" ng-model="newTask.name">
             </label>
             <label class="item item-input">
-                <textarea placeholder="描述" ng-model="newReport.description"></textarea>
+                <textarea placeholder="描述" ng-model="newTask.description"></textarea>
             </label>
             <label class="item item-input">
-                <input type="date" placeholder="到期日" ng-model="newReport.dueDate">
+                <input type="date" placeholder="到期日" ng-model="newTask.dueDate">
             </label>
             <label class="item item-input">
                 <div class="input-label">
@@ -24,7 +24,7 @@
                     <option>高</option>
                 </select>
             </label>
-            <button class="button button-full" ng-click="createReport()">Submit</button>
+            <button class="button button-full" ng-click="createTask()">Submit</button>
         </div>
     </ion-content>
 </ion-modal-view>

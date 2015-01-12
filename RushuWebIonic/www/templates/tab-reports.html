@@ -1,28 +1,16 @@
-<ion-view title="Reports">
+<icon-view title="统计" ng-init="loadReportsData()">
     <ion-nav-buttons side="left">
-        <button class="button" ng-click="orderReports();">
-            排序
-        </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <ion-nav-buttons side="right">
-            <button class="button button-icon icon ion-plus" ng-click="reportModal.show();">
-            </button>
-        </ion-nav-buttons>
+        <button class="button button-icon icon ion-share" ui-sref="tab.reports-export">
+        </button>
     </ion-nav-buttons>
-  <ion-content>
-      <ion-list>
-          <ion-item ng-repeat="report in reports" type="item-text-wrap" >
-              <div class="item item-button-right">
-                  <a href="#/tab/report/{{report.id}}"><h2>{{report.name}} {{report.createTimeDate}}</h2></a>
-                  <p>{{report.description}} {{report.dueDate}}</p>
-                  <button class="button button-icon icon ion-ios7-checkmark-empty" ng-click="completeTask('{{report.id}}')"></button>
-                  <!--
-                  <button class="btn btn-success task-claim-button" type="button"
-                          ng-click="claimTask('{{report.id}}')" ng-show="true" >Claim</button>
-                  -->
-              </div>
-          </ion-item>
-      </ion-list>
-  </ion-content>
-</ion-view>
+    <ion-content style="background-color:#ffffff" has-header="true">
+        <!--<canvas barchart="" options="options" data="chart" style="bottom:0;position:absolute;height:100%;width:100%"></canvas>-->
+
+        <div style="padding: 3px;width:100%;height:100%;border: 1px solid #b2b2b2;background-color: #ffffff">
+            <nvd3 options="reportChartOptions" data="reportChartData"></nvd3>
+        </div>
+    </ion-content>
+</icon-view>
+
