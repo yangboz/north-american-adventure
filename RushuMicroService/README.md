@@ -134,10 +134,10 @@ curl http://localhost:8082/eip-rushucloud/company
 
 #####Getting access_token:
 
-curl -X POST -vu clientapp:123456 http://localhost:8082/eip-rushucloud/oauth/token -H "Accept: application/json" -d "password=spring&username=roy&grant_type=password&scope=read%20write&client_secret=123456&client_id=clientapp"
+curl -X POST -vu clientapp:1NDgzZGY1OWViOWRmNjI5ZT http://localhost:8082/eip-rushucloud/oauth/token -H "Accept: application/json" -d "password=bar&username=foo&grant_type=password&scope=read%20write&client_secret=1NDgzZGY1OWViOWRmNjI5ZT&client_id=clientapp"
 
-curl http://localhost:8082/eip-rushucloud/company -H "Authorization: Bearer 79384888-f966-48f4-8e57-87876748b3c9"
+curl http://localhost:8082/eip-rushucloud/company -H "Authorization: Bearer f3e427d6-c398-4389-ba8c-10629937b75e"
 
 #####Rereshing access_token:
 
-curl -X POST -vu clientapp:123456 http://localhost:8082/eip-rushucloud/oauth/token -H "Accept: application/json" -d "grant_type=refresh_token&refresh_token=6f3599c8-2ee3-4654-9697-4e7480b7a976&client_secret=123456&client_id=clientapp"
+curl -X POST -vu clientapp:1NDgzZGY1OWViOWRmNjI5ZT http://localhost:8082/eip-rushucloud/oauth/token -H "Accept: application/json" -d "grant_type=refresh_token&refresh_token=6f3599c8-2ee3-4654-9697-4e7480b7a976&client_secret=1NDgzZGY1OWViOWRmNjI5ZT&client_id=clientapp"

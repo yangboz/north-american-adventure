@@ -18,6 +18,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 		<!-- tag::actuator[] -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -236,6 +241,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		<!-- Spring-boot-admin -->
+		<dependency>
+		   <groupId>de.codecentric</groupId>
+		   <artifactId>spring-boot-starter-admin-client</artifactId>
+		   <version>1.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -248,10 +259,12 @@
 	</properties>
 
 	<repositories>
-		<!-- <repository> -->
-		<!-- <id>localrepository</id> -->
-		<!-- <url>file:///Users/yangboz/maven-repository</url> -->
-		<!-- </repository> -->
+	<!--  
+		<repository>
+			<id>localrepository</id>
+			<url>file:///Users/yangboz/maven-repository</url>
+		</repository>
+	-->	
 		<repository>
 			<id>oss-jfrog-artifactory</id>
 			<name>oss-jfrog-artifactory-releases</name>

@@ -57,7 +57,8 @@ public class OAuth2ServerConfiguration {
 			// @formatter:off
 			http
 				.authorizeRequests()
-					.antMatchers("/**").authenticated();
+					.antMatchers("/xyz/**").authenticated();//TODO:Every controllers goes like clockwork.
+			
 			// @formatter:on
 		}
 
@@ -94,7 +95,7 @@ public class OAuth2ServerConfiguration {
 						.authorities("USER")
 						.scopes("read", "write")
 						.resourceIds(RESOURCE_ID)
-						.secret("123456");
+						.secret("1NDgzZGY1OWViOWRmNjI5ZT");
 			// @formatter:on
 		}
 

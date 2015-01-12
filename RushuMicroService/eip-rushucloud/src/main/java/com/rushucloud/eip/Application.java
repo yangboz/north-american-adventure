@@ -33,7 +33,7 @@ import com.rushucloud.eip.models.Company;
 //
 @PropertySources({
 		@PropertySource(value = "application-${spring.profiles.active}.properties"),
-		@PropertySource(value = "log4j-${spring.profiles.active}.properties") })
+		@PropertySource(value = "log4j-${spring.profiles.active}.properties")})
 //
 @ComponentScan("com.rushucloud.eip")
 // @EnableWebSecurity
