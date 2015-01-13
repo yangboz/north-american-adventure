@@ -82,7 +82,7 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
-        registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/admin/");
+        registry.addResourceHandler("/api/**").addResourceLocations("classpath:/api/");
         registry.addResourceHandler("/uploads/**").addResourceLocations("classpath:/uploads/");
         //Activiti repository resources(diagram picture,process BPM files).
         registry.addResourceHandler("/repository/**").addResourceLocations("classpath:/repository/");
