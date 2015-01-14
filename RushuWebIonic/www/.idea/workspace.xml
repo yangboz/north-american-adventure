@@ -2,309 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a45383ea-d88a-4ea2-b75b-a30057122f48" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.settings/.jsdtscope" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/models/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/services/UserDetailsServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/models/UserRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/WebInitializer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/WebSecurityConfiguration.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.settings/org.eclipse.wst.common.component" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.settings/org.eclipse.wst.common.project.facet.core.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.settings/org.eclipse.wst.jsdt.ui.superType.container" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.settings/org.eclipse.wst.jsdt.ui.superType.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.settings/org.eclipse.wst.validation.prefs" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/ResourceSecurityConfiguration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/SecurityConfiguration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/.buildignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/.htaccess" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/404.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-bootstrap/ui-bootstrap-tpls.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-moment/angular-moment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-moment/angular-momentjs.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-moment/angular-momentjs.min.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-resource/angular-resource.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-resource/angular-resource.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-resource/angular-resource.min.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-route/angular-route.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-route/angular-route.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular-route/angular-route.min.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular/angular.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/angular/angular.min.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/components/moment/moment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/img/loading.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/img/vertical-separator.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/robots.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/TaskModelController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/dashboard.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/groups.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/instances.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/login.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/processes.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/root.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/task.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/test.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/controllers/users.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/directives/activitiForm.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/directives/activitiTaskDefault.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/directives/pastTime.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/Base64.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/forms.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/groupService.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/groupUserService.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/processDefinitionService.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/processInstanceService.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/processInstancesService.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/tasks.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/tasksModal.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/scripts/factory/userService.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/styles/bootstrap.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/styles/main.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/dashboard.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/directives/form.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/directives/taskDefault.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/groups.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/instances.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/login.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/main.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/modals/createGroup.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/modals/createUser.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/modals/groupUsers.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/modals/instanceDetails.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/modals/processDefinitionForm.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/modals/taskForm.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/modals/userGroups.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/processes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/tasks.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/angularweb/views/users.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.bowerrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/RushuWebIonic.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/deployment.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/dictionaries/yangboz.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/jsLibraryMappings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/libraries/RushuWebIonic_node_modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/scopes/scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/bower.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/gulpfile.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/hooks/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/hooks/after_prepare/010_add_platform_class.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/ionic.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/scss/ionic.app.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/dictionaries/yangboz.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/misc.xml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/img/32x32.gif" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/deployment.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/scopes/scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/css/bootstrap.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/css/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/img/ionic.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/img/my_profile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-nvd3/angular-nvd3.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-nvd3/d3.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-nvd3/nv.d3.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-nvd3/nv.d3.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular-moment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular-resource.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular-route.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular.min.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/ng-cordova.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/ui-chart.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/ui-chart.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/css/ionic.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/css/ionic.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/fonts/ionicons.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/fonts/ionicons.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/fonts/ionicons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/fonts/ionicons.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular-ui/angular-ui-router.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular-ui/angular-ui-router.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular-animate.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular-animate.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular-resource.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular-resource.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular-sanitize.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular-sanitize.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/angular/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/ionic-angular.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/ionic-angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/ionic.bundle.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/ionic.bundle.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/ionic.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/js/ionic.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_action-sheet.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_animations.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_backdrop.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_badge.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_bar.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_button-bar.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_button.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_checkbox.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_form.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_grid.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_items.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_list.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_loading.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_menu.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_mixins.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_modal.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_platform.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_popover.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_popup.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_progress.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_radio.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_range.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_reset.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_scaffolding.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_select.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_slide-box.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_tabs.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_toggle.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_type.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_util.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/_variables.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/ionic.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/ionicons/_ionicons-animation.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/ionicons/_ionicons-font.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/ionicons/_ionicons-icons.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/ionicons/_ionicons-variables.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/scss/ionicons/ionicons.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/ionic/version.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/jquery/jquery-1.11.1.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/utils/angular-websocket.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/utils/moment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/utils/stomp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/add-item.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/detail-report.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/detail-task.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/tab-instances.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/tab-my.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/tab-processes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/test.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../projectFilesBackup/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/modal-task.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/tab-stats.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/css/reset.css" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/css/reset.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/css/screen.css" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/css/screen.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/images/explorer_icons.png" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/images/explorer_icons.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/images/logo_small.png" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/images/logo_small.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/images/pet_store_api.png" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/images/pet_store_api.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/images/throbber.gif" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/images/throbber.gif" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/images/wordnik_api.png" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/images/wordnik_api.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/index.html" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/backbone-min.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/backbone-min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/handlebars-1.0.0.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/handlebars-1.0.0.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/highlight.7.3.pack.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/highlight.7.3.pack.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/jquery-1.8.0.min.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/jquery-1.8.0.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/jquery.ba-bbq.min.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/jquery.ba-bbq.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/jquery.slideto.min.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/jquery.slideto.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/jquery.wiggle.min.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/jquery.wiggle.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/shred.bundle.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/shred.bundle.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/shred/content.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/shred/content.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/swagger-client.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/swagger-client.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/swagger-oauth.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/swagger-oauth.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/swagger.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/swagger.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/lib/underscore-min.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/lib/underscore-min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/o2c.html" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/o2c.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/swagger-ui.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/swagger-ui.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/api/swagger-ui.min.js" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/swagger-ui.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/encodings.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/modules.xml" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/modules.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/vcs.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/workspace.xml" afterPath="$PROJECT_DIR$/projectFilesBackup/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/www.iml" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/RushuSwaggerUI.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/img/spinner.gif" afterPath="$PROJECT_DIR$/img/spinner.gif" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/js/helper.js" afterPath="$PROJECT_DIR$/js/helper.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/js/services.js" afterPath="$PROJECT_DIR$/js/services.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/angular.treeview.js" afterPath="$PROJECT_DIR$/lib/angular-treeview/angular.treeview.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/css/angular.treeview.css" afterPath="$PROJECT_DIR$/lib/angular-treeview/css/angular.treeview.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/img/file.png" afterPath="$PROJECT_DIR$/lib/angular-treeview/img/file.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/img/folder-closed.png" afterPath="$PROJECT_DIR$/lib/angular-treeview/img/folder-closed.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/img/folder.png" afterPath="$PROJECT_DIR$/lib/angular-treeview/img/folder.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/img/jsfiddle01.png" afterPath="$PROJECT_DIR$/lib/angular-treeview/img/jsfiddle01.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/img/jsfiddle02.png" afterPath="$PROJECT_DIR$/lib/angular-treeview/img/jsfiddle02.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular-treeview/img/preview.png" afterPath="$PROJECT_DIR$/lib/angular-treeview/img/preview.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular-animate.min.js" afterPath="$PROJECT_DIR$/lib/angular/angular-animate.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular-animate.min.js.map" afterPath="$PROJECT_DIR$/lib/angular/angular-animate.min.js.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/angular/angular-queue.js" afterPath="$PROJECT_DIR$/lib/angular/angular-queue.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/toaster/toaster.css" afterPath="$PROJECT_DIR$/lib/toaster/toaster.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/toaster/toaster.js" afterPath="$PROJECT_DIR$/lib/toaster/toaster.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/upload/angular-file-upload-shim.js" afterPath="$PROJECT_DIR$/lib/upload/angular-file-upload-shim.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/upload/angular-file-upload.js" afterPath="$PROJECT_DIR$/lib/upload/angular-file-upload.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/utils/ionic-image-lazy-load.js" afterPath="$PROJECT_DIR$/lib/utils/ionic-image-lazy-load.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/utils/sha.js" afterPath="$PROJECT_DIR$/lib/utils/sha.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/lib/utils/sockjs-0.3.js" afterPath="$PROJECT_DIR$/lib/utils/sockjs-0.3.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/add-task.html" afterPath="$PROJECT_DIR$/templates/add-task.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/detail-expense.html" afterPath="$PROJECT_DIR$/templates/detail-expense.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/detail-instances.html" afterPath="$PROJECT_DIR$/templates/detail-instances.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/detail-item.html" afterPath="$PROJECT_DIR$/templates/detail-item.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/detail-process.html" afterPath="$PROJECT_DIR$/templates/detail-process.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/export-reports.html" afterPath="$PROJECT_DIR$/templates/export-reports.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-category-list.html" afterPath="$PROJECT_DIR$/templates/modal-category-list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-item-filter-list.html" afterPath="$PROJECT_DIR$/templates/modal-item-filter-list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-item-list.html" afterPath="$PROJECT_DIR$/templates/modal-item-list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-login.html" afterPath="$PROJECT_DIR$/templates/modal-login.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-manager-list.html" afterPath="$PROJECT_DIR$/templates/modal-manager-list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-report.html" afterPath="$PROJECT_DIR$/templates/modal-report.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-user-list.html" afterPath="$PROJECT_DIR$/templates/modal-user-list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/modal-vendor-list.html" afterPath="$PROJECT_DIR$/templates/modal-vendor-list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/tab-dash.html" afterPath="$PROJECT_DIR$/templates/tab-dash.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/tab-reports.html" afterPath="$PROJECT_DIR$/templates/tab-reports.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/tab-tasks.html" afterPath="$PROJECT_DIR$/templates/tab-tasks.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/templates/tabs.html" afterPath="$PROJECT_DIR$/templates/tabs.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/test_ws.html" afterPath="$PROJECT_DIR$/test_ws.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.project" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.project" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/img/32x32.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/js/controllers.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/projectFilesBackup/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_ws.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/after_prepare/010_add_platform_class.js" afterPath="$PROJECT_DIR$/../hooks/after_prepare/010_add_platform_class.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/Application.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/CompanyController.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/CompanyController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/OAuth2ServerConfiguration.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/OAuth2ServerConfiguration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/README.md" afterPath="$PROJECT_DIR$/../../RushuMicroService/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/StaticResourceConfiguration.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/StaticResourceConfiguration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/SwaggerConfig.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/SwaggerConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/add-item.html" afterPath="$PROJECT_DIR$/templates/add-item.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/angular/angular-resource.js" afterPath="$PROJECT_DIR$/lib/angular/angular-resource.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/angular/angular-route.js" afterPath="$PROJECT_DIR$/lib/angular/angular-route.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/angular/angular.js" afterPath="$PROJECT_DIR$/lib/angular/angular.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/angular/angular.min.js" afterPath="$PROJECT_DIR$/lib/angular/angular.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-dev.properties" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-dev.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-stage.properties" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-stage.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-test.properties" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-test.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/js/controllers.js" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/js/controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers.js" afterPath="$PROJECT_DIR$/js/controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/fixture-data/db_insert.sql" afterPath="$PROJECT_DIR$/../../RushuMicroService/fixture-data/db_insert.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/deployment.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/deployment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/angular/ng-cordova.js" afterPath="$PROJECT_DIR$/lib/angular/ng-cordova.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/helper.js" afterPath="$PROJECT_DIR$/js/helper.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-stage.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-stage.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-test.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-test.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/modal-vendor-list.html" afterPath="$PROJECT_DIR$/templates/modal-vendor-list.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/pom.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/utils/stomp.js" afterPath="$PROJECT_DIR$/lib/utils/stomp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.idea/vcs.xml" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../RushuSwaggerUI/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="www.iws" />
@@ -332,8 +51,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="3885">
-              <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="3795">
+              <caret line="53" column="38" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -344,19 +63,36 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5880">
               <caret line="54" column="32" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
-              <folding>
-                <marker date="1421067219000" expanded="true" signature="3617:3632" placeholder="{...}" />
-                <marker date="1421067219000" expanded="true" signature="7641:7699" placeholder="{...}" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.606414" vertical-offset="11344" max-vertical-offset="19245">
-              <caret line="784" column="35" selection-start-line="784" selection-start-column="35" selection-end-line="784" selection-end-column="35" />
+            <state vertical-scroll-proportion="-5.133333" vertical-offset="2964" max-vertical-offset="19275">
+              <caret line="213" column="23" selection-start-line="213" selection-start-column="23" selection-end-line="213" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="helper.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/helper.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3482587" vertical-offset="0" max-vertical-offset="1425">
+              <caret line="14" column="43" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.625" vertical-offset="120" max-vertical-offset="1500">
+              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -365,8 +101,18 @@
       <file leaf-file-name="add-item.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/add-item.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.208333" vertical-offset="1021" max-vertical-offset="1725">
-              <caret line="86" column="36" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
+            <state vertical-scroll-proportion="-16.625" vertical-offset="996" max-vertical-offset="1725">
+              <caret line="93" column="138" selection-start-line="93" selection-start-column="112" selection-end-line="93" selection-end-column="138" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-vendor-list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/modal-vendor-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="285">
+              <caret line="7" column="80" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -375,7 +121,7 @@
       <file leaf-file-name="add-task.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/add-task.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.458334" vertical-offset="361" max-vertical-offset="1110">
+            <state vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1110">
               <caret line="60" column="30" selection-start-line="22" selection-start-column="36" selection-end-line="60" selection-end-column="30" />
               <folding />
             </state>
@@ -385,7 +131,7 @@
       <file leaf-file-name="detail-expense.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/detail-expense.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-27.458334" vertical-offset="391" max-vertical-offset="1140">
+            <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1140">
               <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding />
             </state>
@@ -398,18 +144,6 @@
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tabs.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/tabs.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="555">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding>
-                <marker date="1421067219000" expanded="true" signature="439:510" placeholder="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -429,8 +163,11 @@
       <list>
         <option value="$PROJECT_DIR$/templates/modal-category-list.html" />
         <option value="$PROJECT_DIR$/templates/tab-tasks.html" />
-        <option value="$PROJECT_DIR$/templates/add-item.html" />
+        <option value="$PROJECT_DIR$/js/app.js" />
+        <option value="$PROJECT_DIR$/js/helper.js" />
+        <option value="$PROJECT_DIR$/templates/modal-vendor-list.html" />
         <option value="$PROJECT_DIR$/js/controllers.js" />
+        <option value="$PROJECT_DIR$/templates/add-item.html" />
       </list>
     </option>
   </component>
@@ -501,6 +238,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -516,23 +281,26 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="recentsLimit" value="5" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/img" />
       <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/lib/angular-nvd3" />
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+  <component name="RunManager" selected="JavaScript Debug.add-item.html">
+    <configuration default="false" name="add-item.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/www/templates/add-item.html">
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
-      <envs />
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -540,6 +308,10 @@
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -562,7 +334,14 @@
       <envs />
       <method />
     </configuration>
-    <list size="0" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.add-item.html" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.add-item.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
@@ -587,7 +366,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24945612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14844805" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -623,22 +402,11 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="2445">
-          <caret line="31" column="20" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/services.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4695" max-vertical-offset="7290">
           <caret line="314" column="32" selection-start-line="314" selection-start-column="10" selection-end-line="314" selection-end-column="32" />
-          <folding>
-            <marker date="1421067219000" expanded="true" signature="3617:3632" placeholder="{...}" />
-            <marker date="1421067219000" expanded="true" signature="7641:7699" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -663,7 +431,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="690">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <marker date="1421067219000" expanded="true" signature="439:510" placeholder="..." />
+            <marker date="1421067219000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -701,10 +469,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4695" max-vertical-offset="5880">
           <caret line="314" column="32" selection-start-line="314" selection-start-column="10" selection-end-line="314" selection-end-column="32" />
-          <folding>
-            <marker date="1421067219000" expanded="true" signature="3617:3632" placeholder="{...}" />
-            <marker date="1421067219000" expanded="true" signature="7641:7699" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -729,7 +494,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="555">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <marker date="1421067219000" expanded="true" signature="439:510" placeholder="..." />
+            <marker date="1421067219000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -785,7 +550,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="540">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
-            <marker date="1421067219000" expanded="true" signature="439:510" placeholder="..." />
+            <marker date="1421067219000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -848,7 +613,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="89" max-vertical-offset="510">
           <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
           <folding>
-            <marker date="1421067219000" expanded="true" signature="439:510" placeholder="..." />
+            <marker date="1421067219000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -872,13 +637,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="432">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.875" vertical-offset="90" max-vertical-offset="2520">
-          <caret line="17" column="100" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="100" />
         </state>
       </provider>
     </entry>
@@ -932,14 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="915">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/tab-reports.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="330">
@@ -966,7 +716,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="555">
           <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
-            <marker date="1421067219000" expanded="true" signature="439:510" placeholder="..." />
+            <marker date="1421067219000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -975,17 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5880">
           <caret line="54" column="32" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
-          <folding>
-            <marker date="1421067219000" expanded="true" signature="3617:3632" placeholder="{...}" />
-            <marker date="1421067219000" expanded="true" signature="7641:7699" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="3885">
-          <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -998,17 +737,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/add-item.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.208333" vertical-offset="1021" max-vertical-offset="1725">
-          <caret line="86" column="36" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/add-task.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.458334" vertical-offset="361" max-vertical-offset="1110">
+        <state vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1110">
           <caret line="60" column="30" selection-start-line="22" selection-start-column="36" selection-end-line="60" selection-end-column="30" />
           <folding />
         </state>
@@ -1016,16 +747,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/detail-expense.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-27.458334" vertical-offset="391" max-vertical-offset="1140">
+        <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1140">
           <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625" vertical-offset="120" max-vertical-offset="1500">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/modal-vendor-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="285">
+          <caret line="7" column="80" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/add-item.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.625" vertical-offset="996" max-vertical-offset="1725">
+          <caret line="93" column="138" selection-start-line="93" selection-start-column="112" selection-end-line="93" selection-end-column="138" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.606414" vertical-offset="11344" max-vertical-offset="19245">
-          <caret line="784" column="35" selection-start-line="784" selection-start-column="35" selection-end-line="784" selection-end-column="35" />
+        <state vertical-scroll-proportion="-5.133333" vertical-offset="2964" max-vertical-offset="19275">
+          <caret line="213" column="23" selection-start-line="213" selection-start-column="23" selection-end-line="213" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="3795">
+          <caret line="53" column="38" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3482587" vertical-offset="0" max-vertical-offset="1425">
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="43" />
           <folding />
         </state>
       </provider>

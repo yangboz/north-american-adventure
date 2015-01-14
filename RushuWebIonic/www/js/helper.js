@@ -15,6 +15,7 @@ var _environments = {
             api_endpoint: 'http://localhost:8082/eip-rushucloud/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
+            ,ldap_partition_base_on:'dc=www'
         }
     },
     dev: {
@@ -26,6 +27,7 @@ var _environments = {
             api_endpoint: 'http://localhost:8082/eip-rushucloud/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
+            ,ldap_partition_base_on:'dc=www'
         }
     },
     test: {
@@ -37,6 +39,7 @@ var _environments = {
             api_endpoint: 'http://123.57.78.65:8082/eip-rushucloud/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
+            ,ldap_partition_base_on:'dc=123,dc=57,dc=78,dc=65'
         }
     },
     stage: {
@@ -48,6 +51,7 @@ var _environments = {
             api_endpoint: 'http://123.56.112.163:8082/eip-rushucloud/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
+            ,ldap_partition_base_on:'dc=www'
         }
     },
     prod: {
@@ -59,6 +63,7 @@ var _environments = {
             api_endpoint: 'http://localhost:8082/eip-rushucloud/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
+            ,ldap_partition_base_on:'dc=www'
         }
     }
 };

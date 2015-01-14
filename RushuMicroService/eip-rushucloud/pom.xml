@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rushucloud.eip</groupId>
 	<artifactId>eip-rushucloud</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>0.0.1</version>
 	<!-- http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#using-boot-maven -->
 	<parent>
@@ -241,11 +241,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		<!-- Spring-boot-admin -->
+		<!-- Jar2War -->
 		<dependency>
-		   <groupId>de.codecentric</groupId>
-		   <artifactId>spring-boot-starter-admin-client</artifactId>
-		   <version>1.1.1</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -307,6 +316,7 @@
 		</repository>
 	</repositories>
 	<build>
+		<finalName>api</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

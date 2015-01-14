@@ -208,7 +208,8 @@ angular.module('starter.controllers', [])
         $rootScope.managerIDsSel = [];
         $rootScope.vendorIdSel = -1;
         $rootScope.vendors = [];
-        $rootScope.categorySel = [];//selected category.
+        $rootScope.vendorSel = null;//selected vendor.
+        $rootScope.categorySel = null;//selected category.
         $rootScope.tags = [];
         ///User related
         $rootScope.loggedin = true;
@@ -1068,9 +1069,10 @@ angular.module('starter.controllers', [])
         });
     })
     .controller('VendorsCtrl', function ($scope, $rootScope, $stateParams, $log, VendorService) {
-        $scope.toggleVendorListSelection = function (vendorId) {
-            $rootScope.vendorIdSel = vendorId;
-            $log.debug("toggleVendorListSelection:", $rootScope.vendorIdSel);
+        $scope.toggleVendorListSelection = function (vendor) {
+            $rootScope.vendorIdSel = vendor.business_id;
+            $rootScope.vendorSel = vendor;
+            $log.debug("toggleVendorListSelection:", $rootScope.vendorSel);
         }
     })
     .controller('CategoryCtrl', function ($scope, $rootScope, $stateParams, $log, CategoryService) {

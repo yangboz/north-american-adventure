@@ -14,6 +14,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -46,13 +48,20 @@ import com.rushucloud.eip.models.Company;
 //
 @Import(RepositoryRestMvcConfiguration.class)
 //
-public class Application {
+public class Application extends SpringBootServletInitializer{
 	//
 	private static Logger LOG = LogManager.getLogger(Application.class);
+	//
+	private static Class<Application> applicationClass = Application.class;
+	
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(applicationClass);
+    }
 
 	//
 	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(applicationClass, args);
 		// new
 		// SpringApplicationBuilder(Application.class).profiles("test").run(args);
 		// Deploying the process here,avoid duplication to @see:
