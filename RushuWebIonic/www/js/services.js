@@ -268,7 +268,7 @@ angular.module('starter.services', [])
                 //CostComsumed:
                 {
                     name: "已消费",
-                    data: "CostComsumed"
+                    data: "CostConsumed"
                 }
             ]
             //LDAP ou name list.

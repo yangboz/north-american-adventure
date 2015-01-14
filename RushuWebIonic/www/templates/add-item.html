@@ -81,17 +81,20 @@ node-children: each node's children
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
-                        <input type="text" placeholder="{{($root.categorySel.name!=null)?$root.categorySel.name:'类别'}}" ng-model="newItem.categories" value="{{$root.categorySel}}"/>
+                        <input type="text" placeholder="{{($root.categorySel.label!=null)?$root.categorySel.label:'类别'}}"  disabled/>
                     </label>
                 </div>
                 <div class="col-50">
                     <a class="button button-icon icon ion-plus-round" ng-click="$root.loadCategories()"></a>
                 </div>
             </div>
+            <label class="item item-input">
+                <input type="text" placeholder="{{($root.vendorSel.address!=null)?$root.vendorSel.address:'地点'}}"  disabled/>
+            </label>
             <div class="row item item-input-inset">
                 <div class="col-50">
                     <label class="item item-input">
-                        <input type="text" placeholder="{{($root.vendorSel!=null)?$root.vendorSel.name:'供应商'}}" ng-model="newItem.vendors">
+                        <input type="text" placeholder="{{($root.vendorSel!=null)?$root.vendorSel.name:'供应商'}}" disabled>
                     </label>
                 </div>
                 <div class="col-50">

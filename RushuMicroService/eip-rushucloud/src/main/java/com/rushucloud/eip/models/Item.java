@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 public class Item extends OwnerModelBase {
 	// ApproveAhead,CostComsumed
 	public enum ItemType {
-		ApproveAhead, CostComsumed
+		ApproveAhead, CostConsumed
 	}
 
 	// ==============
@@ -126,7 +126,7 @@ public class Item extends OwnerModelBase {
 	}
 
 	// The item category,id strings.
-	 private String category = "1";// sort of vendor ids:"1,2,3,4"
+	 private String category = "1";//one category id:"1"
 //	@ElementCollection
 //	@CollectionTable(name = "item_categories", joinColumns = @JoinColumn(name = "itemId"))
 //	private Set<Category> categories = new HashSet<Category>();
@@ -146,6 +146,17 @@ public class Item extends OwnerModelBase {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	//Vendor related place.
+	private String place = "";
+	
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
 	}
 	
 	// The expense involves,id strings
@@ -197,7 +208,7 @@ public class Item extends OwnerModelBase {
 //			Set<Invoice> invoices, Set<Vendor> vendors, String owner,
 //			Set<Category> category) {
 	public Item(double amount, String name, ItemType type, Date date,
-			String invoices, String vendors, String owner,
+			String invoices, String vendors, String owner, String place,
 			String category, String participantIds,String notes) {	
 		this.amount = amount;
 		this.name = name;
@@ -209,5 +220,6 @@ public class Item extends OwnerModelBase {
 		this.category = category;
 		this.participantIds = participantIds;
 		this.notes = notes;
+		this.place = place;
 	}
 }

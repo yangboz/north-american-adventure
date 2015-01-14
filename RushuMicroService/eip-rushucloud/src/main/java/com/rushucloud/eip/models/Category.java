@@ -61,6 +61,17 @@ public class Category extends ModelBase {
 	public void setName(String name) {
 		this.name = name;
 	}
+	// The category label for displaying name.
+	@NotNull
+	private String label;
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
 	// @see: http://stackoverflow.com/questions/14388037/create-a-tree-using-jpa
 	// This field is a table column

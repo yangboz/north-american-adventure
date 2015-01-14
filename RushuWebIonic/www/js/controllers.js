@@ -346,12 +346,10 @@ angular.module('starter.controllers', [])
         ///
         $rootScope.loadVendors = function () {
             //
-            $rootScope.category = "美食";
-            //
             VendorService.get({
                 latitude: $rootScope.latitude,
                 longitude: $rootScope.longitude,
-                category: $rootScope.category
+                category: $rootScope.categorySel.name
             }, function (response) {
                 var jsonObj = JSON.parse(response.data);
                 $log.info("VendorService.get() success, response(json):", jsonObj);
@@ -731,7 +729,7 @@ angular.module('starter.controllers', [])
                 ///Search LDAP users by ou(organization unit)
                 myQueue.add($rootScope.loadLDAPUsers);
                 ///pre load vendors for testing.
-                myQueue.add($rootScope.loadVendors);
+                //myQueue.add($rootScope.loadVendors);
                 //myQueue.addEach([$rootScope.loadExpenses, $rootScope.loadTasks]); //add multiple items
                 myQueue.start(); //must call start() if queue starts paused
             });
@@ -763,10 +761,12 @@ angular.module('starter.controllers', [])
             anewItem.amount = $rootScope.newItem.amount;
             anewItem.name = $rootScope.newItem.name;
             anewItem.invoices = $rootScope.newItem.invoices;
-            anewItem.vendors = $rootScope.newItem.vendors;
+            anewItem.category = $rootScope.categorySel.id;
+            anewItem.vendors = $rootScope.vendorIdSel.business_id;
             anewItem.date = $rootScope.newItem.date;
             anewItem.owner = $rootScope.username;
             anewItem.type = $scope.prefType.data;
+            anewItem.place =  $rootScope.vendorIdSel.address;
             //
             //Save
             anewItem.$save(function (t, putResponseHeaders) {
@@ -1080,6 +1080,8 @@ angular.module('starter.controllers', [])
         $scope.toggleCategoryListSelection = function (category) {
             $rootScope.categorySel = category;
             $log.debug("toggleCategoryListSelection:", $rootScope.categorySel);
+            //Then filter the vendors
+            $rootScope.loadVendors();
         }
     })
     .controller('TagsCtrl', function ($scope, $rootScope, $stateParams, $log) {

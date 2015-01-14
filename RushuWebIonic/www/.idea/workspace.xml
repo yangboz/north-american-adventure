@@ -2,29 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a45383ea-d88a-4ea2-b75b-a30057122f48" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/img/32x32.gif" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/deployment.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/scopes/scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/img/32x32.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/webapp/www/js/controllers.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/projectFilesBackup/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test_ws.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/after_prepare/010_add_platform_class.js" afterPath="$PROJECT_DIR$/../hooks/after_prepare/010_add_platform_class.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/pom.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/Application.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/Application.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/add-item.html" afterPath="$PROJECT_DIR$/templates/add-item.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-dev.properties" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-dev.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-stage.properties" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-stage.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-test.properties" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application-test.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers.js" afterPath="$PROJECT_DIR$/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/fixture-data/db_insert.sql" afterPath="$PROJECT_DIR$/../../RushuMicroService/fixture-data/db_insert.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/helper.js" afterPath="$PROJECT_DIR$/js/helper.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-stage.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-stage.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-test.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/log4j2-test.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/modal-vendor-list.html" afterPath="$PROJECT_DIR$/templates/modal-vendor-list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/pom.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/modal-category-list.html" afterPath="$PROJECT_DIR$/templates/modal-category-list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services.js" afterPath="$PROJECT_DIR$/js/services.js" />
     </list>
     <ignored path="www.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -61,28 +45,28 @@
       <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5880">
-              <caret line="54" column="32" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3690" max-vertical-offset="5880">
+              <caret line="258" column="38" selection-start-line="258" selection-start-column="38" selection-end-line="258" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.133333" vertical-offset="2964" max-vertical-offset="19275">
-              <caret line="213" column="23" selection-start-line="213" selection-start-column="23" selection-end-line="213" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.56989247" vertical-offset="11172" max-vertical-offset="19305">
+              <caret line="766" column="49" selection-start-line="766" selection-start-column="49" selection-end-line="766" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="helper.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="helper.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/helper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3482587" vertical-offset="0" max-vertical-offset="1425">
-              <caret line="14" column="43" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1425">
+              <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -101,8 +85,18 @@
       <file leaf-file-name="add-item.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/add-item.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.625" vertical-offset="996" max-vertical-offset="1725">
-              <caret line="93" column="138" selection-start-line="93" selection-start-column="112" selection-end-line="93" selection-end-column="138" />
+            <state vertical-scroll-proportion="-12.25" vertical-offset="996" max-vertical-offset="1770">
+              <caret line="86" column="36" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-category-list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/modal-category-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="435">
+              <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -138,16 +132,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modal-report.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/modal-report.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -161,13 +145,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/modal-category-list.html" />
         <option value="$PROJECT_DIR$/templates/tab-tasks.html" />
         <option value="$PROJECT_DIR$/js/app.js" />
         <option value="$PROJECT_DIR$/js/helper.js" />
         <option value="$PROJECT_DIR$/templates/modal-vendor-list.html" />
-        <option value="$PROJECT_DIR$/js/controllers.js" />
+        <option value="$PROJECT_DIR$/templates/modal-category-list.html" />
         <option value="$PROJECT_DIR$/templates/add-item.html" />
+        <option value="$PROJECT_DIR$/js/controllers.js" />
+        <option value="$PROJECT_DIR$/js/services.js" />
       </list>
     </option>
   </component>
@@ -402,14 +387,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4695" max-vertical-offset="7290">
-          <caret line="314" column="32" selection-start-line="314" selection-start-column="10" selection-end-line="314" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11670">
@@ -721,14 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5880">
-          <caret line="54" column="32" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/modal-report.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
@@ -769,22 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/add-item.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.625" vertical-offset="996" max-vertical-offset="1725">
-          <caret line="93" column="138" selection-start-line="93" selection-start-column="112" selection-end-line="93" selection-end-column="138" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.133333" vertical-offset="2964" max-vertical-offset="19275">
-          <caret line="213" column="23" selection-start-line="213" selection-start-column="23" selection-end-line="213" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="3795">
@@ -795,8 +748,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/helper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3482587" vertical-offset="0" max-vertical-offset="1425">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1425">
+          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/modal-category-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="435">
+          <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/add-item.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.25" vertical-offset="996" max-vertical-offset="1770">
+          <caret line="86" column="36" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3690" max-vertical-offset="5880">
+          <caret line="258" column="38" selection-start-line="258" selection-start-column="38" selection-end-line="258" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56989247" vertical-offset="11172" max-vertical-offset="19305">
+          <caret line="766" column="49" selection-start-line="766" selection-start-column="49" selection-end-line="766" selection-end-column="49" />
           <folding />
         </state>
       </provider>
