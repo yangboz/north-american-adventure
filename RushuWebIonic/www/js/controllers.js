@@ -756,18 +756,18 @@ angular.module('starter.controllers', [])
         //Query
         //CREATE,
         $scope.createItem = function () {
-            //$log.debug("createItem(),$scope.newItem:", $scope.newItem);
+            //
             var anewItem = new ItemService($scope.newItem);
-            anewItem.amount = $rootScope.newItem.amount;
-            anewItem.name = $rootScope.newItem.name;
+            anewItem.amount = $scope.newItem.amount;
+            anewItem.name = $scope.newItem.name;
             anewItem.invoices = $rootScope.newItem.invoices;
             anewItem.category = $rootScope.categorySel.id;
-            anewItem.vendors = $rootScope.vendorIdSel.business_id;
+            anewItem.vendors = $rootScope.vendorSel.business_id;
             anewItem.date = $rootScope.newItem.date;
             anewItem.owner = $rootScope.username;
             anewItem.type = $scope.prefType.data;
-            anewItem.place =  $rootScope.vendorIdSel.address;
-            //
+            anewItem.place =  $rootScope.vendorSel.address;
+            //return $log.debug("createItem(),$scope.newItem:", anewItem);
             //Save
             anewItem.$save(function (t, putResponseHeaders) {
                 $log.info("createItem() success, response:", t);

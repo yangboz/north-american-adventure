@@ -18,22 +18,27 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		//Wechat-CP testing code here:
-		//@see: https://github.com/chanjarster/weixin-java-tools/wiki/CP_Quick-Start
+		// Wechat-CP testing code here:
+		// @see:
+		// https://github.com/chanjarster/weixin-java-tools/wiki/CP_Quick-Start
 		WxCpInMemoryConfigStorage config = new WxCpInMemoryConfigStorage();
-		config.setCorpId("..."); // 设置微信企业号的appid
-		config.setCorpSecret("..."); // 设置微信企业号的app corpSecret
-		config.setAgentId("..."); // 设置微信企业号应用ID
+		config.setCorpId("wxdb1834a05c43e4fa"); // 设置微信企业号的appid
+		config.setCorpSecret("Yzo8BH1brF7J-pe1wndApJTWrJe73DaAYTpBpk0-DuTPCSPWShK7WD0l4Nrhr-pu"); // 设置微信企业号的app
+																									// corpSecret
+		config.setAgentId("2"); // 设置微信企业号应用ID
 		config.setToken("TzAPtuMryApadDWWmGHo"); // 设置微信企业号应用的token
 		config.setAesKey("eHOhWSIZIkkMjxB440hSTEkyMwH4Amkqwm7Prw8XSCt"); // 设置微信企业号应用的EncodingAESKey
 
 		WxCpServiceImpl wxCpService = new WxCpServiceImpl();
 		wxCpService.setWxCpConfigStorage(config);
 
-		String userId = "...";
-		WxCpMessage message = WxCpMessage.TEXT().agentId("...").toUser(userId)
-				.content("Hello World").build();
+		String userId = "yangbozhou";
+		WxCpMessage message = WxCpMessage.TEXT().agentId("2")
+				.toParty("1")
+				.toUser(userId)
+				.content("Foo bar!").build();
 		try {
+			LOG.info("wxMessageSend:"+message.toJson().toString());
 			wxCpService.messageSend(message);
 		} catch (WxErrorException e) {
 			LOG.error(e.toString());
