@@ -12,6 +12,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.spring.boot.JpaProcessEngineAutoConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -53,7 +54,7 @@ public class Application extends SpringBootServletInitializer{
 	private static Logger LOG = LogManager.getLogger(Application.class);
 	//
 	private static Class<Application> applicationClass = Application.class;
-	
+	//
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(applicationClass);
@@ -61,6 +62,7 @@ public class Application extends SpringBootServletInitializer{
 
 	//
 	public static void main(String[] args) throws InterruptedException {
+    	//
 		SpringApplication.run(applicationClass, args);
 		// new
 		// SpringApplicationBuilder(Application.class).profiles("test").run(args);

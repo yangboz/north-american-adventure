@@ -29,4 +29,8 @@ public class LDAPSetting {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	//
+	public String toString(){
+		return "url:"+this.url+",userOn:"+this.userOn+",password:"+this.password;
+	}
 }

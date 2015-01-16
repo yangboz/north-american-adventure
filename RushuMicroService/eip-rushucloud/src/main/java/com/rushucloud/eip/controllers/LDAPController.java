@@ -8,6 +8,7 @@ import javax.naming.Context;
 import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.DirContext;
@@ -22,10 +23,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.AttributesMapper;
+import org.springframework.ldap.core.CollectingAuthenticationErrorCallback;
 import org.springframework.ldap.core.DirContextAdapter;
 import org.springframework.ldap.core.DistinguishedName;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.query.LdapQueryBuilder;
+import org.springframework.ldap.support.LdapNameBuilder;
+import org.springframework.security.authentication.encoding.LdapShaPasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,40 +39,85 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rushucloud.eip.dto.JsonObject;
+import com.rushucloud.eip.models.ExpenseDao;
+import com.rushucloud.eip.models.Item;
+import com.rushucloud.eip.models.OdmPersonRepo;
+import com.rushucloud.eip.models.Person;
+import com.rushucloud.eip.models.PersonAttributesMapper;
+import com.rushucloud.eip.models.TagRepository;
 import com.rushucloud.eip.settings.LDAPSetting;
 import com.rushucloud.eip.thirdParty.WeixinUser;
 import com.wordnik.swagger.annotations.ApiOperation;
+
+
+
+
+
+
 //@see: http://www.javaworld.com/article/2076073/java-web-development/ldap-and-jndi--together-forever.html
 //@see: https://docs.oracle.com/javase/tutorial/jndi/ldap/operations.html
 //@see: http://docs.spring.io/spring-ldap/docs/current/reference/
 //@see: LDAP Manager Java code example: http://www.javafaq.nu/java-example-code-409.html
+import static org.springframework.ldap.query.LdapQueryBuilder.query;
+//@see: http://docs.spring.io/spring-ldap/docs/current/reference/#introduction
 
 @RestController
 public class LDAPController {
 	//
 	private static Logger LOG = LogManager.getLogger(LDAPController.class);
 	//
+//	private OdmPersonRepo _personRepo;
+//	
+//	@Autowired
+//	public LDAPController(OdmPersonRepo personRepo) {
+//		this._personRepo = personRepo;
+//	}
+	
+	public String hashAndEncodePassword(String password) {
+		LdapShaPasswordEncoder encoder = new LdapShaPasswordEncoder();
+	    return encoder.encodePassword(password, null);//{SSHA}
+	  }
+	//
+	@RequestMapping(method = RequestMethod.GET, value = "ldap/auth")
+	@ApiOperation(httpMethod = "GET", value = "LDAP client for authenticate user.")
+	public JsonObject authenticate(
+			@RequestParam(value = "uid", required = true, defaultValue = "employee0") String uid,
+			@RequestParam(value = "password", required = true, defaultValue = "passwordpassword") String password) {
+		//
+		LdapTemplate ldapTemplate = getLdapTemplate();
+		//
+		CollectingAuthenticationErrorCallback errorCallback = new CollectingAuthenticationErrorCallback();
+//		ldapTemplate.authenticate(query().where("uid").is(uid), password,errorCallback);
+		boolean result = ldapTemplate.authenticate("ou=employees,ou=www1.rushucloud.com,dc=www", "uid="+uid, hashAndEncodePassword(password), errorCallback);
+//		Person result = _personRepo.findByUid(uid);
+		LOG.debug("ldapTemplate authenticate info:"+uid+hashAndEncodePassword(password));
+		return new JsonObject(result);
+	}
+	//
+//	@RequestMapping(method = RequestMethod.GET, value = "ldap/person/{uid}")
+//	@ApiOperation(httpMethod = "GET", value = "Response a person object describing if the person uid is successfully get or not.")
+//	public JsonObject get(@PathVariable("uid") String uid) {
+//		Person result = _personRepo.findByUid(uid);
+//		return new JsonObject(result);
+//	}
+	//
 	@RequestMapping(method = RequestMethod.GET, value = "ldap/search")
 	@ApiOperation(httpMethod = "GET", value = "LDAP search client for testing purpose.")
 	public JsonObject search(
-			@RequestParam(value = "partition", required = true, defaultValue = "ou=employees,ou=www1.rushucloud.com,dc=www") String partition,
-			@RequestParam(value = "filter", required = true, defaultValue = "(objectclass=person)") String filter) {
+			@RequestParam(value = "baseOn", required = true, defaultValue = "ou=employees,ou=www1.rushucloud.com,dc=www") String baseOn,
+			@RequestParam(value = "filter", required = true, defaultValue = "(objectClass=person)") String filter) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
-		// AndFilter andFilter = new AndFilter();
-		// andFilter.and(new EqualsFilter("objectclass", "Person"));
-		// andFilter.and(new EqualsFilter("ou", "employees"));
-		return new JsonObject(ldapTemplate.search(
-		// query().where("objectclass").is("person"),
-		// partition, andFilter.encode(),
-				partition, filter, new AttributesMapper<String>() {
-					@Override
-					public String mapFromAttributes(
-							javax.naming.directory.Attributes attrs)
-							throws NamingException {
-						LOG.debug("javax.naming.directory.Attributes:"+ attrs.toString());
-						return attrs.get("uid").get().toString();
-					}
-				}));
+		LOG.info("ldapConfig:"+this.ldapConfig.toString());
+		//
+		List<Person> persons = ldapTemplate.search(
+				query().base(baseOn).filter(filter),
+//				.where("objectclass").is("person"),
+				new PersonAttributesMapper());
+		LOG.info("ldap search query:"+query().toString());
+		for (Person person : persons) {
+			LOG.info("ldapSearch person:" + person.toString());
+		}
+		return new JsonObject(persons);
 	}
 
 	// Notice:
@@ -92,37 +143,28 @@ public class LDAPController {
 		BasicAttribute objectClassAttribute = new BasicAttribute("objectclass");
 		objectClassAttribute.add("top");
 		objectClassAttribute.add("organizationalUnit");
-//		objectClassAttribute.add("domain");
+		// objectClassAttribute.add("domain");
 		attributes.put(objectClassAttribute);
-		ldapTemplate.bind("ou=" + partitionId  + ",dc=" + partitionDn, null,
+		ldapTemplate.bind("ou=" + partitionId + ",dc=" + partitionDn, null,
 				attributes);
 		//
 		/*
-		BasicAttributes attrs = new BasicAttributes(true);
-		BasicAttribute objClass = new BasicAttribute("objectclass");
-		objClass.add("top");
-		// objClass.add("domain");//domain,organizational,organizationalUnit
-		objClass.add("organizationalUnit");
-		attrs.put(objClass);
-		// Create the context
-		// DirContext dirCtx = this.getInitialContext();
-		DirContext dirCtx = ldapTemplate.getContextSource()
-				.getReadWriteContext();
-		// dirCtx.bind(partitionDn, null, attrs);
-		// Create the context
-//		Context result = dirCtx.createSubcontext("ou=" + partitionDn, attrs);
-		// Check that it was created by listing its parent
-		NamingEnumeration list = dirCtx.list("");
-
-		// Go through each item in list
-		while (list.hasMore()) {
-			NameClassPair nc = (NameClassPair) list.next();
-			// System.out.println(nc);
-			LOG.info("NameClassPair:" + nc.toString());
-		}
-		result.close();
-		dirCtx.close();
-		*/
+		 * BasicAttributes attrs = new BasicAttributes(true); BasicAttribute
+		 * objClass = new BasicAttribute("objectclass"); objClass.add("top"); //
+		 * objClass.add("domain");//domain,organizational,organizationalUnit
+		 * objClass.add("organizationalUnit"); attrs.put(objClass); // Create
+		 * the context // DirContext dirCtx = this.getInitialContext();
+		 * DirContext dirCtx = ldapTemplate.getContextSource()
+		 * .getReadWriteContext(); // dirCtx.bind(partitionDn, null, attrs); //
+		 * Create the context // Context result = dirCtx.createSubcontext("ou="
+		 * + partitionDn, attrs); // Check that it was created by listing its
+		 * parent NamingEnumeration list = dirCtx.list("");
+		 * 
+		 * // Go through each item in list while (list.hasMore()) {
+		 * NameClassPair nc = (NameClassPair) list.next(); //
+		 * System.out.println(nc); LOG.info("NameClassPair:" + nc.toString()); }
+		 * result.close(); dirCtx.close();
+		 */
 		/*
 		 * DirectoryService directoryService = this.getDirectoryService();
 		 * 
@@ -181,32 +223,34 @@ public class LDAPController {
 			@RequestParam(value = "partitionDn(domain)", required = true, defaultValue = "www") String partitionDn) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
 		for (WeixinUser user : users) {
-//			BasicAttribute attribute = new BasicAttribute("mobile",
-//					user.getMobile());
-//			//
-//			ModificationItem item = new ModificationItem(
-//					DirContext.ADD_ATTRIBUTE, attribute);
-//			ldapTemplate.modifyAttributes("uid=" + user.getWeixinId() + ",ou="
-//					+ user.getDepartment() + "," + partition,
-//					new ModificationItem[] { item });
-			
+			// BasicAttribute attribute = new BasicAttribute("mobile",
+			// user.getMobile());
+			// //
+			// ModificationItem item = new ModificationItem(
+			// DirContext.ADD_ATTRIBUTE, attribute);
+			// ldapTemplate.modifyAttributes("uid=" + user.getWeixinId() +
+			// ",ou="
+			// + user.getDepartment() + "," + partition,
+			// new ModificationItem[] { item });
+
 			// Set the Person attributes
 			BasicAttributes attributes = new BasicAttributes();
 			attributes.put("sn", user.getName());
 			attributes.put("cn", user.getWeixinId());
 			attributes.put("mobile", user.getMobile());
-//			attributes.put("mail", user.getEmail());
+			// attributes.put("mail", user.getEmail());
 			// Add the multiply-valued attribute
-			BasicAttribute objectClassAttribute = new BasicAttribute("objectclass");
+			BasicAttribute objectClassAttribute = new BasicAttribute(
+					"objectclass");
 			objectClassAttribute.add("top");
 			objectClassAttribute.add("person");
 			objectClassAttribute.add("organizationalperson");
 			objectClassAttribute.add("inetorgperson");
-//			objectClassAttribute.add("mail");
+			// objectClassAttribute.add("mail");
 			attributes.put(objectClassAttribute);
 			//
-			ldapTemplate.bind("uid=" + user.getWeixinId() + ",ou=" + partitionId + ",dc=" + partitionDn, null,
-					attributes);
+			ldapTemplate.bind("uid=" + user.getWeixinId() + ",ou="
+					+ partitionId + ",dc=" + partitionDn, null, attributes);
 		}
 	}
 

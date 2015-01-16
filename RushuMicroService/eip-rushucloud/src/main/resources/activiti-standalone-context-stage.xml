@@ -63,11 +63,11 @@
 					<!-- Server connection params -->
 					<property name="server" value="ldap://123.56.112.163" />
 					<property name="port" value="389" />
-					<property name="user" value="cn=admin,dc=123,dc=56,dc=112,dc=163" />
+					<property name="user" value="cn=admin" />
 					<property name="password" value="Rushu0915" />
 
 					<!-- Query params -->
-					<property name="baseDn" value="dc=www" />
+					<property name="baseDn" value="dc=123,dc=56,dc=112,dc=163" />
 					<property name="queryUserByUserId"
 						value="(&amp;(objectClass=inetOrgPerson)(uid={0}))" />
 					<property name="queryUserByFullNameLike"

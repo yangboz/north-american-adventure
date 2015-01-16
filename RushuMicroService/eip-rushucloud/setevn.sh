@@ -1,2 +1,1 @@
-JAVA_OPTS='$JAVA_OPTS -Dspring.profiles.active=stage'
-
+JAVA_OPTS='-DskipTests=true -Dspring.profiles.active=stage'
