@@ -28,6 +28,7 @@ public class ActivemqSender {
 	static public String channelName = null;
 	// Unique queue name
 	static public String queueName = null;
+
 	//
 	public ActivemqSender() {
 		//
@@ -36,7 +37,8 @@ public class ActivemqSender {
 					JMSConstants.URL_BROKER_ACTIVEMQ);
 			connection = factory.createConnection();
 			connection.start();
-			LOG.info("Start activemq success with queueName:"+ActivemqSender.queueName);
+			LOG.info("Start activemq success with queueName:"
+					+ ActivemqSender.queueName);
 		} catch (JMSException e) {
 			// e.printStackTrace();
 			LOG.error(e.getMessage());
@@ -67,7 +69,8 @@ public class ActivemqSender {
 			message.setText(value);
 			producer.send(message);
 			// System.out.println("Sent: " + message.getText());
-			LOG.info("Sent activemq message: " + message.getText()+",queueName:"+ActivemqSender.queueName);
+			LOG.info("Sent activemq message: " + message.getText()
+					+ ",queueName:" + ActivemqSender.queueName);
 		} catch (JMSException e) {
 			// e.printStackTrace();
 			LOG.error(e.getMessage());

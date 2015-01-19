@@ -58,7 +58,7 @@
                     </div>
                 </ion-item>
             </div>
-            <button class="button button-full" ng-click="$root.startProcessInstance(expense)">提交</button>
+            <button class="button button-full" ng-click="$root.startProcessInstance(expense)" ng-disabled="expense.status!='Submitted'">提交</button>
 
             <div class="row" style="display:table-cell; vertical-align:middle; text-align:center" ng-if="expense.status!='Saved'">
 

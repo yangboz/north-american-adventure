@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,13 +31,15 @@ import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcesso
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
+import com.rushucloud.eip.config.JmsConfiguration;
+import com.rushucloud.eip.consts.JMSConstants;
 import com.rushucloud.eip.models.Company;
 
 @Configuration
 //
 @PropertySources({
 		@PropertySource(value = "classpath:application-${spring.profiles.active}.properties"),
-		@PropertySource(value = "classpath:log4j-${spring.profiles.active}.properties")})
+		@PropertySource(value = "classpath:log4j-${spring.profiles.active}.properties") })
 //
 @ComponentScan("com.rushucloud.eip")
 // @EnableWebSecurity
@@ -49,20 +52,21 @@ import com.rushucloud.eip.models.Company;
 //
 @Import(RepositoryRestMvcConfiguration.class)
 //
-public class Application extends SpringBootServletInitializer{
+public class Application extends SpringBootServletInitializer {
 	//
 	private static Logger LOG = LogManager.getLogger(Application.class);
 	//
 	private static Class<Application> applicationClass = Application.class;
-	//
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(applicationClass);
-    }
 
 	//
+	@Override
+	protected SpringApplicationBuilder configure(
+			SpringApplicationBuilder application) {
+		return application.sources(applicationClass);
+	}
+	//
 	public static void main(String[] args) throws InterruptedException {
-    	//
+		//
 		SpringApplication.run(applicationClass, args);
 		// new
 		// SpringApplicationBuilder(Application.class).profiles("test").run(args);
@@ -114,7 +118,8 @@ public class Application extends SpringBootServletInitializer{
 		// Save the queueName.
 		ActivemqSender.channelName = activemqChannelName;
 		LOG.info("ActiveMQ initializing with channel name:"
-				+ ActivemqSender.channelName);
+				+ ActivemqSender.channelName + ",brokerUrl:"
+				+ JMSConstants.URL_BROKER_ACTIVEMQ);
 		// ActivemqSender sender = new ActivemqSender(activemqQueueName);
 		// sender.sendMessage("echo");//For testing
 		// ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");
