@@ -54,6 +54,8 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 
 
+
+
 //@see: http://www.javaworld.com/article/2076073/java-web-development/ldap-and-jndi--together-forever.html
 //@see: https://docs.oracle.com/javase/tutorial/jndi/ldap/operations.html
 //@see: http://docs.spring.io/spring-ldap/docs/current/reference/
@@ -306,6 +308,7 @@ public class LDAPController {
 	}
 
 	// @see: http://www.javafaq.nu/java-example-code-409.html
+	@SuppressWarnings("unused")
 	private DirContext getInitialContext() throws NamingException {
 
 		Properties props = new Properties();
@@ -327,6 +330,7 @@ public class LDAPController {
 	}
 
 	//
+	@SuppressWarnings("unused")
 	private DirectoryService getDirectoryService() throws Exception {
 		DirectoryService directoryService;
 

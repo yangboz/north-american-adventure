@@ -63,7 +63,7 @@
 					<!-- Server connection params -->
 					<property name="server" value="ldap://123.57.78.65" />
 					<property name="port" value="389" />
-					<property name="user" value="cn=Manager" />
+					<property name="user" value="cn=Manager,dc=123,dc=57,dc=78,dc=65" />
 					<property name="password" value="Kit7740321" />
 
 					<!-- Query params -->
