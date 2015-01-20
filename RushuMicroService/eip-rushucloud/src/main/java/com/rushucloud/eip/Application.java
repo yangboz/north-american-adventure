@@ -29,6 +29,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
 import com.rushucloud.eip.config.JmsConfiguration;
@@ -146,4 +147,9 @@ public class Application extends SpringBootServletInitializer {
 	public PersistenceAnnotationBeanPostProcessor persistenceBeanPostProcessor() {
 		return new PersistenceAnnotationBeanPostProcessor();
 	}
+	// @see: http://stackoverflow.com/questions/23446928/spring-boot-uploading-files-path
+	@Bean
+    public CommonsMultipartResolver multipartResolver() {
+        return new CommonsMultipartResolver();
+    }
 }
