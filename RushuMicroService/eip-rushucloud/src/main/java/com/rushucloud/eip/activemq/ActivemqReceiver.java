@@ -12,8 +12,10 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rushucloud.eip.consts.JMSConstants;
+import com.rushucloud.eip.settings.JMSSetting;
 
 //@see: http://www.coderpanda.com/jms-example-using-apache-activemq/
 public class ActivemqReceiver {
@@ -24,6 +26,9 @@ public class ActivemqReceiver {
 	private MessageConsumer consumer = null;
 
 	private static Logger LOG = LogManager.getLogger(ActivemqReceiver.class);
+	
+	@Autowired
+	private JMSSetting jmsSetting;
 
 	 public ActivemqReceiver() {
 	 }
@@ -44,8 +49,7 @@ public class ActivemqReceiver {
 
 	public void receiveMessage() {
 		try {
-			factory = new ActiveMQConnectionFactory(
-					JMSConstants.URL_BROKER_ACTIVEMQ);
+			factory = new ActiveMQConnectionFactory(jmsSetting.getBrokerUrl());
 			connection = factory.createConnection();
 			connection.start();
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);

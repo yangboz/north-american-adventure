@@ -12,6 +12,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.spring.boot.JpaProcessEngineAutoConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -32,10 +33,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
-import com.rushucloud.eip.config.JmsConfiguration;
 import com.rushucloud.eip.config.PropertiesInitializer;
 import com.rushucloud.eip.consts.JMSConstants;
 import com.rushucloud.eip.models.Company;
+import com.rushucloud.eip.settings.JMSSetting;
 
 @Configuration
 //
@@ -59,7 +60,6 @@ public class Application extends SpringBootServletInitializer {
 	private static Logger LOG = LogManager.getLogger(Application.class);
 	//
 	private static Class<Application> applicationClass = Application.class;
-
 	//
 	@Override
 	protected SpringApplicationBuilder configure(
@@ -120,8 +120,7 @@ public class Application extends SpringBootServletInitializer {
 		// Save the queueName.
 		ActivemqSender.channelName = activemqChannelName;
 		LOG.info("ActiveMQ initializing with channel name:"
-				+ ActivemqSender.channelName + ",brokerUrl:"
-				+ JMSConstants.URL_BROKER_ACTIVEMQ);
+				+ ActivemqSender.channelName);
 		// ActivemqSender sender = new ActivemqSender(activemqQueueName);
 		// sender.sendMessage("echo");//For testing
 		// ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");

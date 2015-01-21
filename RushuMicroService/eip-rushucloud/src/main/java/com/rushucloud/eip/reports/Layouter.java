@@ -1,4 +1,4 @@
-package com.rushucloud.eip.report;
+package com.rushucloud.eip.reports;
 
 import java.util.Date;
 

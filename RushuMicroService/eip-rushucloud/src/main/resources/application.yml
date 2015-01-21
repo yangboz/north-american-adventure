@@ -10,6 +10,9 @@ ldap:
   password: secret
 upload:
   folder: uploads/
+jms:
+  brokerUrl: tcp://localhost:61616
+  pubSubDomain: true
 ---
 spring:
   profiles: test
@@ -19,6 +22,9 @@ ldap:
   password: Kit7740321
 upload:
   folder: uploads/
+jms:
+  brokerUrl: tcp://123.57.78.65:61616
+  pubSubDomain: true
 ---
 spring:
   profiles: stage
@@ -28,3 +34,6 @@ ldap:
   password: Rushu0915
 upload:
   folder: uploads/
+jms:
+  brokerUrl: tcp://123.56.112.163:61616
+  pubSubDomain: true

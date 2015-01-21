@@ -28,9 +28,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rushucloud.eip.models.Expense;
-import com.rushucloud.eip.report.Exporter;
-import com.rushucloud.eip.report.Layouter;
-import com.rushucloud.eip.report.Writer;
+import com.rushucloud.eip.reports.Exporter;
+import com.rushucloud.eip.reports.Layouter;
+import com.rushucloud.eip.reports.Writer;
 
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
