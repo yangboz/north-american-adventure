@@ -21,13 +21,18 @@ import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.core.partition.impl.btree.jdbm.JdbmPartition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.Filter.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.AttributesMapper;
+import org.springframework.ldap.core.AuthenticatedLdapEntryContextMapper;
 import org.springframework.ldap.core.CollectingAuthenticationErrorCallback;
 import org.springframework.ldap.core.DirContextAdapter;
+import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.DistinguishedName;
+import org.springframework.ldap.core.LdapEntryIdentification;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.query.LdapQuery;
 import org.springframework.ldap.query.LdapQueryBuilder;
 import org.springframework.ldap.support.LdapNameBuilder;
 import org.springframework.security.authentication.encoding.LdapShaPasswordEncoder;
@@ -41,15 +46,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rushucloud.eip.dto.JsonObject;
 import com.rushucloud.eip.models.ExpenseDao;
 import com.rushucloud.eip.models.Item;
-import com.rushucloud.eip.models.OdmPersonRepo;
-import com.rushucloud.eip.models.Person;
+import com.rushucloud.eip.models.OdmPerson;
 import com.rushucloud.eip.models.PersonAttributesMapper;
 import com.rushucloud.eip.models.TagRepository;
 import com.rushucloud.eip.settings.LDAPSetting;
 import com.rushucloud.eip.thirdParty.WeixinUser;
 import com.wordnik.swagger.annotations.ApiOperation;
-
-
 
 
 
@@ -88,12 +90,27 @@ public class LDAPController {
 		//
 		LdapTemplate ldapTemplate = getLdapTemplate();
 		//
-		CollectingAuthenticationErrorCallback errorCallback = new CollectingAuthenticationErrorCallback();
+		AuthenticatedLdapEntryContextMapper<DirContextOperations> mapper = new AuthenticatedLdapEntryContextMapper<DirContextOperations>() {
+			
+			@Override  
+			public DirContextOperations mapWithContext(DirContext ctx, LdapEntryIdentification ldapEntryIdentification) {
+			    try {
+			    	return (DirContextOperations) ctx.lookup(ldapEntryIdentification.getRelativeName());
+			    }
+			    catch (NamingException e) {
+			      throw new RuntimeException("Failed to lookup " + ldapEntryIdentification.getRelativeName(), e);
+			    }
+			  }
+
+			};
+			ldapTemplate.authenticate(query().where("uid").is(uid), password, mapper);
+		//
+//		CollectingAuthenticationErrorCallback errorCallback = new CollectingAuthenticationErrorCallback();
 //		ldapTemplate.authenticate(query().where("uid").is(uid), password,errorCallback);
-		boolean result = ldapTemplate.authenticate("ou=employees,ou=www1.rushucloud.com,dc=www", "uid="+uid, hashAndEncodePassword(password), errorCallback);
+//		boolean result = ldapTemplate.authenticate("ou=employees,ou=www1.rushucloud.com,dc=www", "uid="+uid, hashAndEncodePassword(password), errorCallback);
 //		Person result = _personRepo.findByUid(uid);
-		LOG.debug("ldapTemplate authenticate info:"+uid+hashAndEncodePassword(password));
-		return new JsonObject(result);
+//		LOG.debug("ldapTemplate authenticate info:"+uid+hashAndEncodePassword(password));
+		return new JsonObject(true);
 	}
 	//
 //	@RequestMapping(method = RequestMethod.GET, value = "ldap/person/{uid}")
@@ -109,14 +126,14 @@ public class LDAPController {
 			@RequestParam(value = "baseOn", required = true, defaultValue = "ou=employees,ou=www1.rushucloud.com,dc=www") String baseOn,
 			@RequestParam(value = "filter", required = true, defaultValue = "(objectClass=person)") String filter) {
 		LdapTemplate ldapTemplate = getLdapTemplate();
-		LOG.info("ldapConfig:"+this.ldapConfig.toString());
+//		LOG.info("ldapConfig:"+this.ldapSetting.toString());
 		//
-		List<Person> persons = ldapTemplate.search(
+		List<OdmPerson> persons = ldapTemplate.search(
 				query().base(baseOn).filter(filter),
 //				.where("objectclass").is("person"),
 				new PersonAttributesMapper());
 		LOG.info("ldap search query:"+query().toString());
-		for (Person person : persons) {
+		for (OdmPerson person : persons) {
 			LOG.info("ldapSearch person:" + person.toString());
 		}
 		return new JsonObject(persons);
@@ -289,14 +306,14 @@ public class LDAPController {
 	// @see
 	// http://hoserdude.com/2014/06/19/spring-boot-configurationproperties-and-profile-management-using-yaml/
 	@Autowired
-	private LDAPSetting ldapConfig;
+	private LDAPSetting ldapSetting;
 
 	//
 	private LdapTemplate getLdapTemplate() {
 		LdapContextSource contextSource = new LdapContextSource();
-		contextSource.setUrl(ldapConfig.getUrl());
-		contextSource.setUserDn(ldapConfig.getUserOn());
-		contextSource.setPassword(ldapConfig.getPassword());
+		contextSource.setUrl(ldapSetting.getUrl());
+		contextSource.setUserDn(ldapSetting.getUserOn());
+		contextSource.setPassword(ldapSetting.getPassword());
 		try {
 			contextSource.afterPropertiesSet();
 		} catch (Exception e) {
@@ -314,15 +331,15 @@ public class LDAPController {
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY,
 				"com.sun.jndi.ldap.LdapCtxFactory");
-		props.put(Context.PROVIDER_URL, ldapConfig.getUrl());
+		props.put(Context.PROVIDER_URL, ldapSetting.getUrl());
 
-		if ((ldapConfig.getUserOn() != null)
-				&& (!ldapConfig.getUserOn().equals(""))) {
+		if ((ldapSetting.getUserOn() != null)
+				&& (!ldapSetting.getUserOn().equals(""))) {
 			props.put(Context.SECURITY_AUTHENTICATION, "simple");
-			props.put(Context.SECURITY_PRINCIPAL, ldapConfig.getUserOn());
+			props.put(Context.SECURITY_PRINCIPAL, ldapSetting.getUserOn());
 			props.put(
 					Context.SECURITY_CREDENTIALS,
-					((ldapConfig.getPassword() == null) ? "" : ldapConfig
+					((ldapSetting.getPassword() == null) ? "" : ldapSetting
 							.getPassword()));
 		}
 

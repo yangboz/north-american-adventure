@@ -5,9 +5,9 @@ import javax.naming.directory.Attributes;
 
 import org.springframework.ldap.core.AttributesMapper;
 
-public class PersonAttributesMapper implements AttributesMapper<Person> {
-    public Person mapFromAttributes(Attributes attrs) throws NamingException {
-       Person person = new Person();
+public class PersonAttributesMapper implements AttributesMapper<OdmPerson> {
+    public OdmPerson mapFromAttributes(Attributes attrs) throws NamingException {
+       OdmPerson person = new OdmPerson();
        person.setFullName((String)attrs.get("cn").get());
        person.setLastName((String)attrs.get("sn").get());
        person.setDescription((String)attrs.get("description").get());

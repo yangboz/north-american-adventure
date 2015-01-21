@@ -8,32 +8,34 @@ import org.springframework.ldap.core.LdapTemplate;
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 public class OdmPersonRepo {
+
 	@Autowired
 	private LdapTemplate ldapTemplate;
 
-	public Person create(Person person) {
+	public OdmPerson create(OdmPerson person) {
 		ldapTemplate.create(person);
 		return person;
 	}
 
-	public Person findByUid(String uid) {
-		return ldapTemplate.findOne(query().where("uid").is(uid), Person.class);
+	public OdmPerson findByUid(String uid) {
+		return ldapTemplate.findOne(query().where("uid").is(uid),
+				OdmPerson.class);
 	}
 
-	public void update(Person person) {
+	public void update(OdmPerson person) {
 		ldapTemplate.update(person);
 	}
 
-	public void delete(Person person) {
+	public void delete(OdmPerson person) {
 		ldapTemplate.delete(person);
 	}
 
-	public List<Person> findAll() {
-		return ldapTemplate.findAll(Person.class);
+	public List<OdmPerson> findAll() {
+		return ldapTemplate.findAll(OdmPerson.class);
 	}
 
-	public List<Person> findByLastName(String lastName) {
-		return ldapTemplate
-				.find(query().where("sn").is(lastName), Person.class);
+	public List<OdmPerson> findByLastName(String lastName) {
+		return ldapTemplate.find(query().where("sn").is(lastName),
+				OdmPerson.class);
 	}
 }

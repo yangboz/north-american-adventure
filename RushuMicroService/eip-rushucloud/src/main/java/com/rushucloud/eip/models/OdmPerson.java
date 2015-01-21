@@ -1,6 +1,7 @@
 package com.rushucloud.eip.models;
 
 import org.apache.directory.shared.ldap.aci.UserClass.Name;
+
 import org.springframework.ldap.odm.annotations.Attribute;
 import org.springframework.ldap.odm.annotations.DnAttribute;
 import org.springframework.ldap.odm.annotations.Entry;
@@ -8,7 +9,8 @@ import org.springframework.ldap.odm.annotations.Id;
 import org.springframework.ldap.odm.annotations.Transient;
 
 @Entry(objectClasses = { "person", "top" }, base = "ou=employees")
-public class Person {
+public class OdmPerson{
+
 	@Id
 	private Name dn;
 	
@@ -51,6 +53,14 @@ public class Person {
 	@DnAttribute(value = "ou", index = 0)
 	@Transient
 	private String company;
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
 
 	@Transient
 	private String someUnmappedField;
