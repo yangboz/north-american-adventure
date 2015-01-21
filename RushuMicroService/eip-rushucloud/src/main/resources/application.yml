@@ -8,6 +8,8 @@ ldap:
   url: ldap://localhost:10389
   userOn: uid=admin,ou=system
   password: secret
+upload:
+  folder: uploads/
 ---
 spring:
   profiles: test
@@ -15,6 +17,8 @@ ldap:
   url: ldap://123.57.78.65:389
   userOn: cn=Manager,dc=123,dc=57,dc=78,dc=65
   password: Kit7740321
+upload:
+  folder: uploads/
 ---
 spring:
   profiles: stage
@@ -22,3 +26,5 @@ ldap:
   url: ldap://123.56.112.163:389
   userOn: cn=admin,dc=123,dc=56,dc=112,dc=163
   password: Rushu0915
+upload:
+  folder: uploads/

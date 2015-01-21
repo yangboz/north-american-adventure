@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
@@ -31,12 +32,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rushucloud.eip.consts.FileUploadConstants;
+import com.rushucloud.eip.Application;
 import com.rushucloud.eip.dto.JsonString;
 import com.rushucloud.eip.models.Company;
 import com.rushucloud.eip.models.CompanyDao;
 import com.rushucloud.eip.models.Invoice;
 import com.rushucloud.eip.models.InvoiceDao;
+import com.rushucloud.eip.settings.LDAPSetting;
+import com.rushucloud.eip.settings.UploadSetting;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 @RestController
@@ -140,9 +143,8 @@ public class FileUploadController {
 		String small4dbBase = FilenameUtils.getBaseName(source) + "_"
 				+ String.valueOf(width) + "x" + String.valueOf(height) + "."
 				+ FilenameUtils.getExtension(source);
-		String small4db = FileUploadConstants.FILE_PATH_UPLOAD + small4dbBase;
-		 String small = getAbsolutePath() + small4db;
-//		String small = servletContext.getContextPath() + small4db;
+		String small4db = uploadSetting.getFolder() + small4dbBase;
+		String small = getClassPath() + small4db;
 		// @see:
 		// http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/
 		ConvertCmd cmd = new ConvertCmd();
@@ -159,16 +161,23 @@ public class FileUploadController {
 		return small4dbBase;
 	}
 
-	public static synchronized String getAbsolutePath() {
-		File file = new File("");
-		String path = file.getAbsolutePath();
-		path = path.replace('\\', '/').concat(
-				FileUploadConstants.FILE_PATH_SOURCE);
-		return path;
+	// private String getWorkingDir(){
+	// String workingDir = System.getProperty("user.dir");
+	// return workingDir;
+	// }
+
+	public String getClassPath() {
+		String classPath = this.getClass().getResource("/").getPath();
+		return classPath;
 	}
+
+	@Autowired
+	private UploadSetting uploadSetting;
 
 	private Map<String, String> fileOperation(MultipartFile file) {
 		Map<String, String> _imageMagickOutput = new HashMap<String, String>();
+		String dbFileName = null;
+		String fullFileName = null;
 		try {
 			byte[] bytes = file.getBytes();
 			String fileExt = FilenameUtils.getExtension(file
@@ -178,9 +187,8 @@ public class FileUploadController {
 					+ "."
 					+ fileExt;
 			//
-			String dbFileName = FileUploadConstants.FILE_PATH_UPLOAD
-					+ fileNameAppendix;
-			String fullFileName = getAbsolutePath() + dbFileName;
+			dbFileName = uploadSetting.getFolder() + fileNameAppendix;
+			fullFileName = getClassPath() + dbFileName;
 			//
 			BufferedOutputStream stream = new BufferedOutputStream(
 					new FileOutputStream(new File(fullFileName)));
@@ -196,7 +204,7 @@ public class FileUploadController {
 					thumbnailImage(32, 32, fullFileName));
 			return _imageMagickOutput;
 		} catch (Exception e) {
-			LOG.error("You failed to upload " + file.getOriginalFilename()
+			LOG.error("You failed to convert " + fullFileName
 					+ " => " + e.toString());
 		}
 		return _imageMagickOutput;

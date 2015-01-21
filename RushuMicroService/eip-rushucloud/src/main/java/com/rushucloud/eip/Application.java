@@ -33,6 +33,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
 import com.rushucloud.eip.config.JmsConfiguration;
+import com.rushucloud.eip.config.PropertiesInitializer;
 import com.rushucloud.eip.consts.JMSConstants;
 import com.rushucloud.eip.models.Company;
 
