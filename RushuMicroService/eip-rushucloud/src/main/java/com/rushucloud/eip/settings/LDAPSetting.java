@@ -46,22 +46,22 @@ public class LDAPSetting
         this.password = password;
     }
 
-    private String baseOn;
+    private String baseDn;
 
-    public String getBaseOn()
+    public String getBaseDn()
     {
-        return baseOn;
+        return baseDn;
     }
 
-    public void setBaseOn(String baseOn)
+    public void setBaseDn(String baseDn)
     {
-        this.baseOn = baseOn;
+        this.baseDn = baseDn;
     }
 
     //
     @Override
     public String toString()
     {
-        return "url:" + this.url + ",userOn:" + this.userOn + ",baseOn:" + this.baseOn + ",password:" + this.password;
+        return "url:" + this.url + ",userOn:" + this.userOn + ",baseDn:" + this.baseDn + ",password:" + this.password;
     }
 }

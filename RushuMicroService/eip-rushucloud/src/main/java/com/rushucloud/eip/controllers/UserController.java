@@ -95,6 +95,8 @@ public class UserController
         // personBasicAttribute.add("code");
         //
         personAttributes.put(personBasicAttribute);
+        personAttributes.put("cn", simplePerson.getUsername());
+        personAttributes.put("sn", simplePerson.getUsername());
         personAttributes.put("uid", simplePerson.getUsername());
         personAttributes.put("mobile", simplePerson.getPhone());
         personAttributes.put("mail", simplePerson.getEmail());
@@ -107,7 +109,7 @@ public class UserController
         // personAttributes.put("code", codeAttribute);
         // LdapTemplate ldapTemplate = getLdapTemplate();
         this.getLdapTemplate().bind(
-            "uid=" + simplePerson.getUsername() + ",ou=" + group + ",ou=" + company + "," + ldapSetting.getBaseOn(),
+            "uid=" + simplePerson.getUsername() + ",ou=" + group + ",ou=" + company + "," + ldapSetting.getBaseDn(),
             null, personAttributes);
         return new JsonObject(simplePerson);
     }
