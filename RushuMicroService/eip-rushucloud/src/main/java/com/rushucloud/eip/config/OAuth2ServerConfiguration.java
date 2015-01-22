@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014,2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,60 +34,65 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
+//@see: http://devcenter.kinvey.com/rest/guides/auth-link-for-ldap
 @Configuration
-public class OAuth2ServerConfiguration {
+public class OAuth2ServerConfiguration
+{
 
-	private static final String RESOURCE_ID = "restservice";
+    private static final String RESOURCE_ID = "restservice";
 
-	@Configuration
-	@EnableResourceServer
-	protected static class ResourceServerConfiguration extends
-			ResourceServerConfigurerAdapter {
+    @Configuration
+    @EnableResourceServer
+    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
+    {
 
-		@Override
-		public void configure(ResourceServerSecurityConfigurer resources) {
-			// @formatter:off
+        @Override
+        public void configure(ResourceServerSecurityConfigurer resources)
+        {
+            // @formatter:off
 			resources
 				.resourceId(RESOURCE_ID);
 			// @formatter:on
-		}
+        }
 
-		@Override
-		public void configure(HttpSecurity http) throws Exception {
-			// @formatter:off
+        @Override
+        public void configure(HttpSecurity http) throws Exception
+        {
+            // @formatter:off
 			http
 				.authorizeRequests()
 					.antMatchers("/xyz/**").authenticated();//TODO:Every controllers goes like clockwork.
 			
 			// @formatter:on
-		}
+        }
 
-	}
+    }
 
-	@Configuration
-	@EnableAuthorizationServer
-	protected static class AuthorizationServerConfiguration extends
-			AuthorizationServerConfigurerAdapter {
+    @Configuration
+    @EnableAuthorizationServer
+    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter
+    {
 
-		private TokenStore tokenStore = new InMemoryTokenStore();
+        private TokenStore tokenStore = new InMemoryTokenStore();
 
-		@Autowired
-		@Qualifier("authenticationManagerBean")
-		private AuthenticationManager authenticationManager;
+        @Autowired
+        @Qualifier("authenticationManagerBean")
+        private AuthenticationManager authenticationManager;
 
-		@Override
-		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-				throws Exception {
-			// @formatter:off
+        @Override
+        public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception
+        {
+            // @formatter:off
 			endpoints
 				.tokenStore(this.tokenStore)
 				.authenticationManager(this.authenticationManager);
 			// @formatter:on
-		}
+        }
 
-		@Override
-		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-			// @formatter:off
+        @Override
+        public void configure(ClientDetailsServiceConfigurer clients) throws Exception
+        {
+            // @formatter:off
 			clients
 				.inMemory()
 					.withClient("clientapp")
@@ -97,11 +102,12 @@ public class OAuth2ServerConfiguration {
 						.resourceIds(RESOURCE_ID)
 						.secret("1NDgzZGY1OWViOWRmNjI5ZT");
 			// @formatter:on
-		}
+        }
 
         @Bean
         @Primary
-        public DefaultTokenServices tokenServices() {
+        public DefaultTokenServices tokenServices()
+        {
             DefaultTokenServices tokenServices = new DefaultTokenServices();
             tokenServices.setSupportRefreshToken(true);
             tokenServices.setTokenStore(this.tokenStore);

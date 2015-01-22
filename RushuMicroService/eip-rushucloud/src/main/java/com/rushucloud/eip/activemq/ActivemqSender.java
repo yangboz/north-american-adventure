@@ -8,15 +8,12 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.rushucloud.eip.consts.JMSConstants;
 import com.rushucloud.eip.settings.JMSSetting;
-import com.rushucloud.eip.settings.UploadSetting;
 
 //@see: http://www.coderpanda.com/jms-example-using-apache-activemq/
 public class ActivemqSender {
