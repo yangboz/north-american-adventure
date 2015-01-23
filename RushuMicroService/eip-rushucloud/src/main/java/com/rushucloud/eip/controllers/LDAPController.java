@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rushucloud.eip.dto.JsonObject;
-import com.rushucloud.eip.models.OdmPerson;
+import com.rushucloud.eip.ldap.plain.domain.Person;
 import com.rushucloud.eip.models.PersonAttributesMapper;
 import com.rushucloud.eip.settings.LDAPSetting;
 import com.rushucloud.eip.thirdParty.WeixinUser;
@@ -121,11 +121,11 @@ public class LDAPController
         LdapTemplate ldapTemplate = getLdapTemplate();
         // LOG.info("ldapConfig:"+this.ldapSetting.toString());
         //
-        List<OdmPerson> persons = ldapTemplate.search(query().base(baseOn).filter(filter),
+        List<Person> persons = ldapTemplate.search(query().base(baseOn).filter(filter),
         // .where("objectclass").is("person"),
             new PersonAttributesMapper());
         LOG.info("ldap search query:" + query().toString());
-        for (OdmPerson person : persons) {
+        for (Person person : persons) {
             LOG.info("ldapSearch person:" + person.toString());
         }
         return new JsonObject(persons);

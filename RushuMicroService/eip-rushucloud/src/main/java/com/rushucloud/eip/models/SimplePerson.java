@@ -17,23 +17,26 @@
  */
 package com.rushucloud.eip.models;
 
+import org.springframework.ldap.odm.annotations.Entry;
+
 /**
  * Simple person object for OdmPerson posting to LDAP server.
  * 
  * @author yangboz
  */
+@Entry(objectClasses = {"person", "top"}, base = "")
 public class SimplePerson
 {
-    private String phone;
+    private String mobile;
 
-    public String getPhone()
+    public String getMobile()
     {
-        return phone;
+        return mobile;
     }
 
-    public void setPhone(String phone)
+    public void setMobile(String mobile)
     {
-        this.phone = phone;
+        this.mobile = mobile;
     }
 
     private String email;

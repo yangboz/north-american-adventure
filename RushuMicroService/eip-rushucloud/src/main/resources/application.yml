@@ -8,7 +8,7 @@ ldap:
   url: ldap://localhost:10389
   userOn: uid=admin,ou=system
   password: secret
-  baseDn: dc=www
+  base: dc=www
 upload:
   folder: uploads/
 jms:
@@ -26,7 +26,7 @@ ldap:
   url: ldap://123.57.78.65:389
   userOn: cn=Manager,dc=123,dc=57,dc=78,dc=65
   password: Kit7740321
-  baseDn: dc=123,dc=57,dc=78,dc=65
+  base: dc=123,dc=57,dc=78,dc=65
 upload:
   folder: uploads/
 jms:
@@ -39,12 +39,12 @@ workflow:
   rule:null
 ---
 spring:
-  profiles: stage
+  profiles: stage 
 ldap:
   url: ldap://123.56.112.163:389
   userOn: cn=admin,dc=123,dc=56,dc=112,dc=163
   password: Rushu0915
-  baseDn: dc=123,dc=56,dc=112,dc=163
+  base: dc=123,dc=56,dc=112,dc=163
 upload:
   folder: uploads/
 jms:
