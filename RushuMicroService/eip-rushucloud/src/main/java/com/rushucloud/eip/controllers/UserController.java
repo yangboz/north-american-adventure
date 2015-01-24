@@ -72,6 +72,7 @@ public class UserController
         //
         personAttributes.put(personBasicAttribute);
         personAttributes.put("cn", "cn_" + simplePerson.getUsername());
+        personAttributes.put("sn", "sn_" + simplePerson.getUsername());
         personAttributes.put("uid", simplePerson.getUsername());
         personAttributes.put("postalAddress", simplePerson.getWxToken());// wx_token
         personAttributes.put("postalCode", simplePerson.getCode());// code

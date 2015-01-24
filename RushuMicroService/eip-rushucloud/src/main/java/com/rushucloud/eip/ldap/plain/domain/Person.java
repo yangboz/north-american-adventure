@@ -47,7 +47,7 @@ public class Person
     private Name dn;
 
     @Attribute(name = "uid")
-    @DnAttribute(value = "uid", index = 1)
+    @DnAttribute(value = "uid", index = 2)
     private String uid;
 
     public String getUid()
@@ -61,7 +61,7 @@ public class Person
     }
 
     @Attribute(name = "cn")
-    @DnAttribute(value = "cn", index = 2)
+    @DnAttribute(value = "cn", index = 1)
     private String cn;
 
     public String getCn()

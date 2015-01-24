@@ -17,8 +17,8 @@ public class PersonAttributesMapper implements AttributesMapper<Person>
         person.setSn((String) attrs.get("sn").get());
         person.setDescription((String) attrs.get("description").get());
         person.setUid((String) attrs.get("uid").get());
-        person.setWxToken((String) attrs.get("wxToken").get());
-        person.setCode((String) attrs.get("code").get());
+        person.setWxToken((String) attrs.get("postalAddress").get());
+        person.setCode((String) attrs.get("postalCode").get());
         return person;
     }
 }
