@@ -104,13 +104,6 @@ public class UserController
         return new JsonObject(persons);
     }
 
-    @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
-    @ApiOperation(httpMethod = "GET", value = "Response a entry describing if the person entry uid is successfully get or not.")
-    public JsonObject get(@PathVariable("uid") String uid)
-    {
-        return new JsonObject(personDao.findByUid(uid));
-    }
-
     @RequestMapping(value = "/{uid}", method = RequestMethod.PUT)
     @ApiOperation(httpMethod = "PUT", value = "Response a entry describing if the person entry is successfully updated or not.")
     public JsonObject update(@PathVariable("uid") String uid, @RequestBody @Valid Person person)
@@ -126,5 +119,20 @@ public class UserController
     {
         personDao.delete(person);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/auth")
+    @ApiOperation(httpMethod = "GET", value = "LDAP client for authenticate user.")
+    public boolean ldapAuthenticate(
+        @RequestParam(value = "uid", required = true, defaultValue = "employee0") String uid,
+        @RequestParam(value = "password", required = true, defaultValue = "passwordpassword") String password,
+        @RequestParam(value = "group", required = true, defaultValue = "employees,www1.rushucloud.com") String groups)
+    {
+        String[] strGroups = groups.split(",");
+        String plainGroups = "";
+        for (int i = 0; i < strGroups.length; i++) {
+            plainGroups += ",ou=" + strGroups[i];
+        }
+        return personDao.getLdapTemplate().authenticate("uid=" + uid + plainGroups, "(objectClass=person)", password);
     }
 }

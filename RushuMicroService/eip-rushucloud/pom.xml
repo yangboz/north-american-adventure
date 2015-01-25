@@ -263,6 +263,11 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		<!-- DB/Migration -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.flywaydb</groupId> -->
+<!-- 			<artifactId>flyway-core</artifactId> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<properties>
