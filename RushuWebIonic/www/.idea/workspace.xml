@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a45383ea-d88a-4ea2-b75b-a30057122f48" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/models/OdmPersonRepo.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/models/Person.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/models/OdmPerson.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/LDAPController.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/LDAPController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/models/PersonAttributesMapper.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/models/PersonAttributesMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/pom.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.xml/src/main/resources/processes/HumanServiceTaskExample.bpmn20.bpmn2d" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/HumanServiceTaskExample.bpmn20.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/v1/HumanServiceTaskExample.bpmn20.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/ReimbursementRequest.bpmn20.png" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/v1/ReimbursementRequest.bpmn20.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/ReimbursementRequest.bpmn20.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/v1/ReimbursementRequest.bpmn20.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/ldap/odm/dao/PersonDaoImpl.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/ldap/odm/dao/PersonDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/StaticResourceConfiguration.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/config/StaticResourceConfiguration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/UserController.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application.yml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/application.yml" />
     </list>
     <ignored path="www.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,18 +66,8 @@
       <file leaf-file-name="add-task.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/add-task.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.458334" vertical-offset="361" max-vertical-offset="1110">
+            <state vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1110">
               <caret line="60" column="30" selection-start-line="22" selection-start-column="36" selection-end-line="60" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1500">
-              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -84,7 +76,7 @@
       <file leaf-file-name="add-item.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/add-item.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.541667" vertical-offset="317" max-vertical-offset="1770">
+            <state vertical-scroll-proportion="0.0" vertical-offset="317" max-vertical-offset="1770">
               <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
               <folding />
             </state>
@@ -94,18 +86,8 @@
       <file leaf-file-name="detail-process.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/detail-process.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="225">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="modal-category-list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/modal-category-list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="435">
-              <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -121,14 +103,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail-expense.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="detail-expense.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/detail-expense.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8731778" vertical-offset="391" max-vertical-offset="1140">
+            <state vertical-scroll-proportion="-24.958334" vertical-offset="391" max-vertical-offset="1140">
               <caret line="66" column="18" selection-start-line="62" selection-start-column="12" selection-end-line="66" selection-end-column="18" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-manager-list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/modal-manager-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="300">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-user-list.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/modal-user-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.30612245" vertical-offset="0" max-vertical-offset="686">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -193,6 +195,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -225,23 +228,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -251,7 +239,7 @@
     <property name="options.searchVisible" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../miniature-ninja" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="recentsLimit" value="5" />
@@ -270,10 +258,14 @@
       <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -281,10 +273,6 @@
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="Chrome" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -338,20 +326,20 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24945612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32928476" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32882273" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1488498" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -375,20 +363,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/tabs.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="690">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/tab-reports.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="330">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/tab-instances.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="510">
@@ -666,7 +640,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="285">
           <caret line="7" column="80" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="80" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -674,7 +647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1425">
           <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -720,7 +692,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/add-task.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.458334" vertical-offset="361" max-vertical-offset="1110">
+        <state vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1110">
           <caret line="60" column="30" selection-start-line="22" selection-start-column="36" selection-end-line="60" selection-end-column="30" />
           <folding />
         </state>
@@ -728,7 +700,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/add-item.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.541667" vertical-offset="317" max-vertical-offset="1770">
+        <state vertical-scroll-proportion="0.0" vertical-offset="317" max-vertical-offset="1770">
           <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
           <folding />
         </state>
@@ -752,11 +724,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/detail-expense.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8731778" vertical-offset="391" max-vertical-offset="1140">
+        <state vertical-scroll-proportion="-24.958334" vertical-offset="391" max-vertical-offset="1140">
           <caret line="66" column="18" selection-start-line="62" selection-start-column="12" selection-end-line="66" selection-end-column="18" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/modal-manager-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="712">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/modal-user-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30612245" vertical-offset="0" max-vertical-offset="686">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

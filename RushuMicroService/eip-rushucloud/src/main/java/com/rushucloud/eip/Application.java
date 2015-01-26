@@ -5,11 +5,10 @@ import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +22,7 @@ import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcesso
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.rushucloud.eip.activemq.ActivemqSender;
+import com.rushucloud.eip.config.PropertiesInitializer;
 import com.rushucloud.eip.settings.WorkflowSetting;
 
 @Configuration
@@ -49,15 +49,9 @@ public class Application extends SpringBootServletInitializer
     private static Class<Application> applicationClass = Application.class;
 
     //
-    @Autowired
-    private WorkflowSetting workflowSetting;
-
-    //
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
     {
-        //
-        this.workflowInitialization();
         //
         return application.sources(applicationClass);
     }
@@ -66,23 +60,31 @@ public class Application extends SpringBootServletInitializer
     public static void main(String[] args) throws InterruptedException
     {
         //
-        SpringApplication.run(applicationClass, args);
+        ApplicationContext context =
+            new SpringApplicationBuilder(applicationClass).initializers(new PropertiesInitializer()).run(args);
+        // SpringApplication.run(applicationClass, args);
+        LOG.info("ApplicationContext:" + context.getDisplayName() + context.getStartupDate());
+        //
+        workflowInitialization();
     }
 
-    private void workflowInitialization()
+    //
+    public static void workflowInitialization()
     {
-        LOG.info("workflowInitialization...");
-        // Deploying the process here,avoid duplication to @see:
+        //
+        LOG.info("workflowInitialization..." + WorkflowSetting.getInstance().getBpmn());
+        // Deploying the process here,avoid duplication to see:
         // http://forums.activiti.org/content/duplicate-deployment-processes
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
-        // TODO:Assembel the process deployment with configuration.
-        LOG.info("workflowSetting.getName():" + workflowSetting.getName() + "workflowSetting.getBpmn():"
-            + workflowSetting.getBpmn() + "workflowSetting.getImage():" + workflowSetting.getImage());
+        // Setting the process deployment with configuration.
+        LOG.info("workflowSetting.getName():" + WorkflowSetting.getInstance().getName() + ",workflowSetting.getBpmn():"
+            + WorkflowSetting.getInstance().getBpmn() + ",workflowSetting.getImage():"
+            + WorkflowSetting.getInstance().getImage());
         // @see:
-        repositoryService.createDeployment().addClasspathResource(workflowSetting.getBpmn())
-            .addClasspathResource(workflowSetting.getImage()).enableDuplicateFiltering()
-            .name(workflowSetting.getName()).deploy();
+        repositoryService.createDeployment().addClasspathResource(WorkflowSetting.getInstance().getBpmn())
+            .addClasspathResource(WorkflowSetting.getInstance().getImage()).enableDuplicateFiltering()
+            .name(WorkflowSetting.getInstance().getName()).deploy();
         // Log information
         LOG.info("Process definitions: " + repositoryService.createProcessDefinitionQuery().list().toString());
         LOG.info("Number of process definitions: " + repositoryService.createProcessDefinitionQuery().count());

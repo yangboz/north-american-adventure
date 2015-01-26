@@ -95,12 +95,16 @@ public class UserController
 
     @RequestMapping(method = RequestMethod.GET)
     @ApiOperation(httpMethod = "GET", value = "Response a list describing all of peron entry that is successfully get or not.")
-    public JsonObject list(
-        @AuthenticationPrincipal User user,
-        @RequestParam(value = "baseOn", required = true, defaultValue = "ou=employees,ou=www1.rushucloud.com") String baseOn)
+    public JsonObject list(@AuthenticationPrincipal User user,
+        @RequestParam(value = "groups", required = true, defaultValue = "employees,www1.rushucloud.com") String groups)
     {
         // List<Person> persons = personDao.findAll();
-        List<Person> persons = personDao.findAll(baseOn);
+        String[] strGroups = groups.split(",");
+        String plainGroups = "";
+        for (int i = 0; i < strGroups.length; i++) {
+            plainGroups += ",ou=" + strGroups[i];
+        }
+        List<Person> persons = personDao.findAll(plainGroups);
         return new JsonObject(persons);
     }
 
@@ -121,18 +125,26 @@ public class UserController
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
+    @ApiOperation(httpMethod = "GET", value = "Response a entry describing if the person entry is successfully retrieved or not.")
+    public JsonObject get(@PathVariable("uid") String uid)
+    {
+        //
+        return new JsonObject(personDao.findByUid(uid));
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/auth")
     @ApiOperation(httpMethod = "GET", value = "LDAP client for authenticate user.")
     public boolean ldapAuthenticate(
         @RequestParam(value = "uid", required = true, defaultValue = "employee0") String uid,
         @RequestParam(value = "password", required = true, defaultValue = "passwordpassword") String password,
-        @RequestParam(value = "group", required = true, defaultValue = "employees,www1.rushucloud.com") String groups)
+        @RequestParam(value = "groups", required = true, defaultValue = "employees,www1.rushucloud.com") String groups)
     {
         String[] strGroups = groups.split(",");
         String plainGroups = "";
         for (int i = 0; i < strGroups.length; i++) {
             plainGroups += ",ou=" + strGroups[i];
         }
-        return personDao.getLdapTemplate().authenticate("uid=" + uid + plainGroups, "(objectClass=person)", password);
+        return personDao.getLdapTemplate().authenticate("uid=" + uid + plainGroups, "(objectClass=Person)", password);
     }
 }

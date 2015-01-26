@@ -16,8 +16,8 @@ jms:
   pubSubDomain: true
 workflow:
   name:reimbursmentApproveSimple
-  bpmn:processes/ReimbursementRequest.bpmn20.xml
-  image:processes/ReimbursementRequest.bpmn20.png
+  bpmn:processes/v1/ReimbursementRequest.bpmn20.xml
+  image:processes/v1/ReimbursementRequest.bpmn20.png
   rule:null
 ---
 spring:
@@ -34,8 +34,8 @@ jms:
   pubSubDomain: true
 workflow:
   name:reimbursmentApproveSimple
-  bpmn:processes/ReimbursementRequest.bpmn20.xml
-  image:processes/ReimbursementRequest.bpmn20.png
+  bpmn:processes/v1/ReimbursementRequest.bpmn20.xml
+  image:processes/v1/ReimbursementRequest.bpmn20.png
   rule:null
 ---
 spring:
@@ -52,6 +52,6 @@ jms:
   pubSubDomain: true
 workflow:
   name:reimbursmentApproveSimple
-  bpmn:processes/ReimbursementRequest.bpmn20.xml
-  image:processes/ReimbursementRequest.bpmn20.png
+  bpmn:processes/v1/ReimbursementRequest.bpmn20.xml
+  image:processes/v1/ReimbursementRequest.bpmn20.png
   rule:null

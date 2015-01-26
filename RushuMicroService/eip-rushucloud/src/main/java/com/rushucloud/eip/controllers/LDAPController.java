@@ -124,10 +124,10 @@ public class LDAPController
         List<Person> persons = ldapTemplate.search(query().base(baseOn).filter(filter),
         // .where("objectclass").is("person"),
             new PersonAttributesMapper());
-        LOG.info("ldap search query:" + query().toString());
-        for (Person person : persons) {
-            LOG.info("ldapSearch person:" + person.toString());
-        }
+        LOG.info("ldap searched persons:" + persons.toString());
+        // for (Person person : persons) {
+        // LOG.debug("ldapSearch person:" + person.toString());
+        // }
         return new JsonObject(persons);
     }
 

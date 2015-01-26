@@ -110,10 +110,10 @@ public class PersonDaoImpl implements PersonDao
         List<Person> persons = ldapTemplate.find(query().base(baseOn).filter("(objectClass=person)"), Person.class);
         // List<Person> persons =
         // ldapTemplate.search(query().base(baseOn).filter("(objectClass=person)"), new PersonAttributesMapper());
-        LOG.info("ldap search query:" + query().toString());
-        for (Person person : persons) {
-            LOG.info("ldap searched person:" + person.toString());
-        }
+        // LOG.info("ldap search query:" + query().toString());
+        // for (Person person : persons) {
+        // LOG.info("ldap searched person:" + person.toString());
+        // }
         return persons;
         // return ldapTemplate.findAll(Person.class);
     }
