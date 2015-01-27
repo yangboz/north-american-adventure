@@ -12,7 +12,7 @@ var _environments = {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint: 'http://localhost:8082/eip-rushucloud/'
+            api_endpoint: 'http://localhost:8082/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=www'
@@ -24,7 +24,7 @@ var _environments = {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint: 'http://localhost:8082/eip-rushucloud/'
+            api_endpoint: 'http://localhost:8082/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=www'
@@ -36,7 +36,7 @@ var _environments = {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint: 'http://123.57.78.65:8082/eip-rushucloud/'
+            api_endpoint: 'http://123.57.78.65:8082/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=123,dc=57,dc=78,dc=65'
@@ -48,7 +48,7 @@ var _environments = {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint: 'http://123.56.112.163:8082/eip-rushucloud/'
+            api_endpoint: 'http://123.56.112.163:8082/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=www'
@@ -60,7 +60,7 @@ var _environments = {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint: 'http://localhost:8082/eip-rushucloud/'
+            api_endpoint: 'http://localhost:8082/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=www'

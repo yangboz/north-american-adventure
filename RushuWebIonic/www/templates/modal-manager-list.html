@@ -6,9 +6,9 @@
     <ion-content class="padding" >
         <label class="item item-radio" ng-repeat="user in $root.managerIDs">
             <input type="checkbox"
-                   ng-click="toggleManagerListSelection(user)"
-                   ng-checked="$root.managerIDsSel.indexOf(user) != -1">
-            <div class="item-content">{{ user }}</div>
+                   ng-click="toggleManagerListSelection(user.uid)"
+                   ng-checked="$root.managerIDsSel.indexOf(user.uid) != -1">
+            <div class="item-content">{{ user.uid }}</div>
             <i class="radio-icon ion-checkmark"></i>
         </label>
     </ion-content>

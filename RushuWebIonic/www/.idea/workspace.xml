@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a45383ea-d88a-4ea2-b75b-a30057122f48" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/pdfjs/angular-pdf-viewer.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/modal-pdf-viewer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/pdfjs/pdf.combined.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/pdfjs/pdf.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/pdfjs/pdf.worker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/BaseDjReport.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/BaseDjReport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/Exporter.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/Exporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/FastReport.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/FastReport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/Layouter.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/Layouter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/ReportController.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/controllers/ReportController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/ReportExporter.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/ReportExporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/Writer.java" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/java/com/rushucloud/eip/reports/Writer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers.js" afterPath="$PROJECT_DIR$/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services.js" afterPath="$PROJECT_DIR$/js/services.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/helper.js" afterPath="$PROJECT_DIR$/js/helper.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/modal-manager-list.html" afterPath="$PROJECT_DIR$/templates/modal-manager-list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/modal-user-list.html" afterPath="$PROJECT_DIR$/templates/modal-user-list.html" />
     </list>
     <ignored path="www.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,8 +41,28 @@
       <file leaf-file-name="helper.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/helper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1425">
-              <caret line="38" column="24" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="554" max-vertical-offset="1425">
+              <caret line="62" column="52" selection-start-line="62" selection-start-column="52" selection-end-line="62" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-manager-list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/modal-manager-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modal-user-list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/modal-user-list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -65,28 +71,18 @@
       <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.2444444" vertical-offset="1699" max-vertical-offset="5880">
-              <caret line="121" column="29" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="52" />
+            <state vertical-scroll-proportion="-2.6666667" vertical-offset="1275" max-vertical-offset="5880">
+              <caret line="94" column="62" selection-start-line="94" selection-start-column="62" selection-end-line="127" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3466899" vertical-offset="2081" max-vertical-offset="19605">
+            <state vertical-scroll-proportion="-7.3703704" vertical-offset="2081" max-vertical-offset="19605">
               <caret line="152" column="39" selection-start-line="152" selection-start-column="39" selection-end-line="152" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pdf.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/pdfjs/pdf.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="116985">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,21 +118,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modal-category-list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/modal-category-list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="435">
-              <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="modal-pdf-viewer.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="modal-pdf-viewer.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/modal-pdf-viewer.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="285">
-              <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.25996533" vertical-offset="0" max-vertical-offset="577">
+              <caret line="10" column="28" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -156,7 +142,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/templates/tab-tasks.html" />
-        <option value="$PROJECT_DIR$/js/helper.js" />
         <option value="$PROJECT_DIR$/templates/modal-vendor-list.html" />
         <option value="$PROJECT_DIR$/templates/modal-category-list.html" />
         <option value="$PROJECT_DIR$/templates/add-item.html" />
@@ -168,6 +153,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/templates/modal-pdf-viewer.html" />
         <option value="$PROJECT_DIR$/js/controllers.js" />
+        <option value="$PROJECT_DIR$/js/helper.js" />
+        <option value="$PROJECT_DIR$/templates/modal-manager-list.html" />
+        <option value="$PROJECT_DIR$/templates/modal-user-list.html" />
       </list>
     </option>
   </component>
@@ -688,22 +676,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/modal-user-list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/modal-manager-list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/pdfjs/pdf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="116985">
@@ -744,26 +716,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/helper.js">
+    <entry file="file://$PROJECT_DIR$/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1425">
-          <caret line="38" column="24" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2444444" vertical-offset="1699" max-vertical-offset="5880">
-          <caret line="121" column="29" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/modal-pdf-viewer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="285">
-          <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+        <state vertical-scroll-proportion="-7.3703704" vertical-offset="2081" max-vertical-offset="19605">
+          <caret line="152" column="39" selection-start-line="152" selection-start-column="39" selection-end-line="152" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -776,10 +732,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers.js">
+    <entry file="file://$PROJECT_DIR$/js/services.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3466899" vertical-offset="2081" max-vertical-offset="19605">
-          <caret line="152" column="39" selection-start-line="152" selection-start-column="39" selection-end-line="152" selection-end-column="39" />
+        <state vertical-scroll-proportion="-2.6666667" vertical-offset="1275" max-vertical-offset="5880">
+          <caret line="94" column="62" selection-start-line="94" selection-start-column="62" selection-end-line="127" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="554" max-vertical-offset="1425">
+          <caret line="62" column="52" selection-start-line="62" selection-start-column="52" selection-end-line="62" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/modal-user-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/modal-manager-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/modal-pdf-viewer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25996533" vertical-offset="0" max-vertical-offset="577">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="28" />
           <folding />
         </state>
       </provider>
