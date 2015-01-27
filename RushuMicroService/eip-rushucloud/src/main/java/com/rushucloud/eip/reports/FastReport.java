@@ -29,71 +29,70 @@
 
 package com.rushucloud.eip.reports;
 
-import java.util.Date;
 import java.util.Map;
 
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 
-public class FastReport extends BaseDjReport {
+public class FastReport extends BaseDjReport
+{
 
-	public DynamicReport buildReport(String title, String subtitle,
-			Boolean printBackgroundOnOddRows, Boolean useFullPageWidth)
-			throws Exception {
+    @Override
+    public DynamicReport buildReport(String title, String subtitle, Boolean printBackgroundOnOddRows,
+        Boolean useFullPageWidth) throws Exception
+    {
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for the
-		 * report
-		 */
-		FastReportBuilder drb = new FastReportBuilder();
-		drb.addColumn("Id", "id", Long.class.getName(), 30)
-				.addColumn("Amount", "amount", Double.class.getName(), 30)
-				.addColumn("Name", "name", String.class.getName(), 50)
-				.addColumn("Owner", "owner", String.class.getName(), 50)
-				.addColumn("Status", "status", Enum.class.getName(), 50)
-				.addGroups(2)
-				// .setTitle("November \"2006\" sales report")
-				// .setSubtitle("This report was generated at " + new Date())
-				// .setPrintBackgroundOnOddRows(true)
-				// .setUseFullPageWidth(true);
-				.setTitle(title).setSubtitle(subtitle)
-				.setPrintBackgroundOnOddRows(printBackgroundOnOddRows)
-				.setUseFullPageWidth(useFullPageWidth);
+        /**
+         * Creates the DynamicReportBuilder and sets the basic options for the report
+         */
+        FastReportBuilder drb = new FastReportBuilder();
+        drb.addColumn("Id", "id", Long.class.getName(), 60)
+            .addColumn("Amount", "amount", Double.class.getName(), 60)
+            .addColumn("Name", "name", String.class.getName(), 100)
+            .addColumn("Owner", "owner", String.class.getName(), 100)
+            .addColumn("Status", "status", Enum.class.getName(), 100)
+            .addGroups(2)
+            // .setTitle("November \"2006\" sales report")
+            // .setSubtitle("This report was generated at " + new Date())
+            // .setPrintBackgroundOnOddRows(true)
+            // .setUseFullPageWidth(true);
+            .setTitle(title).setSubtitle(subtitle).setPrintBackgroundOnOddRows(printBackgroundOnOddRows)
+            .setUseFullPageWidth(useFullPageWidth);
 
-		drb.addGlobalFooterVariable(drb.getColumn(1), DJCalculation.SUM,
-				null, new DJValueFormatter() {
+        drb.addGlobalFooterVariable(drb.getColumn(1), DJCalculation.SUM, null, new DJValueFormatter()
+        {
 
-					public String getClassName() {
-						return String.class.getName();
-					}
+            @Override
+            public String getClassName()
+            {
+                return String.class.getName();
+            }
 
-					public Object evaluate(Object value, Map fields,
-							Map variables, Map parameters) {
-						return (value == null ? "0" : value.toString())
-								+ " Total";
-					}
-				});
+            @Override
+            public Object evaluate(Object value, Map fields, Map variables, Map parameters)
+            {
+                return (value == null ? "0" : value.toString()) + " Total";
+            }
+        });
 
-		DynamicReport dr = drb.build();
+        DynamicReport dr = drb.build();
 
-		return dr;
-	}
+        return dr;
+    }
 
-	public DynamicReport buildReport() throws Exception {
-		return null;
-	}
+    public DynamicReport buildReport() throws Exception
+    {
+        return null;
+    }
 
-	// public static void main(String[] args) throws Exception {
-	// FastReport test = new FastReport();
-	// test.testReport();
-	// test.exportToJRXML();
-	// JasperViewer.viewReport(test.jp); //finally display the report report
-	// JasperDesignViewer.viewReportDesign(test.jr);
-	// }
+    // public static void main(String[] args) throws Exception {
+    // FastReport test = new FastReport();
+    // test.testReport();
+    // test.exportToJRXML();
+    // JasperViewer.viewReport(test.jp); //finally display the report report
+    // JasperDesignViewer.viewReportDesign(test.jr);
+    // }
 
 }

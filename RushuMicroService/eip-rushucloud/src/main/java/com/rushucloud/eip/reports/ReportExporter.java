@@ -33,7 +33,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.HashMap;
-import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -46,115 +45,119 @@ import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.PdfFont;
-import net.sf.jasperreports.engine.util.JRProperties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.lowagie.text.pdf.BaseFont;
 
-public class ReportExporter {
-	/**
-	 * Logger for this class
-	 */
-	private static final Log logger = LogFactory.getLog(ReportExporter.class);
+public class ReportExporter
+{
+    /**
+     * Logger for this class
+     */
+    private static final Logger LOG = LogManager.getLogger(ReportExporter.class);
 
-	/**
-	 * The path to the file must exist.
-	 * @param jp
-	 * @param path
-	 * @throws JRException
-	 * @throws FileNotFoundException
-	 */
-	public static void exportReport(JasperPrint jp, String path) throws JRException, FileNotFoundException{
-		logger.debug("Exporing report to: " + path);
-		JRPdfExporter exporter = new JRPdfExporter();
-		exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
-		//TODO:UTF-8 character issue.
-//		JRProperties.setProperty("net.sf.jasperreports.export.pdf.font.arial", 
-//                this.getClass().getResource("arial.ttf").toString());
+    /**
+     * The path to the file must exist.
+     * 
+     * @param jp
+     * @param path
+     * @throws JRException
+     * @throws FileNotFoundException
+     */
+    public static void exportReport(JasperPrint jp, String path) throws JRException, FileNotFoundException
+    {
+        LOG.debug("Exporing..." + path);
+        JRPdfExporter exporter = new JRPdfExporter();
+        exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
+        // TODO:UTF-8 character issue.
+        // JRProperties.setProperty("net.sf.jasperreports.export.pdf.font.arial",
+        // this.getClass().getResource("arial.ttf").toString());
 
-		HashMap fontMap = new HashMap();
-		/* FontKey(String fontName, boolean bold, boolean italic) */
-		FontKey key = new FontKey("STSong-Light", false, false); 
-		/* PdfFont(String pdfFontName, String pdfEncoding, boolean isPdfEmbedded) */
-		PdfFont font = new PdfFont("STSong-Light", BaseFont.IDENTITY_H, true); 
-		fontMap.put(key, font);
-		exporter.setParameter(JRPdfExporterParameter.FONT_MAP, fontMap);
+        HashMap fontMap = new HashMap();
+        /* FontKey(String fontName, boolean bold, boolean italic) */
+        FontKey key = new FontKey("STSong-Light", false, false);
+        /* PdfFont(String pdfFontName, String pdfEncoding, boolean isPdfEmbedded) */
+        PdfFont font = new PdfFont("STSong-Light", BaseFont.IDENTITY_H, true);
+        fontMap.put(key, font);
+        exporter.setParameter(JRPdfExporterParameter.FONT_MAP, fontMap);
 
-		//
-		File outputFile = new File(path);
-		File parentFile = outputFile.getParentFile();
-		if (parentFile != null)
-			parentFile.mkdirs();
-		FileOutputStream fos = new FileOutputStream(outputFile);
+        //
+        File outputFile = new File(path);
+        File parentFile = outputFile.getParentFile();
+        if (parentFile != null)
+            parentFile.mkdirs();
+        FileOutputStream fos = new FileOutputStream(outputFile);
 
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
 
-		exporter.exportReport();
+        exporter.exportReport();
 
-		logger.debug("Report exported: " + path);
-	}
+        LOG.debug("(PDF)Exported..." + path);
+    }
 
-	public static void exportReportXls(JasperPrint jp, String path) throws JRException, FileNotFoundException{
-		JRXlsExporter exporter = new JRXlsExporter();
+    public static void exportReportXls(JasperPrint jp, String path) throws JRException, FileNotFoundException
+    {
+        JRXlsExporter exporter = new JRXlsExporter();
 
-		File outputFile = new File(path);
-		File parentFile = outputFile.getParentFile();
-		if (parentFile != null)
-			parentFile.mkdirs();
-		FileOutputStream fos = new FileOutputStream(outputFile);
+        File outputFile = new File(path);
+        File parentFile = outputFile.getParentFile();
+        if (parentFile != null)
+            parentFile.mkdirs();
+        FileOutputStream fos = new FileOutputStream(outputFile);
 
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
-		exporter.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE,Boolean.TRUE);
-		exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-		exporter.setParameter(JRXlsExporterParameter.IS_IGNORE_GRAPHICS, Boolean.FALSE);
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
+        exporter.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+        exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+        exporter.setParameter(JRXlsExporterParameter.IS_IGNORE_GRAPHICS, Boolean.FALSE);
 
-		exporter.exportReport();
+        exporter.exportReport();
 
-		logger.debug("XLS Report exported: " + path);
-	}
+        LOG.debug("XLS Report exported: " + path);
+    }
 
-	public static void exportReportHtml(JasperPrint jp, String path) throws JRException, FileNotFoundException{
-		JRHtmlExporter exporter = new JRHtmlExporter();
-		
-		File outputFile = new File(path);
-		File parentFile = outputFile.getParentFile();
-		if (parentFile != null)
-			parentFile.mkdirs();
-		FileOutputStream fos = new FileOutputStream(outputFile);
-		
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
-		exporter.exportReport();
-		
-		logger.debug("HTML Report exported: " + path);
-	}
+    public static void exportReportHtml(JasperPrint jp, String path) throws JRException, FileNotFoundException
+    {
+        JRHtmlExporter exporter = new JRHtmlExporter();
 
-	public static void exportReportPlainXls(JasperPrint jp, String path) throws JRException, FileNotFoundException{
-//		JRXlsExporter exporter = new JRXlsExporter();
-		JExcelApiExporter exporter = new JExcelApiExporter();
+        File outputFile = new File(path);
+        File parentFile = outputFile.getParentFile();
+        if (parentFile != null)
+            parentFile.mkdirs();
+        FileOutputStream fos = new FileOutputStream(outputFile);
 
-		File outputFile = new File(path);
-		File parentFile = outputFile.getParentFile();
-		if (parentFile != null)
-			parentFile.mkdirs();
-		FileOutputStream fos = new FileOutputStream(outputFile);
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
+        exporter.exportReport();
 
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
-		exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
-		exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
-		exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-		exporter.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+        LOG.debug("HTML Report exported: " + path);
+    }
 
+    public static void exportReportPlainXls(JasperPrint jp, String path) throws JRException, FileNotFoundException
+    {
+        // JRXlsExporter exporter = new JRXlsExporter();
+        JExcelApiExporter exporter = new JExcelApiExporter();
 
-		exporter.exportReport();
+        File outputFile = new File(path);
+        File parentFile = outputFile.getParentFile();
+        if (parentFile != null)
+            parentFile.mkdirs();
+        FileOutputStream fos = new FileOutputStream(outputFile);
 
-		logger.debug("Report exported: " + path);
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
+        exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+        exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+        exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+        exporter.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
 
-	}
+        exporter.exportReport();
+
+        LOG.debug("Report exported: " + path);
+
+    }
 
 }

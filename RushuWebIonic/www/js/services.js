@@ -130,7 +130,7 @@ angular.module('starter.services', [])
 ///LDAPService
     .factory('LDAPService', function ($resource, CONFIG_ENV) {
         var data = $resource(CONFIG_ENV.api_endpoint + 'ldap/search', {
-            partition: "@partitionStr",
+            baseOn: "@baseOnStr",
             filter: "@filterStr"
         });
         return data;

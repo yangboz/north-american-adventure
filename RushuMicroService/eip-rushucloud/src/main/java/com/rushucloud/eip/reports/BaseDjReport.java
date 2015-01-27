@@ -28,159 +28,214 @@
  */
 package com.rushucloud.eip.reports;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.util.SortUtils;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.*;
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.util.SortUtils;
 
-public abstract class BaseDjReport {
+public abstract class BaseDjReport
+{
 
-	public Map getParams() {
-		return params;
-	}
+    public Map getParams()
+    {
+        return params;
+    }
 
-	protected static final Log log = LogFactory.getLog(BaseDjReport.class);
+    protected static final Logger LOG = LogManager.getLogger(BaseDjReport.class);
 
-	protected JasperPrint jp;
-	protected JasperReport jr;
-	protected Map params = new HashMap();
-	protected DynamicReport dr;
+    protected JasperPrint jp;
 
-	public abstract DynamicReport buildReport(String title, String subtitle,
-			Boolean printBackgroundOnOddRows, Boolean useFullPageWidth)
-			throws Exception;
+    protected JasperReport jr;
 
-	public String testReport(String title, String subtitle,
-			Boolean printBackgroundOnOddRows, Boolean useFullPageWidth,JRBeanCollectionDataSource ds)
-			throws Exception {
-		dr = buildReport(title, subtitle, printBackgroundOnOddRows,
-				useFullPageWidth);
+    protected Map params = new HashMap();
 
-		/**
-		 * Get a JRDataSource implementation
-		 */
-//		JRDataSource ds = getDataSource();
+    protected DynamicReport dr;
 
-		/**
-		 * Creates the JasperReport object, we pass as a Parameter the
-		 * DynamicReport, a new ClassicLayoutManager instance (this one does the
-		 * magic) and the JRDataSource
-		 */
-		jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(),
-				params);
+    public abstract DynamicReport buildReport(String title, String subtitle, Boolean printBackgroundOnOddRows,
+        Boolean useFullPageWidth) throws Exception;
 
-		/**
-		 * Creates the JasperPrint object, we pass as a Parameter the
-		 * JasperReport object, and the JRDataSource
-		 */
-		log.debug("Filling the report");
-		if (ds != null)
-			jp = JasperFillManager.fillReport(jr, params, ds);
-		else
-			jp = JasperFillManager.fillReport(jr, params);
+    public String testReport(String title, String subtitle, Boolean printBackgroundOnOddRows, Boolean useFullPageWidth,
+        JRBeanCollectionDataSource ds)
+    {
+        try {
+            dr = buildReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error(e.toString());
+        }
 
-		log.debug("Filling done!");
-		log.debug("Exporting the report (pdf, xls, etc)");
-		// exportReport();
+        /**
+         * Get a JRDataSource implementation
+         */
+        // JRDataSource ds = getDataSource();
 
-		log.debug("test finished");
-		return exportReport();
-	}
+        /**
+         * Creates the JasperReport object, we pass as a Parameter the DynamicReport, a new ClassicLayoutManager
+         * instance (this one does the magic) and the JRDataSource
+         */
+        try {
+            jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(), params);
+        } catch (JRException e) {
+            e.printStackTrace();
+            LOG.error(e.toString());
+        }
 
-	protected LayoutManager getLayoutManager() {
-		return new ClassicLayoutManager();
-	}
+        /**
+         * Creates the JasperPrint object, we pass as a Parameter the JasperReport object, and the JRDataSource
+         */
+        LOG.debug("Filling...");
+        if (ds != null)
+            try {
+                jp = JasperFillManager.fillReport(jr, params, ds);
+            } catch (JRException e) {
+                e.printStackTrace();
+                LOG.error(e.toString());
+            }
+        else
+            try {
+                jp = JasperFillManager.fillReport(jr, params);
+            } catch (JRException e) {
+                e.printStackTrace();
+                LOG.error(e.toString());
+            }
 
-	protected String exportReport() throws Exception {
-		String exportUrl = System.getProperty("user.dir") + "/target/reports/"
-				+ this.getClass().getName() + ".pdf";
-		ReportExporter.exportReport(jp, exportUrl);
-		exportToJRXML();
-		exportToHTML();
-		return exportUrl;
-	}
+        LOG.debug("Filling done.");
+        // exportReport();
 
-	protected void exportToJRXML() throws Exception {
-		if (this.jr != null) {
-			DynamicJasperHelper.generateJRXML(this.jr, "UTF-8",
-					System.getProperty("user.dir") + "/target/reports/"
-							+ this.getClass().getName() + ".jrxml");
+        // LOG.debug("test finished");
+        return exportReport();
+    }
 
-		} else {
-			DynamicJasperHelper.generateJRXML(this.dr, this.getLayoutManager(),
-					this.params, "UTF-8", System.getProperty("user.dir")
-							+ "/target/reports/" + this.getClass().getName()
-							+ ".jrxml");
-		}
-	}
+    protected LayoutManager getLayoutManager()
+    {
+        return new ClassicLayoutManager();
+    }
 
-	protected void exportToHTML() throws Exception {
-		ReportExporter.exportReportHtml(this.jp, System.getProperty("user.dir")
-				+ "/target/reports/" + this.getClass().getName() + ".html");
-	}
+    public String getClassPath()
+    {
+        String classPath = this.getClass().getResource("/").getPath();
+        return classPath;
+    }
 
-	/**
-	 * @return JRDataSource
-	 */
-	protected JRDataSource getDataSource() {
-		Collection dummyCollection = RepositoryProducts.getDummyCollection();
-		dummyCollection = SortUtils.sortCollection(dummyCollection,
-				dr.getColumns());
+    protected String exportReport()
+    {
+        LOG.debug("Exporting....");
+        // String exportUrl = System.getProperty("user.dir") + "/target/reports/" + this.getClass().getName() + ".pdf";
+        String timestampUrl = getReportTimestampUri(".pdf");
+        String exportFullUrl = getReportFullUri(timestampUrl);
+        try {
+            ReportExporter.exportReport(jp, exportFullUrl);
+        } catch (FileNotFoundException | JRException e) {
+            // e.printStackTrace();
+            LOG.error(e.toString());
+        }
+        // exportToJRXML();
+        // exportToHTML();
+        return timestampUrl;
+    }
 
-		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection); // Create
-																			// a
-																			// JRDataSource,
-																			// the
-																			// Collection
-																			// used
-																			// here
-																			// contains
-																			// dummy
-																			// hardcoded
-																			// objects...
-		return ds;
-	}
+    private String getReportFullUri(String timestampUrl)
+    {
+        return getClassPath() + "/reports/" + timestampUrl;
+    }
 
-	public Collection getDummyCollectionSorted(List columnlist) {
-		Collection dummyCollection = RepositoryProducts.getDummyCollection();
-		return SortUtils.sortCollection(dummyCollection, columnlist);
+    private String getReportTimestampUri(String fileExt)
+    {
+        String timestampFileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS").format(new Date()) + fileExt;
+        return timestampFileName;
+    }
 
-	}
+    protected void exportToJRXML() throws Exception
+    {
+        if (this.jr != null) {
+            DynamicJasperHelper.generateJRXML(this.jr, "UTF-8", System.getProperty("user.dir") + "/target/reports/"
+                + this.getClass().getName() + ".jrxml");
 
-	public DynamicReport getDynamicReport() {
-		return dr;
-	}
+        } else {
+            DynamicJasperHelper.generateJRXML(this.dr, this.getLayoutManager(), this.params, "UTF-8",
+                System.getProperty("user.dir") + "/target/reports/" + this.getClass().getName() + ".jrxml");
+        }
+    }
 
-	/**
-	 * Uses a non blocking HSQL DB. Also uses HSQL default test data
-	 * 
-	 * @return a Connection
-	 * @throws Exception
-	 */
-	public static Connection createSQLConnection() throws Exception {
-		Connection con = null;
-		Class.forName("org.hsqldb.jdbcDriver");
-		con = DriverManager.getConnection(
-				"jdbc:hsqldb:file:target/test-classes/hsql/test_dj_db", "sa",
-				"");
+    protected void exportToHTML() throws Exception
+    {
+        ReportExporter.exportReportHtml(this.jp, System.getProperty("user.dir") + "/target/reports/"
+            + this.getClass().getName() + ".html");
+    }
 
-		return con;
-	}
+    /**
+     * @return JRDataSource
+     */
+    protected JRDataSource getDataSource()
+    {
+        Collection dummyCollection = RepositoryProducts.getDummyCollection();
+        dummyCollection = SortUtils.sortCollection(dummyCollection, dr.getColumns());
 
-	public int getYear() {
-		return Calendar.getInstance().get(Calendar.YEAR);
-	}
+        JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection); // Create
+                                                                           // a
+                                                                           // JRDataSource,
+                                                                           // the
+                                                                           // Collection
+                                                                           // used
+                                                                           // here
+                                                                           // contains
+                                                                           // dummy
+                                                                           // hardcoded
+                                                                           // objects...
+        return ds;
+    }
+
+    public Collection getDummyCollectionSorted(List columnlist)
+    {
+        Collection dummyCollection = RepositoryProducts.getDummyCollection();
+        return SortUtils.sortCollection(dummyCollection, columnlist);
+
+    }
+
+    public DynamicReport getDynamicReport()
+    {
+        return dr;
+    }
+
+    /**
+     * Uses a non blocking HSQL DB. Also uses HSQL default test data
+     * 
+     * @return a Connection
+     * @throws Exception
+     */
+    public static Connection createSQLConnection() throws Exception
+    {
+        Connection con = null;
+        Class.forName("org.hsqldb.jdbcDriver");
+        con = DriverManager.getConnection("jdbc:hsqldb:file:target/test-classes/hsql/test_dj_db", "sa", "");
+
+        return con;
+    }
+
+    public int getYear()
+    {
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
 }

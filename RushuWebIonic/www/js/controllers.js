@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
                                       ExpenseService, ItemService, TaskService, CompanyService,
                                       ProcessDefinitionsService, LDAPService, $geoLocation, VendorService,
                                       CategoryService, ProcessInstancesService,
-                                      $ionicActionSheet, toaster, CategoryService) {
+                                      $ionicActionSheet, toaster, CategoryService,$ionicViewService) {
 //Websocket/Stomp handler:
         $rootScope.connectStomp = function (username, password, queueName) {
             //
@@ -147,6 +147,14 @@ angular.module('starter.controllers', [])
 //        console.log("modal-vendor-list.html init!!!");
             $rootScope.categoryListModal = modal;
         });
+        ///PdfViewModal
+        $ionicModal.fromTemplateUrl('templates/modal-pdf-viewer.html', {
+            scope: $scope,
+            backdropClickToClose: false
+        }).then(function (modal) {
+//        console.log("modal-vendor-list.html init!!!");
+            $rootScope.pdfViewerModal = modal;
+        });
 ///Basic
         $rootScope.$on("$stateChangeStart", function () {
             //Login Modal,only hide();
@@ -175,6 +183,7 @@ angular.module('starter.controllers', [])
             $rootScope.vendorListModal.remove();
             $rootScope.itemFilterListModal.remove();
             $rootScope.categoryListModal.remove();
+            $rootScope.pdfViewerModal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function () {
@@ -321,7 +330,7 @@ angular.module('starter.controllers', [])
             //var ouEncode_0 = "ou=" + Enum.groupNames[0] + ",";//employee
             var partition_0 = $rootScope.getLdapPartition(Enum.groupNames[0]);
             LDAPService.get({
-                partition: partition_0,//e.g:dc=rushucloud,dc=com
+                baseOn: partition_0,//e.g:dc=rushucloud,dc=com
                 filter: CONFIG_ENV.LDAP_FILTER
             }, function (response) {
                 $log.info("LDAPService.get(0) success, response:", response);
@@ -333,7 +342,7 @@ angular.module('starter.controllers', [])
             //var ouEncode_1 = "ou=" + Enum.groupNames[1] + ",";//manager
             var partition_1 = $rootScope.getLdapPartition(Enum.groupNames[1]);
             LDAPService.get({
-                partition: partition_1,
+                baseOn: partition_1,
                 filter: CONFIG_ENV.LDAP_FILTER
             }, function (response) {
                 $log.info("LDAPService.get(1) success, response:", response);
@@ -393,7 +402,8 @@ angular.module('starter.controllers', [])
                 $log.info("startProcessInstance() success, response:", resp);
                 $rootScope.curProcessInstanceId = resp.id;
                 //View history back to Expense tab inside of task table.
-                $ionicNavBarDelegate.back();
+                //$ionicNavBarDelegate.back();
+                $ionicViewService.getBackView().go();
                 //Then update the expense status.
                 $rootScope.patchExpense(expenseObj);
             }, function (error) {
@@ -542,7 +552,7 @@ angular.module('starter.controllers', [])
         }
     })
 //@example:http://krispo.github.io/angular-nvd3/#/
-    .controller('ReportsCtrl', function ($scope, $rootScope, Enum, $log, ReportService, ReportPDFService) {
+    .controller('ReportsCtrl', function ($scope, $rootScope, Enum, $log, ReportService, ReportPDFService, pdfDelegate, CONFIG_ENV) {
         /* Chart options */
         //@example:http://plnkr.co/edit/jOoJik?p=preview
         /* Chart options */
@@ -590,7 +600,11 @@ angular.module('starter.controllers', [])
         }
         //Local variables
         $scope.pdfReportVariables = {title:"",subtitle:"",background:false,fullpage:false};
-        $scope.pdfUrl = "";
+        //@see: https://github.com/winkerVSbecks/angular-pdf-viewer
+        $scope.relativity = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/149125/relativity.pdf';
+        $scope.material = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/149125/material-design-2.pdf';
+        $scope.pdfUrl = $scope.material;
+        //
         $scope.getPDFReport = function () {
             //
             ReportPDFService.get({
@@ -600,7 +614,13 @@ angular.module('starter.controllers', [])
                 fullpage: $scope.pdfReportVariables.fullpage
             }, function (response) {
                 $log.info("ReportPDFService.get() success, response(json):", response);
-                $scope.pdfUrl = response.data;
+                $scope.pdfUrl = CONFIG_ENV.api_endpoint+"/reports/" +response.data;
+                //@see: https://github.com/winkerVSbecks/angular-pdf-viewer
+                $rootScope.pdfViewerModal.show();
+                //
+                pdfDelegate
+                    .$getByHandle('reportsCtrl-pdf-container')
+                    .load($scope.pdfUrl);
             }, function (error) {
                 // failure handler
                 $log.error("ReportPDFService.get() failed:", JSON.stringify(error));
