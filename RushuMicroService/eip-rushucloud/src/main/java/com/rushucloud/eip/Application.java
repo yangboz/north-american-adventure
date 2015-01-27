@@ -21,7 +21,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.rushucloud.eip.activemq.ActivemqSender;
+import com.rushucloud.eip.activemq.ActivemqVariables;
 import com.rushucloud.eip.config.PropertiesInitializer;
 import com.rushucloud.eip.settings.WorkflowSetting;
 
@@ -104,8 +104,8 @@ public class Application extends SpringBootServletInitializer
         String processDefinitionId = repositoryService.createProcessDefinitionQuery().list().get(0).getId();
         String activemqChannelName = businessKey + "/" + processDefinitionId;
         // Save the queueName.
-        ActivemqSender.channelName = activemqChannelName;
-        LOG.info("ActiveMQ initializing with channel name:" + ActivemqSender.channelName);
+        ActivemqVariables.channelName = activemqChannelName;
+        LOG.info("ActiveMQ initializing with channel name:" + ActivemqVariables.channelName);
         // ActivemqSender sender = new ActivemqSender(activemqQueueName);
         // sender.sendMessage("echo");//For testing
         // ActivemqReceiver receiver = new ActivemqReceiver("SAMPLEQUEUE");

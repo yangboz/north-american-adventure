@@ -7,7 +7,6 @@ package com.rushucloud.eip.controllers;
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 //@see: http://docs.spring.io/spring-ldap/docs/current/reference/#introduction
 
-import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,8 +19,6 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.ModificationItem;
 import javax.validation.Valid;
 
-import org.apache.directory.server.core.DefaultDirectoryService;
-import org.apache.directory.server.core.DirectoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +121,7 @@ public class LDAPController
         List<Person> persons = ldapTemplate.search(query().base(baseOn).filter(filter),
         // .where("objectclass").is("person"),
             new PersonAttributesMapper());
-        LOG.info("ldap searched persons:" + persons.toString());
+        // LOG.info("ldap searched persons:" + persons.toString());
         // for (Person person : persons) {
         // LOG.debug("ldapSearch person:" + person.toString());
         // }
@@ -318,33 +315,4 @@ public class LDAPController
         return new InitialDirContext(props);
     }
 
-    //
-    @SuppressWarnings("unused")
-    private DirectoryService getDirectoryService() throws Exception
-    {
-        DirectoryService directoryService;
-
-        directoryService = new DefaultDirectoryService();
-        directoryService.setShutdownHookEnabled(true);
-
-        File workingDir = new File("work");
-        directoryService.setWorkingDirectory(workingDir);
-
-        return directoryService;
-
-        // Create a new partition
-        // JdbmPartition helloPartition = new JdbmPartition();
-        // helloPartition.setId("hello");
-        // helloPartition.setSuffix("ou=hello");
-        // helloPartition.init(directoryService);
-        //
-        // directoryService.addPartition(helloPartition);
-        // directoryService.startup();
-        //
-        // ClonedServerEntry entry =
-        // directoryService.getAdminSession().lookup(new LdapDN("ou=hello"));
-        // Assert.assertNotNull(entry);
-        //
-        // directoryService.shutdown();
-    }
 }

@@ -6,21 +6,28 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import com.rushucloud.eip.activemq.ActivemqVariables;
+
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix="jms")
-public class JMSSetting {
-	
-	private static Logger LOG = LogManager.getLogger(JMSSetting.class);
+@ConfigurationProperties(prefix = "jms")
+public class JMSSetting
+{
 
-	private String brokerUrl;
+    private static Logger LOG = LogManager.getLogger(JMSSetting.class);
 
-	public String getBrokerUrl() {
-		return brokerUrl;
-	}
+    private String brokerUrl;
 
-	public void setBrokerUrl(String brokerUrl) {
-		this.brokerUrl = brokerUrl;
-		LOG.info("brokerUrl:"+this.brokerUrl);
-	}
+    public String getBrokerUrl()
+    {
+        return brokerUrl;
+    }
+
+    public void setBrokerUrl(String brokerUrl)
+    {
+        this.brokerUrl = brokerUrl;
+        //
+        ActivemqVariables.brokerUrl = brokerUrl;
+        LOG.info("brokerUrl:" + ActivemqVariables.brokerUrl);
+    }
 }
