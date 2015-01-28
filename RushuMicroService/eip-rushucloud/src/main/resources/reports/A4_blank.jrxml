@@ -23,6 +23,9 @@
 			</textField>
 			<textField>
 				<reportElement x="296" y="22" width="100" height="20" uuid="5238b6bc-375b-41fa-99b2-997a7cd21f22"/>
+				<textElement>
+					<font fontName="Simhei" size="12" isBold="true" isItalic="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>

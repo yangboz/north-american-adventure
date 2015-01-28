@@ -43,14 +43,14 @@ public class FastReport extends BaseDjReport
     public DynamicReport buildReport(String title, String subtitle, Boolean printBackgroundOnOddRows,
         Boolean useFullPageWidth) throws Exception
     {
-
         /**
          * Creates the DynamicReportBuilder and sets the basic options for the report
          */
         FastReportBuilder drb = new FastReportBuilder();
         drb.addColumn("Id", "id", Long.class.getName(), 60)
             .addColumn("Amount", "amount", Double.class.getName(), 60)
-            .addColumn("Name", "name", String.class.getName(), 100)
+            .addColumn("条目名", "name", String.class.getName(), 100)
+            // .addColumn("Name", "name", String.class.getName(), 100)
             .addColumn("Owner", "owner", String.class.getName(), 100)
             .addColumn("Status", "status", Enum.class.getName(), 100)
             .addGroups(2)

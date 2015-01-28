@@ -73,12 +73,15 @@ public abstract class BaseDjReport
 
     protected DynamicReport dr;
 
+    protected String reportsFolder;
+
     public abstract DynamicReport buildReport(String title, String subtitle, Boolean printBackgroundOnOddRows,
         Boolean useFullPageWidth) throws Exception;
 
     public String testReport(String title, String subtitle, Boolean printBackgroundOnOddRows, Boolean useFullPageWidth,
-        JRBeanCollectionDataSource ds)
+        JRBeanCollectionDataSource ds, String reportsFolder)
     {
+        this.reportsFolder = reportsFolder;
         try {
             dr = buildReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth);
         } catch (Exception e) {
@@ -158,7 +161,7 @@ public abstract class BaseDjReport
 
     private String getReportFullUri(String timestampUrl)
     {
-        return getClassPath() + "/reports/" + timestampUrl;
+        return getClassPath() + this.reportsFolder + timestampUrl;
     }
 
     private String getReportTimestampUri(String fileExt)

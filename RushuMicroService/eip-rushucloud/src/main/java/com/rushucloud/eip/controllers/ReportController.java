@@ -1,5 +1,7 @@
 package com.rushucloud.eip.controllers;
 
+import java.awt.FontFormatException;
+import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -27,6 +29,7 @@ import com.rushucloud.eip.models.Expense;
 import com.rushucloud.eip.models.ExpenseDao;
 import com.rushucloud.eip.reports.FastReport;
 import com.rushucloud.eip.services.ReportService;
+import com.rushucloud.eip.settings.FolderSetting;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 /**
@@ -53,18 +56,24 @@ public class ReportController
     @PersistenceContext
     EntityManager entityManager;
 
+    @Autowired
+    private FolderSetting folderSetting;
+
     /**
      * Downloads the report as an Excel format.
      * <p>
      * Make sure this method doesn't return any model. Otherwise, you'll get an
      * "IllegalStateException: getOutputStream() has already been called for this response"
+     * 
+     * @throws IOException
+     * @throws FontFormatException
      */
     @RequestMapping(value = "/xls", method = RequestMethod.GET)
     // TODO: @see:
     // http://krams915.blogspot.in/2011/02/spring-3-dynamicjasper-hibernate_4736.html,
     // make it right.
     public @ResponseBody void getXLS(HttpServletResponse response, Model model) throws ColumnBuilderException,
-        ClassNotFoundException, JRException
+        ClassNotFoundException, JRException, FontFormatException, IOException
     {
         LOG.debug("Received request to download report as an XLS");
 
@@ -156,7 +165,9 @@ public class ReportController
         LOG.debug("fastReport data(before PDF generate):" + expensesAll.toString());
         //
         try {
-            pdfUrl = fastReport.testReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth, ds);
+            pdfUrl =
+                fastReport.testReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth, ds,
+                    folderSetting.getReports());
             // JRXML compile to JASPER
             // JasperCompileManager
             // .compileReportToFile("/Users/yangboz/Documents/Git/north-american-adventure/RushuMicroService/eip-rushucloud/src/main/resources/reports/A4_blank.jrxml");

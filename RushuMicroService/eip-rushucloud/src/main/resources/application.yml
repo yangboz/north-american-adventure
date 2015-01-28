@@ -9,8 +9,9 @@ ldap:
   userOn: uid=admin,ou=system
   password: secret
   base: dc=www
-upload:
-  folder: uploads/
+folder:
+  uploads: uploads/
+  reports: reports/
 jms:
   brokerUrl: tcp://localhost:61616
   pubSubDomain: true
@@ -27,8 +28,9 @@ ldap:
   userOn: cn=Manager,dc=123,dc=57,dc=78,dc=65
   password: Kit7740321
   base: dc=123,dc=57,dc=78,dc=65
-upload:
-  folder: uploads/
+folder:
+  uploads: uploads/
+  reports: reports/
 jms:
   brokerUrl: tcp://123.57.78.65:61616
   pubSubDomain: true
@@ -45,8 +47,9 @@ ldap:
   userOn: cn=admin,dc=123,dc=56,dc=112,dc=163
   password: Rushu0915
   base: dc=123,dc=56,dc=112,dc=163
-upload:
-  folder: uploads/
+folder:
+  uploads: uploads/
+  reports: reports/
 jms:
   brokerUrl: tcp://123.56.112.163:61616
   pubSubDomain: true

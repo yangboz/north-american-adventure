@@ -1,5 +1,7 @@
 package com.rushucloud.eip.reports;
 
+import java.awt.FontFormatException;
+import java.io.IOException;
 import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,13 +30,15 @@ public class Layouter
      * Builds the report layout. This doesn't have any data yet. This is your template.
      * 
      * @return the layout
+     * @throws IOException
+     * @throws FontFormatException
      */
-    public static DynamicReport buildChildReportLayout() throws ColumnBuilderException, ClassNotFoundException
+    public static DynamicReport buildChildReportLayout() throws ColumnBuilderException, ClassNotFoundException,
+        FontFormatException, IOException
     {
 
         // Create an instance of FastReportBuilder
         FastReportBuilder drb = new FastReportBuilder();
-
         // Create columns
         // The column fields must match the name and type of the properties in
         // your datasource
@@ -71,8 +75,11 @@ public class Layouter
      * Builds the parent report layout. This doesn't have any data yet. This is your template.
      * 
      * @return the layout
+     * @throws IOException
+     * @throws FontFormatException
      */
-    public static DynamicReport buildParentReportLayout() throws ColumnBuilderException, ClassNotFoundException
+    public static DynamicReport buildParentReportLayout() throws ColumnBuilderException, ClassNotFoundException,
+        FontFormatException, IOException
     {
 
         // Create an instance of FastReportBuilder
