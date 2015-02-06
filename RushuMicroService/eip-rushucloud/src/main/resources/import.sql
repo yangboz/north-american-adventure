@@ -17,3 +17,5 @@ INSERT INTO `categories` (`id`, `created`, `date`, `updated`, `icon`, `label`,`n
 (9, '2014-12-26 13:55:39', NULL, '2014-12-26 13:55:39', '02', '餐饮','美食', 1);
 
 INSERT INTO user(id, name, login, password) values (1,'API_test_user','foo','bar');
+
+INSERT INTO `expenses`(`id`,`created`,`date`,`updated`,`owner`,`amount`,`deleted`,`item_ids`,`manager_id`,`name`,`participant_ids`,`pid`,`status`) VALUES ( '1', '2015-02-06 16:52:47', '2015-02-06 08:00:00', '2015-02-06 16:52:49', 'employee1', '99', '0', '1', 'manager1', '测试报告ABC', 'employee0', '52501', 'Submitted' );

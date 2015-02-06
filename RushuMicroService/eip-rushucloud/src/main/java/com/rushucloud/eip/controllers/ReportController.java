@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.logging.log4j.LogManager;
@@ -163,6 +164,18 @@ public class ReportController
         // Log.info("expensesAll for JRBeanCollectionDataSource"+expensesAll);
         JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(expensesAll);
         LOG.debug("fastReport data(before PDF generate):" + expensesAll.toString());
+        //
+        long start = System.currentTimeMillis();
+        try {
+            String tempPdfUrl =
+                JasperExportManager.exportReportToPdfFile(this.getClass().getResource("/").getPath()
+                    + "/reports/A4_blank.jrprint");
+            LOG.info("tempPdfUrl:" + tempPdfUrl);
+        } catch (JRException e1) {
+            // e1.printStackTrace();
+            LOG.error(e1.toString());
+        }
+        LOG.info("PDF creation time : " + (System.currentTimeMillis() - start));
         //
         try {
             pdfUrl =

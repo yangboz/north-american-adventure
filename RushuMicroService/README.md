@@ -141,3 +141,7 @@ curl http://localhost:8082/eip-rushucloud/company -H "Authorization: Bearer f3e4
 #####Rereshing access_token:
 
 curl -X POST -vu clientapp:1NDgzZGY1OWViOWRmNjI5ZT http://localhost:8082/eip-rushucloud/oauth/token -H "Accept: application/json" -d "grant_type=refresh_token&refresh_token=6f3599c8-2ee3-4654-9697-4e7480b7a976&client_secret=1NDgzZGY1OWViOWRmNjI5ZT&client_id=clientapp"
+
+####Flyway:
+
+mvn flyway:info -Dflyway.configFile=src/main/resources/flyway.properties

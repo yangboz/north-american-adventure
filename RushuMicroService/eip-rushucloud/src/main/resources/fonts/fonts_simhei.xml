@@ -8,8 +8,8 @@
 		<pdfEncoding>Identity-H</pdfEncoding>
 		<pdfEmbedded>true</pdfEmbedded>
 		<exportFonts>
-			<export key="net.sf.jasperreports.html">simhei, 'Times New Roman', Times, serif</export>
-			<export key="net.sf.jasperreports.xhtml">simhei, 'Times New Roman', Times, serif</export>
+			<export key="net.sf.jasperreports.html">Simhei, 'Times New Roman', Times, serif</export>
+			<export key="net.sf.jasperreports.xhtml">Simhei, 'Times New Roman', Times, serif</export>
 		</exportFonts>
 	</fontFamily>
 
