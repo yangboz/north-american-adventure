@@ -2,15 +2,22 @@ package com.rushucloud.eip.controllers;
 
 import java.awt.FontFormatException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,14 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
-
 import com.google.common.collect.Lists;
 import com.rushucloud.eip.dto.JsonObject;
+import com.rushucloud.eip.models.DataBeanList;
 import com.rushucloud.eip.models.Expense;
 import com.rushucloud.eip.models.ExpenseDao;
-import com.rushucloud.eip.reports.FastReport;
-import com.rushucloud.eip.services.ReportService;
 import com.rushucloud.eip.settings.FolderSetting;
 import com.wordnik.swagger.annotations.ApiOperation;
 
@@ -51,9 +55,6 @@ public class ReportController
     @Autowired
     private ExpenseDao _expenseDao;
 
-    @Autowired
-    private ReportService reportService;
-
     @PersistenceContext
     EntityManager entityManager;
 
@@ -73,14 +74,13 @@ public class ReportController
     // TODO: @see:
     // http://krams915.blogspot.in/2011/02/spring-3-dynamicjasper-hibernate_4736.html,
     // make it right.
-    public @ResponseBody void getXLS(HttpServletResponse response, Model model) throws ColumnBuilderException,
-        ClassNotFoundException, JRException, FontFormatException, IOException
+    public @ResponseBody void getXLS(HttpServletResponse response, Model model) throws JRException
     {
         LOG.debug("Received request to download report as an XLS");
 
         // Delegate to downloadService. Make sure to pass an instance of
         // HttpServletResponse
-        reportService.downloadXLS(response);
+        // reportService.downloadXLS(response);
     }
 
     //
@@ -97,12 +97,11 @@ public class ReportController
             // entityManager.createQuery("SELECT status,COUNT(status) FROM expenses WHERE owner='"+owner+"' GROUP BY status");
             // List<Object[]> results = query.getResultList();
             // return new JsonObject(results);
-            return new JsonObject(reportService.getExpensesGroupByStatus(owner));
+            // return new JsonObject(reportService.getExpensesGroupByStatus(owner));
             //
-            // Iterable<Expense> result =
-            // this._expenseDao.findExpensesByOwner(owner);
+            Iterable<Expense> result = this._expenseDao.findExpensesByOwner(owner);
             // // LOG.debug("itemsByOwner()result:"+result.toString());
-            // return new JsonObject(result);
+            return new JsonObject(result);
         } else {
             return new JsonObject(this._expenseDao.findAll());
         }
@@ -145,6 +144,7 @@ public class ReportController
     }
 
     /**
+     * @throws JRException
      * @see: http://jasperreports.sourceforge.net/sample.reference/fonts/index.html Downloads the report as an PDF
      *       format.
      *       <p>
@@ -155,10 +155,10 @@ public class ReportController
     public JsonObject getPDF(@RequestParam(value = "title") String title,
         @RequestParam(value = "subtitle") String subtitle,
         @RequestParam(value = "background", defaultValue = "true") Boolean printBackgroundOnOddRows,
-        @RequestParam(value = "fullpage", defaultValue = "true") Boolean useFullPageWidth)
+        @RequestParam(value = "fullpage", defaultValue = "true") Boolean useFullPageWidth) throws JRException
     {
         String pdfUrl = "";
-        FastReport fastReport = new FastReport();
+        // FastReport fastReport = new FastReport();
         // Create a JRDataSource,the Collection used here contains dummy hard-coded objects...
         List<Expense> expensesAll = Lists.newArrayList(this._expenseDao.findAll());
         // Log.info("expensesAll for JRBeanCollectionDataSource"+expensesAll);
@@ -166,21 +166,57 @@ public class ReportController
         LOG.debug("fastReport data(before PDF generate):" + expensesAll.toString());
         //
         long start = System.currentTimeMillis();
+        // try {
+        // String tempPdfUrl =
+        // JasperExportManager.exportReportToPdfFile(this.getClass().getResource("/").getPath()
+        // + "/reports/A4_blank.jrprint");
+        // LOG.info("tempPdfUrl:" + tempPdfUrl);
+        // } catch (JRException e1) {
+        // // e1.printStackTrace();
+        // LOG.error(e1.toString());
+        // }
+        //
+        String jasperDestFile = JasperCompileManager.compileReportToFile(JRXML_SOURCE_FILE);
+        //
+        String printFileName = null;
+        DataBeanList DataBeanList = new DataBeanList();
+        ArrayList dataList = DataBeanList.getDataBeanList();
+        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataList, true);
+        //
+        Map parameters = new HashMap();
+        LOG.info("JASPER_DEST_FILE:" + JASPER_DEST_FILE);
         try {
-            String tempPdfUrl =
-                JasperExportManager.exportReportToPdfFile(this.getClass().getResource("/").getPath()
-                    + "/reports/A4_blank.jrprint");
-            LOG.info("tempPdfUrl:" + tempPdfUrl);
-        } catch (JRException e1) {
-            // e1.printStackTrace();
-            LOG.error(e1.toString());
+            printFileName = JasperFillManager.fillReportToFile(JASPER_DEST_FILE, parameters, beanColDataSource);
+            if (printFileName != null) {
+                /**
+                 * 1- export to PDF
+                 */
+                JasperExportManager.exportReportToPdfFile(printFileName, JASPER_REPORT_BASE + ".pdf");
+                pdfUrl = JASPER_REPORT_BASE + ".pdf";
+                /**
+                 * 2- export to HTML
+                 */
+                JasperExportManager.exportReportToHtmlFile(printFileName, JASPER_REPORT_BASE + ".html");
+
+                /**
+                 * 3- export to Excel sheet
+                 */
+                JRXlsExporter exporter = new JRXlsExporter();
+
+                exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, JASPER_REPORT_BASE + ".xls");
+
+                exporter.exportReport();
+            }
+        } catch (JRException e) {
+            e.printStackTrace();
         }
         LOG.info("PDF creation time : " + (System.currentTimeMillis() - start));
         //
         try {
-            pdfUrl =
-                fastReport.testReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth, ds,
-                    folderSetting.getReports());
+            // pdfUrl =
+            // fastReport.testReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth, ds,
+            // folderSetting.getReports());
             // JRXML compile to JASPER
             // JasperCompileManager
             // .compileReportToFile("/Users/yangboz/Documents/Git/north-american-adventure/RushuMicroService/eip-rushucloud/src/main/resources/reports/A4_blank.jrxml");
@@ -210,4 +246,10 @@ public class ReportController
         String classPath = this.getClass().getResource("/").getPath();
         return classPath;
     }
+
+    private final String JASPER_REPORT_BASE = getClassPath() + "/reports/jasper_report_template";
+
+    private final String JRXML_SOURCE_FILE = JASPER_REPORT_BASE + ".jrxml";
+
+    private final String JASPER_DEST_FILE = JASPER_REPORT_BASE + ".jasper";
 }
