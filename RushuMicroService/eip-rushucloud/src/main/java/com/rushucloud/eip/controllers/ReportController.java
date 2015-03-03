@@ -12,17 +12,17 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -187,55 +187,38 @@ public class ReportController
         LOG.info("JASPER_DEST_FILE:" + JASPER_DEST_FILE);
         try {
             printFileName = JasperFillManager.fillReportToFile(JASPER_DEST_FILE, parameters, beanColDataSource);
-            if (printFileName != null) {
-                /**
-                 * 1- export to PDF
-                 */
-                JasperExportManager.exportReportToPdfFile(printFileName, JASPER_REPORT_BASE + ".pdf");
-                pdfUrl = JASPER_REPORT_BASE + ".pdf";
-                /**
-                 * 2- export to HTML
-                 */
-                JasperExportManager.exportReportToHtmlFile(printFileName, JASPER_REPORT_BASE + ".html");
-
-                /**
-                 * 3- export to Excel sheet
-                 */
-                JRXlsExporter exporter = new JRXlsExporter();
-
-                exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
-                exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, JASPER_REPORT_BASE + ".xls");
-
-                exporter.exportReport();
-            }
-        } catch (JRException e) {
+        } catch (Exception e) {
+            LOG.error("JasperFillManager.fillReportToFile: " + e.toString());
             e.printStackTrace();
         }
-        LOG.info("PDF creation time : " + (System.currentTimeMillis() - start));
-        //
-        try {
-            // pdfUrl =
-            // fastReport.testReport(title, subtitle, printBackgroundOnOddRows, useFullPageWidth, ds,
-            // folderSetting.getReports());
-            // JRXML compile to JASPER
-            // JasperCompileManager
-            // .compileReportToFile("/Users/yangboz/Documents/Git/north-american-adventure/RushuMicroService/eip-rushucloud/src/main/resources/reports/A4_blank.jrxml");
-            //
-            // Map parameterMap = new HashMap();
-            // EntityManagerFactory entityManagerFactory = Persistence
-            // .createEntityManagerFactory("expenses");
-            // EntityManager entityManager_expenses = entityManagerFactory
-            // .createEntityManager();
-            // parameterMap.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, this.entityManager);
-            //
-            // JasperFillManager
-            // .fillReportToFile(
-            // "/Users/yangboz/Documents/Git/north-american-adventure/RushuMicroService/eip-rushucloud/src/main/resources/reports/A4_blank.jasper",
-            // parameterMap);
-        } catch (Exception e) {
-            // e.printStackTrace();
-            LOG.error(e.toString());
+        if (printFileName != null) {
+            /**
+             * 1- export to PDF
+             */
+            try {
+                JasperExportManager.exportReportToPdfFile(printFileName, JASPER_REPORT_BASE + ".pdf");
+            } catch (Exception e) {
+                LOG.error("JasperExportManager.exportReportToPdfFile: " + e.getClass().toString()
+                    + e.getStackTrace().toString());
+                e.printStackTrace();
+            }
+            pdfUrl = JASPER_REPORT_BASE + ".pdf";
+            /**
+             * 2- export to HTML
+             */
+            // JasperExportManager.exportReportToHtmlFile(printFileName, JASPER_REPORT_BASE + ".html");
+
+            /**
+             * 3- export to Excel sheet
+             */
+            // JRXlsExporter exporter = new JRXlsExporter();
+
+            // exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
+            // exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, JASPER_REPORT_BASE + ".xls");
+
+            // exporter.exportReport();
         }
+        LOG.info("PDF creation time : " + (System.currentTimeMillis() - start));
         // e.g. http://localhost:8082/api/reports/com.rushucloud.eip.reports.FastReport.pdf
         LOG.info("fastReport data(after PDF generate):" + pdfUrl);
         return new JsonObject(pdfUrl);
@@ -247,9 +230,15 @@ public class ReportController
         return classPath;
     }
 
-    private final String JASPER_REPORT_BASE = getClassPath() + "/reports/jasper_report_template";
+    private final String JASPER_REPORT_BASE = getClassPath() + "reports/jasper_report_template";
 
     private final String JRXML_SOURCE_FILE = JASPER_REPORT_BASE + ".jrxml";
 
     private final String JASPER_DEST_FILE = JASPER_REPORT_BASE + ".jasper";
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void handleBadRequests(HttpServletResponse response) throws IOException
+    {
+        response.sendError(HttpStatus.BAD_REQUEST.value(), "Please try again and with a non empty string as 'name'");
+    }
 }
