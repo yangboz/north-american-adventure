@@ -19,10 +19,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.xerces.parsers.SAXParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -192,12 +191,15 @@ public class ReportController
             e.printStackTrace();
         }
         if (printFileName != null) {
+            //
+            SAXParser parser = new SAXParser();
             /**
              * 1- export to PDF
              */
             try {
                 JasperExportManager.exportReportToPdfFile(printFileName, JASPER_REPORT_BASE + ".pdf");
             } catch (Exception e) {
+
                 LOG.error("JasperExportManager.exportReportToPdfFile: " + e.getClass().toString()
                     + e.getStackTrace().toString());
                 e.printStackTrace();
@@ -236,9 +238,9 @@ public class ReportController
 
     private final String JASPER_DEST_FILE = JASPER_REPORT_BASE + ".jasper";
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public void handleBadRequests(HttpServletResponse response) throws IOException
-    {
-        response.sendError(HttpStatus.BAD_REQUEST.value(), "Please try again and with a non empty string as 'name'");
-    }
+    // @ExceptionHandler(IllegalArgumentException.class)
+    // public void handleBadRequests(HttpServletResponse response) throws IOException
+    // {
+    // response.sendError(HttpStatus.BAD_REQUEST.value(), response.toString());
+    // }
 }

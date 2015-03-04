@@ -66,6 +66,9 @@ public class Application extends SpringBootServletInitializer
         LOG.info("ApplicationContext:" + context.getDisplayName() + context.getStartupDate());
         //
         workflowInitialization();
+        //
+        System.setProperty("javax.xml.parsers.SAXParserFactory",
+            "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
     }
 
     //
