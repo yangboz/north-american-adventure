@@ -26,11 +26,11 @@
 			<scope>provided</scope>
 		</dependency>
 		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.apache.tomcat.embed</groupId> -->
-<!-- 			<artifactId>tomcat-embed-jasper</artifactId> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>compile</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -395,7 +395,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<useSystemClassLoader>false</useSystemClassLoader>
+					<useSystemClassLoader>true</useSystemClassLoader>
 				</configuration>
 			</plugin>
 			<plugin>

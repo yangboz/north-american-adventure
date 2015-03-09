@@ -199,7 +199,6 @@ public class ReportController
             try {
                 JasperExportManager.exportReportToPdfFile(printFileName, JASPER_REPORT_BASE + ".pdf");
             } catch (Exception e) {
-
                 LOG.error("JasperExportManager.exportReportToPdfFile: " + e.getClass().toString()
                     + e.getStackTrace().toString());
                 e.printStackTrace();

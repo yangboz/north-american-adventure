@@ -4,7 +4,7 @@
     <startEvent id="request" activiti:initiator="${employeeName}">
       <extensionElements>
         <activiti:formProperty id="amountOfMoney" name="Amout of money" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
+        <activiti:formProperty id="startDate" name="First day of request (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>
         <activiti:formProperty id="reimbursementMotivation" name="Motivation" type="string"></activiti:formProperty>
         <activiti:executionListener event="start" class="com.rushucloud.eip.activiti.ActivitiExecutionListener"></activiti:executionListener>
       </extensionElements>
