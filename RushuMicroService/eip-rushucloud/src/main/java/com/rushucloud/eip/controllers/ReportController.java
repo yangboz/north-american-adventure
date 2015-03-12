@@ -198,6 +198,10 @@ public class ReportController
              */
             try {
                 JasperExportManager.exportReportToPdfFile(printFileName, JASPER_REPORT_BASE + ".pdf");
+                // } catch (NullPointerException ex) {
+                // LOG.error("NPE encountered in body: " + ex.getStackTrace().toString());
+                // } catch (Throwable ex) {
+                // LOG.error("Regular Throwable: " + ex.getMessage());
             } catch (Exception e) {
                 LOG.error("JasperExportManager.exportReportToPdfFile: " + e.getClass().toString()
                     + e.getStackTrace().toString());

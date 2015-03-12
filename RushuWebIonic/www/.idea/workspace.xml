@@ -4,8 +4,6 @@
     <list default="true" id="a45383ea-d88a-4ea2-b75b-a30057122f48" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuApp/Pods/AFNetworking" afterPath="$PROJECT_DIR$/../../RushuApp/Pods/AFNetworking" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RestKit" afterPath="$PROJECT_DIR$/../../RestKit" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.xml/src/main/resources/processes/v2/ReimbursementRequest.bpmn20.bpmn2d" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/.xml/src/main/resources/processes/v2/ReimbursementRequest.bpmn20.bpmn2d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/v3/ReimbursementRequest.bpmn20.xml" afterPath="$PROJECT_DIR$/../../RushuMicroService/eip-rushucloud/src/main/resources/processes/v3/ReimbursementRequest.bpmn20.xml" />
     </list>
     <ignored path="www.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -349,7 +347,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24945612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
