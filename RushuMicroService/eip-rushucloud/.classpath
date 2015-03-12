@@ -27,5 +27,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/org-apache-batik-all-1.7-201003011305.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

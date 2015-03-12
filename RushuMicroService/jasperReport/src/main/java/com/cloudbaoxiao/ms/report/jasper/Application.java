@@ -30,5 +30,12 @@ public class Application
     public static void main(String[] args)
     {
         SpringApplication.run(Application.class, args);
+        //
+        // System.setProperty("javax.xml.parsers.SAXParserFactory", "org.apache.crimson.parser.XMLReaderImpl");
+        // System.setProperty("javax.xml.parsers.SAXParserFactory",
+        // "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
+        //
+        // System.setProperty("javax.xml.parsers.SAXParserFactory", "org.apache.xerces.jaxp.SAXParserFactoryImpl");
+        System.setProperty("org.xml.sax.driver", "org.apache.xerces.parsers.SAXParser");
     }
 }
