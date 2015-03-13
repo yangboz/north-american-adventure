@@ -254,7 +254,7 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 		<!-- DB/Migration -->
-
+		<!-- @See: http://stackoverflow.com/questions/11677572/dealing-with-xerces-hell-in-java-maven -->
 		<!-- JasperReport -->
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>

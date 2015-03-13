@@ -1,7 +1,5 @@
 package com.rushucloud.eip.controllers;
 
-import java.awt.FontFormatException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,23 +7,24 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRRtfExporter;
+import net.sf.jasperreports.engine.export.JRTextExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.xerces.parsers.SAXParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
@@ -40,6 +39,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
  * Handles Dynamic/Jasper reports download requests
  * 
  * @author Krams at {@link http://krams915@blogspot.com}
+ * @see http://stackoverflow.com/questions/11677572/dealing-with-xerces-hell-in-java-maven
  */
 @RestController
 @RequestMapping("/report")
@@ -60,29 +60,6 @@ public class ReportController
     @Autowired
     private FolderSetting folderSetting;
 
-    /**
-     * Downloads the report as an Excel format.
-     * <p>
-     * Make sure this method doesn't return any model. Otherwise, you'll get an
-     * "IllegalStateException: getOutputStream() has already been called for this response"
-     * 
-     * @throws IOException
-     * @throws FontFormatException
-     */
-    @RequestMapping(value = "/xls", method = RequestMethod.GET)
-    // TODO: @see:
-    // http://krams915.blogspot.in/2011/02/spring-3-dynamicjasper-hibernate_4736.html,
-    // make it right.
-    public @ResponseBody void getXLS(HttpServletResponse response, Model model) throws JRException
-    {
-        LOG.debug("Received request to download report as an XLS");
-
-        // Delegate to downloadService. Make sure to pass an instance of
-        // HttpServletResponse
-        // reportService.downloadXLS(response);
-    }
-
-    //
     // @PersistenceContext
     // EntityManager entityManager;
     //
@@ -108,38 +85,43 @@ public class ReportController
 
     public static enum DocType
     {
-        PDF,
-        HTML,
-        XLS,
-        XML,
-        RTF,
-        CSV,
-        TXT
-    }
+        PDF("PDF", "application/pdf"),
+        HTML("HTML", "application/vnd.ms-excel"),
+        XLS("XLS", "application/vnd.ms-excel"),
+        XML("XML", "text/xml"),
+        RTF("RTF", "application/rtf"),
+        CSV("CSV", "text/plain"),
+        TXT("TXT", "text/plain");
+        //
+        private String value;
 
-    public String getContentType(DocType docType)
-    {
-        String contentType = "text/html";
-        switch (docType) {
-            case PDF:
-                contentType = "application/pdf";
-                break;
-            case XLS:
-                contentType = "application/vnd.ms-excel";
-                break;
-            case XML:
-                contentType = "text/xml";
-                break;
-            case RTF:
-                contentType = "application/rtf";
-                break;
-            case CSV:
-                contentType = "text/plain";
-                break;
-            default:
-                break;
+        public String getValue()
+        {
+            return value;
         }
-        return contentType;
+
+        public void setValue(String value)
+        {
+            this.value = value;
+        }
+
+        private String contentType;
+
+        public String getContentType()
+        {
+            return contentType;
+        }
+
+        public void setContentType(String contentType)
+        {
+            this.contentType = contentType;
+        }
+
+        private DocType(String value, String contentType)
+        {
+            this.setValue(value);
+            this.setContentType(contentType);
+        }
     }
 
     /**
@@ -150,30 +132,19 @@ public class ReportController
      *       Make sure this method doesn't return any model. Otherwise, you'll get an
      *       "IllegalStateException: getOutputStream() has already been called for this response"
      */
-    @RequestMapping(value = "/pdf", method = RequestMethod.GET, params = {"title", "subtitle", "background", "fullpage"})
-    public JsonObject getPDF(@RequestParam(value = "title") String title,
-        @RequestParam(value = "subtitle") String subtitle,
-        @RequestParam(value = "background", defaultValue = "true") Boolean printBackgroundOnOddRows,
-        @RequestParam(value = "fullpage", defaultValue = "true") Boolean useFullPageWidth) throws JRException
+    @RequestMapping(value = "/doc", method = RequestMethod.GET, params = {"type"})
+    public JsonObject getDocument(@RequestParam(value = "type") String type) throws JRException
     {
-        String pdfUrl = "";
+        String docUrl = "";
+        LOG.info("Required document type is: " + type);
         // FastReport fastReport = new FastReport();
         // Create a JRDataSource,the Collection used here contains dummy hard-coded objects...
         List<Expense> expensesAll = Lists.newArrayList(this._expenseDao.findAll());
         // Log.info("expensesAll for JRBeanCollectionDataSource"+expensesAll);
         JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(expensesAll);
-        LOG.debug("fastReport data(before PDF generate):" + expensesAll.toString());
+        // LOG.debug("fastReport data(before PDF generate):" + expensesAll.toString());
         //
         long start = System.currentTimeMillis();
-        // try {
-        // String tempPdfUrl =
-        // JasperExportManager.exportReportToPdfFile(this.getClass().getResource("/").getPath()
-        // + "/reports/A4_blank.jrprint");
-        // LOG.info("tempPdfUrl:" + tempPdfUrl);
-        // } catch (JRException e1) {
-        // // e1.printStackTrace();
-        // LOG.error(e1.toString());
-        // }
         //
         String jasperDestFile = JasperCompileManager.compileReportToFile(JRXML_SOURCE_FILE);
         //
@@ -192,41 +163,130 @@ public class ReportController
         }
         if (printFileName != null) {
             //
-            SAXParser parser = new SAXParser();
+            // SAXParser parser = new SAXParser();
+            // LOG.info("DocType.PDF.getValue() == type.toUpperCase(): "
+            // + DocType.PDF.getValue().toString().equals(type.toUpperCase()));
             /**
              * 1- export to PDF
              */
-            try {
-                JasperExportManager.exportReportToPdfFile(printFileName, JASPER_REPORT_BASE + ".pdf");
-                // } catch (NullPointerException ex) {
-                // LOG.error("NPE encountered in body: " + ex.getStackTrace().toString());
-                // } catch (Throwable ex) {
-                // LOG.error("Regular Throwable: " + ex.getMessage());
-            } catch (Exception e) {
-                LOG.error("JasperExportManager.exportReportToPdfFile: " + e.getClass().toString()
-                    + e.getStackTrace().toString());
-                e.printStackTrace();
+            if (DocType.PDF.getValue().toString().equals(type.toUpperCase())) {
+                docUrl = JASPER_REPORT_BASE + "." + DocType.PDF.getValue().toLowerCase();
+                try {
+                    JasperExportManager.exportReportToPdfFile(printFileName, docUrl);
+                    // } catch (NullPointerException ex) {
+                    // LOG.error("NPE encountered in body: " + ex.getStackTrace().toString());
+                    // } catch (Throwable ex) {
+                    // LOG.error("Regular Throwable: " + ex.getMessage());
+                } catch (Exception e) {
+                    LOG.error("JasperExportManager.exportReportToPdfFile: " + e.getClass().toString()
+                        + e.getStackTrace().toString());
+                    e.printStackTrace();
+                }
             }
-            pdfUrl = JASPER_REPORT_BASE + ".pdf";
+
             /**
              * 2- export to HTML
              */
-            // JasperExportManager.exportReportToHtmlFile(printFileName, JASPER_REPORT_BASE + ".html");
-
+            if (DocType.HTML.getValue().toString().equals(type.toUpperCase())) {
+                docUrl = JASPER_REPORT_BASE + "." + DocType.HTML.getValue().toLowerCase();
+                try {
+                    JasperExportManager.exportReportToHtmlFile(printFileName, docUrl);
+                    // } catch (NullPointerException ex) {
+                    // LOG.error("NPE encountered in body: " + ex.getStackTrace().toString());
+                    // } catch (Throwable ex) {
+                    // LOG.error("Regular Throwable: " + ex.getMessage());
+                } catch (Exception e) {
+                    LOG.error("JasperExportManager.exportReportToHTMLFile: " + e.getClass().toString()
+                        + e.getStackTrace().toString());
+                    e.printStackTrace();
+                }
+            }
             /**
              * 3- export to Excel sheet
              */
-            // JRXlsExporter exporter = new JRXlsExporter();
-
-            // exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
-            // exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, JASPER_REPORT_BASE + ".xls");
-
-            // exporter.exportReport();
+            if (DocType.XLS.getValue().toString().equals(type.toUpperCase())) {
+                docUrl = JASPER_REPORT_BASE + "." + DocType.XLS.getValue().toLowerCase();
+                try {
+                    JRXlsExporter exporter = new JRXlsExporter();
+                    exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
+                    exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, docUrl);
+                    exporter.exportReport();
+                } catch (Exception e) {
+                    LOG.error("JasperExportManager.exportReportToXLSFile: " + e.getClass().toString()
+                        + e.getStackTrace().toString());
+                    e.printStackTrace();
+                }
+            }
+            /**
+             * 4- export to XML
+             */
+            if (DocType.XML.getValue().toString().equals(type.toUpperCase())) {
+                docUrl = JASPER_REPORT_BASE + "." + DocType.XML.getValue().toLowerCase();
+                try {
+                    JasperExportManager.exportReportToXmlFile(printFileName, docUrl, true);
+                    // } catch (NullPointerException ex) {
+                    // LOG.error("NPE encountered in body: " + ex.getStackTrace().toString());
+                    // } catch (Throwable ex) {
+                    // LOG.error("Regular Throwable: " + ex.getMessage());
+                } catch (Exception e) {
+                    LOG.error("JasperExportManager.exportReportToXMLFile: " + e.getClass().toString()
+                        + e.getStackTrace().toString());
+                    e.printStackTrace();
+                }
+            }
+            /**
+             * 5- export to TXT
+             */
+            if (DocType.TXT.getValue().toString().equals(type.toUpperCase())) {
+                docUrl = JASPER_REPORT_BASE + "." + DocType.CSV.getValue().toLowerCase();
+                try {
+                    JRTextExporter exporter = new JRTextExporter();
+                    exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
+                    exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, docUrl);
+                    exporter.exportReport();
+                } catch (Exception e) {
+                    LOG.error("JasperExportManager.exportReportToXLSFile: " + e.getClass().toString()
+                        + e.getStackTrace().toString());
+                    e.printStackTrace();
+                }
+            }
+            /**
+             * 6- export to RTF
+             */
+            if (DocType.RTF.getValue().toString().equals(type.toUpperCase())) {
+                docUrl = JASPER_REPORT_BASE + "." + DocType.RTF.getValue().toLowerCase();
+                try {
+                    JRRtfExporter exporter = new JRRtfExporter();
+                    exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
+                    exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, docUrl);
+                    exporter.exportReport();
+                } catch (Exception e) {
+                    LOG.error("JasperExportManager.exportReportToXLSFile: " + e.getClass().toString()
+                        + e.getStackTrace().toString());
+                    e.printStackTrace();
+                }
+            }
+            /**
+             * 7- export to CSV
+             */
+            if (DocType.CSV.getValue().toString().equals(type.toUpperCase())) {
+                docUrl = JASPER_REPORT_BASE + "." + DocType.CSV.getValue().toLowerCase();
+                try {
+                    JRCsvExporter exporter = new JRCsvExporter();
+                    exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
+                    exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, docUrl);
+                    exporter.exportReport();
+                } catch (Exception e) {
+                    LOG.error("JasperExportManager.exportReportToXLSFile: " + e.getClass().toString()
+                        + e.getStackTrace().toString());
+                    e.printStackTrace();
+                }
+            }
         }
-        LOG.info("PDF creation time : " + (System.currentTimeMillis() - start));
+        LOG.info("Report document created time : " + (System.currentTimeMillis() - start));
         // e.g. http://localhost:8082/api/reports/com.rushucloud.eip.reports.FastReport.pdf
-        LOG.info("fastReport data(after PDF generate):" + pdfUrl);
-        return new JsonObject(pdfUrl);
+        LOG.info("Report document url:" + docUrl);
+        return new JsonObject(docUrl);
     }
 
     public String getClassPath()
@@ -246,4 +306,5 @@ public class ReportController
     // {
     // response.sendError(HttpStatus.BAD_REQUEST.value(), response.toString());
     // }
+
 }
