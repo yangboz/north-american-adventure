@@ -10,6 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.support.ResourcePropertySource;
 
+import com.rushucloud.eip.settings.ServerSetting;
 import com.rushucloud.eip.settings.WorkflowSetting;
 
 /**
@@ -45,6 +46,10 @@ public class PropertiesInitializer implements ApplicationContextInitializer<Conf
                 WorkflowSetting.getInstance().setName((String) propertySource.getProperty("workflow.name"));
                 WorkflowSetting.getInstance().setImage((String) propertySource.getProperty("workflow.image"));
                 WorkflowSetting.getInstance().setRule((String) propertySource.getProperty("workflow.rule"));
+                //
+                ServerSetting.getInstance().setContextPath((String) propertySource.getProperty("server.contextPath"));
+                ServerSetting.getInstance().setPort((String) propertySource.getProperty("server.port"));
+                // ServerSetting.getInstance().setIp((String) propertySource.getProperty("mserver.ip"));
             } catch (IOException e) {
                 LOG.error("ERROR during environment properties setup - TRYING TO LOAD: " + profileName, e);
 

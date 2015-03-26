@@ -17,11 +17,15 @@
  */
 package com.rushucloud.eip.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Contents of POJO file.
  * 
  * @author yangboz
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DataBean
 {
     public DataBean(long expenses_id, String expenses_owner, String expenses_name, String expenses_date,
@@ -42,6 +46,12 @@ public class DataBean
         this.items_amount = items_amount;
     }
 
+    public DataBean()
+    {
+
+    }
+
+    @JsonProperty("expenses_id")
     private long expenses_id;
 
     public long getExpenses_id()
@@ -54,6 +64,7 @@ public class DataBean
         this.expenses_id = expenses_id;
     }
 
+    @JsonProperty("expenses_owner")
     private String expenses_owner;
 
     public String getExpenses_owner()
@@ -66,6 +77,7 @@ public class DataBean
         this.expenses_owner = expenses_owner;
     }
 
+    @JsonProperty("expenses_name")
     private String expenses_name;
 
     public String getExpenses_name()
@@ -78,6 +90,7 @@ public class DataBean
         this.expenses_name = expenses_name;
     }
 
+    @JsonProperty("expenses_date")
     private String expenses_date;
 
     public String getExpenses_date()
@@ -90,6 +103,7 @@ public class DataBean
         this.expenses_date = expenses_date;
     }
 
+    @JsonProperty("expenses_invoices_num")
     private long expenses_invoices_num;
 
     public long getExpenses_invoices_num()
@@ -102,6 +116,7 @@ public class DataBean
         this.expenses_invoices_num = expenses_invoices_num;
     }
 
+    @JsonProperty("items_date")
     private String items_date;
 
     public String getItems_date()
@@ -114,6 +129,7 @@ public class DataBean
         this.items_date = items_date;
     }
 
+    @JsonProperty("items_vendors")
     private String items_vendors;
 
     public String getItems_vendors()
@@ -126,6 +142,7 @@ public class DataBean
         this.items_vendors = items_vendors;
     }
 
+    @JsonProperty("items_notes")
     private String items_notes;
 
     public String getItems_notes()
@@ -138,6 +155,7 @@ public class DataBean
         this.items_notes = items_notes;
     }
 
+    @JsonProperty("items_invoices")
     private String items_invoices;
 
     public String getItems_invoices()
@@ -150,6 +168,7 @@ public class DataBean
         this.items_invoices = items_invoices;
     }
 
+    @JsonProperty("items_participantIds")
     private String items_participantIds;
 
     public String getItems_participantIds()
@@ -162,6 +181,7 @@ public class DataBean
         this.items_participantIds = items_participantIds;
     }
 
+    @JsonProperty("items_amount")
     private long items_amount;
 
     public long getItems_amount()
